@@ -14,6 +14,8 @@
 	}
 	
 	.b-sidebar__create_missing {
+		font-size: 18px;
+		
 		margin: 19px 0 0;
 		width: 100%;
 	}
