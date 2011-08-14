@@ -1,0 +1,4 @@
+@import url("scaffold.css"); /* Remove if not using scaffolding */
+
+a { color: #0065cc; }
+a:hover { color: red;}

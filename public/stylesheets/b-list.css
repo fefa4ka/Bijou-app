@@ -1,0 +1,77 @@
+/* ==================== */
+/* = List of elements = */
+/* ==================== */
+.b-list {
+	display: block;
+	overflow: hidden;
+	
+	/* Компенсируем отступы между float-блоками, чтобы они занимали все доступное пространство */
+	margin: -1.5em -20px 0 0;
+
+	/* Эти правила для IE */
+	position: relative;
+	display: inline-block;
+	clear: both;
+}
+.b-list:after
+{
+	content: '';
+	display: block;
+	clear: both;
+}
+	.b-list__element {
+		position: relative;
+		float: left;
+
+		/* Убираем удвоение отступов в IE */
+		display: inline;
+
+		/* Прячем все, что вдруг вылезло за наши ограничения */
+		overflow: hidden;
+
+		/* Отсупы между float-блоками */
+		margin: 1.5em 20px 0 0;
+
+		/* Задаем минимальную ширину по картинке и тексту */
+		width: 160px;
+		min-width: 160px;
+	}
+	
+		.b-list__element_content
+		{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			
+			text-align: center;
+		}
+		
+		.b-list__image {
+			border: 1px solid #888;
+			display: block;
+		}
+
+
+		.b-list__name_link {
+			display: block;
+			padding-top: 5px;
+			
+			font-size: 18px;
+		}
+		
+		.b-list__element_min
+		{
+			/* Задаем минимальную высоту по картинке */
+			margin: 0 0 150px 0;
+
+			/* Задаем минимальную высоту по тексту */
+			height: 4em;
+
+			/* Дублируем значение минимальной ширины по картинке для IE */
+			width: 150px;
+		}
+	
+	
+
+	

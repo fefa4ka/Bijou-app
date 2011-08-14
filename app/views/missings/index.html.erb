@@ -1,0 +1,18 @@
+<h1>Listing missings</h1>
+
+<div class="b-list">
+<% @missings.each do |missing| %>
+  <div class="b-list__element w25">
+	<img class="b-list__image" src="/images/photos/<%= missing.image_url %>">
+	<%= link_to missing.name, missing, :class => 'b-list__name_link' %>
+	<p><%= missing.description %></p>
+	
+	
+	<%= link_to 'Edit', edit_missing_path(missing) %>
+	<%= link_to 'Destroy', missing, :method => :delete %>
+  </div>
+<% end %>
+</div>
+<br />
+
+<%= link_to 'New Missing', new_missing_path %>

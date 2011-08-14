@@ -1,0 +1,43 @@
+<style type="text/css" media="screen">
+	.b-header { margin-top: 8px; }
+</style>
+
+<div class="grid_12">
+	<div class="b-header">
+		Эти люди пропали в <a href="#">Москве</a>
+	</div>
+	<p class="b-header__description">
+	Вы можете помочь нам в поиске людей, пропавших в вашем районе.
+	Если у вас есть информация о случаях исчезновения людей в вашем районе — пожалуйста, поделитесь ей с нами.
+	</p>
+	<div class="b-list">
+	<% @missings.each do |missing| %>
+	  <div class="b-list__element">
+		<div class="b-list__element_content">
+			<img class="b-list__image" src="/images/photos/<%= missing.image_url %>">
+			<%= link_to missing.name, missing, :class => 'b-list__name_link' %>
+		</div>
+		<div class="b-list__element_min"></div>
+	  </div>
+	<% end %>
+	</div>
+</div>
+<div class="grid_4">
+	<div class="b-sidebar">
+		<div class="b-sidebar__header">
+			Если у вас пропал близкий
+		</div>
+		<%= button_to 'Создайте объявление', new_missing_path,  :class => "green b-sidebar__create_missing"  %>
+		<div class="b-sidebar__hr"></div>
+		<div class="b-sidebar__header">
+			Мы собираем информацию об опасных местах
+		</div>
+		<ul class="b-sidebar__list">
+			<li class="b-sidebar__list_element">притонах</li>
+			<li class="b-sidebar__list_element">сектах</li>
+			<li class="b-sidebar__list_element">борделях</li>
+			<li class="b-sidebar__list_element">сомнительных организаций</li>
+		</ul>
+		<%= button_to 'я знаю о таких местах', new_missing_path  %>
+	</div>
+</div>

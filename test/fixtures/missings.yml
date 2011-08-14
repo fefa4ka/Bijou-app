@@ -1,0 +1,16 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+nicole:
+  name: Никита Михалков
+  description: История пропажи
+  image_url: 001.jpg
+
+cousma:
+  name: Козьма Прутков
+  description: История исчезнования
+  image_url: 002.jpg
+
+piere:
+    name: Пьер Безухов
+    description: Окрас события
+    image_url: 003.jpg

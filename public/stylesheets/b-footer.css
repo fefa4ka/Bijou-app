@@ -1,0 +1,20 @@
+.b-footer {
+	font-size: 11px;
+	
+	width: 98%;
+	margin: 0 1%;
+	height: 25px;
+}
+
+	.b-footer__nav_list {
+		list-style: none;
+	}
+		
+		.b-footer__nav_element {
+			float: left;
+			margin: 0 1em;
+		}
+		
+	.b-footer__copyright {
+		text-align: right;
+	}

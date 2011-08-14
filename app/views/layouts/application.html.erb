@@ -1,0 +1,103 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+   <%= csrf_meta_tag %>
+
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+       Remove this if you use the .htaccess -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title></title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+
+
+  <!-- jQuery & jQuery UI -->
+  <%= stylesheet_link_tag "/ui/themes/ui-lightness/jquery-ui-1.8.15.custom.css", :cache => true %>
+  <%= javascript_include_tag "jquery", "/ui/ui/jquery-ui-1.8.15.custom.js", :cache => "jquery" %>
+
+  <%= javascript_include_tag "rails", "application", :cache => true %>
+
+  <!-- CSS: implied media="all" -->
+  <%= stylesheet_link_tag :all, :media => "all", :cache => "styles" %>
+
+  <!-- More ideas for your <head> here: h5bp.com/docs/#head-Tips -->
+
+  <!-- All JavaScript at the bottom, except for Modernizr and Respond.
+       Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
+       For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
+  <%= javascript_include_tag "modernizr", "respond", :cache => "modernizer-respond" %>
+  
+
+</head>
+
+<body>	
+  <div class="container_16">
+ 	 <div class="b-head">
+	  	<div class="b-head__logo grid_2">
+		</div>
+		<div class="b-head__auth grid_1 prefix_13">
+			<input class="b-head__login black" type="button" value="Войти" />
+			<div class="b-head__login_form">
+				<input id="login_name" class="b-head__login_form_text" type="text" placeholder="эл. почта или телефон">
+				<input id="login_password" class="b-head__login_form_text" type="text" placeholder="пароль">
+				<p class="b-head__block">
+					<input id="login_remember_me" type="checkbox"><label for="login_remember_me"> запомнить меня</label>
+				</p>
+				<p class="b-head__block">
+					<input type="button" value="Войти" />
+				</p>
+				<p class="b-head__block">
+					<a href="#">вспомнить пароль</a>
+				</p>
+			</div>
+		</div>
+	  </div>
+  </div>
+  <hr class="b-hr" />
+  <div class="container_16">
+	  <%= yield %> <!--! end of #container -->
+	  <div class="clear"></div>
+  </div>
+  <hr class="b-hr" />
+  <div class="container_16">
+	  <table class="b-footer">
+	  <tr>
+		<td class="b-footer__statistic">
+			<p>Мы помогли найти 1042 человек. Сейчас в розыске 14 132 человек, <a href="#">помогите их найти</a></p>
+		</td>
+		<td class="b-footer__nav">
+			<ul class="b-footer__nav_list">
+				<li class="b-footer__nav_element"><a href="#">Что это такое?</a></li>
+				<li class="b-footer__nav_element"><a href="#">Обратная связь</a></li>
+			</ul>
+		</td>
+		<td class="b-footer__copyright">
+			<p>&copy; 2011 Bijou people &mdash; поиск пропавших безвести</p>
+		</td>
+	  </table>
+  </div>
+
+  <!-- JavaScript at the bottom for fast page loading -->
+
+
+  <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
+  <script>
+    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview'],['_trackPageLoadTime']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
+  </script>
+
+</body>
+</html>

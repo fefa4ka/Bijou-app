@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @missing.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @missing.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_missing_path(@missing) %> |
+<%= link_to 'Back', missings_path %>
