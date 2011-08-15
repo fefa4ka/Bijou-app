@@ -18,16 +18,26 @@
 	
 	.b-form__nav_element {
 		float: left;
-		margin-right: 3.5em;
-		padding-left: 2em;
+		margin-right: 2.5em;
+		padding-left: 1em;
 		padding-top: 8px;
 		
 	}
 	
 	.b-form__nav_first_element {
-		margin-left: -4em;
+		margin-left: -3.1em;
 		
 		list-style: none;
+	}
+
+	.b-form__nav_first_element.b-form__nav_current_element {
+		margin-left: -2.7em;
+	}
+	
+	.b-form__nav_current_element {
+		font-size: 16px;
+		
+		padding-top: 5px;
 	}
 	
 .b-form__label {
@@ -53,3 +63,8 @@
 		float: left;
 		margin: 0 2em 0 0;
 	}
+	
+		.b-form__gender_label {
+			padding-left: .4em;
+			vertical-align: .2em;
+		}

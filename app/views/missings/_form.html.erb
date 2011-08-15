@@ -12,15 +12,15 @@
   <% end %>
   
   <div class="field">
-    <%= f.label :man_name, :title => "Кто пропал", :class => "b-form__label"  %><br />
+    <%= f.label :man_name, "Кто пропал", :class => "b-form__label"  %><br />
     <%= f.text_field :man_name, :class => "b-form__text_name", :placeholder => "фамилия имя и отчество" %>
 	<ul class="b-form__gender_list">
-		<li class="b-form__gender_element"><%= f.radio_button :man_gender, true  %><%= f.label :man_gender_true, "мужчина" %></li>
-		<li class="b-form__gender_element"><%= f.radio_button :man_gender, false  %><%= f.label :man_gender_false, "женщина" %></li>
+		<li class="b-form__gender_element"><%= f.radio_button :man_gender, true  %><%= f.label :man_gender_true, "мужчина", :class => "b-form__gender_label"  %></li>
+		<li class="b-form__gender_element"><%= f.radio_button :man_gender, false  %><%= f.label :man_gender_false, "женщина", :class => "b-form__gender_label" %></li>
 	</ul>
   </div>
   <div class="field">
-    <%= f.label :man_birthday, :class => "b-form__label" %><br />
+    <%= f.label :man_birthday, "День рождения", :class => "b-form__label" %><br />
     <%= f.date_select :man_birthday %>
   </div>
 
