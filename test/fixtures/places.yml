@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  missing_id: 1
+  address: MyString
+  map_lat: 1.5
+  map_lon: 1.5
+  name: MyString
+  description: MyText
+
+two:
+  missing_id: 1
+  address: MyString
+  map_lat: 1.5
+  map_lon: 1.5
+  name: MyString
+  description: MyText

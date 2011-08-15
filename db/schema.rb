@@ -10,12 +10,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110813140516) do
+ActiveRecord::Schema.define(:version => 20110814194901) do
 
   create_table "missings", :force => true do |t|
-    t.string   "name"
+    t.string   "man_name"
     t.text     "description"
-    t.string   "image_url"
+    t.boolean  "man_gender"
+    t.date     "man_birthday"
+    t.text     "man_char_hash"
+    t.string   "author_name"
+    t.string   "author_phone"
+    t.string   "author_email"
+    t.integer  "author_callback_hash"
+    t.integer  "missing_private_hash"
+    t.string   "missing_password"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,7 +1,7 @@
 People::Application.routes.draw do
-  get "lost_list/index"
-
   resources :missings
+
+  get "lost_list/index"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

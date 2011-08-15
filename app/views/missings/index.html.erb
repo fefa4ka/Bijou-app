@@ -1,18 +1,43 @@
 <h1>Listing missings</h1>
 
-<div class="b-list">
+<table>
+  <tr>
+    <th>Man name</th>
+    <th>Description</th>
+    <th>Man gender</th>
+    <th>Man birthday</th>
+    <th>Man char hash</th>
+    <th>Author name</th>
+    <th>Author phone</th>
+    <th>Author email</th>
+    <th>Author callback hash</th>
+    <th>Missing private hash</th>
+    <th>Missing password</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
 <% @missings.each do |missing| %>
-  <div class="b-list__element w25">
-	<img class="b-list__image" src="/images/photos/<%= missing.image_url %>">
-	<%= link_to missing.name, missing, :class => 'b-list__name_link' %>
-	<p><%= missing.description %></p>
-	
-	
-	<%= link_to 'Edit', edit_missing_path(missing) %>
-	<%= link_to 'Destroy', missing, :method => :delete %>
-  </div>
+  <tr>
+    <td><%= missing.man_name %></td>
+    <td><%= missing.description %></td>
+    <td><%= missing.man_gender %></td>
+    <td><%= missing.man_birthday %></td>
+    <td><%= missing.man_char_hash %></td>
+    <td><%= missing.author_name %></td>
+    <td><%= missing.author_phone %></td>
+    <td><%= missing.author_email %></td>
+    <td><%= missing.author_callback_hash %></td>
+    <td><%= missing.missing_private_hash %></td>
+    <td><%= missing.missing_password %></td>
+    <td><%= link_to 'Show', missing %></td>
+    <td><%= link_to 'Edit', edit_missing_path(missing) %></td>
+    <td><%= link_to 'Destroy', missing, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
 <% end %>
-</div>
+</table>
+
 <br />
 
 <%= link_to 'New Missing', new_missing_path %>

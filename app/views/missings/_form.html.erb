@@ -10,18 +10,52 @@
       </ul>
     </div>
   <% end %>
+  
+  <div class="field">
+    <%= f.label :man_name, :title => "Кто пропал", :class => "b-form__label"  %><br />
+    <%= f.text_field :man_name, :class => "b-form__text_name", :placeholder => "фамилия имя и отчество" %>
+	<ul class="b-form__gender_list">
+		<li class="b-form__gender_element"><%= f.radio_button :man_gender, true  %><%= f.label :man_gender_true, "мужчина" %></li>
+		<li class="b-form__gender_element"><%= f.radio_button :man_gender, false  %><%= f.label :man_gender_false, "женщина" %></li>
+	</ul>
+  </div>
+  <div class="field">
+    <%= f.label :man_birthday, :class => "b-form__label" %><br />
+    <%= f.date_select :man_birthday %>
+  </div>
 
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
+    <%= f.label :description, :class => "b-form__label" %><br />
+    <%= f.text_area :description %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :man_char_hash %><br />
+    <%= f.text_area :man_char_hash %>
   </div>
   <div class="field">
-    <%= f.label :description %><br />
-    <%= f.text_area :description, :rows => 6 %>
+    <%= f.label :author_name %><br />
+    <%= f.text_field :author_name %>
   </div>
- <div class="field">
-    <%= f.label :image_url %><br />
-    <%= f.text_field :image_url %>
+  <div class="field">
+    <%= f.label :author_phone %><br />
+    <%= f.text_field :author_phone %>
+  </div>
+  <div class="field">
+    <%= f.label :author_email %><br />
+    <%= f.text_field :author_email %>
+  </div>
+  <div class="field">
+    <%= f.label :author_callback_hash %><br />
+    <%= f.text_field :author_callback_hash %>
+  </div>
+  <div class="field">
+    <%= f.label :missing_private_hash %><br />
+    <%= f.text_field :missing_private_hash %>
+  </div>
+  <div class="field">
+    <%= f.label :missing_password %><br />
+    <%= f.text_field :missing_password %>
   </div>
   <div class="actions">
     <%= f.submit %>

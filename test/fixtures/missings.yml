@@ -1,16 +1,27 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-nicole:
-  name: Никита Михалков
-  description: История пропажи
-  image_url: 001.jpg
+one:
+  man_name: MyString
+  description: MyText
+  man_gender: false
+  man_birthday: 2011-08-14
+  man_char_hash: MyText
+  author_name: MyString
+  author_phone: MyString
+  author_email: MyString
+  author_callback_hash: 1
+  missing_private_hash: 1
+  missing_password: MyString
 
-cousma:
-  name: Козьма Прутков
-  description: История исчезнования
-  image_url: 002.jpg
-
-piere:
-    name: Пьер Безухов
-    description: Окрас события
-    image_url: 003.jpg
+two:
+  man_name: MyString
+  description: MyText
+  man_gender: false
+  man_birthday: 2011-08-14
+  man_char_hash: MyText
+  author_name: MyString
+  author_phone: MyString
+  author_email: MyString
+  author_callback_hash: 1
+  missing_private_hash: 1
+  missing_password: MyString

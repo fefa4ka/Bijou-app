@@ -1,0 +1,55 @@
+.b-form__nav_panel {
+	position: relative;
+	width: 100%;
+	height: 32px;
+	background: #f4f4f4;
+	z-index: 1;
+	
+	top: -32px;
+}
+
+.b-form__nav_list {
+	list-style: url(../images/form_arrow.png) none;
+	
+	height: 32px;
+	position: relative;
+	z-index: 2;
+}
+	
+	.b-form__nav_element {
+		float: left;
+		margin-right: 3.5em;
+		padding-left: 2em;
+		padding-top: 8px;
+		
+	}
+	
+	.b-form__nav_first_element {
+		margin-left: -4em;
+		
+		list-style: none;
+	}
+	
+.b-form__label {
+	font-size:16px;
+	
+	line-height: 37px;
+}
+
+.b-form__text_name
+{
+	width: 280px;
+	height: 20px;
+}
+
+.b-form__gender_list {
+	list-style: none;
+	
+	margin: 1em 0 0;
+	overflow: hidden;
+}
+
+	.b-form__gender_element {
+		float: left;
+		margin: 0 2em 0 0;
+	}

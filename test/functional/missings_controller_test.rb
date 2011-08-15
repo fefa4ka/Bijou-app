@@ -2,12 +2,7 @@ require 'test_helper'
 
 class MissingsControllerTest < ActionController::TestCase
   setup do
-    @missing = missings(:piere)
-    @update = {
-      :name => "Петров Водкин",
-      :description => "История пропажи",
-      :image_url => "001.jpg"
-    }
+    @missing = missings(:one)
   end
 
   test "should get index" do
@@ -23,7 +18,7 @@ class MissingsControllerTest < ActionController::TestCase
 
   test "should create missing" do
     assert_difference('Missing.count') do
-      post :create, :missing => @update
+      post :create, :missing => @missing.attributes
     end
 
     assert_redirected_to missing_path(assigns(:missing))
@@ -40,7 +35,7 @@ class MissingsControllerTest < ActionController::TestCase
   end
 
   test "should update missing" do
-    put :update, :id => @missing.to_param, :missing => @update
+    put :update, :id => @missing.to_param, :missing => @missing.attributes
     assert_redirected_to missing_path(assigns(:missing))
   end
 

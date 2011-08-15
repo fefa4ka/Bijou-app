@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  missing_id: 1
+  name: MyString
+  relations: 1
+  relations_type: 1
+  relations_description: MyText
+  description: MyText
+  last_contact: false
+
+two:
+  missing_id: 1
+  name: MyString
+  relations: 1
+  relations_type: 1
+  relations_description: MyText
+  description: MyText
+  last_contact: false

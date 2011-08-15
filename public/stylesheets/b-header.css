@@ -5,3 +5,7 @@
 	.b-header__description {
 		margin: 0.2em 0 2em 0;
 	}
+	
+		.b-header__description * {
+			margin-bottom: 0.5em;
+		}
