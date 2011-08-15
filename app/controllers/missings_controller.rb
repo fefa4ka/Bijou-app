@@ -24,10 +24,11 @@ class MissingsController < ApplicationController
   # GET /missings/new
   # GET /missings/new.xml
   def new
+    session[:missing_params] ||= {}
     @missing = Missing.new
-
+    
     respond_to do |format|
-      format.html # new.html.erb
+      format.html { @missing.current_step = session[:missing_step] }# new.html.erb
       format.xml  { render :xml => @missing }
     end
   end
@@ -40,8 +41,20 @@ class MissingsController < ApplicationController
   # POST /missings
   # POST /missings.xml
   def create
-    @missing = Missing.new(params[:missing])
-
+    session[:missing_params].deep_merge!(params[:missing]) if params[:missing]
+    @missing = Missing.new(session[:missing_params])
+    @missing.current_step = session[:missing_step]
+    
+    if params[:back_button]
+      @missing.previous_step
+    else
+      @missing.next_step
+    end
+    session[:missing_step] = @missing.current_step
+    
+    render "new"
+    return
+    
     respond_to do |format|
       if @missing.save
         format.html { redirect_to(@missing, :notice => 'Missing was successfully created.') }

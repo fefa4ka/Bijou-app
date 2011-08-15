@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110814194901) do
+ActiveRecord::Schema.define(:version => 20110814200259) do
 
   create_table "missings", :force => true do |t|
     t.string   "man_name"
@@ -24,6 +24,36 @@ ActiveRecord::Schema.define(:version => 20110814194901) do
     t.integer  "author_callback_hash"
     t.integer  "missing_private_hash"
     t.string   "missing_password"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "people", :force => true do |t|
+    t.integer  "missing_id"
+    t.string   "name"
+    t.integer  "relations"
+    t.integer  "relations_type"
+    t.text     "relations_description"
+    t.text     "description"
+    t.boolean  "last_contact"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "photos", :force => true do |t|
+    t.integer  "missing_id"
+    t.string   "image_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "places", :force => true do |t|
+    t.integer  "missing_id"
+    t.string   "address"
+    t.float    "map_lat"
+    t.float    "map_lon"
+    t.string   "name"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -36,8 +36,9 @@
 	
 	.b-form__nav_current_element {
 		font-size: 16px;
+		font-weight: bold;
 		
-		padding-top: 5px;
+		padding-top: 6px;
 	}
 	
 .b-form__label {
@@ -46,10 +47,18 @@
 	line-height: 37px;
 }
 
-.b-form__text_name
-{
-	width: 280px;
-	height: 20px;
+.b-form__radio_list {
+  margin: 0;
+  list-style: none;
+}
+
+.b-form__text_name {
+  width: 280px;
+  height: 20px;
+}
+
+.b-form__text_growth {
+  width: 40px;
 }
 
 .b-form__gender_list {

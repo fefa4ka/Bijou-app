@@ -22,10 +22,18 @@
 <div class="grid_16">
 	
 <ul class="b-form__nav_list">
-	<li class="b-form__nav_element b-form__nav_first_element b-form__nav_current_element">Заполнение основной информации</li>
-	<li class="b-form__nav_element">Описание человека</li>
-	<li class="b-form__nav_element">Обстоятельства пропажи</li>
-	<li class="b-form__nav_element">Обратная связь</li>
+	<li class="b-form__nav_element b-form__nav_first_element <%- if @missing.current_step == "common" -%> b-form__nav_current_element <%- end -%>">
+	  Заполнение основной информации
+	</li>
+	<li class="b-form__nav_element<%- if @missing.current_step == "characteristic" -%> b-form__nav_current_element <%- end -%>">
+	  Описание человека
+	</li>
+	<li class="b-form__nav_element<%- if @missing.current_step == "history" -%> b-form__nav_current_element <%- end -%>">
+	 Обстоятельства пропажи
+	</li>
+	<li class="b-form__nav_element<%- if @missing.current_step == "contacts" -%> b-form__nav_current_element <%- end -%>">
+	  Обратная связь
+	</li>
 </ul>
 
 </div>

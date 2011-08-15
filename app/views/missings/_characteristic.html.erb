@@ -1,0 +1,62 @@
+<!-- Second step --> 
+  <div class="b-form__field">
+    <%= f.label :man_growth, "Рост", :class => "b-form__label" %><br />
+    <%= f.text_field :man_growth, :class => "b-form__text_growth" %>
+    <span class="b-form__text_description">см</span>
+  </div>
+  
+  <div class="b-form__field">
+    <%= f.label :man_physique, "Телосложение", :class => "b-form__label" %><br />
+    <ul class="b-form__radio_list">
+      <li class="b-form__radio_element">
+        <%= f.radio_button :man_physique, 1 %> <%= f.label :man_physique_1, "худощавое" %>
+      </li>
+      <li class="b-form__radio_element">
+        <%= f.radio_button :man_physique, 2 %> <%= f.label :man_physique_2, "обычное" %>
+      </li>
+      <li class="b-form__radio_element">
+        <%= f.radio_button :man_physique, 3 %> <%= f.label :man_physique_3, "спортивное" %>
+      </li>
+      <li class="b-form__radio_element">
+        <%= f.radio_button :man_physique, 4 %> <%= f.label :man_physique_4, "полное" %>
+      </li>
+      <li class="b-form__radio_element">
+        <%= f.label :man_physique, "другое" %> <br />
+        <%= f.text_field :man_physique %> 
+      </li>
+    </ul>
+  </div>
+  
+    <div class="b-form__field">
+    <%= f.label :man_hair_color, "Волосы", :class => "b-form__label" %><br />
+    <ul class="b-form__radio_list">
+      <li class="b-form__radio_element">
+        <%= f.radio_button :man_hair_color, 1 %> <%= f.label :man_hair_color_1, "светлые" %>
+      </li>
+      <li class="b-form__radio_element">
+        <%= f.radio_button :man_hair_color, 2 %> <%= f.label :man_hair_color_2, "темные" %>
+      </li>
+      <li class="b-form__radio_element">
+        <%= f.radio_button :man_hair_color, 3 %> <%= f.label :man_hair_color_3, "рыжие" %>
+      </li>
+      <li class="b-form__radio_element">
+        <%= f.label :man_hair_color, "другое" %> <br />
+        <%= f.text_field :man_hair_color %> 
+      </li>
+    </ul>
+    <ul class="b-form__radio_list">
+      <li class="b-form__radio_element">
+        <%= f.radio_button :man_hair_length, 1 %> <%= f.label :man_hair_length_1, "длинные" %>
+      </li>
+      <li class="b-form__radio_element">
+        <%= f.radio_button :man_hair_length, 2 %> <%= f.label :man_hair_length_2, "средние" %>
+      </li>
+      <li class="b-form__radio_element">
+        <%= f.radio_button :man_hair_length, 3 %> <%= f.label :man_hair_length_3, "короткие" %>
+      </li>
+      <li class="b-form__radio_element">
+        <%= f.radio_button :man_hair_length, 4 %> <%= f.label :man_hair_length_4, "нет волос" %>
+      </li>
+    </ul>
+  </div>
+  
