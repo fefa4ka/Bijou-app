@@ -14,9 +14,18 @@
   <%= render @missing.current_step, :f => f %>
 
 
-  <div class="actions">
-    <%= f.submit "Предыдущий шаг", :name => "back_button" unless @missing.first_step? %>
+	<div class="b-form__actions">
+		<%= f.submit "Предыдущий шаг", :name => "back_button" unless @missing.first_step? %>
+		<%= f.submit "Следующий шаг" %>
+	</div>
+	
+</div>
+</div>
 
-    <%= f.submit "Следующий шаг" %>
-  </div>
+</div>
+<div class="clear"></div>
+<!-- End grid_16 and container -->
+<div class="b-form__action_panel">
+</div>
+  
 <% end %>

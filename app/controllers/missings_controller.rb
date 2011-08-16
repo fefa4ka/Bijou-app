@@ -47,22 +47,19 @@ class MissingsController < ApplicationController
     
     if params[:back_button]
       @missing.previous_step
+    elsif @missing.last_step?
+      @missing.save
     else
       @missing.next_step
     end
     session[:missing_step] = @missing.current_step
     
-    render "new"
-    return
-    
-    respond_to do |format|
-      if @missing.save
-        format.html { redirect_to(@missing, :notice => 'Missing was successfully created.') }
-        format.xml  { render :xml => @missing, :status => :created, :location => @missing }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @missing.errors, :status => :unprocessable_entity }
-      end
+    if @missing.new_record?
+      render "new"
+    else
+      session[:missing_params] = session[:missing_step] = nil
+      flash[:notice] = "Объявление размещено"
+      redirect_to @missing  
     end
   end
 

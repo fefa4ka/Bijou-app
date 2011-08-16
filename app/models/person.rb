@@ -1,3 +1,3 @@
 class Person < ActiveRecord::Base
-  belong_to :missings
+  belongs_to :missings
 end

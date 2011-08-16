@@ -7,6 +7,9 @@ class Missing < ActiveRecord::Base
   
   # Поля характеристик
   attr_accessor :man_growth, :man_physique, :man_hair_color, :man_hair_length, :man_specials_1, :man_special_2, :man_special_3, :man_specials
+  
+  accepts_nested_attributes_for :photos
+  
 
   def current_step
     @current_step || steps.first
