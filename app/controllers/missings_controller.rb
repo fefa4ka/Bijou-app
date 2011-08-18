@@ -44,6 +44,14 @@ class MissingsController < ApplicationController
     session[:missing_params].deep_merge!(params[:missing]) if params[:missing]
     @missing = Missing.new(session[:missing_params])
     @missing.current_step = session[:missing_step]
+
+    # Поля для мест и людей
+    # Строятся только один раз
+    unless session[:missing_in_progress]
+      place = @missing.places.build
+      #people = @missing.peoples.build
+      session[:missing_in_progress] = true
+    end
     
     if params[:back_button]
       @missing.previous_step

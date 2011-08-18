@@ -1,11 +1,18 @@
+<p class="b-header__description">
+  fdsfas
+</p>
+ 
+</div>
+</div>
+<!-- End grid_8 and container from new.html.erb -->
 
-  
-  <div class="field">
-    <%= f.label :description, :class => "b-form__label" %><br />
-    <%= f.text_area :description %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :man_char_hash %><br />
-    <%= f.text_area :man_char_hash %>
-  </div>
+<div class="clear"></div>
+<hr class="b-hr" />
+
+<div class="container_16">
+  <div class="grid_8">
+    <% f.fields_for :places do |builder| %>
+      <% render "place_fields", :f => builder %>
+    <% end %>
+    
+<!-- Container and grid_8 div closed in new.html.erb -->
