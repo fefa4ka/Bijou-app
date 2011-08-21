@@ -1,6 +1,6 @@
 $(function()
 {
-	$('button, input[type=submit], input[type=button]').button();
+	$('input').customInput();
 	$('.b-head__login').click(function()
 	{
 		$('.b-head__login_form').dialog({
@@ -8,7 +8,8 @@ $(function()
 			height: 240,
 			modal: true,
 			resizable: false,
-			draggable: false
+			draggable: false,
+			closeOnOverlayClick: true
 		})
 	})
 })

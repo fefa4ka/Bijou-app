@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110814200259) do
+ActiveRecord::Schema.define(:version => 20110820202442) do
 
   create_table "missings", :force => true do |t|
     t.string   "man_name"
@@ -50,10 +50,11 @@ ActiveRecord::Schema.define(:version => 20110814200259) do
   create_table "places", :force => true do |t|
     t.integer  "missing_id"
     t.string   "address"
-    t.float    "map_lat"
-    t.float    "map_lon"
+    t.float    "latitude"
+    t.float    "longtitude"
+    t.boolean  "gmaps"
     t.string   "name"
-    t.text     "description"
+    t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

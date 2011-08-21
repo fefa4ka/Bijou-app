@@ -5983,6 +5983,7 @@ $.widget("ui.dialog", {
 		autoOpen: true,
 		buttons: {},
 		closeOnEscape: true,
+		closeOnOverlayClick: false,
 		closeText: 'close',
 		dialogClass: '',
 		draggable: true,
@@ -6277,6 +6278,13 @@ $.widget("ui.dialog", {
 					return false;
 				}
 			});
+			
+			if (options.closeOnOverlayClick) {
+				self.overlay.$el.click(function()
+				{
+					self.close(event);
+				});
+			}
 		}
 
 		// set focus to the first tabbable element in the content area or the first button

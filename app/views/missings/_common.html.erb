@@ -3,27 +3,45 @@
     <%= f.text_field :man_name, :class => "b-form__text_name", :placeholder => "фамилия имя и отчество" %>
   <ul class="b-form__gender_list">
     <li class="b-form__gender_element"> 
-      <%= f.radio_button :man_gender, true  %><%= f.label :man_gender_true, "мужчина", :class => "b-form__gender_label"  %>
+      <%= f.radio_button :man_gender, true  %><%= f.label :man_gender_true, "мужчина", :class => "b-form__radio_label"  %>
     </li>
     <li class="b-form__gender_element">
-      <%= f.radio_button :man_gender, false  %><%= f.label :man_gender_false, "женщина", :class => "b-form__gender_label" %>
+      <%= f.radio_button :man_gender, false  %><%= f.label :man_gender_false, "женщина", :class => "b-form__radio_label" %>
     </li>
   </ul>
   </div>
   
+<!-- Выходи из дива для hr -->
 </div>
 </div>
 <!-- End grid_8 and container from new.html.erb -->
 
   <div class="clear"></div>
-  <hr class="b-hr" />
+  <hr class="b-hr form" />
   
 <div class="container_16">
 <div class="grid_8">
-    
+<!-- Входим див, после hr -->
+
   <div class="b-form__field">
     <%= f.label :man_birthday, "День рождения", :class => "b-form__label" %>
     <%= f.date_select :man_birthday %>
   </div>
-  
+
+</div>
+</div>
+
+<div class="clear"></div>
+ <hr class="b-hr form" />
+
+<div class="container_16">
+<div class="grid_8">
+    
+  <div class="b-form__field">
+    <%= f.label :man_birthday, "Фотографии", :class => "b-form__label" %>
+	<div class="b-form__add_photo ui-corner-all">
+	   <input id="add_photo" type="button" value="Добавить">
+	   
+	</div>
+  </div>
 <!-- Container and grid_8 div closed in new.html.erb -->

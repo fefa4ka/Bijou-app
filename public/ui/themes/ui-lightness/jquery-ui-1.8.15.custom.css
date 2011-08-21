@@ -81,7 +81,7 @@
 	border-right-color: #a1a1a1;
 
 /*	background: #f6f6f6 url(images/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #1c94c4; */
-	background: #ffffff; /* Old browsers */
+	background: #dfdfdf; /* Old browsers */
 	background: -moz-linear-gradient(top, #ffffff 0%, #dfdfdf 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(26%,#ffffff), color-stop(100%,#dfdfdf)); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top, #ffffff 0%,#dfdfdf 100%); /* Chrome10+,Safari5.1+ */

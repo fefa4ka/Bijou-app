@@ -1,6 +1,11 @@
-<p class="b-header__description">
-  fdsfas
-</p>
+<div class="b-header__description">
+	<h2>Чем больше информации тем лучше</h2>
+  	<p>Постарайтесь как можно подробнее описать обстоятельства пропажи: места, где часто бывал пропавший человек, его маршруты, знакомства и близкое окружение.</p>
+	<p>Для нас это особенно важно, так как результаты поиска во многом зависят от количества и точности предоставленной вами информации.</p> 
+	<h2>Люди пропадают при схожих обстоятельствах</h2>
+	<p>Как правило, большинство исчезновений случается при схожих обстоятельствах.  А это значит, чем больше похожих случаев пропажи — тем больше вероятность того, что в результате поисков будут найдены сразу несколько человек, попавших в беду.</p>
+	<span></span>
+</div>
  
 </div>
 </div>
@@ -10,9 +15,22 @@
 <hr class="b-hr" />
 
 <div class="container_16">
+  <div class="grid_6">
+	<%= label_tag "place_search", "1. Посещаемые места", :class => "b-form__label" %>
+	<table class="b-form__place_search">
+		<tr><td class="b-form__place_search_field">
+			<%= text_field_tag "place_search", nil, :placeholder => "Адрес места", :class => "b-form__place_search_text_field"  %> 
+		</td><td class="b-form__place_search_button">
+			<%= tag :input, { :type => :button, :value => "Найти" } %>
+		</td></tr>
+	</table>
+	
+	<%= gmaps({ "map_options" => { "detect_location" => true, "center_on_user" => true, "zoom" => 8 } }) %>
+  </div>
   <div class="grid_8">
     <% f.fields_for :places do |builder| %>
       <% render "place_fields", :f => builder %>
     <% end %>
-    
+   </div>
+   <div class="clear"></div>
 <!-- Container and grid_8 div closed in new.html.erb -->

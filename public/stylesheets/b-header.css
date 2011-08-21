@@ -1,5 +1,10 @@
+h1 { font-size: 18px; }
+h2 { font-size: 16px; }
+h3 { font-size: 14px; }
+
 .b-header {
 	font-size: 18px;
+	margin-bottom: 14px;
 }
 	
 	.b-header__description {

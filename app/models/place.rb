@@ -1,3 +1,7 @@
 class Place < ActiveRecord::Base
-  belongs_to :missings
+  acts_as_gmappable
+  
+  def gmaps4rails_address
+     "#{self.street}" 
+   end
 end

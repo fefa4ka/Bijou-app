@@ -1,3 +1,5 @@
+<%= javascript_include_tag "missing/add", :cache => true %>
+
 <div class="container_16">
 	
 <div class="grid_10">
@@ -5,14 +7,16 @@
 	Размещение объявления
 </div>
 
+<%- if @missing.first_step? -%>
 <div class="b-header__description">
 	<p>
 		Создать объявление о пропаже очень просто: достаточно заполнить разделы объявления, продвигаясь от одного шага к другому. 
 	</p>
 	<p>
-		Постарайтесь разместить в вашем объявлении наиболее полную и точную информацию — она  необходима для качественного и оперативного поиска.
+		Постарайтесь разместить в вашем объявлении наиболее полную и точную информацию — она необходима для оперативного поиска.
 	</p>
 </div>
+<%- end -%>
 
 </div>
 <!-- End grid_10 -->
@@ -23,16 +27,16 @@
 	
 <ul class="b-form__nav_list">
 	<li class="b-form__nav_element b-form__nav_first_element <%- if @missing.current_step == "common" -%> b-form__nav_current_element <%- end -%>">
-	  Заполнение основной информации
+	  <%= link_to_unless_current("Заполнение основной информации", "/add_missing/common") %>
 	</li>
 	<li class="b-form__nav_element<%- if @missing.current_step == "characteristic" -%> b-form__nav_current_element <%- end -%>">
-	  Описание человека
+	  <%= link_to_unless_current("Описание человека", "/add_missing/characteristic") %>
 	</li>
 	<li class="b-form__nav_element<%- if @missing.current_step == "history" -%> b-form__nav_current_element <%- end -%>">
-	 Обстоятельства пропажи
+	  <%= link_to_unless_current("Обстоятельства пропажи", "/add_missing/history") %>
 	</li>
 	<li class="b-form__nav_element<%- if @missing.current_step == "contacts" -%> b-form__nav_current_element <%- end -%>">
-	  Обратная связь
+	  <%= link_to_unless_current("Обратная связь", "/add_missing/contacts") %>
 	</li>
 </ul>
 

@@ -20,11 +20,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
-
-
+ 
   <!-- jQuery & jQuery UI -->
   <%= stylesheet_link_tag "/ui/themes/ui-lightness/jquery-ui-1.8.15.custom.css", :cache => true %>
-  <%= javascript_include_tag "jquery", "/ui/ui/jquery-ui-1.8.15.custom.js", :cache => "jquery" %>
+  <%= javascript_include_tag "jquery", "/ui/ui/jquery-ui-1.8.15.custom.js", "plugins", :cache => "jquery" %>
 
   <%= javascript_include_tag "rails", "application", :cache => true %>
 
@@ -36,9 +35,10 @@
   <!-- All JavaScript at the bottom, except for Modernizr and Respond.
        Modernizr enables HTML5 elements & feature detects; Respond is a polyfill for min/max-width CSS3 Media Queries
        For optimal performance, use a custom Modernizr build: www.modernizr.com/download/ -->
-    <%= javascript_include_tag "modernizr", :cache => "modernizer" %>
+  <%= javascript_include_tag "modernizr", :cache => "modernizer" %>
 
 
+  <%= yield :head %>
 </head>
 
 <body>	
@@ -98,5 +98,6 @@
     s.parentNode.insertBefore(g,s)}(document,'script'));
   </script>
 
+  <%= yield :scripts %>
 </body>
 </html>

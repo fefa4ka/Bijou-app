@@ -2,3 +2,7 @@
 
 a { color: #0065cc; }
 a:hover { color: red;}
+
+.b-padding_1 { 
+	padding: 1em;
+}

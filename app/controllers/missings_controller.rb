@@ -40,37 +40,54 @@ class MissingsController < ApplicationController
 
   # POST /missings
   # POST /missings.xml
-  def create
-    session[:missing_params].deep_merge!(params[:missing]) if params[:missing]
+  def add    
     @missing = Missing.new(session[:missing_params])
-    @missing.current_step = session[:missing_step]
-
+    
+    @missing.current_step = params[:step]
+    
     # Поля для мест и людей
     # Строятся только один раз
-    unless session[:missing_in_progress]
+    if @missing.current_step == "history"
       place = @missing.places.build
       #people = @missing.peoples.build
       session[:missing_in_progress] = true
     end
     
-    if params[:back_button]
-      @missing.previous_step
-    elsif @missing.last_step?
-      @missing.save
-    else
-      @missing.next_step
-    end
-    session[:missing_step] = @missing.current_step
     
     if @missing.new_record?
       render "new"
     else
-      session[:missing_params] = session[:missing_step] = nil
+      session[:missing_params] = session[:missing_in_progress] = nil
       flash[:notice] = "Объявление размещено"
       redirect_to @missing  
     end
   end
 
+  # Сохраняем данные текущего шага
+  def save_step
+    session[:missing_params] ||= {}
+    session[:missing_params].deep_merge!(params[:missing]) if params[:missing]
+      
+    
+    respond_to do |format|
+      if params[:save]
+        @missing = Missing.new(session[:missing_params])
+        @missing.save
+        
+        session[:missing_params] = session[:missing_in_progress] = nil
+        flash[:notice] = "Объявление размещено"
+      end
+      format.json {
+        render :json => { :success => "true", :missing_url => url_for(@missing) } 
+      }
+    end
+  end 
+  
+  # Обработка посещаяемых мест
+  def places
+    true
+  end
+  
   # PUT /missings/1
   # PUT /missings/1.xml
   def update

@@ -6,7 +6,7 @@ class Missing < ActiveRecord::Base
   attr_writer :current_step
   
   # Поля характеристик
-  attr_accessor :man_growth, :man_physique, :man_hair_color, :man_hair_length, :man_specials_1, :man_special_2, :man_special_3, :man_specials
+  attr_accessor :man_growth, :man_physique, :man_hair_color, :man_hair_length, :man_specials_tattoo, :man_specials_piercing, :man_specials_scar, :man_specials, :author_callback_phone, :author_callback_email, :private_history, :private_contacts
   
   accepts_nested_attributes_for :places
   
@@ -15,12 +15,13 @@ class Missing < ActiveRecord::Base
     @current_step || steps.first
   end
   
+  
   def next_step
-    self.current_step = steps[steps.index(current_step)+1]
+    next_step = steps[steps.index(current_step)+1] || ""
   end
   
   def previous_step
-    self.current_step = steps[steps.index(current_step)-1]
+    previous_step = steps[steps.index(current_step)-1] || ""
   end
   
   def first_step?

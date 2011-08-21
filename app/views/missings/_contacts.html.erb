@@ -1,25 +1,120 @@
+<div class="b-header__description">
+	<h2>Обратная связь</h2>
+  	<p>С вами будут связываться люди, которые могут помочь и вам будут приходить уведомления о новой информации связанной с поиском.</p>
+</div>
 
-  <div class="field">
-    <%= f.label :author_name %><br />
-    <%= f.text_field :author_name %>
+<!-- Выходи из дива для hr -->
+</div>
+</div>
+<!-- End grid_8 and container from new.html.erb -->
+
+  <div class="clear"></div>
+  <hr class="b-hr form" />
+  
+<div class="container_16">
+<div class="grid_8">
+<!-- Входим див, после hr -->
+
+ <div class="b-form__field">
+   <%= f.label :author_name, "Ваше имя", :class => "b-form__label" %>
+   <%= f.text_field :author_name %>
+ </div>
+
+<!-- Выходи из дива для hr -->
+</div>
+</div>
+<!-- End grid_8 and container from new.html.erb -->
+
+  <div class="clear"></div>
+  <hr class="b-hr form" />
+
+<div class="container_16">
+<div class="grid_8">
+<!-- Входим див, после hr -->
+
+ <div class="b-form__field">
+   <%= f.label :author_phone, "Телефон", :class => "b-form__label" %>
+   <%= f.text_field :author_phone %>
+   <div class="b-form__subfield">
+     <%= f.check_box :author_callback_phone %> <%= f.label :author_callback_phone, "связываться со мной по телефону" %>
+   </div>
+ </div>
+
+<!-- Выходи из дива для hr -->
+</div>
+</div>
+<!-- End grid_8 and container from new.html.erb -->
+
+  <div class="clear"></div>
+  <hr class="b-hr form" />
+
+<div class="container_16">
+<div class="grid_8">
+<!-- Входим див, после hr -->
+ 
+<div class="b-form__field">
+  <%= f.label :author_email, "Электронная почта", :class => "b-form__label" %>
+  <%= f.text_field :author_email %>
+  <div class="b-form__subfield">
+    <%= f.check_box :author_callback_email %> <%= f.label :author_callback_email, "связываться со мной по электронной почте" %>
   </div>
-  <div class="field">
-    <%= f.label :author_phone %><br />
-    <%= f.text_field :author_phone %>
-  </div>
-  <div class="field">
-    <%= f.label :author_email %><br />
-    <%= f.text_field :author_email %>
-  </div>
-  <div class="field">
-    <%= f.label :author_callback_hash %><br />
-    <%= f.text_field :author_callback_hash %>
-  </div>
-  <div class="field">
-    <%= f.label :missing_private_hash %><br />
-    <%= f.text_field :missing_private_hash %>
-  </div>
-  <div class="field">
-    <%= f.label :missing_password %><br />
-    <%= f.text_field :missing_password %>
-  </div>
+</div>
+
+<!-- Выходи из дива для hr -->
+</div>
+</div>
+<!-- End grid_8 and container from new.html.erb -->
+
+  <div class="clear"></div>
+  <hr class="b-hr form" />
+
+<div class="container_16">
+<div class="grid_8">
+<!-- Входим див, после hr -->
+
+  	<div class="b-form__field">
+	  <%= f.label :private_history, "Ограничение доступа к личным данным", :class => "b-form__label" %>
+	  <p>
+		Возможно вы не хотите, чтобы обстоятельства пропажи или контактные данные знали все, вы можете ограничить круг лиц, которые могут это видеть.
+	  </p>
+	
+	  <div class="b-form__subfield_label">Показывать обстоятельства пропажи</div>
+	  <ul class="b-form__radio_list">
+	      <li class="b-form__radio_element">
+	        <%= f.radio_button :private_history, 0 %> <%= f.label :private_history_0, "только рабочей группе" %>
+	      </li>
+	      <li class="b-form__radio_element">
+	        <%= f.radio_button :private_history, 1 %> <%= f.label :private_history_1, "всем" %>
+	      </li>
+	  </ul>
+	
+	  <div class="b-form__subfield_label">Показывать контактные данные</div>
+	  <ul class="b-form__radio_list">
+	      <li class="b-form__radio_element">
+	        <%= f.radio_button :private_contacts, 0 %> <%= f.label :private_contacts_0, "только рабочей группе" %>
+	      </li>
+	      <li class="b-form__radio_element">
+	        <%= f.radio_button :private_contacts, 1 %> <%= f.label :private_contacts_1, "всем" %>
+	      </li>
+	  </ul>
+	
+	</div>
+
+<!-- Выходи из дива для hr -->
+</div>
+</div>
+<!-- End grid_8 and container from new.html.erb -->
+
+  <div class="clear"></div>
+  <hr class="b-hr form" />
+
+<div class="container_16">
+<div class="grid_8">
+<!-- Входим див, после hr -->
+
+	<div class="b-form__field">
+	  <%= f.label :missing_password, "Пароль к объявлению", :class => "b-form__label" %>
+	  <%= f.text_field :missing_password %>
+	</div>
+
+  <%= hidden_field_tag "save" %>
