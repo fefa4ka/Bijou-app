@@ -6,3 +6,14 @@ a:hover { color: red;}
 .b-padding_1 { 
 	padding: 1em;
 }
+
+.b-pseudo_link {
+	cursor: pointer;
+	color: #0065cc;
+	border-bottom: 1px dotted #0065cc;
+}
+
+.b-pseudo_link:hover {
+	color: red;
+	border-bottom: 1px dotted red;
+}

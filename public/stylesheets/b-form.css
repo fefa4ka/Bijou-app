@@ -18,7 +18,7 @@ input[type="text"] {
 }
 
 /* Навигационная панель в размещении объявления */
-.b-form__nav_panel, .b-form__action_panel, .b-form__nested_action_panel {
+.b-form__nav_panel, .b-form__action_panel {
   width: 100%;
   height: 32px;
 
@@ -158,31 +158,34 @@ input[type="text"] {
 	padding: 7px;
 }
 
-/* Примеры заполнения формы */
-.b-form__samples {
-	list-style: none;
+
+/* Текст под полем */
+.b-form__field_description {
+	margin: 4px 0 0 2px;
 }
-	.b-form__samples_element {
-		float: left;
-		margin-left: 0.5em;
-	}
 
-
+/* Примеры заполнения формы */
 .b-form__nested {
 	-webkit-box-shadow: 0px 2px 6px 0px #b4b4b4;
 	-moz-box-shadow: 0px 2px 6px 0px #b4b4b4;
 	box-shadow: 0px 2px 6px 0px #b4b4b4;
 }
-
-	.b-form__nested_action_panel {
-		height: 48px;
+	
+	.b-form__nested_field {
+		width: 280px;
 	}
 	
-	/* Полоска для кнопок */
-	.b-form__nested_action_panel {
-	    top: 66px;
-		margin-top: -66px;
+	.b-form__nested .b-form__field { 
+		margin-bottom: 16px;
 	}
+
+	.b-form__nested_action_panel {
+		margin-top: -1em;
+		height: 25px;
+		
+		background: #f4f4f4;
+	}
+
 
 /* Карта */
 .b-form__place_search {
