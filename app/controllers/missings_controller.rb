@@ -84,8 +84,20 @@ class MissingsController < ApplicationController
   end 
   
   # Обработка посещаяемых мест
-  def places
-    true
+  def address_suggest
+    if params[:term]
+      georesult = Gmaps4rails.geocode("москва" + params[:term], "ru&region=ru")
+      suggest = Array.new
+      georesult.each do |address|
+        suggest.push(address[:matched_address])
+      end
+    end
+    
+    respond_to do |format|
+      format.json { 
+        render :json => suggest || {}
+      }
+    end
   end
   
   # PUT /missings/1

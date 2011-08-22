@@ -5,7 +5,8 @@ People::Application.routes.draw do
   
   match "add_missing" => "missings#add"
   match "add_missing/save_step" => "missings#save_step"
-  match "add_missing/places" => "missing#places"
+  match "add_missing/places" => "missings#places"
+  match "add_missing/address_suggest" => "missings#address_suggest"
   match "add_missing/:step" => "missings#add"
   # The priority is based upon order of creation:
   # first created -> highest priority.
