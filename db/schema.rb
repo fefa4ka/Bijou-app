@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110824212846) do
+ActiveRecord::Schema.define(:version => 20110825202442) do
 
   create_table "familiars", :force => true do |t|
     t.integer  "missing_id"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(:version => 20110824212846) do
     t.integer  "missing_id"
     t.string   "address"
     t.float    "latitude"
-    t.float    "longtitude"
+    t.float    "longitude"
     t.boolean  "gmaps"
     t.string   "name"
     t.string   "description"

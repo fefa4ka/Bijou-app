@@ -78,6 +78,8 @@ input[type="text"] {
 		.b-form__subfield_label {
 			font-weight: bold;
 			margin: 19px 0 5px;
+			
+			text-transform: capitalize;
 		}
 
 /* Кнопки под формой */
@@ -206,6 +208,10 @@ input[type="text"] {
 		padding-left: 7px;
 	}
 
+	.b-form__add_place {
+		display: none;
+	}
+	
 /* =================== */
 /* = Чекбок и радио  = */
 /* =================== */

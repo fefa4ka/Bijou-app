@@ -8,7 +8,11 @@ class Missing < ActiveRecord::Base
   # Поля характеристик
   attr_accessor :man_growth, :man_physique, :man_hair_color, :man_hair_length, :man_specials_tattoo, :man_specials_piercing, :man_specials_scar, :man_specials, :author_callback_phone, :author_callback_email, :private_history, :private_contacts
   
-  accepts_nested_attributes_for :photos, :places, :familiars
+  accepts_nested_attributes_for :photos
+  accepts_nested_attributes_for :places, :allow_destroy => true, :reject_if => lambda { |obj| obj[:address].blank? }
+  accepts_nested_attributes_for :familiars, :allow_destroy => true, :reject_if => lambda { |obj| obj[:name].blank? }
+  
+  
   
 
   def current_step

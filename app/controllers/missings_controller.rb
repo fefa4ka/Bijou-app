@@ -41,7 +41,11 @@ class MissingsController < ApplicationController
   # POST /missings
   # POST /missings.xml
   def add        
+    logger.debug("SESSION: #{session.inspect}")
+    
     @missing = Missing.new(session[:missing_params])
+    @missing.valid?
+    @places = @missing.places.to_gmaps4rails
     
     @missing.current_step = params[:step]
 
@@ -70,6 +74,7 @@ class MissingsController < ApplicationController
 
   # Сохраняем данные текущего шага
   def save_step
+    logger.debug("SESSION: #{session.inspect}")
     session[:missing_params] ||= {}
     session[:missing_params].deep_merge!(params[:missing]) if params[:missing]
     
@@ -104,6 +109,33 @@ class MissingsController < ApplicationController
         render :json => suggest || {}
       }
     end
+  end
+  
+  # Получение данных по адресу
+  def address_data
+    if params[:address]
+      georesult = Gmaps4rails.geocode(params[:address], "ru")
+      
+      respond_to do |format|
+        format.json {
+          render :json => georesult.first
+        }
+      end
+    # else
+    #   places_session = session[:missing_params]["places_attributes"]
+    #   places = []
+    #   places_session.each do |place|
+    #     p = Place.new({ :address => place["address"] })
+    #     logger.debug(p.inspect)
+    #     places.push(p)
+    #   end
+    #   respond_to do |format|
+    #     format.json {
+    #       render :json => places.to_gmaps4rails
+    #     }
+    #   end
+    end
+    
   end
   
   # PUT /missings/1

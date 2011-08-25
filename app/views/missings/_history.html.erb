@@ -27,10 +27,9 @@
 		</td></tr>
 	</table>
 	
-	<%= gmaps({ "map_options" => { "detect_location" => true, "center_on_user" => true, "zoom" => 8 } }) %>
+	<%= gmaps({ "markers" => { "data" => @places }, "map_options" => { "detect_location" => true, "center_on_user" => true } }) %>
   </div>
   <div class="grid_8">
-	<%= @missing.places.inspect %>
     <% f.fields_for :places do |builder| %>
       <% render "place_fields", :f => builder %>
     <% end %>
