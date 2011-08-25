@@ -5,7 +5,7 @@ class CreatePlaces < ActiveRecord::Migration
       t.integer :missing_id
       t.string :address
       t.float :latitude
-      t.float :longtitude
+      t.float :longitude
       t.boolean :gmaps
       t.string :name
       t.string :description

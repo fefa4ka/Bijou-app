@@ -26,8 +26,11 @@
 			<%= tag :input, { :type => :button, :value => "Найти" } %>
 		</td></tr>
 	</table>
-	
-	<%= gmaps({ "markers" => { "data" => @places }, "map_options" => { "detect_location" => true, "center_on_user" => true } }) %>
+	<% if @places %>
+	  <%= gmaps({ "markers" => { "data" => @places }, "map_options" => { "detect_location" => true, "center_on_user" => true } }) %>
+  	<% else %>
+      <%= gmaps({ "map_options" => { "detect_location" => true, "center_on_user" => true } }) %>
+    <% end %>
   </div>
   <div class="grid_8">
     <% f.fields_for :places do |builder| %>
