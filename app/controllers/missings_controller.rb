@@ -40,24 +40,29 @@ class MissingsController < ApplicationController
 
   # POST /missings
   # POST /missings.xml
-  def add    
+  def add        
     @missing = Missing.new(session[:missing_params])
     
     @missing.current_step = params[:step]
-    
+
     # Поля для мест и людей
     # Строятся только один раз
-    if @missing.current_step == "history"
+    if @missing.current_step == "common"
+      photo = @missing.photos.build
+      
+      session[:missing_in_progress_common] = true
+    elsif @missing.current_step == "history"  
       place = @missing.places.build
-      #people = @missing.peoples.build
-      session[:missing_in_progress] = true
+      familiar = @missing.familiars.build
+      
+      session[:missing_in_progress_history] = true
     end
     
     
     if @missing.new_record?
       render "new"
     else
-      session[:missing_params] = session[:missing_in_progress] = nil
+      
       flash[:notice] = "Объявление размещено"
       redirect_to @missing  
     end
@@ -67,7 +72,7 @@ class MissingsController < ApplicationController
   def save_step
     session[:missing_params] ||= {}
     session[:missing_params].deep_merge!(params[:missing]) if params[:missing]
-      
+    
     
     respond_to do |format|
       if params[:save]
@@ -77,6 +82,7 @@ class MissingsController < ApplicationController
         session[:missing_params] = session[:missing_in_progress] = nil
         flash[:notice] = "Объявление размещено"
       end
+      
       format.json {
         render :json => { :success => "true", :missing_url => url_for(@missing) } 
       }

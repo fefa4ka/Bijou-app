@@ -1,7 +1,9 @@
 class Place < ActiveRecord::Base
+  belongs_to :missings
   acts_as_gmappable
-  
+  validates :address, :presence => true
+
   def gmaps4rails_address
-     "#{self.street}" 
-   end
+    self.address
+  end
 end

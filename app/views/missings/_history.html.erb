@@ -1,3 +1,5 @@
+<%= javascript_include_tag "missing/add_places", :cache => true %>
+
 <div class="b-header__description">
 	<h2>Чем больше информации тем лучше</h2>
   	<p>Постарайтесь как можно подробнее описать обстоятельства пропажи: места, где часто бывал пропавший человек, его маршруты, знакомства и близкое окружение.</p>
@@ -28,9 +30,32 @@
 	<%= gmaps({ "map_options" => { "detect_location" => true, "center_on_user" => true, "zoom" => 8 } }) %>
   </div>
   <div class="grid_8">
+	<%= @missing.places.inspect %>
     <% f.fields_for :places do |builder| %>
       <% render "place_fields", :f => builder %>
     <% end %>
    </div>
+
+</div>
+</div>
+<!-- End grid_8 and container from new.html.erb -->
+
+<div class="clear"></div>
+<hr class="b-hr" />
+
+<div class="container_16">   
+   <div class="grid_6">
+	<%= label_tag "familiars", "2. Отношения с другими людьми", :class => "b-form__label" %>
+	<div class="b-form__add_familiar ui-corner-all">
+	   <input id="add_familiar" type="button" value="Добавить знакомого">
+	</div>
+   </div>
+
+   <div class="grid_8">
+	<% f.fields_for :familiars do |builder| %>
+	  <%= render 'familiar_fields', :f => builder %>
+	<% end %>
+   </div>
+   
    <div class="clear"></div>
 <!-- Container and grid_8 div closed in new.html.erb -->

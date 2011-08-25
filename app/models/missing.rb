@@ -1,14 +1,14 @@
 class Missing < ActiveRecord::Base
   has_many :photos, :dependent => :destroy
   has_many :places
-  has_many :persons
+  has_many :familiars
   
   attr_writer :current_step
   
   # Поля характеристик
   attr_accessor :man_growth, :man_physique, :man_hair_color, :man_hair_length, :man_specials_tattoo, :man_specials_piercing, :man_specials_scar, :man_specials, :author_callback_phone, :author_callback_email, :private_history, :private_contacts
   
-  accepts_nested_attributes_for :places
+  accepts_nested_attributes_for :photos, :places, :familiars
   
 
   def current_step

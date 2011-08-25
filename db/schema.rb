@@ -10,7 +10,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110820202442) do
+ActiveRecord::Schema.define(:version => 20110824212846) do
+
+  create_table "familiars", :force => true do |t|
+    t.integer  "missing_id"
+    t.string   "name"
+    t.integer  "relations"
+    t.integer  "relations_quality"
+    t.text     "relation_tense_description"
+    t.text     "description"
+    t.boolean  "seen_last_day"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "missings", :force => true do |t|
     t.string   "man_name"

@@ -41,7 +41,12 @@
     <%= f.label :man_birthday, "Фотографии", :class => "b-form__label" %>
 	<div class="b-form__add_photo ui-corner-all">
 	   <input id="add_photo" type="button" value="Добавить">
-	   
+	</div>
+	<% f.fields_for :photos do |builder| %>
+		<%= builder.file_field :load_photo_file %>
+	<% end %>
+	<div>
+
 	</div>
   </div>
 <!-- Container and grid_8 div closed in new.html.erb -->
