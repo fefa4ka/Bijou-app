@@ -20,11 +20,12 @@
 	.b-head__login_form_text {
 		margin: 9px 0;
 		width: 275px;
-		height: 25px;
+		height: 25px !important;
 		
 		font-size: 18px;
 		text-align: center;			
 	}
+	
 	#login_name {
 		margin-top: 15px;
 	}

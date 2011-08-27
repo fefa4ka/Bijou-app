@@ -25,7 +25,7 @@
 
   <div class="b-form__field">
     <%= f.label :man_birthday, "День рождения", :class => "b-form__label" %>
-    <%= f.date_select :man_birthday %>
+    <%= f.date_select :man_birthday, :order => [:day, :month, :year], :start_year => 1900, :default => { :day => 1, :month => 1, :year => 1988 }  %>
   </div>
 
 </div>
@@ -39,12 +39,10 @@
     
   <div class="b-form__field">
     <%= f.label :man_birthday, "Фотографии", :class => "b-form__label" %>
-	<div class="b-form__add_photo ui-corner-all">
+	<div class="b-form__button_corner b-form__button_add_photo ui-corner-all">
 	   <input id="add_photo" type="button" value="Добавить">
 	</div>
-	<% f.fields_for :photos do |builder| %>
-		<%= builder.file_field :load_photo_file %>
-	<% end %>
+
 	<div>
 
 	</div>

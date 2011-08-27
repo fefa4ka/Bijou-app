@@ -10,12 +10,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110825202442) do
+ActiveRecord::Schema.define(:version => 20110826202442) do
 
   create_table "familiars", :force => true do |t|
     t.integer  "missing_id"
     t.string   "name"
-    t.integer  "relations"
+    t.string   "relations"
     t.integer  "relations_quality"
     t.text     "relation_tense_description"
     t.text     "description"

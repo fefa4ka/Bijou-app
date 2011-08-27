@@ -1,6 +1,10 @@
 <%= form_for @missing, :url => "/add_missing/save_step.json", :remote => true, :html => { 
 	:next_step => "/add_missing/" + @missing.next_step,
 	:previous_step => "/add_missing/" + @missing.previous_step } do |f| %>
+
+<div class="container_16">
+<div class="grid_8">
+	
   <% if @missing.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@missing.errors.count, "error") %> prohibited this missing from being saved:</h2>
@@ -17,7 +21,7 @@
 
 
 	<div class="b-form__actions">
-		<%= f.submit "Предыдущий шаг", :class => "b-form__back_button" unless @missing.first_step? %>
+		<%= f.submit "Предыдущий шаг", :class => "b-form__back_button", :tabindex => "-1" unless @missing.first_step? %>
 		<%= f.submit "Следующий шаг", :class => "b-form__next_button" unless @missing.last_step?  %>
 		<%= f.submit "Опубликовать объявление", :class => "b-form__save_button green" if @missing.last_step?  %>
 	</div>
@@ -32,3 +36,6 @@
 </div>
   
 <% end %>
+
+</div>
+</div>

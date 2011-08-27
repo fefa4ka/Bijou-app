@@ -41,8 +41,7 @@ class MissingsController < ApplicationController
   # POST /missings
   # POST /missings.xml
   def add        
-    logger.debug("SESSION: #{session.inspect}")
-    
+
     @missing = Missing.new(session[:missing_params])
     @missing.valid?
     @places = @missing.places.to_gmaps4rails
@@ -74,16 +73,15 @@ class MissingsController < ApplicationController
 
   # Сохраняем данные текущего шага
   def save_step
-    logger.debug("SESSION: #{session.inspect}")
     session[:missing_params] ||= {}
-    session[:missing_params].deep_merge!(params[:missing]) if params[:missing]
+    session[:missing_params].merge!(params[:missing]) if params[:missing]
     
     
     respond_to do |format|
       if params[:save]
         @missing = Missing.new(session[:missing_params])
         @missing.save
-        
+        logger.debug("`save")
         session[:missing_params] = session[:missing_in_progress] = nil
         flash[:notice] = "Объявление размещено"
       end

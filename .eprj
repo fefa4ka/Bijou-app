@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>fileTriggers</key>
+        <dict>
+            <key>b-form</key>
+            <string>stylesheets\b-form.css</string>
+            <key>fa</key>
+            <string>views\missings\_familiar_fields.html.erb</string>
+            <key>familiar</key>
+            <string>views\missings\_familiar_fields.html.erb</string>
+        </dict>
+    </dict>
+</plist>

@@ -5,7 +5,7 @@ $(function()
 	{
 		$('.b-head__login_form').dialog({
 			width: 350,
-			height: 240,
+			height: 246,
 			modal: true,
 			resizable: false,
 			draggable: false,

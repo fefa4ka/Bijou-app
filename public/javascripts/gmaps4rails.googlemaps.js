@@ -77,7 +77,8 @@ Gmaps4Rails.createMap = function(){
     mapTypeControl:         Gmaps4Rails.map_options.mapTypeControl,
     disableDefaultUI:       Gmaps4Rails.map_options.disableDefaultUI,
     disableDoubleClickZoom: Gmaps4Rails.map_options.disableDoubleClickZoom,
-    draggable:              Gmaps4Rails.map_options.draggable
+    draggable:              Gmaps4Rails.map_options.draggable,
+    scrollwheel:            Gmaps4Rails.map_options.scrollwheel
   });
 };
 

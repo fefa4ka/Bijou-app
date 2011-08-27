@@ -42,6 +42,7 @@ var Gmaps4Rails = {
     max_random_distance: 100, // in meters. Each marker coordinate could be altered by this distance in a random direction
     list_container: null,     // id of the ul that will host links to all markers
     offset: 0                //used when adding_markers to an existing map. Because new markers are concated with previous one, offset is here to prevent the existing from being re-created.
+    scollwheel: false		// scrollable map by mouse wheel
   },
   
   //Stored variables

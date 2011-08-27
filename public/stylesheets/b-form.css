@@ -12,6 +12,8 @@ input[type="text"] {
 	height: 14px;
 }
 
+
+
 /* hr в форме */
 .b-hr.form {
 	border-top-color: #f4f4f4;
@@ -70,7 +72,15 @@ input[type="text"] {
 .b-form__field {
   
 }
-	
+	.b-form__field:hover .b-form__field_edit_action { 
+		display: inline-block;
+	}
+	.b-form__field_edit_action {
+		display: none;
+		position: relative;
+		margin-left: 1em;
+		top: -.2em;
+	}
 	.b-form__subfield {
 		margin-top: 10px !important;
 	}
@@ -151,11 +161,14 @@ input[type="text"] {
   
   
 /* Кнопка добавить фотографию */
-.b-form__add_photo {
-	background: #f5f5f5;
-	
+.b-form__button_add_photo {
 	font-size: 18px;
-	
+}
+
+/* Обрамление кнопки */
+.b-form__button_corner {
+	background: #f5f5f5;
+		
 	display: inline-block;
 	padding: 7px;
 }
@@ -208,7 +221,26 @@ input[type="text"] {
 		padding-left: 7px;
 	}
 
-	.b-form__add_place {
+	.b-form__nested {
+		display: none;
+	}
+	
+	
+/*	Список мест и людей */
+	.b-form__familiar, .b-form__place {
+		border-bottom: 1px solid #e1e1e1;
+		
+		padding-bottom: 13px;
+		margin-bottom: 13px;
+		width: 240px;
+	}
+	
+	.b-form__familiar .b-form__label, .b-form__place .b-form__label {
+		margin-bottom: 5px;
+		height: .9em;
+	}
+	
+	.b-form__add_familiar_relations_tense_description_field {
 		display: none;
 	}
 	
