@@ -1,0 +1,22 @@
+<div class="b-list b-missing__photos">
+<% @missing.photos.each do |photo| %>
+  <div class="b-list__element">
+	<div class="b-list__element_content">
+		<%= image_tag "/photos/" + photo.image_name, :size => "100x100", :class => "b-list__image" %>
+	</div>
+	<div class="b-list__element_min"></div>
+  </div>
+<% end %>
+<% (3-@missing.photos.count).times do |i| %>
+	<div class="b-list__element">
+		<div class="b-list__element_content">
+			<%= image_tag 'photos/002.jpg' %>
+		</div>
+		<div class="b-list__element_min"></div>
+	</div>
+<% end %>
+</div>
+<div class="t-medium">История</div>
+<p class="b-missing__description">
+	<%= @missing.description %>
+</p>

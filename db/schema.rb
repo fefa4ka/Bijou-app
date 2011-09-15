@@ -10,65 +10,77 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110826202442) do
+ActiveRecord::Schema.define(:version => 20110914172635) do
+
+  create_table "accounts", :force => true do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "phone"
+    t.integer  "callback"
+    t.string   "password"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "familiars", :force => true do |t|
-    t.integer  "missing_id"
     t.string   "name"
     t.string   "relations"
-    t.integer  "relations_quality"
-    t.text     "relation_tense_description"
+    t.string   "relations_quality"
+    t.text     "relations_tense_description"
     t.text     "description"
     t.boolean  "seen_last_day"
+    t.integer  "missing_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "familiars", ["missing_id"], :name => "index_familiars_on_missing_id"
 
   create_table "missings", :force => true do |t|
-    t.string   "man_name"
+    t.string   "name"
     t.text     "description"
-    t.boolean  "man_gender"
-    t.date     "man_birthday"
-    t.text     "man_char_hash"
-    t.string   "author_name"
-    t.string   "author_phone"
-    t.string   "author_email"
-    t.integer  "author_callback_hash"
-    t.integer  "missing_private_hash"
-    t.string   "missing_password"
+    t.boolean  "gender"
+    t.date     "birthday"
+    t.text     "characteristics"
+    t.integer  "private"
+    t.integer  "account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "people", :force => true do |t|
-    t.integer  "missing_id"
-    t.string   "name"
-    t.integer  "relations"
-    t.integer  "relations_type"
-    t.text     "relations_description"
-    t.text     "description"
-    t.boolean  "last_contact"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "missings", ["account_id"], :name => "index_missings_on_account_id"
 
   create_table "photos", :force => true do |t|
-    t.integer  "missing_id"
     t.string   "image_name"
+    t.integer  "missing_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "photos", ["missing_id"], :name => "index_photos_on_missing_id"
+
   create_table "places", :force => true do |t|
-    t.integer  "missing_id"
     t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
     t.boolean  "gmaps"
     t.string   "name"
-    t.string   "description"
+    t.text     "description"
+    t.integer  "missing_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "places", ["missing_id"], :name => "index_places_on_missing_id"
+
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
 end

@@ -1,18 +1,20 @@
 class Missing < ActiveRecord::Base
+  belongs_to :accounts
+  
   has_many :photos, :dependent => :destroy
   has_many :places
   has_many :familiars
   
+  serialize :man_char_hash
+  
   attr_writer :current_step
   
   # Поля характеристик
-  attr_accessor :man_growth, :man_physique, :man_physique_another, :man_hair_color, :man_hair_color_another, :man_hair_length, :man_specials_tattoo, :man_specials_piercing, :man_specials_scar, :man_specials, :author_callback_phone, :author_callback_email, :private_history, :private_contacts
+  attr_accessor :man_age, :man_growth, :man_physique, :man_physique_another, :man_hair_color, :man_hair_color_another, :man_hair_length, :man_specials_tattoo, :man_specials_piercing, :man_specials_scar, :man_specials, :author_callback_phone, :author_callback_email, :private_history, :private_contacts, :photos_attributes, :author_name, :author_email, :author_phone, :author_callback_email, :author_callback_phone, :author_callback_hash, :missing_password
   
   accepts_nested_attributes_for :photos
   accepts_nested_attributes_for :places, :allow_destroy => true, :reject_if => lambda { |obj| obj[:address].blank? }
   accepts_nested_attributes_for :familiars, :allow_destroy => true, :reject_if => lambda { |obj| obj[:name].blank? }
-  
-  
   
 
   def current_step

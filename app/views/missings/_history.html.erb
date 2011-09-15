@@ -34,13 +34,10 @@
     <% end %>
   </div>
   <div class="grid_8 b-form__places">
-    <% f.fields_for :places do |builder| %>
-      <% render "place_fields", :f => builder %>
-    <% end %>
+      <%= render "place_fields", :form => f %>
    </div>
+</div>
 
-</div>
-</div>
 <!-- End grid_8 and container from new.html.erb -->
 
 <div class="clear"></div>
@@ -55,10 +52,20 @@
    </div>
 
    <div class="grid_8 b-form__familiars">
-	<% f.fields_for :familiars do |builder| %>
-	  <%= render 'familiar_fields', :f => builder %>
-	<% end %>
+	  <%= render 'familiar_fields', :form => f  %>
    </div>
-   
+</div>
+<!-- End grid_8 and container from new.html.erb -->
+
+  
+<div class="clear"></div>
+<hr class="b-hr" />
+
+<div class="container_16">   
+   <div class="grid_8">
+	<%= label_tag :description, "3. История пропажи", :class => "b-form__label" %>
+	<%= f.text_area :description, :rows => 8, :class => "l-full_width" %>
+   </div>
+	
    <div class="clear"></div>
 <!-- Container and grid_8 div closed in new.html.erb -->

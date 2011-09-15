@@ -1,60 +1,56 @@
-<p id="notice"><%= notice %></p>
+<div class="container_16">
+	<div class="grid_12">
+		<div class="b-header">
+			Разыскивается <%= @missing.name %>
+		</div>
+		<div class="l-left b-missing_header__description">
+			<span class="l-left b-missing__share">Ваши друзья могут знать что-нибудь о пропавшем, расскажите им:</span>
+			<!-- AddThis Button BEGIN -->
+			<div class="addthis_toolbox addthis_default_style l-left b-missing__share">
+			<a class="addthis_button_preferred_1"></a>
+			<a class="addthis_button_preferred_2"></a>
+			<a class="addthis_button_preferred_3"></a>
+			<a class="addthis_button_preferred_4"></a>
+			<a class="addthis_button_compact"></a>
+			<a class="addthis_counter addthis_bubble_style"></a>
+			</div>
+			<!-- AddThis Button END -->
+		</div>
+		<p id="notice"><%= notice %></p>
 
-<p>
-  <b>Man name:</b>
-  <%= @missing.man_name %>
-</p>
+	
+	<div class="clear"></div>
 
-<p>
-  <b>Description:</b>
-  <%= @missing.description %>
-</p>
+	<div class="b-missing__leftside">
+		<div class="b-missing__photo">
+			<img src="/photos/<%= @missing.photos.first.image_name %>" class="b-missing__photo" />
+		</div>
+		<%= tag :input, { :type => "button", :value => "Я видел этого человека", :class => "green b-missing__i_saw t-medium" } %>
+	</div>
+	
+	<div class="b-missing__center">
+		<%= render 'show_common' %>
+	</div>
+	
+	<div class="clear"></div>
+	<hr class="b-hr" />
+	
+    <%= render :partial => 'show_map' %>
 
-<p>
-  <b>Man gender:</b>
-  <%= @missing.man_gender %>
-</p>
+	<div class="clear"></div>
+	<hr class="b-hr" />
+	
+	<div class="b-header">Обсуждение</div>
+	<div class="clear"></div>
+	
+	</div>
+	
+	<div class="grid_4">
+			<%= render :partial => 'show_right_sidebar' %>
+	</div>
+	
+</div>
 
-<p>
-  <b>Man birthday:</b>
-  <%= @missing.man_birthday %>
-</p>
+<div class="clear"></div>
 
-<p>
-  <b>Man char hash:</b>
-  <%= @missing.man_char_hash %>
-</p>
-
-<p>
-  <b>Author name:</b>
-  <%= @missing.author_name %>
-</p>
-
-<p>
-  <b>Author phone:</b>
-  <%= @missing.author_phone %>
-</p>
-
-<p>
-  <b>Author email:</b>
-  <%= @missing.author_email %>
-</p>
-
-<p>
-  <b>Author callback hash:</b>
-  <%= @missing.author_callback_hash %>
-</p>
-
-<p>
-  <b>Missing private hash:</b>
-  <%= @missing.missing_private_hash %>
-</p>
-
-<p>
-  <b>Missing password:</b>
-  <%= @missing.missing_password %>
-</p>
-
-
-<%= link_to 'Edit', edit_missing_path(@missing) %> |
-<%= link_to 'Back', missings_path %>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4e5c782a66f297f6"></script>

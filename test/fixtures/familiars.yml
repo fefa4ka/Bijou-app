@@ -1,19 +1,19 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 one:
-  missing_id: 1
   name: MyString
-  relations: 1
-  relations_quality: 1
-  relation_tense_description: MyText
+  relations: MyString
+  relations_quality: MyString
+  realtions_tense_description: MyText
   description: MyText
   seen_last_day: false
+  missing: 
 
 two:
-  missing_id: 1
   name: MyString
-  relations: 1
-  relations_quality: 1
-  relation_tense_description: MyText
+  relations: MyString
+  relations_quality: MyString
+  realtions_tense_description: MyText
   description: MyText
   seen_last_day: false
+  missing: 

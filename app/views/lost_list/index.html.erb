@@ -1,7 +1,6 @@
 <style type="text/css" media="screen">
 	.b-header { margin-top: 8px; }
 </style>
-<hr class="b-hr" />
 <div class="container_16">
 	
 <div class="grid_12">
@@ -16,8 +15,14 @@
 	<% @missings.each do |missing| %>
 	  <div class="b-list__element">
 		<div class="b-list__element_content">
-			<img class="b-list__image" src="/images/photos/<%= missing.image_url %>">
-			<%= link_to missing.name, missing, :class => 'b-list__name_link' %>
+			<a href="<%= missing_path(missing) %>" class="b-list__name_link">
+			<% unless missing.photos.first %>
+				<%= image_tag 'photos/002.jpg', :size => "160x160", :class => "b-list__image"  %>
+			<% else %>
+				<%= image_tag "/photos/" + missing.photos.first.image_name, :size => "160x160", :class => "b-list__image" %>
+			<% end %>
+			<%= missing.name %>
+			</a>
 		</div>
 		<div class="b-list__element_min"></div>
 	  </div>
@@ -29,7 +34,7 @@
 		<div class="b-sidebar__header">
 			Если у вас пропал близкий
 		</div>
-		<%= button_to 'Создайте объявление', new_missing_path,  :class => "green b-sidebar__create_missing"  %>
+		<%= button_to 'Создайте объявление', 'add_missing',  :class => "green b-sidebar__create_missing t-medium"  %>
 		<div class="b-sidebar__hr"></div>
 		<div class="b-sidebar__header">
 			Мы собираем информацию об опасных местах

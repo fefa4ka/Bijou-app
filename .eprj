@@ -4,6 +4,8 @@
     <dict>
         <key>fileTriggers</key>
         <dict>
+            <key>_for</key>
+            <string>views\missings\_form.html.erb</string>
             <key>b-form</key>
             <string>stylesheets\b-form.css</string>
             <key>fa</key>

@@ -1,19 +1,19 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 one:
-  missing_id: 1
   address: MyString
   latitude: 1.5
-  longtitude: 1.5
+  longitude: 1.5
   gmaps: false
   name: MyString
-  description: MyString
+  description: MyText
+  missing: 
 
 two:
-  missing_id: 1
   address: MyString
   latitude: 1.5
-  longtitude: 1.5
+  longitude: 1.5
   gmaps: false
   name: MyString
-  description: MyString
+  description: MyText
+  missing: 

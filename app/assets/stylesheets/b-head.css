@@ -1,0 +1,48 @@
+.b-head-bg {
+	background: #fff;
+	
+	border-bottom: 1px solid #ccc;
+}
+
+.b-head-bg, .b-head {
+	height: 70px;
+}
+
+.b-head {
+	padding-top: 1em;
+}
+	.b-head-hr {
+		margin: 0 0 10px !important;
+	}
+	
+	.b-head__logo {
+		width: 79px;
+		height: 39px;
+		
+		background: url(../images/logo.png) no-repeat;
+		
+	}
+	
+	.b-head__login_form {
+		display: none;
+		
+		text-align: center;
+		font-size: 18px;
+		
+	}
+	
+	.b-head__login_form_text {
+		margin: 9px 0;
+		width: 275px;
+		height: 25px !important;
+		
+		font-size: 18px;
+		text-align: center;			
+	}
+	
+	#login_name {
+		margin-top: 15px;
+	}
+	.b-head__block {
+		margin: 9px 0;
+	}

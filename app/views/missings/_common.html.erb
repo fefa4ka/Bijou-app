@@ -1,12 +1,12 @@
   <div class="b-form__field">
-    <%= f.label :man_name, "Кто пропал", :class => "b-form__label" %>
-    <%= f.text_field :man_name, :class => "b-form__text_name", :placeholder => "фамилия имя и отчество" %>
+    <%= f.label :name, "Кто пропал", :class => "b-form__label" %>
+    <%= f.text_field :name, :class => "b-form__text_name", :placeholder => "фамилия имя и отчество" %>
   <ul class="b-form__gender_list">
     <li class="b-form__gender_element"> 
-      <%= f.radio_button :man_gender, true  %><%= f.label :man_gender_true, "мужчина", :class => "b-form__radio_label"  %>
+      <%= f.radio_button :gender, true  %><%= f.label :gender_true, "мужчина", :class => "b-form__radio_label"  %>
     </li>
     <li class="b-form__gender_element">
-      <%= f.radio_button :man_gender, false  %><%= f.label :man_gender_false, "женщина", :class => "b-form__radio_label" %>
+      <%= f.radio_button :gender, false  %><%= f.label :gender_false, "женщина", :class => "b-form__radio_label" %>
     </li>
   </ul>
   </div>
@@ -24,8 +24,13 @@
 <!-- Входим див, после hr -->
 
   <div class="b-form__field">
-    <%= f.label :man_birthday, "День рождения", :class => "b-form__label" %>
-    <%= f.date_select :man_birthday, :order => [:day, :month, :year], :start_year => 1900, :default => { :day => 1, :month => 1, :year => 1988 }  %>
+    <%= f.label :man_age, "Возраст", :class => "b-form__label" %>
+    <%= f.text_field :man_age, :class => "b-form__text_age" %> <span class="man_age_sign">лет</span>
+    <p>
+    	<%= f.label :birthday, "или день рождения" %>
+    	
+    	<%= f.date_select :birthday, :order => [:day, :month, :year], :start_year => 1900, :end_year => Time.now.year, :default => { :day => 1, :month => 1, :year => 1988 }  %>
+	</p>
   </div>
 
 </div>
@@ -35,16 +40,33 @@
  <hr class="b-hr form" />
 
 <div class="container_16">
-<div class="grid_8">
+<div class="grid_16">
     
   <div class="b-form__field">
     <%= f.label :man_birthday, "Фотографии", :class => "b-form__label" %>
-	<div class="b-form__button_corner b-form__button_add_photo ui-corner-all">
-	   <input id="add_photo" type="button" value="Добавить">
+	<div class="b-form__button_corner l-left ui-corner-all">
+	   <input id="add_photo" type="button" value="Добавить" class="t-medium">
 	</div>
+	
 
-	<div>
-
-	</div>
+	<ul class="b-form__photos">
+	<%= f.fields_for :photos do |photo_form| %>
+	  <% if photo_form.object.image_name.nil? %>
+		<li class="b-form__photo_field">
+	    <%= photo_form.file_field :load_photo_file, :class => "invisible" %>
+	 	</li>
+	  <% else %>
+	    <li class="b-form__photo">
+			<%= image_tag "/photos/" + photo_form.object.image_name, :size => "100x100", :class => "b-form__photo" %>
+			<%= tag :input, { :type => "button", :value => "удалить", :class => "b-form__photo_delete red_action destroy" } %>
+			<%= photo_form.hidden_field :image_name %>
+			<%= photo_form.hidden_field :_destroy %>
+		</li>
+      <% end %>
+    <% end %>
+	</ul>
+	
+	
+	<div class="clear"></div>
   </div>
 <!-- Container and grid_8 div closed in new.html.erb -->

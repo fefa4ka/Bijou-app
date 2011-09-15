@@ -1,0 +1,349 @@
+input[type="text"], textarea {
+	padding: 3px 4px;
+	border: 1px solid #ccc;
+	border-top-color: #afafaf;
+	
+	-webkit-box-shadow: inset 0px 1px 2px 0px #d8d8d8;
+	-moz-box-shadow: inset 0px 1px 2px 0px #d8d8d8;
+	box-shadow: inset 0px 1px 2px 0px #d8d8d8;
+}
+
+input[type="text"] {
+	height: 14px;
+}
+
+
+
+/* hr в форме */
+.b-hr.form {
+	border-top-color: #f4f4f4;
+}
+
+/* Навигационная панель в размещении объявления */
+.b-form__nav_panel, .b-form__action_panel {
+  width: 100%;
+  height: 32px;
+
+/*  Отступ после панели 23px height - margin-bottom */
+  margin-bottom: -9px; 
+  position: relative;
+  top: -32px;
+  z-index: 1;
+
+  background: #f4f4f4;
+}
+
+	/* Список шагов в объявлении */
+	.b-form__nav_list {
+	  list-style: url(<%= asset_path 'form_arrow.png' %>) none;
+  
+	  height: 32px;
+	  position: relative;
+	  z-index: 2;
+	}
+  	
+	  .b-form__nav_element {
+	    float: left;
+	    margin-right: 2.5em;
+	    padding-left: 1em;
+	    padding-top: 8px;
+    
+	  }
+  
+	  .b-form__nav_first_element {
+/*		Первый элемент выпирает вправо, выравниваем */
+	    margin-left: -3.1em;
+    
+	    list-style: none;
+	  }
+
+	  .b-form__nav_first_element.b-form__nav_current_element {
+/*		Если первый элемент активен, за счет большего шрифта, он по другому выпирает, выравниваем */
+	    margin-left: -2.7em;
+	  }
+  
+	  .b-form__nav_current_element {
+	    font-size: 18px;
+    
+/*		Выравниваем по высоте */
+	    padding-top: 4px;
+	  }
+
+.b-form__field {
+  
+}
+	.b-form__field:hover .b-form__field_edit_action { 
+		display: inline-block;
+		float: right;
+	}
+	.b-form__field_edit_action {
+		display: none;
+		position: relative;
+		margin-left: 1em;
+		top: -.2em;
+	}
+	.b-form__subfield {
+		margin-top: 10px !important;
+	}
+
+		.b-form__subfield_label {
+			font-weight: bold;
+			margin: 19px 0 5px;
+			
+			text-transform: capitalize;
+		}
+
+	
+/* Кнопки под формой */
+.b-form__actions {
+  margin-top: 2em;
+
+/*  Кнопки поверх полоски */
+  position: relative; 	
+  z-index: 2;
+}
+
+/* Полоска для кнопок */
+.b-form__action_panel {
+  top: -27px;
+  margin-bottom: -27px; /* Компенсируем отступ снизу */
+}
+
+  .b-form__actions .ui-button {
+/* Расстояние между кнопками */
+    margin-right: 57px;
+  }
+
+/* Кнопка опубликовать объявление */
+.b-form__save_button {
+	color: #000 !important;
+}
+
+/* Подпись к полю */
+.b-form__label {
+  font-size:16px;
+  
+/*  line-height не подходит из-за отступа с двух сторон */
+  display: block;
+  padding-bottom: 10px;
+}
+
+.b-form__radio_list {
+  margin: 0;
+  list-style: none;
+}
+
+/* Поле имени в размещении объявления */
+.b-form__text_name {
+  width: 280px;
+  height: 20px;
+}
+
+/* Форма для фтографии */
+.b-form__photos {
+	list-style: none; 
+	
+	float: left;
+	margin-left: 42px;
+}
+	.b-form__photo_field {
+		width: 0;
+		height: 0;
+	}
+
+	li.b-form__photo {
+		text-align: center; 
+		
+		float: left;
+		margin-left: 15px;
+	}
+	
+	img.b-form__photo {
+		border: 1px solid #4a4a4a;
+		
+		display: block;
+		margin-bottom: 8px;
+		width: 100px;
+		height: 100px;
+	}
+	
+	.deleted img.b-form__photo {
+		opacity: .1;
+	}
+	
+	.active img.b-form__photo {
+		opacity: 1;
+	}
+
+/* Поле возраста */
+.b-form__text_age {
+	width: 1.5em;
+}
+/* Поле роста */
+.b-form__text_growth {
+  width: 2em;
+}
+
+.b-form__text_another {
+  width: 11em;
+}
+
+/* Радио кнопки пола в размещении объявления */
+.b-form__gender_list {
+  list-style: none;
+  
+  margin: 1em 0 0;
+  overflow: hidden;
+}
+
+  .b-form__gender_element {
+    float: left;
+    margin: 0 2em 0 0;
+  }
+  
+  
+
+/* Обрамление кнопки */
+.b-form__button_corner {
+	background: #f5f5f5;
+		
+	display: inline-block;
+	padding: 7px;
+}
+
+
+/* Текст под полем */
+.b-form__field_description {
+	margin: 4px 0 0 2px;
+}
+
+/* Примеры заполнения формы */
+.b-form__nested {
+	-webkit-box-shadow: 0px 1px 6px 0px #b4b4b4;
+	-moz-box-shadow: 0px 1px 6px 0px #b4b4b4;
+	box-shadow: 0px 1px 6px 0px #b4b4b4;
+}
+	
+	.b-form__nested_field {
+		width: 280px;
+	}
+	
+	.b-form__nested .b-form__field { 
+		margin-bottom: 16px;
+	}
+
+	.b-form__nested_action_panel {
+		margin-top: -1em;
+		height: 25px;
+		
+		background: #f4f4f4;
+	}
+
+
+/* Карта */
+.b-form__place_search {
+	width: 100%;
+	margin-bottom: 18px;
+}
+	.b-form__place_search_field {
+		padding-right: 7px;
+	}
+	
+	.b-form__place_search_text_field {
+		width: 100%;
+	}
+
+
+	.b-form__place_search_button {
+		width: 4.1em;
+		padding-left: 7px;
+	}
+
+	.b-form__nested {
+		display: none;
+	}
+	
+	
+/*	Список мест и людей */
+	.b-form__familiar, .b-form__place {
+		border-bottom: 1px solid #e1e1e1;
+		
+		padding-bottom: 13px;
+		margin-bottom: 13px;
+		width: 240px;
+	}
+	
+	.b-form__familiar .b-form__label, .b-form__place .b-form__label {
+		margin-bottom: 5px;
+		height: .9em;
+	}
+	
+	.b-form__add_familiar_relations_tense_description_field {
+		display: none;
+	}
+	
+/* =================== */
+/* = Чекбок и радио  = */
+/* =================== */
+
+/* wrapper divs */
+.b-form-checkbox, .b-form-radio { display: inline-block; position: relative; }
+	
+/* input, label positioning */
+.b-form-checkbox input, 
+.b-form-radio input {
+	position: absolute;
+	left: 2px;
+	top: 3px;
+	margin: 0;
+	z-index: 0;
+}
+
+.b-form-checkbox label, 
+.b-form-radio label {
+	display: inline-block;
+	position: relative;
+	z-index: 1;
+	line-height: 1;
+	padding: 0.2em 0 0.3em 17px;
+	cursor: pointer;
+	
+	color: #666;
+}
+
+
+.b-form-checkbox label {
+	background: url(<%= asset_path "checkbox.png" %>) no-repeat; 
+}
+
+.b-form-radio label { 
+	background: url(<%= asset_path 'radiobutton.png' %>) no-repeat; 
+}
+
+.b-form-checkbox label, .b-form-radio label {
+	background-position: -17px -19px;
+}
+
+.b-form-checkbox label.hover,
+.b-form-checkbox label.focus,
+.b-form-radio label.hover,
+.b-form-radio label.focus {
+	background-position: -17px -119px;
+}
+
+.b-form-checkbox label.checked, 
+.b-form-radio label.checked {
+	background-position: -17px -219px;
+	
+	color: #000;
+}
+
+.b-form-checkbox label.checkedHover, 
+.b-form-checkbox label.checkedFocus {
+	background-position: -17px -319px;
+}
+
+.b-form-checkbox label.focus, 
+.b-form-radio label.focus {
+	outline: 1px dotted #ccc;
+}

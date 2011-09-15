@@ -1,27 +1,19 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
 
 one:
-  man_name: MyString
+  name: MyString
   description: MyText
-  man_gender: false
-  man_birthday: 2011-08-14
-  man_char_hash: MyText
-  author_name: MyString
-  author_phone: MyString
-  author_email: MyString
-  author_callback_hash: 1
-  missing_private_hash: 1
-  missing_password: MyString
+  gender: false
+  birthday: 2011-09-13
+  characteristics: MyText
+  private: 1
+  account: 
 
 two:
-  man_name: MyString
+  name: MyString
   description: MyText
-  man_gender: false
-  man_birthday: 2011-08-14
-  man_char_hash: MyText
-  author_name: MyString
-  author_phone: MyString
-  author_email: MyString
-  author_callback_hash: 1
-  missing_private_hash: 1
-  missing_password: MyString
+  gender: false
+  birthday: 2011-09-13
+  characteristics: MyText
+  private: 1
+  account: 

@@ -3,12 +3,12 @@ People::Application.routes.draw do
 
   get "lost_list/index"
   
-  match "add_missing" => "missings#add"
+  match "add_missing" => "missings#new"
   match "add_missing/save_step" => "missings#save_step"
   match "add_missing/places" => "missings#places"
   match "add_missing/address_suggest" => "missings#address_suggest"
   match "add_missing/address_data" => "missings#address_data"
-  match "add_missing/:step" => "missings#add"
+  match "add_missing/:step" => "missings#new"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -58,7 +58,7 @@ People::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => "missings#add"
+  root :to => "lost_list#index"
 
   # See how all your routes lay out with "rake routes"
 
