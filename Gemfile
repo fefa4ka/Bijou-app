@@ -23,9 +23,12 @@ gem 'sqlite3', '1.3.4'
 gem 'rake', '0.9.2'
 gem 'rack', '1.3.2'
 
+gem 'russian'
+
 gem 'remotipart'
 gem 'gmaps4rails'
 
+#gem 'pry', :group => :development
 # Use unicorn as the web server
 gem 'unicorn'
 

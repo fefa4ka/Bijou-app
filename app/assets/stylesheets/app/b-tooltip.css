@@ -1,0 +1,130 @@
+.b-tooltip {
+    border: 1px solid #000;
+    
+    display: inline-block;
+    position: absolute;
+}
+
+.b-tooltip-absolute {
+	position: absolute;
+}
+
+.b-tooltip__tail, .b-tooltip__tail_border {
+    display: inline-block;
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    
+    border-top: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    
+    /* ie6 height fix */
+    font-size: 0;
+    line-height: 0;
+    /* ie6 transparent fix */
+    _border-right-color: pink;
+    _border-left-color: pink;
+    _filter: chroma(color=pink);
+    
+}
+
+.b-tooltip__content {
+    padding: 6px 18px
+}
+
+.b-tooltip.left {
+    margin-left: 20px;
+}
+
+.b-tooltip.left .b-tooltip__tail_border {
+    left: -16px;
+    top: 3px;
+    
+    border-right-color: #000;
+}
+.b-tooltip.left .b-tooltip__tail_border .b-tooltip__tail {
+    border-right-color: #fff;
+    margin-top: -8px;     
+    margin-left: -7px; 
+}
+
+.b-tooltip.right {
+    margin-right: 8px;
+}
+
+.b-tooltip.right .b-tooltip__tail_border {
+    left: 100%;
+    top: 3px;
+    
+    border-left-color: #000;
+}
+.b-tooltip.right .b-tooltip__tail_border .b-tooltip__tail {
+    border-left-color: #fff;
+    margin-top: -8px;     
+    margin-left: -9px; 
+}
+
+.b-tooltip.top {
+    margin-top: 8px;
+}
+
+.b-tooltip.top .b-tooltip__tail_border {
+    top: -16px;
+    
+    border-bottom-color: #000;
+}
+.b-tooltip.top .b-tooltip__tail_border .b-tooltip__tail {
+    border-bottom-color: #fff;
+    margin-left: -8px;
+    margin-top: -7px;     
+}
+
+.b-tooltip.bottom {
+    margin-bottom: 8px;
+}
+
+.b-tooltip.bottom .b-tooltip__tail_border {
+    top: 100%;
+    
+    border-top-color: #000;
+}
+.b-tooltip.bottom .b-tooltip__tail_border .b-tooltip__tail {
+    border-top-color: #fff;
+    margin-left: -8px;
+    margin-top: -9px;     
+}
+
+
+.b-tooltip.notification {
+    border-color: #E6E3C2;
+    background: #FFFCDE;
+}
+
+.b-tooltip.notification.left .b-tooltip__tail_border { border-right-color: #E6E3C2; }
+.b-tooltip.notification.left .b-tooltip__tail { border-right-color: #FFFCDE; }
+
+.b-tooltip.notification.right .b-tooltip__tail_border { border-left-color: #E6E3C2; }
+.b-tooltip.notification.right .b-tooltip__tail { border-left-color: #FFFCDE; }
+
+.b-tooltip.notification.top .b-tooltip__tail_border { border-bottom-color: #E6E3C2; }
+.b-tooltip.notification.top .b-tooltip__tail { border-bottom-color: #FFFCDE; }
+
+.b-tooltip.notification.bottom .b-tooltip__tail_border { border-top-color: #E6E3C2; }
+.b-tooltip.notification.bottom .b-tooltip__tail { border-top-color: #FFFCDE; }
+
+
+
+.b-tooltip.silver { border-color: #ccc; }
+.b-tooltip.silver.left .b-tooltip__tail_border { border-right-color: #ccc; }
+.b-tooltip.silver.left .b-tooltip__tail { border-right-color: #fff; }
+
+.b-tooltip.silver.right .b-tooltip__tail_border { border-left-color: #ccc; }
+.b-tooltip.silver.right .b-tooltip__tail { border-left-color: #fff; }
+
+.b-tooltip.silver.top .b-tooltip__tail_border { border-bottom-color: #ccc; }
+.b-tooltip.silver.top .b-tooltip__tail { border-bottom-color: #fff; }
+
+.b-tooltip.silver.bottom .b-tooltip__tail_border { border-top-color: #ccc; }
+.b-tooltip.silver.bottom .b-tooltip__tail { border-top-color: #fff; }

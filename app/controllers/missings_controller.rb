@@ -29,6 +29,7 @@ class MissingsController < ApplicationController
   	@missing = Missing.find(params[:id])
     @places = @missing.places.to_gmaps4rails
     @author = Account.find(@missing.account_id)
+	  @discussion = Discussion.new({ :missing_id => @missing.id })
     
     respond_to do |format|
       format.html # show.html.erb

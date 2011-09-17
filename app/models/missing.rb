@@ -16,11 +16,16 @@ class Missing < ActiveRecord::Base
   accepts_nested_attributes_for :places, :allow_destroy => true, :reject_if => lambda { |obj| obj[:address].blank? }
   accepts_nested_attributes_for :familiars, :allow_destroy => true, :reject_if => lambda { |obj| obj[:name].blank? }
   
+  after_find :expand_data
+  
+  def expand_data
+    now = Date.today
+    self.man_age = now.year - self.birthday.year if self.birthday.is_a?(Date)
+  end
 
   def current_step
     @current_step || steps.first
   end
-  
   
   def next_step
     next_step = steps[steps.index(current_step)+1] || ""

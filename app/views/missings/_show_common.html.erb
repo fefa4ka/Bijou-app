@@ -10,13 +10,13 @@
 <% (3-@missing.photos.count).times do |i| %>
 	<div class="b-list__element">
 		<div class="b-list__element_content">
-			<%= image_tag 'photos/002.jpg' %>
+			<%= image_tag 'no_photo.jpg', :size => "100x100" %>
 		</div>
 		<div class="b-list__element_min"></div>
 	</div>
 <% end %>
 </div>
 <div class="t-medium">История</div>
-<p class="b-missing__description">
+<p>
 	<%= @missing.description %>
 </p>

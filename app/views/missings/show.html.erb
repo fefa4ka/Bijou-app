@@ -1,7 +1,7 @@
-<div class="container_16">
+<div class="container_16 b-missing">
 	<div class="grid_12">
 		<div class="b-header">
-			Разыскивается <%= @missing.name %>
+			Разыскивается <%= @missing.name %><% unless @missing.man_age.nil? %>, <%= @missing.man_age %> <%= Russian.p @missing.man_age, 'год', 'года', 'лет' %> <% end %>
 		</div>
 		<div class="l-left b-missing_header__description">
 			<span class="l-left b-missing__share">Ваши друзья могут знать что-нибудь о пропавшем, расскажите им:</span>
@@ -23,7 +23,11 @@
 
 	<div class="b-missing__leftside">
 		<div class="b-missing__photo">
-			<img src="/photos/<%= @missing.photos.first.image_name %>" class="b-missing__photo" />
+		<% unless @missing.photos.first %>
+			<%= image_tag 'no_photo.jpg', :class => "b-missing__photo"  %>
+		<% else %>
+			<%= image_tag "/photos/" + @missing.photos.first.image_name, :class => "b-missing__photo" %>
+		<% end %>
 		</div>
 		<%= tag :input, { :type => "button", :value => "Я видел этого человека", :class => "green b-missing__i_saw t-medium" } %>
 	</div>
@@ -38,12 +42,36 @@
     <%= render :partial => 'show_map' %>
 
 	<div class="clear"></div>
-	<hr class="b-hr" />
+	<hr class="b-hr b-missing__hr_map_discussion" />
 	
 	<div class="b-header">Обсуждение</div>
 	<div class="clear"></div>
 	
+	<div class="b-missing__comment">
+		<div class="b-missing__comment_header">
+			<%= link_to "Вася Колин", "", :class => "t-medium b-missing__comment_author" %>
+			<span class="b-missing__comment_date t-small">6 августа</span>
+		</div>
+		<div class="b-missing__comment_text comment b-tooltip top silver">
+			<i class="b-tooltip__tail_border"><b class="b-tooltip__tail"></b></i>
+			<div class="b-tooltip__content">
+				Текст блеать
+			</div>
+		</div>
 	</div>
+	
+	<div class="b-missing__add_comment">
+	<div class="t-medium">Комментировать</div>
+	<%= form_for @discussion, :url => '/missing/add_comment.json', :remote => true do |comment| %>
+
+		<%= comment.text_area :comment, :rows => 7, :class => "b-missing__add_comment" %>
+		<%= comment.submit "Отправить", :class=> "b-missing__add_comment_button" %>
+	<% end %>
+	</div>
+	
+	<!-- end center block -->
+	</div>
+	
 	
 	<div class="grid_4">
 			<%= render :partial => 'show_right_sidebar' %>

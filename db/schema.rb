@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110914172635) do
+ActiveRecord::Schema.define(:version => 20110916152434) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -21,6 +21,18 @@ ActiveRecord::Schema.define(:version => 20110914172635) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "discussions", :force => true do |t|
+    t.text     "comment"
+    t.integer  "account_id"
+    t.integer  "discussion_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "missing_id"
+  end
+
+  add_index "discussions", ["account_id"], :name => "index_discussions_on_account_id"
+  add_index "discussions", ["discussion_id"], :name => "index_discussions_on_discussion_id"
 
   create_table "familiars", :force => true do |t|
     t.string   "name"

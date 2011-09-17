@@ -17,7 +17,7 @@
 		<div class="b-list__element_content">
 			<a href="<%= missing_path(missing) %>" class="b-list__name_link">
 			<% unless missing.photos.first %>
-				<%= image_tag 'photos/002.jpg', :size => "160x160", :class => "b-list__image"  %>
+				<%= image_tag 'no_photo.jpg', :size => "160x160", :class => "b-list__image"  %>
 			<% else %>
 				<%= image_tag "/photos/" + missing.photos.first.image_name, :size => "160x160", :class => "b-list__image" %>
 			<% end %>
