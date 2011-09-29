@@ -45,6 +45,14 @@ class MissingsController < ApplicationController
     @comment = Discussion.new(params[:discussion])       
     @comment.save           
     
+    if @comment.user.nil?
+      @comment.user = {
+        :id => 0,
+        :username => "Анонимный комментарий" 
+      }          
+    end
+    
+    
     data = {
       :comment => @comment.comment,    
       :discussion_id => @comment.discussion_id,
