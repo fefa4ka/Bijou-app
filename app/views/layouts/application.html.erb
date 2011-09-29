@@ -64,7 +64,7 @@
 	<div class="clear"></div>
 	<div class="grid_16">
 		<ul class="b-missing__tabs">
-			<%= link_to_unless_current content_tag("li", "Объявление", :class => "b-missing__tab"), missing_path(current_user.missings.first), :class => "b-missing__tab_link",  %>    
+			<%= link_to_unless_current content_tag("li", "Объявление", :class => "b-missing__tab"), missing_path(current_user.missings.first), :class => "b-missing__tab_link"  %>    
 			<%= link_to_unless_current content_tag("li", "Сводка по объявлению", :class => "b-missing__tab"), '/report', :class => "b-missing__tab_link" %>
 		</ul>
 	</div>	
