@@ -1,7 +1,7 @@
 <div class="b-sidebar b-missing__rightside">
 				<p class="b-sidebar__header">Объявление</p>
 				<p>
-					Размещено <%= @missing.created_at.to_s :long %>
+					Размещено <%= Russian.strftime @missing.created_at, "%d %B %Y" %> года
 				</p>
 				<table class="b-missing__author_data">
 					<tr>
@@ -9,7 +9,7 @@
 							Автор
 						</td>
 						<td class="b-missing__author_data_data">
-							<%= @author.name %>
+							<%= @author.username %>
 						</td>
 					</tr>
 					<% unless @author.phone == "" %>
@@ -24,11 +24,11 @@
 					<% end %>
 				</table>
 				<div class="t-center">
-					<%= tag :input, { :type => "button", :value => "Написать личное сообщение", :class => "b-missing__send_message" } %>
+					<%= tag :input, { :type => "button", :value => "Написать личное сообщение", :class => "b-missing__toggle_send_message" } %>
 				</div>
 			</div>
 
-		<div class="clear"></div>
+		<div class="clear"></div>             	
 		
 			<div class="b-sidebar b-missing__rightside">
 				<p class="b-sidebar__header">Люди которые могут помочь</p>

@@ -291,6 +291,16 @@
 	-moz-box-shadow: inset 0 1px 0 0 #8bd263, inset 0 -1px 0 0 #6cc63d;
 	box-shadow: inset 0 1px 0 0  #8bd263, inset 0 -1px 0 0 #6cc63d;
 }
+                           
+
+/* ====================== */
+/* = Actions hover state = */
+/* ====================== */      
+.ui-state-hover.silver_action a, .ui-state-hover.silver_action a:hover, .ui-state-hover.silver_action,
+.ui-state-hover.red_action a, .ui-state-hover.red_action a:hover, .ui-state-hover.red_action,
+.ui-state-hover.blue_action a, .ui-state-hover.blue_action a:hover, .ui-state-hover.blue_action
+{ color: #cc0000 !important; text-decoration: none; }  
+
 
 /* =============== */
 /* = Red action state = */
@@ -315,7 +325,6 @@
 	-moz-box-shadow: none;
 	box-shadow: none;
 }
-.ui-state-hover.red_action a, .ui-state-hover.red_action a:hover, .ui-state-hover.red_action, .ui-widget-content.red_action .ui-state-hover, .ui-widget-header.red_action .ui-state-hover, .ui-widget-content.red_action .ui-state-focus, .ui-widget-header.red_action .ui-state-focus  { color: #cc0000 !important; text-decoration: none; }
 
 .ui-state-active.red_action, .ui-widget-content.red_action .ui-state-active, .ui-widget-header.red_action .ui-state-active {
 	color: #da0000;
@@ -362,12 +371,6 @@ input.ui-button.red_action {
 	-webkit-box-shadow: none;
 	-moz-box-shadow: none;
 	box-shadow: none;
-}
-
-.ui-state-default.silver_action a, .ui-state-default.silver_action a:link, .ui-state-default.silver_action a:visited,
-.ui-state-hover.silver_action, .ui-widget-content.silver_action .ui-state-hover, .ui-widget-header.silver_action .ui-state-hover,  .ui-widget-content.silver_action .ui-state-focus, .ui-widget-header.silver_action .ui-state-focus,
-{
-	color: #000;
 }
 
 .ui-state-active.silver_action, .ui-widget-content.silver_action .ui-state-active, .ui-widget-header.silver_action .ui-state-active

@@ -1,14 +1,16 @@
 class Missing < ActiveRecord::Base
-  belongs_to :accounts
+  belongs_to :users
   
   has_many :photos, :dependent => :destroy
   has_many :places
   has_many :familiars
-  
+  has_many :discussions, :dependent => :destroy   
+
+
   serialize :man_char_hash
-  
-  attr_writer :current_step
-  
+
+  attr_writer :current_step 
+
   # Поля характеристик
   attr_accessor :man_age, :man_growth, :man_physique, :man_physique_another, :man_hair_color, :man_hair_color_another, :man_hair_length, :man_specials_tattoo, :man_specials_piercing, :man_specials_scar, :man_specials, :author_callback_phone, :author_callback_email, :private_history, :private_contacts, :photos_attributes, :author_name, :author_email, :author_phone, :author_callback_email, :author_callback_phone, :author_callback_hash, :missing_password
   
@@ -17,16 +19,20 @@ class Missing < ActiveRecord::Base
   accepts_nested_attributes_for :familiars, :allow_destroy => true, :reject_if => lambda { |obj| obj[:name].blank? }
   
   after_find :expand_data
+   
+  def to_param
+    "#{id}-#{name.parameterize}"
+  end
   
   def expand_data
     now = Date.today
     self.man_age = now.year - self.birthday.year if self.birthday.is_a?(Date)
-  end
+  end                                        
 
   def current_step
     @current_step || steps.first
-  end
-  
+  end                                                                                                                                 
+                                                          
   def next_step
     next_step = steps[steps.index(current_step)+1] || ""
   end
@@ -45,5 +51,6 @@ class Missing < ActiveRecord::Base
   
   def steps
     %w[common characteristic history contacts]
-  end
-end
+  end              
+  
+end                                

@@ -1,3 +1,16 @@
+.b-missing {
+	margin-top: 26px;
+}                   
+
+.b-missing__information {
+	clear: both;
+	width: 100%;
+}
+
+.b-missing__history_header {
+	margin-top: 11px;
+}   
+
 .b-missing .b-hr {
 	border-color: #f1f1f1;
 }
@@ -9,7 +22,7 @@
 .b-missing__leftside {
 	background: #f1f1f1;
 	
-	width: 220px;
+	width: 35%;
 	float: left;
 }
 	.b-missing__leftside .b-sidebar__list {
@@ -23,15 +36,28 @@
 .b-missing__i_saw {
 	width: 90%;
 	margin: 0 5% 9px;
-}
+}           
+	div.b-missing__i_saw_in {
+		padding: 0 .5em .5em;
+	}    
+	                  
+	input.b-missing__i_saw_in {
+		width: 100px;
+	}
 
 .b-missing__photo { 
-	width: 220px;
+	width: 100%;        
+	margin-bottom: 3px;
 }
 
 .b-missing__center {
-	margin-left: 20px;
-	float: left;
+	margin-left: 2%;
+	float: left;  
+   	width: 63%;
+
+	/* IE Hack */
+	//margin-left: 30%;
+	//margin-right: -100%;
 }
 
 .b-missing__photos .b-list__element {
@@ -69,7 +95,7 @@
 		padding-bottom: 12px !important;
 	}
 
-.b-missing__send_message { 
+.b-missing__toggle_send_message { 
 	margin-left: -4px;
 	padding-left: 29px !important;
 	padding-right: 29px !important;
@@ -124,23 +150,45 @@ div.b-missing__share {
 .b-missing__hr_map_discussion {
 	margin: 26px 0 6px 0;
 }
+                     
 
-/* Комментарии */
-.b-missing__comment_date {
-	color: #999;
-	display: inline-block;
-	margin-left: 10px;
-}
+/* Комментарии */               
+.b-missing__comment {
+	margin-top: 25px;
+}              
 
-.b-missing__comment_author {
-	text-decoration: none;
-}
+	.b-missing__comment_author {
+		text-decoration: none;
+	}
+
+	.b-missing__comment_date {
+		color: #999;
+		display: inline-block;
+		margin-left: 10px;
+	}
+     
 
 
-.b-missing__comment_text {
-	position: relative !important;
-}
+	.b-missing__comment_text {
+		position: relative !important;
+	} 
+                  
 
+	div.b-missing__add_comment {
+		margin-top: 45px;
+	}                   
+	
+		textarea.b-missing__add_comment {
+			width: 99%;
+			margin: 10px 0;
+		}    
+
+	.b-missing__add_comment_button {
+		
+	}
+	                
+	
+/* Обрамление для комментария */
 .b-tooltip.comment .b-tooltip__tail_border, .b-tooltip.comment .b-tooltip__tail {
 	border-top-width: 5px;
 	border-right-width: 10px;
@@ -162,18 +210,128 @@ div.b-missing__share {
 }
 
 .b-tooltip.comment .b-tooltip__content {
-	padding: 8px 6px;
+	padding: 8px 6px;         
 }
 
-div.b-missing__add_comment {
-	 margin-top: 3em;
-}
+	.b-missing__comment_text {
+	   	background: #fff;
+	}
+                 
+     
 
-textarea.b-missing__add_comment {
-	width: 100%;
-	margin: 10px 0;
-}
+.b-missing__comment.sub {
+	margin-top: 14px;    
+	
+	overflow: hidden;
+}              
+    .b-missing__comment.sub .b-missing__comment_header {
+		width: 110px;
+	}       
+	
+	.b-missing__comment.sub .b-missing__comment_author {
+		text-decoration: none;      
+		display: block;
+	}
 
-.b-missing__add_comment_button {
-	float: right;
+	.b-missing__comment.sub .b-missing__comment_date {
+		color: #999;                        
+		
+		margin-top: 3px;
+		display: inline-block;
+	}
+     
+
+
+	.b-missing__comment.sub .b-missing__comment_text {   
+		margin-left: 120px;    
+		min-height: 2.6em;
+		border: 1px solid #ccc;              
+		padding: 8px 6px;
+	} 
+                 
+/* Отправка сообщения */      
+.b-missing__send_message {
+	display: none;
 }
+.b-missing__send_message_field {
+	margin-top: 5px;
+}                        
+
+.b-missing__send_message_button {
+	margin: 1em .1em;
+}                
+
+/* Табы */
+.b-missing__tabs {
+	list-style: none;  
+	
+	margin: 0;
+}                    	
+	
+	.b-missing__tab { 
+		margin: 0 5px 0 0;
+		   
+		float: left; 
+	    
+		
+		-webkit-border-top-left-radius: 5px;
+		-webkit-border-top-right-radius: 5px;
+		-moz-border-top-left-radius: 5px;
+		-moz-border-top-right-radius: 5px;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+		
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: -moz-none;
+		-o-user-select: none;
+		user-select: none;
+	}                 
+	
+	.b-missing__tab, .b-missing__tab:active, .b-missing__tab:hover {
+		font-size: 16px;
+		color: #0b3a83;     
+	    background: #f8f8f8;
+	    cursor: default;
+	
+		margin-top: 0px;
+		padding: 6px 18px 2px 18px;   
+		
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+	}             
+	
+	.b-missing__tab_link {
+		text-decoration: none;
+	} 
+	
+	a .b-missing__tab, a .b-missing__tab:hover, a .b-missing__tab:active  {    
+		font-size: 13px;
+		text-decoration: none;
+		background: #eee;
+		color: #333;
+		cursor: pointer;
+
+		padding: 4px 15px 4px; 
+		margin: 3px 5px 0 0;    
+		
+		-webkit-box-shadow: inset 0px -1px 4px 1px rgba(00, 00, 00, 0.1);
+		-moz-box-shadow: inset 0px -1px 4px 1px rgba(00, 00, 00, 0.1);
+		box-shadow: inset 0px -1px 4px 1px rgba(00, 00, 00, 0.1);
+		
+	}
+	
+	a .b-missing__tab:hover {
+		color: #cc0000;
+	}           
+	a .b-missing__tab:active {    
+		color: #de1800;
+		
+		padding: 5px 14px 3px 16px;
+		
+		-webkit-box-shadow: inset 0px -1px 4px 1px rgba(00, 00, 00, 0.1), inset 0px 1px 2px 1px rgba(00, 00, 00, 0.2);
+		-moz-box-shadow: inset 0px -1px 4px 1px rgba(00, 00, 00, 0.1), inset 0px 1px 2px 1px rgba(00, 00, 00, 0.2);
+		box-shadow: inset 0px -1px 4px 1px rgba(00, 00, 00, 0.1), inset 0px 1px 2px 1px rgba(00, 00, 00, 0.2);
+	}
+	

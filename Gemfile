@@ -15,7 +15,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-
+                                
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -27,6 +27,8 @@ gem 'russian'
 
 gem 'remotipart'
 gem 'gmaps4rails'
+                     
+gem 'sorcery'
 
 #gem 'pry', :group => :development
 # Use unicorn as the web server

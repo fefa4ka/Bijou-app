@@ -172,10 +172,15 @@ function add_hidden_fields(element, prefix, fields)
 	var new_id = new Date().getTime();
 
 	for(id in fields) {
-		var field = $(prefix + fields[id]);
+		var field = $(prefix + fields[id]),
+			new_name;
+		
+		if (field.attr('name')) {
+			new_name = field.attr('name').replace(/[0-9]+/i, new_id);      
+		}
 		
 		element.append( $('<input type=hidden />')
-		 					.attr("name", field.attr('name').replace(/[0-9]+/i, new_id))
+		 					.attr("name", new_name)
 							.val(field.val())
 		);
 	}

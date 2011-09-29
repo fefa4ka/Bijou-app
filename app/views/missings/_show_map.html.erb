@@ -1,5 +1,5 @@
 <div class="l-left b-missing__map">
-	<div class="b-header">Места, где бывала [name]</div>
+	<div class="b-header">Места, где <% if @missing.gender == true %>бывал<% else %>бывала<% end %> <%= @missing.name %></div>
 
 	<% if @places %>
 	  <%= gmaps({ "markers" => { "data" => @places } }) %>

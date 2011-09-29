@@ -14,29 +14,55 @@ class MissingsController < ApplicationController
   end
   # GET /missings
   # GET /missings.xml
-  def index
-    @missings = Missing.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @missings }
-    end
+  def index                          
+    if defined? current_user.missings.first   
+      redirect_to missing_path(current_user.missings.first)
+    else
+      redirect_to root_url
+    end      
   end
 
   # GET /missings/1
   # GET /missings/1.xml
-  def show    
-  	@missing = Missing.find(params[:id])
+  def show                 
+  	@missing = Missing.find(params[:id])                  
+  	
     @places = @missing.places.to_gmaps4rails
-    @author = Account.find(@missing.account_id)
-	  @discussion = Discussion.new({ :missing_id => @missing.id })
-    
+    @author = User.find(@missing.user_id)             
+
+	  @discussion = Discussion.new({ :missing_id => @missing.id, :user_id => current_user.id })        
+	  @message = Message.new({ :user_id => @missing.user_id })
+	  
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @missing }
     end
   end
+                      
+  # Add comment
+  def add_comment
+    @missing = Missing.find(params[:discussion]["missing_id"])
+    @comment = Discussion.new(params[:discussion])       
+    @comment.save           
+    
+    data = {
+      :comment => @comment.comment,    
+      :discussion_id => @comment.discussion_id,
+      :date => Russian.strftime(@comment.created_at, "%d %B"), 
+      :user => {
+        :id => @comment.user.id,
+        :username => @comment.user.username
+      }
+    }                                                         
 
+    
+    respond_to do |format| 
+      format.json {
+        render :json => { :ok => "true", :comment => data } 
+      }           
+    end
+  end
+  
   # GET /missings/new
   # GET /missings/new.xml
   def new
@@ -72,7 +98,6 @@ class MissingsController < ApplicationController
 
   # Сохраняем данные текущего шага
   def save_step
-    
     session[:missing_params] ||= {}
     session[:missing] ||= {}
     
@@ -93,20 +118,19 @@ class MissingsController < ApplicationController
         logger.debug(session[:missing_params].inspect)
       	convert_to_hash
     	
-      	account = {
-      		:name => session[:missing_params]["author_name"],
+      	user = {
+      		:username => session[:missing_params]["author_name"],
       		:email => session[:missing_params]["author_email"],
       		:phone => session[:missing_params]["author_phone"],
       		:callback => session[:missing_params]["author_callback_hash"],
       		:password => session[:missing_params]["missing_password"]
-  		}
+  	    }
 
         @missing = Missing.new(session[:missing_params])
         
-        @account = Account.new(account)
-  		@account.missings.push(@missing)
-  		
-        @account.save
+        @user = User.new(user)
+  		  @user.missings.push(@missing)
+        @user.save
 
         #session[:missing_params] = session[:missing] = nil
         flash[:notice] = "Объявление размещено"

@@ -31,29 +31,47 @@
 <div id="wrapper">
 <div class="b-head-bg">
   <div class="container_16">
- 	 <div class="b-head grid_16">
+ 	 <div class="b-head grid_3">
 		<%= link_to_unless_current image_tag('logo.png', :class => 'l-left'), '/' %>
-		</a>
-		<div class="b-head__auth grid_1 prefix_13">
-			<input class="b-head__login black" type="button" value="Войти" />
-			<div class="b-head__login_form">
-				<input id="login_name" class="b-head__login_form_text" type="text" placeholder="эл. почта или телефон">
-				<input id="login_password" class="b-head__login_form_text" type="text" placeholder="пароль">
-				<p class="b-head__block">
-					<input id="login_remember_me" type="checkbox"><label for="login_remember_me"> запомнить меня</label>
-				</p>
-				<p class="b-head__block">
-					<input type="button" value="Войти" class="t-medium"/>
-				</p>
-				<p class="b-head__block">
-					<a href="#">вспомнить пароль</a>
-				</p>
-			</div>
+		</a>           
+	</div>  
+	
+    <div class="b-head__auth grid_3 prefix_10">  
+		<% if current_user %>
+	    <div class="b-head__logined">Для вас есть новости, <%= current_user.username %>.<br/>
+		<%= link_to "Выйти", logout_path %>  
 		</div>
-	  </div>
-	</div>
-  </div>
-
+		<% else %>
+		<input class="b-head__login black" type="button" value="Войти" />
+		<div class="b-head__login_form">                                    
+			<%= form_tag sessions_path do %>   
+			<%= text_field_tag :email, params[:email], :class => "b-head__login_form_text", :placeholder => "эл. почта или телефон", :tabindex => -1 %>
+				<%= text_field_tag :password, "", :class => "b-head__login_form_text", :placeholder => "пароль", :tabindex => -1 %>
+			<p class="b-head__block">
+				<%= check_box_tag :remember_me, 1 %> <%= label_tag :remember_me, "запомниь меня", :tabindex => -1 %>
+			</p>
+			<p class="b-head__block">  
+				<%= submit_tag "Войти", :class => "t-medium", :tabindex => 1 %>
+			</p>
+			<p class="b-head__block">
+				<a href="#">вспомнить пароль</a>
+			</p>   
+			<% end %>
+		</div>     
+		<% end %>   
+	</div>                  
+	<% if defined? current_user.missings.first %>
+	<div class="clear"></div>
+	<div class="grid_16">
+		<ul class="b-missing__tabs">
+			<%= link_to_unless_current content_tag("li", "Объявление", :class => "b-missing__tab"), missing_path(current_user.missings.first), :class => "b-missing__tab_link",  %>    
+			<%= link_to_unless_current content_tag("li", "Сводка по объявлению", :class => "b-missing__tab"), '/report', :class => "b-missing__tab_link" %>
+		</ul>
+	</div>	
+	<% end %>
+  </div>      
+ </div>
+  <div class="clear"></div> 
   <%= yield %> <!--! end of #container -->
 
   <div class="clear"></div>

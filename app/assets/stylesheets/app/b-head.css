@@ -1,14 +1,19 @@
 .b-head-bg {
-	background: #fff;
+	background: #333;
 	
-	border-bottom: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;   
+	
+	-webkit-box-shadow: inset 0px -1px 4px 1px rgba(00, 00, 00, 0.1);
+	-moz-box-shadow: inset 0px -1px 4px 1px rgba(00, 00, 00, 0.1);
+	box-shadow: inset 0px -1px 4px 1px rgba(00, 00, 00, 0.1);
 }
 
-.b-head-bg, .b-head {
-	height: 70px;
+.b-head-bg {
+	height: 99px;
 }
 
-.b-head {
+.b-head { 
+	height: 60px;
 	padding-top: 1em;
 }
 	.b-head-hr {
@@ -21,6 +26,14 @@
 		
 		background: url(../images/logo.png) no-repeat;
 		
+	}                
+	
+	.b-head__auth {
+		margin-top: 6px;
+	}                   
+	
+	.b-head__logined {
+		color: #dedede;
 	}
 	
 	.b-head__login_form {

@@ -67,33 +67,6 @@ $(function() {
 			
 			add_hidden_fields(element, prefix, fields);
 			
-					/*	
-						// Создаем поля
-						.append( $("<input type=hidden />")
-							.attr( "name", name_field.attr("name").replace(/[0-9]+/i, new_id) )
-							.val( name_field.val() )
-						)
-						.append( $("<input type=hidden />")
-							.attr( "name", relations_field.attr("name").replace(/[0-9]+/i, new_id) )
-							.val( relations_field.val() )
-						)
-						.append( $("<input type=hidden />")
-							.attr( "name", relations_quality_field.attr("name").replace(/[0-9]+/i, new_id) )
-							.val( relations_quality_field.val() )
-						)
-						.append( $("<input type=hidden />")
-							.attr( "name", relations_description_field.attr("name").replace(/[0-9]+/i, new_id) )
-							.val( relations_description_field.val() )
-						)
-						.append( $("<input type=hidden />")
-							.attr( "name", description_field.attr("name").replace(/[0-9]+/i, new_id) )
-							.val( description_field.val() )
-						)
-						.append( $("<input type=hidden />")
-							.attr( "name", seen_last_day_field.attr("name").replace(/[0-9]+/i, new_id) )
-							.val( seen_last_day_field.val() )
-						);
-				  */
 				
 		$(".b-form__familiars").append( element );
 		

@@ -1,5 +1,17 @@
 People::Application.routes.draw do
-  resources :missings
+  get "sessions/new"
+
+  #get "users/new"
+  get "logout" => "sessions#destroy", :as => "logout"
+  get "login" => "sessions#new", :as => "login"
+  get "singup" => "users#new", :as => "singup"
+  
+  match "send_message" => "users#send_message" 
+  
+  resources :users
+  resources :sessions
+  resources :missings 
+  resources :report
 
   get "lost_list/index"
   
@@ -8,7 +20,12 @@ People::Application.routes.draw do
   match "add_missing/places" => "missings#places"
   match "add_missing/address_suggest" => "missings#address_suggest"
   match "add_missing/address_data" => "missings#address_data"
-  match "add_missing/:step" => "missings#new"
+  match "add_missing/:step" => "missings#new"             
+                                                                       
+  match "missing/add_comment" => "missings#add_comment"                
+  
+     
+   
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

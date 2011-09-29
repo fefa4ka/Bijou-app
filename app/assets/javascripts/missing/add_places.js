@@ -42,73 +42,77 @@ $(function(){
 		// Для ссылки
 		return false;
 	}		
-	
-	$(".b-form__place_search_text_field").autocomplete({
-		minLength: 2,
-		source: function( request, response ) {
-			var bounds = Gmaps.map.map.getBounds(), 
-				center = Gmaps.map.map.getCenter(),
-				ne = bounds.getNorthEast(),
-				sw =  bounds.getSouthWest(),
-				size = {
-					lng: ne.lng() - sw.lng(),
-					lat: ne.lat() - sw.lat()
-				}
-				ll = [center.lng(), center.lat()].join(','),
-				spn = [size.lng, size.lat].join(',');
+	             
+	if( $(".b-form__place_search_text_field").length != 0 ) 
+	{
+		$(".b-form__place_search_text_field").autocomplete({
+			minLength: 2,
+			source: function( request, response ) {
+				var bounds = Gmaps.map.map.getBounds(), 
+					center = Gmaps.map.map.getCenter(),
+					ne = bounds.getNorthEast(),
+					sw =  bounds.getSouthWest(),
+					size = {
+						lng: ne.lng() - sw.lng(),
+						lat: ne.lat() - sw.lat()
+					}
+					ll = [center.lng(), center.lat()].join(','),
+					spn = [size.lng, size.lat].join(',');
 			
-			$.ajax({
-				url: "/add_missing/address_suggest.json",
-				dataType: "jsonp",
-				data: {
-					part: request.term,
-					ll: ll,
-					spn: spn
-				},
-				success: function( data ) {
+				$.ajax({
+					url: "/add_missing/address_suggest.json",
+					dataType: "jsonp",
+					data: {
+						part: request.term,
+						ll: ll,
+						spn: spn
+					},
+					success: function( data ) {
 
-					response( $.map( data[1], function( item ) {
-						var suggest = item[1],
-							value = item[2]
-							label = "";
-						for(i in suggest) {
-							var item = suggest[i];
+						response( $.map( data[1], function( item ) {
+							var suggest = item[1],
+								value = item[2]
+								label = "";
+							for(i in suggest) {
+								var item = suggest[i];
 							
-							if( typeof(item) == "object" && (item instanceof Array))
-							{
-								label += '<b>' + item[1] + '</b>';
-							} else {
-								label += item;
+								if( typeof(item) == "object" && (item instanceof Array))
+								{
+									label += '<b>' + item[1] + '</b>';
+								} else {
+									label += item;
+								}
 							}
-						}
 				
-						return {
-							label: label,
-							value: value
-						}
-					}));
-				}
-			});
+							return {
+								label: label,
+								value: value
+							}
+						}));
+					}
+				});
 			
-		},
-		select: function(event, ui) {
-			add_place( ui.item.value )
-		}
-	})
-	.keydown( function( event ) {
-		// Если нажать на Enter в поле поиска, то откроется оверлей добавления места
-		if( event.keyCode == 13) {
-			$(".b-form__place_search_button").click();
+			},
+			select: function(event, ui) {
+				add_place( ui.item.value )
+			}
+		})
+		.keydown( function( event ) {
+			// Если нажать на Enter в поле поиска, то откроется оверлей добавления места
+			if( event.keyCode == 13) {
+				$(".b-form__place_search_button").click();
 			
-			return false;
-		}
-	})
-	.data( "autocomplete" )._renderItem = function( ul, item ) {
-		return $( "<li></li>" )
-			.data( "item.autocomplete", item )
-			.append('<a>' + item.label + '</a>')
-			.appendTo( ul );
-	}
+				return false;
+			}
+		})
+		.data( "autocomplete" )
+		._renderItem = function( ul, item ) {
+				return $( "<li></li>" )
+					.data( "item.autocomplete", item )
+					.append('<a>' + item.label + '</a>')
+					.appendTo( ul );
+			}              
+    }
 	
 	// По Enter в оверлее добавления места, место добавляется
 	$('.b-form__add_place').keydown( function( event ) {
