@@ -1,0 +1,13 @@
+=== unicorn 4.1.1 - fix last-resort timeout accuracy / 2011-08-25 21:30 UTC
+
+  The last-resort timeout mechanism was inaccurate and often
+  delayed in activation since the 2.0.0 release.  It is now fixed
+  and remains power-efficient in idle situations, especially with
+  the wakeup reduction in MRI 1.9.3+.
+
+  There is also a new document on application timeouts
+  intended to discourage the reliance on this last-resort
+  mechanism.  It is visible on the web at:
+
+    http://unicorn.bogomips.org/Application_Timeouts.html
+
