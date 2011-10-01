@@ -47,7 +47,7 @@ $(function(){
 					)
 			);
 		}
-	}
+	}         
 	
 	$(".b-form__next_button").click(function(){
 		submit_action = "next_step";
@@ -111,10 +111,8 @@ $(function(){
 		$("#new_missing").submit();
 	});
 	
-	$("#add_photo").click(function() {
-	  $(".b-form__photos input[type=file]").click();
-	});
-	
+   
+ 
 	// Удаляем фотографию 
 	$(".b-form__photo .destroy").live('click', function(){
 

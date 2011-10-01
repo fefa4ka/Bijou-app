@@ -32,12 +32,38 @@
 <div id="wrapper">
 <div class="b-head-bg">
   <div class="container_16">
- 	 <div class="b-head grid_3">
+ 	 <div class="b-head__logo grid_3">
 		<%= link_to_unless_current image_tag('logo.png', :class => 'l-left'), '/' %>
 		</a>           
 	</div>  
-	
-    <div class="b-head__auth grid_3 prefix_10">  
+	<div class="grid_11 b-head__menu">
+	   <table class="b-head__menu_table">
+		<tr>
+			<td>
+				<div class="t-medium">У вас пропал человек</div>
+				<div class="b-head__menu_description">
+					Все будут искать потеряшку
+				</div>   
+				<%= button_to 'Разместить объявление', '/add_missing/common', :class => "black",   %> 
+			</td>
+			<td>
+				<div class="t-medium">Вы детектив</div>
+				<div class="b-head__menu_description">
+					Найдите себе клиентов
+				</div>   
+				<%= button_to 'Зарегистрируйтесь', '/singup/detective', :class => "black"  %> 
+			</td>                                
+			<td>
+				<div class="t-medium">Доброволец</div>
+				<div class="b-head__menu_description">
+					Ты можешь помочь в поиске потеряшек
+				</div>   
+				<%= button_to 'Стать добровольцем', '/singup/volunteer', :class => "black"  %> 
+			</td>              
+		</tr>
+		</table>   	
+	</div>
+    <div class="b-head__auth grid_1">  
 		<% if current_user %>
 	    <div class="b-head__logined">Для вас есть новости, <%= current_user.username %>.<br/>
 		<%= link_to "Выйти", logout_path %>  

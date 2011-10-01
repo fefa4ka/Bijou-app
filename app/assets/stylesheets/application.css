@@ -102,7 +102,12 @@ a:hover { color: red;}
 }      
 .l-right {
 	float: right;
-}
+}                   
+
+.l-inline {
+	display: inline-block !important;
+}                        
+
 .l-full_width {
 	width: 100%;
 }

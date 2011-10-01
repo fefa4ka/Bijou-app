@@ -21,16 +21,16 @@
 		margin: 0 0 10px !important;
 	}
 	
-	.b-head__logo {
-		width: 79px;
-		height: 39px;
+	.b-head__logo {   
+		margin-top: 34px;
+		width: 220px !important;
 		
 		background: url(../images/logo.png) no-repeat;
 		
 	}                
 	
 	.b-head__auth {
-		margin-top: 6px;
+		margin-top: 1em;
 	}                   
 	
 	.b-head__logined {
@@ -59,4 +59,24 @@
 	}
 	.b-head__block {
 		margin: 9px 0;
+	}                
+	
+	
+	.b-head__menu {
+		color: #ddd;
+	}                 
+
+	.b-head__menu_table {
+		width: 100%;     
+		margin-top: 10px;
+	}                   
+
+	.b-head__menu_description {
+		margin-top: 5px;
+	}                    
+
+	.b-head__menu .black {
+		position: absolute;
+		top: 67px;
+
 	}

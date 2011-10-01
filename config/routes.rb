@@ -4,7 +4,8 @@ People::Application.routes.draw do
   #get "users/new"
   get "logout" => "sessions#destroy", :as => "logout"
   get "login" => "sessions#new", :as => "login"
-  get "singup" => "users#new", :as => "singup"
+  match "singup/detective" => "users#new"
+  
   
   match "send_message" => "users#send_message" 
   
