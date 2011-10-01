@@ -1,1 +1,68 @@
-adasd
+<div class="container_16 b-report">
+	<div class="grid_12">
+		<div class="b-sidebar">
+		    <div class="l-left">К сожалению, у анкеты мало посещений, попробуйте еще рассказать о случившемся в социальных сетях:</div>
+			<div class="addthis_toolbox addthis_default_style l-left b-missing__share">
+				<a class="addthis_button_preferred_1"></a>
+				<a class="addthis_button_preferred_2"></a>
+				<a class="addthis_button_preferred_3"></a>
+				<a class="addthis_button_preferred_4"></a>
+				<a class="addthis_button_compact"></a>
+				<a class="addthis_counter addthis_bubble_style"></a>   
+			</div>   
+		    <div class="clear"></div>
+		</div>         
+	    
+		<div class="clear"></div>  
+		
+		<div class="b-report__toolbar toolbar">
+			<%= check_box_tag "all", 1, true, :class => "b-form-custom-false" %><%= label_tag "all", "Все" %>
+			<%= check_box_tag "new_history", 1, false, :class => "b-form-custom-false" %><%= label_tag "new_history", "Новые обстоятельства" %>
+			<%= check_box_tag "new_people", 1, false, :class => "b-form-custom-false" %><%= label_tag "new_people", "Кто может помочь" %>
+			<%= check_box_tag "people", 1, false, :class => "b-form-custom-false" %><%= label_tag "people", "Участники поиска" %>   
+			<%= check_box_tag "similar", 1, false, :class => "b-form-custom-false" %><%= label_tag "similar", "Похожие пропажи" %>
+		</div>         
+		
+		<div class="b-report__list">                   
+			<% current_user.messages.each do |message| %>        
+			<div class="b-missing__comment" message_id="<%= message.id %>">
+				<div class="b-missing__comment_header">
+					<% if message.user.nil? %>
+						<%= link_to "Анонимный комментарий", "", :class => "t-medium b-missing__comment_author" %>    
+					<% else %>
+						<%= link_to message.user.username, "", :class => "t-medium b-missing__comment_author" %>    
+					<% end %>
+					<span class="b-missing__comment_date t-small"><%= Russian.strftime message.created_at, "%d %B" %></span>   
+					<%= tag :input, { :type => "button", :value => "Ответить", :class => "b-missing__comment_answer silver_action l-right" } %>
+				</div>
+				<div class="b-missing__comment_text comment b-tooltip top silver">
+					<i class="b-tooltip__tail_border"><b class="b-tooltip__tail"></b></i>
+					<div class="b-tooltip__content">
+						<%= message.message %>
+					</div>
+				</div>
+			</div>
+			<% end %>  
+			
+			
+		</div>
+	</div>
+	
+	<div class="grid_4"> 
+		
+	   	<div class="b-sidebar b-report__statistic">
+			<p class="b-sidebar__header">Статистика просмотров</p>
+			<p>
+				Количество посещений: <span class="b-report__statistic_red">100</span>
+			</p>
+			<p>
+				Детективы: <span class="b-report__statistic_green">35</span>
+			</p>
+			<p>
+				Остальные: <span class="b-report__statistic_red">65</span>
+			</p>
+		</div>
+ 
+	</div>
+</div>
+

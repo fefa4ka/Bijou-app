@@ -1,7 +1,8 @@
 .b-head-bg {
 	background: #333;
 	
-	border-bottom: 1px solid #ccc;   
+	border-bottom: 1px solid #ccc;                
+	margin-bottom: 20px;
 	
 	-webkit-box-shadow: inset 0px -1px 4px 1px rgba(00, 00, 00, 0.1);
 	-moz-box-shadow: inset 0px -1px 4px 1px rgba(00, 00, 00, 0.1);

@@ -1,0 +1,81 @@
+/* Тулбар  */
+.b-report__toolbar {
+	margin-top: 20px;
+}
+.toolbar .ui-state-default, .toolbar .ui-widget-content .toolbar .ui-state-default, .toolbar .ui-widget-header .toolbar .ui-state-default
+{	
+	color: #0065cc;
+	
+	padding: 5px 10px 4px;
+	border: 1px solid #e5e5e5; 
+	border-bottom-color: #e6e6e6;
+	border-left-color: #e4e4e4;
+	border-right-color: #e4e4e4;
+	
+	background: #fff; /* Old browsers */
+	background: -moz-linear-gradient(top, #fff 0%, #f1f1f1 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fff), color-stop(100%,#f1f1f1)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #fff 0%,#f1f1f1 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #fff 0%,#f1f1f1 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, #fff 0%,#f1f1f1 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff', endColorstr='#f1f1f1',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, #fff 0%,#f1f1f1 100%); /* W3C */                    
+	
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	
+}
+
+.toolbar .ui-state-default a, .toolbar .ui-state-default a:link, .toolbar .ui-state-default a:visited { color: #1c94c4; text-decoration: none; }
+.toolbar .ui-state-hover, .toolbar .ui-widget-content .toolbar .ui-state-hover, .toolbar .ui-widget-header .toolbar .ui-state-hover, .toolbar .ui-widget-content .toolbar .ui-state-focus, .toolbar .ui-widget-header .toolbar .ui-state-focus {
+
+	color: #cc0000;
+	
+	background: -webkit-linear-gradient(top, #fff 0%,#f1f1f1 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #fff 0%,#f1f1f1 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, #fff 0%,#f1f1f1 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff', endColorstr='#f1f1f1',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, #fff 0%,#f1f1f1 100%); /* W3C */
+}
+
+.toolbar .ui-state-hover a, .toolbar .ui-state-hover a:hover { color: #c77405; text-decoration: none; }
+.toolbar .ui-state-active, .toolbar .ui-widget-content .toolbar .ui-state-active, .toolbar .ui-widget-header .toolbar .ui-state-active { 	
+
+	color: #000; 
+   
+	
+	border: 1px solid #d6d6d6; 
+	border-bottom-color: #e5e5e5;
+	border-left-color: #ddd;
+	border-right-color: #ddd;
+	
+	background: #f1f1f1; /* Old browsers */
+	background: -moz-linear-gradient(top, #f1f1f1 0%, #fff 70%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f1f1f1), color-stop(70%,#fff)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #f1f1f1 0%,#fff 70%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #f1f1f1 0%,#fff 70%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, #f1f1f1 0%,#fff 70%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1f1f1', endColorstr='#fff',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, #f1f1f1 0%,#fff 70%); /* W3C */
+}
+                   
+
+
+/* Блок статистики */
+
+.b-report__statistic .b-sidebar__header {
+	margin-bottom: 15px;
+}
+
+.b-report__statistic_red, .b-report__statistic_toolbar {
+	font-weight: bold;
+}                     
+
+.b-report__statistic_red {
+	color: #cc0000;
+}                  
+
+.b-report__statistic_green {
+	color: #007000;
+}

@@ -14,7 +14,8 @@ class UsersController < ApplicationController
   end
            
   
-  def send_message
+  def send_message                        
+     params[:message]["user_id"] = current_user.id
      @message = Message.new(params[:message])       
      @message.save           
      

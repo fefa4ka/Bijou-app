@@ -10,7 +10,7 @@
 
 $(function()
 {
-	$('input').customInput();
+	$('input[class!=b-form-custom-false]').customInput();
 	$('.b-head__login').click(function()
 	{
 		$('.b-head__login_form').dialog({

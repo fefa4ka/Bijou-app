@@ -760,7 +760,7 @@ input.ui-button { padding: .3em .7em; }
 
 /*button sets*/
 .ui-buttonset { margin-right: 7px; }
-.ui-buttonset .ui-button { margin-left: 0; margin-right: -.3em; }
+.ui-buttonset .ui-button { margin-left: 0; margin-right: -.4em; }
 
 /* workarounds */
 button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra padding in Firefox */

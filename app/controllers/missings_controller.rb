@@ -40,7 +40,9 @@ class MissingsController < ApplicationController
   end
                       
   # Add comment
-  def add_comment
+  def add_comment                                             
+    params[:discussion]["user_id"] = current_user.id
+    
     @missing = Missing.find(params[:discussion]["missing_id"])
     @comment = Discussion.new(params[:discussion])       
     @comment.save           
@@ -125,21 +127,24 @@ class MissingsController < ApplicationController
       if params[:save] == "1"
         logger.debug(session[:missing_params].inspect)
       	convert_to_hash
-    	
-      	user = {
-      		:username => session[:missing_params]["author_name"],
-      		:email => session[:missing_params]["author_email"],
-      		:phone => session[:missing_params]["author_phone"],
-      		:callback => session[:missing_params]["author_callback_hash"],
-      		:password => session[:missing_params]["missing_password"]
-  	    }
 
         @missing = Missing.new(session[:missing_params])
         
-        @user = User.new(user)
-  		  @user.missings.push(@missing)
-        @user.save
-
+        if logged_in? 
+    		current_user.push(@missing)
+    	else
+    		user = {
+	      		:username => session[:missing_params]["author_name"],
+	      		:email => session[:missing_params]["author_email"],
+	      		:phone => session[:missing_params]["author_phone"],
+	      		:callback => session[:missing_params]["author_callback_hash"],
+	      		:password => session[:missing_params]["missing_password"]
+	  	    }
+	        @user = User.new(user)
+	  		@user.missings.push(@missing)
+	        @user.save
+		end
+		
         #session[:missing_params] = session[:missing] = nil
         flash[:notice] = "Объявление размещено"
       end

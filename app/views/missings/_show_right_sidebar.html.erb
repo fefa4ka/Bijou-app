@@ -23,8 +23,12 @@
 					</tr>
 					<% end %>
 				</table>
-				<div class="t-center">
-					<%= tag :input, { :type => "button", :value => "Написать личное сообщение", :class => "b-missing__toggle_send_message" } %>
+				<div class="t-center">              
+					<% if @author.id == current_user.object_id %>
+					<%= tag :input, { :type => "button", :value => "Отредактировать объявление", :class => "b-missing__toggle_send_message" } %>                                                         
+					<% else %>
+					<%= tag :input, { :type => "button", :value => "Написать личное сообщение", :class => "b-missing__toggle_send_message" } %>                                                                               
+					<% end %>
 				</div>
 			</div>
 

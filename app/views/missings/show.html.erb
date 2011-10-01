@@ -37,7 +37,8 @@
 	</div>
 	
 	</div>
-	
+	          
+	<div class="clear"></div>
 	<hr class="b-hr b-missing__send_message" />   
 	
 	<div class="b-missing__send_message_status t-medium">
@@ -46,7 +47,7 @@
 	<div class="b-missing__send_message">
 	<div class="t-medium">Личное сообщение автору</div>
 	<%= form_for @message, :url => '/send_message.json', :remote => true do |message| %>
-        <%= message.hidden_field :account_id %>           
+        <%= message.hidden_field :destination_user_id %>
 		<%= message.text_area :message, :rows => 4, :class => "b-missing__add_comment", :placeholder => "Текст сообщения" %>   
 		<p class="b-missing__send_message_field">
 		<%= message.label :name, "Ваше имя" %><br/>
@@ -122,7 +123,6 @@
 	<div class="t-medium">Комментировать</div>
 	<%= form_for @discussion, :url => '/missing/add_comment.json', :remote => true, :class => "new_discussion"  do |comment| %>
         <%= comment.hidden_field :missing_id %>
-        <%= comment.hidden_field :user_id %>
 		<%= comment.text_area :comment, :rows => 4, :class => "b-missing__add_comment" %>
 		<%= comment.submit "Отправить", :class=> "b-missing__add_comment_button l-right" %>     
 		<div class="clear"></div>
@@ -140,5 +140,3 @@
 </div>
 
 <div class="clear"></div>
-
-<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4e5c782a66f297f6"></script>
