@@ -24,7 +24,7 @@
 		</div>         
 		
 		<div class="b-report__list">                   
-			<% current_user.messages.each do |message| %>        
+			<% @inbox.each do |message| %>        
 			<div class="b-missing__comment" message_id="<%= message.id %>">
 				<div class="b-missing__comment_header">
 					<% if message.user.nil? %>

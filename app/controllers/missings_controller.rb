@@ -30,7 +30,7 @@ class MissingsController < ApplicationController
     @places = @missing.places.to_gmaps4rails
     @author = User.find(@missing.user_id)             
 
-	  @discussion = Discussion.new({ :missing_id => @missing.id, :user_id => current_user.id })        
+	  @discussion = Discussion.new({ :missing_id => @missing.id })        
 	  @message = Message.new({ :user_id => @missing.user_id })
 	  
     respond_to do |format|

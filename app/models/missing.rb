@@ -17,6 +17,8 @@ class Missing < ActiveRecord::Base
   accepts_nested_attributes_for :photos
   accepts_nested_attributes_for :places, :allow_destroy => true, :reject_if => lambda { |obj| obj[:address].blank? }
   accepts_nested_attributes_for :familiars, :allow_destroy => true, :reject_if => lambda { |obj| obj[:name].blank? }
+                            
+  # typograf :decription, :use_p => true, :use_br => true, :encoding => "UTF-8"
   
   after_find :expand_data
    

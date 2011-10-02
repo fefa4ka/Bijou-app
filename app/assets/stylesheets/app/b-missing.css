@@ -8,7 +8,7 @@
 }
 
 .b-missing__history_header {
-	margin-top: 11px;
+	margin: 11px 0 4px;
 }   
 
 .b-missing .b-hr {
@@ -261,7 +261,11 @@ div.b-missing__share {
 	margin: 1em .1em;
 }                
 
-/* Табы */
+/* Табы */   
+div.b-missing__tabs {
+	position: absolute;
+	top: 49px;
+}
 .b-missing__tabs {
 	list-style: none;  
 	

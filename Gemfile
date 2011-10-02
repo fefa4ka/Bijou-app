@@ -23,7 +23,8 @@ gem 'sqlite3', '1.3.4'
 gem 'rake', '0.9.2'
 gem 'rack', '1.3.2'
 
-gem 'russian'
+gem 'russian'    
+gem 'als_typograf'
 
 gem 'remotipart'
 gem 'gmaps4rails'

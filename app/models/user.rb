@@ -9,9 +9,9 @@ class User < ActiveRecord::Base
 
   # hashes
   attr_accessor :callback_phone, :callback_email
-  
+   
   # for datectives
-  attr_accessor :detective_license, :specialisation, :specialisation_1, :specialisation_2, :specialisation_3, :coverage   
+  attr_accessor :detective_license, :specialization_additional, :specialization_1, :specialization_2, :specialization_3, :coverage   
   
   #  validates_confirmation_of :password
   validates_presence_of :password, :on => :create        
@@ -20,5 +20,10 @@ class User < ActiveRecord::Base
   
   def to_param
     "#{id}-#{username.parameterize}"
+  end    
+  
+  def has_missing?
+    self.missings.length > 0 ? true : false
   end
+  
 end

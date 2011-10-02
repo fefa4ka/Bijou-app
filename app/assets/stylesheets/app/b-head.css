@@ -1,4 +1,4 @@
-.b-head-bg {
+.b-head-bg, .b-head-bg__logged {
 	background: #333;
 	
 	border-bottom: 1px solid #ccc;                
@@ -11,8 +11,17 @@
 
 .b-head-bg {
 	height: 99px;
-}
+}        
 
+.b-head-bg__logged {
+	height: 75px;
+}
+            
+	.b-head-bg__logged .b-head__logo {       
+		padding-left: 1px;
+		margin-top: 10px;
+	}                   
+	
 .b-head { 
 	height: 60px;
 	padding-top: 1em;

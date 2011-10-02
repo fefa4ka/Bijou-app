@@ -21,7 +21,11 @@ html, body, #wrapper {
 	background: linear-gradient(top, rgba(248,248,248,1) 0%,rgba(255,255,255,1) 100%); /* W3C */
 }
 
-body > #wrapper { height: auto; min-height: 100%; }      
+body > #wrapper { height: auto; min-height: 100%; }     
+
+p {
+	line-height: 16px;
+} 
 
 #wrapper { padding-bottom: 3em; }
 

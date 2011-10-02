@@ -83,17 +83,17 @@
 	  <%= f.label :specialisation, "Ваша специализация в поиске пропавших безвести", :class => "b-form__label" %>
 	<ul class="b-form__radio_list">
       <li class="b-form__radio_element">
-        <%= f.check_box :specialisation_1 %> <%= f.label :specialisation_1, "интимный бизнес" %>
+        <%= f.check_box :specialization_1 %> <%= f.label :specialization_1, "интимный бизнес" %>
       </li>
       <li class="b-form__radio_element">
-        <%= f.check_box :specialisation_2 %> <%= f.label :specialisation_2, "секты" %>
+        <%= f.check_box :specialization_2 %> <%= f.label :specialization_2, "секты" %>
       </li>
       <li class="b-form__radio_element">
-        <%= f.check_box :specialisation_3 %> <%= f.label :specialisation_3, "рабство" %>
+        <%= f.check_box :specialization_3 %> <%= f.label :specialization_3, "рабство" %>
       </li>
       <li class="b-form__radio_element">
-		<%= f.label :specialisation, "Другие варианты, через запятую" %> <br />
-        <%= f.text_area :specialisation, :rows => 5 %> 
+		<%= f.label :specialization_additional, "Другие варианты, через запятую" %> <br />
+        <%= f.text_area :specialization_additional, :rows => 5 %> 
       </li>                            
 	  <li>
 		<div class="b-form__field_description">
@@ -149,7 +149,7 @@
 	</div>
 
 	<div class="b-form__actions">
-		<%= f.submit "Перейти к поиску клиентов", :class => "b-form__save_button green" %>
+		<%= f.submit "Перейти к поиску клиентов", :class => "black" %>
 	</div>       
 
 	</div>
