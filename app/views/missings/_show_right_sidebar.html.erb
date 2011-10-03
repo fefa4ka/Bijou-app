@@ -36,8 +36,27 @@
 		
 			<div class="b-sidebar b-missing__rightside">
 				<p class="b-sidebar__header">Люди которые могут помочь</p>
-
-				<div class="b-hr"></div>
+                
+				<div class="b-sidebar__block_list b-list">
+				<% @helpers.each do |user| %>
+				  <div class="b-list__element">
+					<div class="b-list__element_content">
+						<a href="<%= user_path(user) %>" class="b-list__name_link">
+						<% if user.image_name.nil? %>
+							<%= image_tag 'no_photo.jpg', :size => "100x100", :class => "b-list__image"  %>
+						<% else %>
+							<%= image_tag "/users/" + user.image_name, :size => "100x100", :class => "b-list__image" %>
+						<% end %>
+						<%= user.username %>
+						</a>                  
+						<% if user.role == 1%><p>Детектив</p><% end %>
+					</div>
+					<div class="b-list__element_min"></div>
+				  </div>
+				<% end %>
+				</div>
+				
+				<div class="b-sidebar__hr_100"></div>
 
 				<ul class="b-sidebar__list">
 					<li class="b-sidebar__list_element">Можете оказать помощь</li>

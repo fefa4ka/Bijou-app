@@ -1,6 +1,7 @@
 .b-sidebar {
 	padding: 8px 12px 15px 12px;
-	min-width: 225px;
+	min-width: 225px;  
+	margin-bottom: 1em;
 	
 	background: #f1f1f1;
 	
@@ -20,11 +21,18 @@
 		width: 100%;
 	}
 	
-	.b-sidebar__hr {
+	.b-sidebar__hr, .b-sidebar__hr_100 {
 		background: #dedddd;
 		height: 1px;
 		border-bottom: 1px solid #fff;
 		margin: 21px 0 17px 0;
+	}
+	   
+	.b-sidebar__hr_100 {
+		width: 100%;
+		position: absolute;
+		left: 0;
+		margin: 0;
 	}
 	
 	.b-sidebar__list {
@@ -38,4 +46,31 @@
 		
 		.b-sidebar__list_element:before {
 			content: '— ';
+		}       
+
+.b-sidebar__block_list {
+	margin-top: -1em;
+}	
+	.b-sidebar__block_list .b-list__element {  
+		margin-top: 0em;
+		width: 100px !important;
+		min-width: 100px !important;
+		
+	}                      
+		.b-sidebar__block_list .b-list__image {
+			margin-bottom: 5px;
+		}                     
+		
+		.b-sidebar__block_list .b-list__element_min {
+			height: 0 !important;       
+			margin-bottom: 160px;
+		}   
+		     
+		.b-sidebar__block_list .b-list__element_content {    
+			padding-top: 5px !important;
+		}    
+		
+		.b-sidebar__block_list .b-list__name_link {
+			font-size: 13px !important;
 		}
+		

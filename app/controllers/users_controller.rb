@@ -1,10 +1,14 @@
+# encoding: utf-8
+
 class UsersController < ApplicationController
   def new          
     @user = User.new
   end
                
   def create               
-    convert_to_hash
+    convert_to_hash       
+    params[:user]["role"] = 1
+    
     @user = User.new(params[:user])
     
     if @user.save    
@@ -32,12 +36,29 @@ class UsersController < ApplicationController
   
   def send_message                        
      params[:message]["user_id"] = current_user.id
-     @message = Message.new(params[:message])       
+     @message = Message.new(params[:message]) 
+     @message.convert_from_answer      
      @message.save           
      
+     if @message.user.nil?
+       @message.user = { :id => 0, :username => "Анонимный комментарий" }          
+     end
+
+
+     data = {
+       :text => @message.text,    
+       :message_id => @message.message_id,
+       :date => Russian.strftime(@message.created_at, "%d %B"), 
+       :user => {
+         :id => @message.user.id,
+         :username => @message.user.username
+       }
+     }                                                         
+
+
      respond_to do |format| 
        format.json {
-         render :json => { :ok => "true" } 
+         render :json => { :ok => "true", :message => data } 
        }           
      end
   end

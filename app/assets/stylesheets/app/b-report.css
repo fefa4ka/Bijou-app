@@ -78,4 +78,19 @@
 
 .b-report__statistic_green {
 	color: #007000;
+}                 
+
+.b-report__new_message {
+	display: none;
+}             
+
+.b-report__detectives_list {
+	margin: 17px 0;
+}
+.b-report__detectives_description {
+	margin: 27px 0 7px;
+}               
+
+.b-report__services .b-sidebar__list_item {
+	line-height: 18px;
 }

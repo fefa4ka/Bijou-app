@@ -24,7 +24,9 @@ gem 'rake', '0.9.2'
 gem 'rack', '1.3.2'
 
 gem 'russian'    
-gem 'als_typograf'
+#gem 'als_typograf'     
+
+gem 'impressionist'
 
 gem 'remotipart'
 gem 'gmaps4rails'

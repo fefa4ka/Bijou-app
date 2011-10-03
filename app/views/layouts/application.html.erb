@@ -12,7 +12,7 @@
        Remove this if you use the .htaccess -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>Bijou</title>
+  <title>Я пропал &mdash; поиск пропавших без вести</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -36,7 +36,7 @@
  	<div class="b-head__logo grid_3">
 		<%= link_to_unless_current image_tag('logo.png', :class => 'l-left'), '/' %>
 		</a>           
-	</div>  
+	</div>                             
 	<div class="grid_11 b-head__menu">
 	   <table class="b-head__menu_table">
 		<tr>
@@ -82,15 +82,6 @@
 			<% end %>
 		</div>     
 	</div>                  
-	<% if defined? current_user.has_missing? %>
-	<div class="clear"></div>
-	<div class="grid_16">
-		<ul class="b-missing__tabs">
-			<%= link_to_unless_current content_tag("li", "Объявление", :class => "b-missing__tab"), missing_path(current_user.missings.first), :class => "b-missing__tab_link"  %>    
-			<%= link_to_unless_current content_tag("li", "Сводка по объявлению", :class => "b-missing__tab"), '/report', :class => "b-missing__tab_link" %>
-		</ul>
-	</div>	
-	<% end %>
   </div>      
  </div>  
 <% else %> 
@@ -110,19 +101,20 @@
 		</table>   	
 	</div>
     <div class="b-head__auth grid_1">  
-	    
+	    <%= link_to "Настройки", "/settings", :class => "b-head__settings"  %>
 		<%= button_to "Выйти", '/logout', :class => "black" %>  
   
  
 	</div>                 
 	<div class="clear"></div>
-	<div class="grid_16 b-missing__tabs">
+	<div class="grid_10 b-missing__tabs">
 		<ul class="b-missing__tabs">      
 			<% if current_user.has_missing? %>			
 			<%= link_to_unless_current content_tag("li", "Объявление", :class => "b-missing__tab"), missing_path(current_user.missings.first), :class => "b-missing__tab_link"  %>    
 			<%= link_to_unless_current content_tag("li", "Сводка по объявлению", :class => "b-missing__tab"), '/report', :class => "b-missing__tab_link" %>     
 			<% else %>
-			<%= link_to_unless_current content_tag("li", "Сводка", :class => "b-missing__tab"), '/report', :class => "b-missing__tab_link" %>
+			<%= link_to_unless_current content_tag("li", "Обзор дел", :class => "b-missing__tab"), '/report', :class => "b-missing__tab_link" %>
+			<%= link_to_unless_current content_tag("li", 'Сообщения', :escape => true, :class => "b-missing__tab"), '/inbox', :class => "b-missing__tab_link" %>
 			<% end %>
 		</ul>
 	</div>	   

@@ -42,7 +42,8 @@
 	}    
 	                  
 	input.b-missing__i_saw_in {
-		width: 100px;
+		width: 100px;  
+		margin: 0 .5em;
 	}
 
 .b-missing__photo { 

@@ -1,3 +1,3 @@
 $(function(){
-   $(".b-report__toolbar").buttonset(); 
+   $(".b-report__toolbar").buttonset();   
 });

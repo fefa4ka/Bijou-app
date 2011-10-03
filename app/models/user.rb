@@ -2,6 +2,9 @@ class User < ActiveRecord::Base
   has_many :missings
   has_many :discussions
   has_many :messages
+  
+  has_many :can_helps    
+  has_many :missings, :through => :can_helps, :as => :missings_i_help
              
   authenticates_with_sorcery!
   

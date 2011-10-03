@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111002135438) do
+ActiveRecord::Schema.define(:version => 20111003055952) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(:version => 20111002135438) do
     t.string   "phone"
     t.integer  "callback"
     t.string   "password"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "can_helps", :force => true do |t|
+    t.integer  "missing_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -48,8 +55,31 @@ ActiveRecord::Schema.define(:version => 20111002135438) do
 
   add_index "familiars", ["missing_id"], :name => "index_familiars_on_missing_id"
 
+  create_table "impressions", :force => true do |t|
+    t.string   "impressionable_type"
+    t.integer  "impressionable_id"
+    t.integer  "user_id"
+    t.string   "controller_name"
+    t.string   "action_name"
+    t.string   "view_name"
+    t.string   "request_hash"
+    t.string   "session_hash"
+    t.string   "ip_address"
+    t.string   "message"
+    t.string   "referrer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "impressions", ["controller_name", "action_name", "ip_address"], :name => "controlleraction_ip_index"
+  add_index "impressions", ["controller_name", "action_name", "request_hash"], :name => "controlleraction_request_index"
+  add_index "impressions", ["controller_name", "action_name", "session_hash"], :name => "controlleraction_session_index"
+  add_index "impressions", ["impressionable_type", "impressionable_id", "ip_address"], :name => "poly_ip_index"
+  add_index "impressions", ["impressionable_type", "impressionable_id", "request_hash"], :name => "poly_request_index"
+  add_index "impressions", ["impressionable_type", "impressionable_id", "session_hash"], :name => "poly_session_index"
+  add_index "impressions", ["user_id"], :name => "index_impressions_on_user_id"
+
   create_table "messages", :force => true do |t|
-    t.text     "message"
     t.string   "name"
     t.string   "email"
     t.string   "phone"
@@ -58,6 +88,8 @@ ActiveRecord::Schema.define(:version => 20111002135438) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "destination_user_id"
+    t.integer  "message_id"
+    t.text     "text"
   end
 
   add_index "messages", ["account_id"], :name => "index_messages_on_account_id"
@@ -120,8 +152,8 @@ ActiveRecord::Schema.define(:version => 20111002135438) do
     t.string   "phone"
     t.text     "coverage"
     t.text     "specialization"
-    t.integer  "type"
     t.string   "image_name"
+    t.integer  "role"
   end
 
   add_index "users", ["remember_me_token"], :name => "index_users_on_remember_me_token"

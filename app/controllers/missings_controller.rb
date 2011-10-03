@@ -6,7 +6,11 @@ require 'net/http'
 class MissingsController < ApplicationController
   # Каталог для фоток
   PHOTO_STORE = File.join Rails.root, 'public', 'photos'
-   after_filter :set_access_control_headers
+  
+  impressionist :actions => [:show] 
+  after_filter :set_access_control_headers
+  
+ 
  
   def set_access_control_headers
    headers['Access-Control-Allow-Origin'] = '*'
@@ -31,7 +35,9 @@ class MissingsController < ApplicationController
     @author = User.find(@missing.user_id)             
 
 	  @discussion = Discussion.new({ :missing_id => @missing.id })        
-	  @message = Message.new({ :user_id => @missing.user_id })
+	  @message = Message.new({ :user_id => @missing.user_id }) 
+	  
+	  @helpers = User.where("role = 1")
 	  
     respond_to do |format|
       format.html # show.html.erb
