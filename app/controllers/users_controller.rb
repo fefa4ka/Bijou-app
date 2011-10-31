@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     
     if @user.save    
-      login(@user.username, @user.password, true)
+      login @user.username, params[:user]["password"], true
       redirect_to root_url
     else
       render :new

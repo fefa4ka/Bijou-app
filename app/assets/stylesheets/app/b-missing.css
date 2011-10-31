@@ -45,6 +45,11 @@
 		width: 100px;  
 		margin: 0 .5em;
 	}
+                          
+	.b-missing__i_saw_in_place {
+		font-weight: bold;
+	}                    
+	
 
 .b-missing__photo { 
 	width: 100%;        
@@ -128,19 +133,21 @@ div.b-missing__share {
 
 
 .b-missing__places {
-	padding: 34px 0 0 38px;
+	margin-left: 38px;
 }
 
 .b-missing_hidden_action { 
-	display: none;
+	display: none;          
+	
+	position: relative;
+	top: 3px;
+	margin-left: 2em;
 }
 .b-missing__places:hover .b-missing_hidden_action {
 	display: inline-block;
-	float: right;
+
 }
-	.b-missing__show_place {
-		float: right !important;
-	}
+   
 	
 	
 	
@@ -338,5 +345,109 @@ div.b-missing__tabs {
 		-webkit-box-shadow: inset 0px -1px 4px 1px rgba(00, 00, 00, 0.1), inset 0px 2px 1px 2px rgba(00, 00, 00, 0.1);
 		-moz-box-shadow: inset 0px -1px 4px 1px rgba(00, 00, 00, 0.1), inset 0px 2px 1px 2px rgba(00, 00, 00, 0.1);
 		box-shadow: inset 0px -1px 4px 1px rgba(00, 00, 00, 0.1), inset 0px 2px 1px 2px rgba(00, 00, 00, 0.1);
+	}            
+	
+	.b-missing__tab_message_count {
+		margin: -1px -10px -1px 7px !important;
+	}
+	        
+	
+.b-missing__wide_label {
+	width: 200%;
+}                  
+                              
+
+.b-missing__people_can_help .b-list__element_min {
+	margin-bottom: 163px !important;
+}       
+
+.b-sidebar__header.b-missing__people_can_help {
+	padding-top: 12px;
+}
+
+.b-missing__i_can_help {
+	width: 100%;  
+	margin-bottom: 12px;
+}                   
+
+.b-missing__i_can_help_dialog {
+	background: #ebebeb !important;
+}                           
+	.b-missing__i_can_help_dialog .ui-dialog-buttonpane {
+		border: none; 
+		text-align: center !important;      
+		margin: 0 !important;
+		padding: 0 !important;
+	}                     
+	    
+	.b-missing__i_can_help_dialog .ui-dialog-buttonset {
+		float: none !important;
+	}                     
+	
+
+.b-missing__i_can_help_window {
+	padding: 35px !important;   
+	background: #fff !important;     
+}                
+     
+    .b-missing__i_can_help_window .t-bold {
+		margin-bottom: 10px;
 	}
 	
+	.b-missing__i_can_help_window .b-form__field_description {
+		color: #666;
+	}               
+	
+	.b-missing__i_can_help_variants {
+		list-style: none;                  
+		margin: 20px 0 0;
+	}
+	
+	.b-missing__i_can_help_variants .l-left {
+		margin-right: 40px;
+	}                
+   
+	.b-missing__i_can_help_map_container {
+		margin: 17px 0 10px;
+	}                      
+	  
+	.b-missing__i_can_help_map {
+		width: 300px;
+		height: 225px;
+	}                
+	
+	.b-missing__i_can_help_window_information .t-big {
+		margin: 35px 0 20px;
+	}               
+	
+	#i_can_help__information_text, #i_can_help__search_text {
+		width: 250px;
+	}                           
+	
+	.b-missing__i_can_help_window_search .b-hr {
+		position: relative;
+		left: -35px;
+		width: 740px;
+	}       
+	         
+	.b-missing__i_can_help__places {
+		color: #606060; 
+		margin: 0 0 0 1.4em;
+	}                 
+	
+		.b-missing__i_can_help__places_item {
+			color: #000;
+		}     
+		
+	.b-missing__i_can_help_window_search .t-big {
+		margin: 25px 0 15px;
+	}                      
+	                                          
+	
+	.b-missing__i_can_help__search_types {
+		list-style: none;     
+		margin: 0 0 15px;
+		
+	}                   
+   
+	     

@@ -1,5 +1,5 @@
 <div class="container_16 b-report">
-	<div class="grid_12">
+	<div class="grid_11">
 		<div class="b-sidebar">
 		    <div class="l-left">К сожалению, у анкеты мало посещений, попробуйте еще рассказать о случившемся в социальных сетях:</div>
 			<div class="addthis_toolbox addthis_default_style l-left b-missing__share">
@@ -23,7 +23,9 @@
 			<%= check_box_tag "similar", 1, false, :class => "b-form-custom-false" %><%= label_tag "similar", "Похожие пропажи" %>
 		</div>         
 		
-		<div class="b-report__list">                   
+		<div class="b-report__list">      
+
+			         
 			<% @inbox.each do |message| %>        
 			<div class="b-missing__comment" message_id="<%= message.id %>"> 
 				<div class="b-missing__comment_header">
@@ -71,8 +73,7 @@
 		</div>
 	</div>
 	
-	<div class="grid_4"> 
-		
+	<div class="grid_5 b-rightside"> 
 	   	<div class="b-sidebar b-report__statistic">
 			<p class="b-sidebar__header">Статистика просмотров</p>
 			<p>
@@ -97,7 +98,6 @@
 			</p>                                  
 			<%= button_to 'Попросить всех о помощи', '/request/detective_help',  :class => "green t-medium"  %>
 		</div> 
-		
 		<div class="b-sidebar b-report__statistic">
 			<p class="b-sidebar__header">Платные услуги</p>
 		    <ul class="b-sidebar__list b-report__services">

@@ -11,6 +11,7 @@
 $(function()
 {
 	$('input[class!=b-form-custom-false]').customInput();
+	$(".toolbar").buttonset();   
 	$('.b-head__login').click(function()
 	{
 		$('.b-head__login_form').dialog({
@@ -20,9 +21,9 @@ $(function()
 			resizable: false,
 			draggable: false,
 			closeOnOverlayClick: true
-		})
-	})
-})
+		});
+	});
+});
 
 function pluralForm(n, form1, form2, form5)
 {

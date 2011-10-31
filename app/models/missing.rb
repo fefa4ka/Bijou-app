@@ -1,7 +1,7 @@
 class Missing < ActiveRecord::Base         
   is_impressionable
   
-  belongs_to :users
+  belongs_to :user
   
   has_many :photos, :dependent => :destroy
   has_many :places
@@ -15,7 +15,8 @@ class Missing < ActiveRecord::Base
   attr_writer :current_step  
 
   # Поля характеристик
-  attr_accessor :man_age, :man_growth, :man_physique, :man_physique_another, :man_hair_color, :man_hair_color_another, :man_hair_length, :man_specials_tattoo, :man_specials_piercing, :man_specials_scar, :man_specials, :author_callback_phone, :author_callback_email, :private_history, :private_contacts, :photos_attributes, :author_name, :author_email, :author_phone, :author_callback_email, :author_callback_phone, :author_callback_hash, :missing_password
+  attr_accessor :man_age, :man_growth, :man_physique, :man_physique_another, :man_hair_color, :man_hair_color_another, :man_hair_length, :man_specials_tattoo, :man_specials_piercing, :man_specials_scar, :man_specials,  
+                :author_callback_phone, :author_callback_email, :private_history, :private_contacts, :photos_attributes, :author_name, :author_email, :author_phone, :author_callback_email, :author_callback_phone, :author_callback_hash, :missing_password
   
   accepts_nested_attributes_for :photos
   accepts_nested_attributes_for :places, :allow_destroy => true, :reject_if => lambda { |obj| obj[:address].blank? }
@@ -23,16 +24,14 @@ class Missing < ActiveRecord::Base
                             
   # typograf :decription, :use_p => true, :use_br => true, :encoding => "UTF-8"
   
-  after_find :expand_data
+  after_find :prepare_data                                                                                
+  
+  default_scope :order => "updated_at DESC"
                              
   def to_param
     "#{id}-#{name.parameterize}"
   end
   
-  def expand_data
-    now = Date.today
-    self.man_age = now.year - self.birthday.year if self.birthday.is_a?(Date)
-  end                                        
 
   def current_step
     @current_step || steps.first
@@ -52,10 +51,16 @@ class Missing < ActiveRecord::Base
   
   def last_step?
     current_step == steps.last
-  end
-  
+  end            
+       
+  private   
+               
   def steps
     %w[common characteristic history contacts]
-  end              
-  
+  end
+    
+  def prepare_data
+    now = Date.today
+    self.man_age = now.year - self.birthday.year if self.birthday.is_a?(Date)       
+  end
 end                                

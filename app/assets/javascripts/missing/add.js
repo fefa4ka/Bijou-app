@@ -2,12 +2,14 @@ $(function(){
 	var submit_action,
 		selected_step,
 		redirect_disallow;
+
+	$('#missing_author_phone').mask("+7 999 999-99-99");
 		
 	function update_photos(data){
-		var filefield = $('[name$="[load_photo_file]"]'),
+		var filefield = $('input[name$="[photo]"]'),
 			new_id = new Date().getTime();
 		
-		$('.b-form__photo').remove();
+		$('.b-form__photo, .b-form__photo_loading').remove();
 		
 		filefield
 			.val("")
@@ -23,7 +25,7 @@ $(function(){
 						.addClass('b-form__photo')
 						.append( 
 							$('<img/>')
-								.attr('src', '/photos/' + element.image_name)
+								.attr('src', element.image_name)
 								.addClass('b-form__photo')
 						)
 						.append(
@@ -66,8 +68,13 @@ $(function(){
 	});
 	
 	$("#new_missing")
-		.bind("ajax:beforeSend", function(e){
+		.bind("ajax:beforeSend", function(e){      
 			
+			$('.b-form__photos')
+				.append( 
+					$('<li/>')
+						.addClass('b-form__photo_loading')
+				);
 		})
 		.bind("ajax:success", function(evt, data, status, xhr){
 			/*
@@ -92,12 +99,6 @@ $(function(){
 				update_photos(data.data);
 			}
 			
-	}).keydown(function( event ) {
-		if( event.keyCode == 13 ) {
-			$('.b-form__next_button').click();
-			
-			return false;
-		} 
 	});
 	
 	$('.missing_step').click( function() {
@@ -135,7 +136,9 @@ $(function(){
 				.val(0);
 		}).trigger('click');
 	});
-	  
+	                            
+	
+	// Только числа, там где только числа
 	$('.b-form__text_age, .b-form__text_growth').keydown(function (e) {
 	    if (e.shiftKey || e.ctrlKey || e.altKey) { // if shift, ctrl or alt keys held down
 	        e.preventDefault();         // Prevent character input
@@ -152,7 +155,8 @@ $(function(){
 	        }
 	    }
 	});
-	
+	     
+	// Обрабатываем изменение возраста
 	$('.b-form__text_age').keyup(function (e) {
 		var year = new Date().getFullYear(),
 			age = $(this).val(),
@@ -161,6 +165,13 @@ $(function(){
 			
 		$("#missing_birthday_1i").val(value);
 		$(".man_age_sign").text(pluralForm(age, 'год', 'года', 'лет'));
+	});  
+	
+	$('#missing_birthday_1i').change(function() { 
+		var value = $(this).val() * 1,
+			year = new Date().getFullYear(); 
+		
+		if (value > 0) $('.b-form__text_age').val(year - value); 
 	});
 
 });
@@ -179,7 +190,7 @@ function add_hidden_fields(element, prefix, fields)
 		
 		element.append( $('<input type=hidden />')
 		 					.attr("name", new_name)
-							.val(field.val())
+							.val(field.val().replace(/\r\n|\r|\n/g,"<br />"))
 		);
 	}
 	

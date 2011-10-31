@@ -9,6 +9,8 @@ People::Application.routes.draw do
   
   match "send_message" => "users#send_message" 
   
+  match "inbox" => "report#inbox"
+  
   resources :users
   resources :sessions
   resources :missings 
@@ -23,7 +25,8 @@ People::Application.routes.draw do
   match "add_missing/address_data" => "missings#address_data"
   match "add_missing/:step" => "missings#new"             
                                                                        
-  match "missing/add_comment" => "missings#add_comment"                
+  match "missing/add_comment" => "missings#add_comment"      
+  match "missings/:missing_id/i_can_help" => "missings#i_can_help"          
   
      
    

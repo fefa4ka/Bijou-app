@@ -28,7 +28,8 @@ class MissingsController < ApplicationController
 
   # GET /missings/1
   # GET /missings/1.xml
-  def show                 
+  def show                                             
+
   	@missing = Missing.find(params[:id])                  
   	
     @places = @missing.places.to_gmaps4rails
@@ -37,7 +38,12 @@ class MissingsController < ApplicationController
 	  @discussion = Discussion.new({ :missing_id => @missing.id })        
 	  @message = Message.new({ :user_id => @missing.user_id }) 
 	  
-	  @helpers = User.where("role = 1")
+	  @helpers = @missing.can_helps                   
+	  
+	  # Данные, о чем может помочь посетитель   
+	  if logged_in?
+      @i_can_help = CanHelp.where(:user_id => current_user.id, :missing_id => params[:id]).first
+	  end
 	  
     respond_to do |format|
       format.html # show.html.erb
@@ -79,17 +85,39 @@ class MissingsController < ApplicationController
     end
   end
   
+  # I can help method
+  def i_can_help
+  	if logged_in?
+	  	data = {
+	  		:missing => Missing.find(params[:missing_id]),
+	  		:user_id => current_user.id
+		}
+	  end
+	
+  	i_can_help = CanHelp.new(data)
+ 	  i_can_help.save
+ 	
+ 	  respond_to do |format|
+   		format.json {
+   			render :json => { :ok => "true" }
+  		}
+  	end
+  end
+
+  	
   # GET /missings/new
   # GET /missings/new.xml
-  def new
-  	#session[:missing_params] = nil
-    session[:missing_params] ||= {}
+  def new                  
+          
+    session[:missing_params] ||= {}                  
+
+    logger.debug(session[:missing_params].inspect)
     @missing = Missing.new(session[:missing_params])
     @missing.valid?
     @places = @missing.places.to_gmaps4rails
     
     @missing.current_step = params[:step]
-	
+  	
     # Поля для мест и людей
     # Строятся только один раз
     if @missing.new_record?
@@ -114,7 +142,8 @@ class MissingsController < ApplicationController
 
   # Сохраняем данные текущего шага
   def save_step
-    session[:missing_params] ||= {}
+    session[:missing_params] ||= {}  
+    session[:missing_photos] ||= []
     session[:missing] ||= {}
     
   	# Сохраняем фотографии
@@ -125,35 +154,43 @@ class MissingsController < ApplicationController
   	  data = params[:missing]["photos_attributes"]
   	  data_type = "photos"
   	end
-  	
-    session[:missing_params].merge!(params[:missing]) if params[:missing]    
-    logger.debug('before respond')
+
+    session[:missing_params].merge!(params[:missing]) if params[:missing]
+        
+    logger.debug('before respond')                    
+    
     respond_to do |format|
       logger.debug(params[:save])
       if params[:save] == "1"
         logger.debug(session[:missing_params].inspect)
       	convert_to_hash
-
-        @missing = Missing.new(session[:missing_params])
         
-        if logged_in? 
-    		current_user.push(@missing)
-    	else
+        @missing = Missing.new(session[:missing_params])
+        @missing.photos = session[:missing_photos]     
+        @missing.save  
+    	#         if logged_in? 
+    	# 	current_user.push(@missing)
+    	# 	
+    	# else
     		user = {
 	      		:username => session[:missing_params]["author_name"],
 	      		:email => session[:missing_params]["author_email"],
 	      		:phone => session[:missing_params]["author_phone"],
 	      		:callback => session[:missing_params]["author_callback_hash"],
 	      		:password => session[:missing_params]["missing_password"]
-	  	    }
-	        @user = User.new(user)
-	  		@user.missings.push(@missing)
-	        @user.save
-		end
-		
-        #session[:missing_params] = session[:missing] = nil
+	  	  }                    
+
+	      @user = User.new(user)
+  		  @user.missings.push(@missing)  
+        @user.save      
+        
+        session[:missing_params] = session[:missing_photos] = nil
+        
+        #login user.email, user.password, true
+		    # end
         flash[:notice] = "Объявление размещено"
       end
+             
       
       format.json {
         render :json => { :ok => "true", :missing_url => url_for(@missing), :data_type => data_type, :data => data } 
@@ -184,37 +221,41 @@ class MissingsController < ApplicationController
   end
   	
   def upload_photos(photos)
-  	# Сохраняем каждую фотку в временную папку
+  	# Сохраняем фотку
   	# как результат возвращаем массив из имен файлов
-  	result = []
   	photos_params = {}
   	  	
   	photos.each do |id, photo|
-  		file = photo[:load_photo_file]
+      # file = photo[:load_photo_file]
   		
-  		unless file
+      # unless file
+      unless photo[:photo] 
   		  photos_params[id] = photo
   		  next
   		end
   		
-  		# Генерируется уникальное имя
-  		filename = Digest::MD5.hexdigest(Time.now.to_s + file.original_filename) + File.extname(file.original_filename)
-  		name = File.join PHOTO_STORE, filename
- 		
-  		result.push(filename)
-  		# Сохраняем файл
-  		File.open(name, 'wb') do |f|
-  			f.write(file.read)
-  		end
-  	end
-
-  	result.each_with_index do |photo, index|
-  	  index = photos_params.count + index
-  		photos_params[index] = { :image_name => photo }
+      # # Генерируется уникальное имя
+      # filename = Digest::MD5.hexdigest(Time.now.to_s + file.original_filename) + File.extname(file.original_filename)
+      # name = File.join PHOTO_STORE, filename
+      #     
+      # result.push(filename)
+      # # Сохраняем файл
+      # File.open(name, 'wb') do |f|
+      #   f.write(file.read)
+      # end   
+      
+      new_photo = Photo.new(photo)               
+      new_photo.save
+      photos_params[id] = { :image_name => new_photo.photo.url(:thumb) }
+      logger.debug("====FOTO")
+      logger.debug(new_photo.inspect)
+      session[:missing_photos].push(new_photo)
   	end
   	
     # Убираем из параметров загруженный файл. Он не сохранится в сессии
   	# Вместо этого добавляем названия сохраненных файлов    	
+  	logger.debug('AVAILABLE PHOTOS')
+  	logger.debug(photos_params.inspect)
     photos_params
   end
   

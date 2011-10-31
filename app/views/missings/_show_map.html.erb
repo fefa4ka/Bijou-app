@@ -1,24 +1,27 @@
+<div class="b-header">Места, где <% if @missing.gender == true %>бывал<% else %>бывала<% end %> <%= @missing.name %></div>
 <div class="l-left b-missing__map">
-	<div class="b-header">Места, где <% if @missing.gender == true %>бывал<% else %>бывала<% end %> <%= @missing.name %></div>
 
 	<% if @places %>
 	  <%= gmaps({ "markers" => { "data" => @places } }) %>
 	<% else %>
-	  <%= gmaps({ "map_options" => { "detect_location" => true, "center_on_user" => true } }) %>
-	<% end %>
+	  <%= gmaps({ "map_options" => { "detect_location" => true, "center_on_user" => true, :container_class => "b-missing__map_container", :id => "missing_places", :class => "b-missing__map" } }) %>
+	<% end %>                                                                      
+
+	
   </div>
 
   <div class="l-left b-missing__places">
 	<% @missing.places.each do |place| %>
 	   <div class="b-form__field b-form__place">
-		<div class="b-form__label">
+		<div class="b-form__label b-missing__wide_label">
 			<%= place.name %>
-			<div class="b-missing_hidden_action t-normal">
-				<%= tag :input, { :type => "button", :value => "показать на карте", :class => "b-missing__show_place silver_action" } %>
-			</div>
-		</div>
-		<p><%= place.description %></p>
-		<p class="t-small"><%= place.address %></p>
-		</div>
+				<%= tag :input, { :type => "button", :value => "Показать на карте", :class => "blue_action b-missing_hidden_action" } %>
+
+		</div>        
+		<div class="b-form__place_inner">
+			<p><%= place.description %></p>
+			<p class="t-small"><%= place.address %></p>   
+		</div>               
+	   </div>
 	<% end %>
    </div>

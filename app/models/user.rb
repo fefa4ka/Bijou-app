@@ -1,10 +1,8 @@
 class User < ActiveRecord::Base      
-  has_many :missings
-  has_many :discussions
+  has_many :missings, :dependent => :destroy
+  has_many :discussions, :dependent => :destroy
   has_many :messages
-  
-  has_many :can_helps    
-  has_many :missings, :through => :can_helps, :as => :missings_i_help
+  has_many :can_helps, :dependent => :destroy    
              
   authenticates_with_sorcery!
   
@@ -13,13 +11,15 @@ class User < ActiveRecord::Base
   # hashes
   attr_accessor :callback_phone, :callback_email
    
-  # for datectives
+  # for detectives
   attr_accessor :detective_license, :specialization_additional, :specialization_1, :specialization_2, :specialization_3, :coverage   
   
-  #  validates_confirmation_of :password
-  validates_presence_of :password, :on => :create        
-  validates_presence_of :email, :on => :create
-  validates_uniqueness_of :phone                                    
+  # validates_confirmation_of :password
+  validates_presence_of :password
+  validates_presence_of :email
+  validates_uniqueness_of :phone           
+  
+  has_attached_file :avatar, :url => '/users/:style/:id', :styles => { :thumb => "100x100#", :small => "160x160#", :medium => "300x300>", :large => "700x700>" }                         
   
   def to_param
     "#{id}-#{username.parameterize}"

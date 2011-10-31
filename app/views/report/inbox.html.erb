@@ -1,0 +1,120 @@
+<div class="container_16 b-report">
+	<div class="grid_11">		
+		<div class="toolbar l-left">
+			<%= check_box_tag "inbox", 1, true, :class => "b-form-custom-false" %><%= label_tag "inbox", "Полученные" %>
+			<%= check_box_tag "outbox", 1, false, :class => "b-form-custom-false" %><%= label_tag "outbox", "Отправленные" %>
+			<%= check_box_tag "draft", 1, false, :class => "b-form-custom-false" %><%= label_tag "draft", "Черновики" %>
+		</div>                 
+		<table class="b-report__search messages">
+			<tr><td class="b-report__search_field">
+				<%= text_field_tag "place_search", nil, :placeholder => "Поиск по сообщениям", :class => "b-report__search_field"  %> 
+			</td><td class="b-report__search_button">
+				<%= tag :input, { :type => :button, :value => "Найти" } %>
+			</td></tr>
+		</table>
+	       
+	    <div class="b-inbox__list_container">               
+		<div class="b-inbox__fadein_top"></div>
+			
+			<div class="b-inbox__list">              
+			<% @inbox.each do |message| %>         
+			<div class="b-inbox__message">
+				<div class="b-inbox__message_photo">
+					<%= image_tag 'no_photo.jpg', :size => "60x60" %>
+				</div>
+				<div class="b-inbox__message_block">   
+					<div class="b-inbox__message_header">
+				   	    <span class="b-inbox__message_author"><%= message.user.username %></span>
+					    <span class="b-inbox__message_date"><%= Russian.strftime message.created_at, "%d %B" %></span>   
+				        <%= tag :input, { :type => "button", :value => "5 сообщений", :class => "blue_action b-inbox__message_answer", :id => "b-inbox__message_answer" } %>
+			        </div>
+					<div class="b-inbox__messsage_text">
+						<%= message.text %>
+					</div> 
+				</div>
+			</div> 
+		    
+			<div class="b-inbox__new_message"> 
+				<div class="b-inbox__new_message_top">
+					<div class="b-inbox__new_message_top_left l-left"></div>
+					<div class="b-inbox__new_message_top_right l-right"></div>     
+				</div> 
+			                               
+				<div class="b-inbox__new_message_box">
+					<div class="b-inbox__message_photo">
+						<%= image_tag 'no_photo.jpg', :size => "60x60", :class => "b-gradient-block__list_image" %>
+					</div>
+					<div class="b-inbox__message_block">   
+						<div class="b-inbox__message_header">
+					   	    <span class="b-inbox__new_message_author"><%= message.user.username %></span>       
+							<p>Детектив</p>
+							<div class="b-report__detective_silver">
+								<p>Секты, интимный бизнес</p>
+								<p>+7 926 372-11-63</p>
+							</div> 
+					        <%= tag :input, { :type => "button", :value => "Закрыть", :class => "silver_action l-right", :id => "b-inbox__message_answer" } %>
+				        </div>
+					</div>              
+				</div>
+			
+				<div class="b-inbox__new_message_bottom">
+					<div class="b-inbox__new_message_bottom_left l-left"></div>
+					<div class="b-inbox__new_message_bottom_right l-right"></div>     
+				</div>
+			</div>
+			<% end %>  
+		</div> 
+			        
+		<div class="b-inbox__fadein_bottom"></div>
+		</div>
+		
+		<div class="b-report__new_message">
+		<%= form_for @message, :url => '/send_message.json', :remote => true, :class => "b-report__send_message" do |message| %>
+			<%= message.text_area :text, :rows => 4, :class => "b-missing__add_comment", :placeholder => "Текст сообщения" %>   
+			<%= message.submit "Отправить", :class=> "b-missing__send_message_button" %>     
+			<div class="clear"></div>           
+		<% end %> 
+		</div>
+	</div>
+	
+	<div class="grid_5 b-rightside"> 
+		
+		<div class="b-inbox__contacts b-sidebar">
+			<p class="b-sidebar__header">Список контактов</p>  
+			<table class="b-report__search contacts">
+				<tr><td class="b-report__search_field">
+					<%= text_field_tag "place_search", nil, :placeholder => "Поиск по сообщениям", :class => "b-report__search_field"  %> 
+				</td><td class="b-report__search_button">
+					<%= tag :input, { :type => :button, :value => "Найти" } %>
+				</td></tr>
+			</table>
+			<div class="b-gradient-block__list">
+				<% @contacts.each do |user| %>
+				  <div class="b-gradient-block__list_element">     
+						<div class="l-left">
+						<a href="<%= user_path(user) %>">
+						<% if user.avatar_file_name.nil? %>
+							<%= image_tag 'no_photo.jpg', :size => "100x100", :class => "b-gradient-block__list_image"  %>
+						<% else %>
+							<%= image_tag user.avatar.url(:thumb), :size => "93x93", :class => "b-gradient-block__list_image" %>
+						<% end %>
+						</a>        
+                        </div>
+						<div class="l-left b-gradient-block__list_info">
+						<%= link_to user.username, user_path(user) %>   
+						<p>          
+						<%= user.role.nil? ? "Автор объявления" : "Детектив" %>
+						</p>
+						<div class="b-report__detective_silver">Секты, интимный бизнес</div> 
+						<%= tag :input, { :type => "button", :value => "Написать сообщение", :class => "silver_action b-inbox__send_message" } %>  
+						</div>
+						<div class="clear"></div>                 
+				  </div>
+				<% end %>            
+			</div>
+			
+		</div> 
+ 
+	</div>
+</div>
+

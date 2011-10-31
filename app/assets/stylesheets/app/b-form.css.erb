@@ -33,7 +33,7 @@ input[type="text"] {
   top: -32px;
   z-index: 1;
 
-  background: #f4f4f4;
+  background: #eee;
 }
 
 	/* Список шагов в объявлении */
@@ -77,7 +77,7 @@ input[type="text"] {
 }
 	.b-form__field:hover .b-form__field_edit_action { 
 		display: inline-block;
-		float: right;
+
 	}
 	.b-form__field_edit_action {
 		display: none;
@@ -99,17 +99,12 @@ input[type="text"] {
 	
 /* Кнопки под формой */
 .b-form__actions {
-  margin-top: 2em;
-
-/*  Кнопки поверх полоски */
-  position: relative; 	
-  z-index: 2;
+  padding: .4em 0;
 }
 
 /* Полоска для кнопок */
 .b-form__action_panel {
-  top: -27px;
-  margin-bottom: -27px; /* Компенсируем отступ снизу */
+  margin-top: 4em; 
 }
 
   .b-form__actions .ui-button {
@@ -119,7 +114,6 @@ input[type="text"] {
 
 /* Кнопка опубликовать объявление */
 .b-form__save_button {
-	color: #000 !important;
 }
 
 /* Подпись к полю */
@@ -147,14 +141,20 @@ input[type="text"] {
 	list-style: none; 
 	
 	float: left;
-	margin-left: 42px;
-}
+	margin-left: 42px;   
+	height: 120px;
+}             
+	.b-form__photo_loading {
+		width: 100px;
+		height: 100px;
+		background: url(<%= asset_path 'ajax-loader.gif' %>) no-repeat center center;
+	}
 	.b-form__photo_field {
 		width: 0;
 		height: 0;
 	}
 
-	li.b-form__photo {
+	li.b-form__photo, li.b-form__photo_loading {
 		text-align: center; 
 		
 		float: left;
@@ -260,30 +260,54 @@ input[type="text"] {
 	.b-form__place_search_button {
 		width: 4.1em;
 		padding-left: 7px;
+	}            
+	
+	.b-form__its_missing_place {
+		background: #ffd9da;
+		
+		padding: 5px;
+		width: 280px;
+	}    
+	
+	.b-form__its_missing_place_date {
+	    margin-top: 5px;     
+	
+
 	}
 
 	.b-form__nested {
 		display: none;
-	}
+	}                 
+	
+	
 	
 	
 /*	Список мест и людей */
 	.b-form__familiar, .b-form__place {
-		border-bottom: 1px solid #e1e1e1;
-		
 		padding-bottom: 13px;
-		margin-bottom: 13px;
-		width: 240px;
-	}
+	}                                 
+	
+	.b-form__familiar_inner, .b-form__place_inner {
+		width: 240px;            
+		padding-bottom: 13px;
+		
+	    border-bottom: 1px solid #e1e1e1; 
+	}           
+	
+		.b-form__familiar.deleted, .b-form__place.deleted {
+			color: #ccc;
+			text-decoration: line-through;
+		}
 	
 	.b-form__familiar .b-form__label, .b-form__place .b-form__label {
-		margin-bottom: 5px;
 		height: .9em;
 	}
 	
 	.b-form__add_familiar_relations_tense_description_field {
 		display: none;
-	}
+	}                   
+	
+	
 	
 /* =================== */
 /* = Чекбок и радио  = */
@@ -306,7 +330,7 @@ input[type="text"] {
 .b-form-radio label {
 	display: inline-block;
 	position: relative;
-	z-index: 1;
+	/* z-index: 1; */
 	line-height: 1;
 	padding: 0.2em 0 0.3em 17px;
 	cursor: pointer;

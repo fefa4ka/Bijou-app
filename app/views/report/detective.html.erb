@@ -1,1 +1,78 @@
-                                                                  s
+<div class="container_16 b-report">
+	<div class="grid_11">
+	<div class="b-report__detective_list b-list">
+		<% current_user.can_helps.each do |can_help| %>
+		  <div class="b-list__element">
+			<div class="b-list__element_content">
+				<table width="100%">
+				<tr>
+					<td class="b-report__detective_list_image">          
+						
+						<a href="<%= missing_path(can_help.missing) %>" class="t-medium">
+						<% unless can_help.missing.photos.first %>
+							<%= image_tag 'no_photo.jpg', :size => "100x100", :class => "b-list__image"  %>
+						<% else %>
+							<%= image_tag can_help.missing.photos.first.photo.url(:thumb), :size => "100x100", :class => "b-list__image" %>
+						<% end %>
+						</a>                
+						
+					</td>
+					<td valign="top">      
+						<div class="b-report__detective_list_info">
+							<a href="<%= missing_path(can_help.missing) %>" class="t-medium l-block"><%= can_help.missing.name %></a>  
+							<% unless can_help.missing.man_age.nil? %><%= can_help.missing.man_age %> <%= Russian.p can_help.missing.man_age, 'год', 'года', 'лет' %>, <% end %>Москва<br>
+							<div class="b-report__detective_silver">Секты, интимный бизнес</div>  
+							<p class="b-report__detective_list_username">Разместил <%= can_help.missing.user.username %></p>
+						</div>
+						<%= button_to 'Написать сообщение', "#", :class => "blue_action"  %>   
+						
+					</td>
+				</tr>    
+				</table>
+				<div class="b-report__detective_update">
+				<b>Обновления</b><br>
+				<a href="#">2 новых местa</a>, где был <%= can_help.missing.name %><br>
+				<a href="#">2 новых местa</a>, где был <%= can_help.missing.name %><br>
+				</div>
+			</div>
+			<div class="b-list__element_min"></div>
+		  </div>
+		<% end %>
+	</div>
+	</div>
+	
+	<div class="grid_5 b-rightside"> 
+		
+		<div class="b-sidebar b-report__detective_missings">
+			<p class="b-sidebar__header">Актуальные пропажи</p>
+			<div class="b-gradient-block__list">
+				<% @missings.each do |missing| %>
+				  <div class="b-gradient-block__list_element">     
+						<div class="l-left">
+						<a href="<%= missing_path(missing) %>">
+						<% unless missing.photos.first %>
+							<%= image_tag 'no_photo.jpg', :size => "100x100", :class => "b-gradient-block__list_image"  %>
+						<% else %>
+							<%= image_tag missing.photos.first.photo.url(:thumb), :size => "93x93", :class => "b-gradient-block__list_image" %>
+						<% end %>
+						</a>        
+                        </div>
+						<div class="l-left b-gradient-block__list_info">
+						<%= link_to missing.name, missing_path(missing) %>   
+						<p>
+						<% unless missing.man_age.nil? %><%= missing.man_age %> <%= Russian.p missing.man_age, 'год', 'года', 'лет' %>, <% end %>Москва<br>               
+						</p>
+						<div class="b-report__detective_silver">Секты, интимный бизнес</div>   
+						</div>
+						<div class="clear"></div>                 
+				  </div>
+				<% end %>            
+			</div>
+			<div class="b-sidebar__hr_100"></div> 
+			<%= button_to 'Найти другие объявления', "#", :class => "b-report__search_missings_button" %>
+		</div> 
+
+ 
+	</div>
+</div>
+

@@ -21,11 +21,7 @@
   <%= render @missing.current_step, :f => f %>
 
 
-	<div class="b-form__actions">
-		<%= f.submit "Предыдущий шаг", :class => "b-form__back_button", :tabindex => "-1" unless @missing.first_step? %>
-		<%= f.submit "Следующий шаг", :class => "b-form__next_button" unless @missing.last_step?  %>
-		<%= f.submit "Опубликовать объявление", :class => "b-form__save_button green" if @missing.last_step?  %>
-	</div>
+	
 
 </div>
 </div>
@@ -33,7 +29,17 @@
 
 <div class="clear"></div>
 <!-- End grid_16 and container -->
-<div class="b-form__action_panel">
+<div class="b-form__action_panel">    
+	<div class="container_16">
+	<div class="grid_8">
+	<div class="b-form__actions">
+		<%= f.submit "Предыдущий шаг", :class => "b-form__back_button", :tabindex => "-1" unless @missing.first_step? %>
+		<%= f.submit "Следующий шаг", :class => "b-form__next_button" unless @missing.last_step?  %>
+		<%= f.submit "Опубликовать объявление", :class => "b-form__save_button blue" if @missing.last_step?  %>
+	</div>  
+	</div>
+	</div>
+	
 </div>
   
 <% end %>

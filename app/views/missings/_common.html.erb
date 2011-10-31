@@ -37,7 +37,7 @@ $(function(){
    	 <p class="b-form__ages">
 	    <%= f.text_field :man_age, :class => "b-form__text_age" %> <span class="man_age_sign"><%= Russian.p f.object.man_age.to_i, 'год', 'года', 'лет' %> </span>               
 	    <p class="b-form__birthday"> 
-	    	<%= f.date_select :birthday, :order => [:day, :month, :year], :start_year => 1900, :end_year => Time.now.year, :default => { :day => 1, :month => 1, :year => 1988 }  %>
+	    	<%= f.date_select :birthday, :order => [:day, :month, :year], :start_year => 1900, :end_year => Time.now.year, :prompt => { :day => "день", :month => "месяц", :year => "год" }  %>
 		</p>     
 	 </div>
   </div>
@@ -62,11 +62,11 @@ $(function(){
 	<%= f.fields_for :photos do |photo_form| %>
 	  <% if photo_form.object.image_name.nil? %>
 		<li class="b-form__photo_field">
-	    <%= photo_form.file_field :load_photo_file, :class => "invisible" %>
+	    <%= photo_form.file_field :photo, :class => "invisible" %>
 	 	</li>
 	  <% else %>
 	    <li class="b-form__photo">
-			<%= image_tag "/photos/" + photo_form.object.image_name, :size => "100x100", :class => "b-form__photo" %>
+			<%= image_tag photo_form.object.image_name, :size => "100x100", :class => "b-form__photo" %>
 			<%= tag :input, { :type => "button", :value => "удалить", :class => "b-form__photo_delete red_action destroy" } %>
 			<%= photo_form.hidden_field :image_name %>
 			<%= photo_form.hidden_field :_destroy %>

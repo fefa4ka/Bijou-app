@@ -6,7 +6,7 @@
 {	
 	color: #0065cc;
 	
-	padding: 5px 10px 4px;
+	padding: 3px 10px 3px !important;
 	border: 1px solid #e5e5e5; 
 	border-bottom-color: #e6e6e6;
 	border-left-color: #e4e4e4;
@@ -93,4 +93,104 @@
 
 .b-report__services .b-sidebar__list_item {
 	line-height: 18px;
+
+}
+               
+
+/* Детектив */
+.b-report__detective_list .b-list__element_content {
+	text-align: left;      
+}
+
+
+.b-report__detective_list .b-list__element {
+	width: 330px;
+	min-width: 330px;
+
+ 
+}
+
+
+
+.b-report__detective_list_username {
+	margin: .7em 0 .5em;
+}
+                         
+.b-report__detective_list_image { 
+	width: 117px;
+}
+
+.b-report__detective_list .b-list__image, .b-gradient-block__list_image	 {
+	-webkit-box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
+	box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2);
+	
+	border: 3px solid #fff;    
+	
+	margin: 3px;
+	
+}
+                 
+.b-report__detective_list_info {
+	margin: 2px;           
+	
+}              
+
+.b-report__detective_update { 
+	margin: .5em 0;
+}              
+
+.b-report__detective_silver {
+   color: #666;
+}               
+
+
+.b-report__detective_missings {
+	padding: 0 0 8px !important;     
+}                   
+
+.b-report__detective_missings .b-sidebar__header {
+	text-align: center; 
+	margin: 6px 0 8px;
+}                    
+
+.b-gradient-block__list_element {   
+	padding: 5px 7px;     
+	background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 70%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 70%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 70%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 70%); /* W3C */
+}                  
+
+	.b-gradient-block__list_info { 
+		margin-left: 9px;
+		padding-top: 3px;   
+		
+		width: 62%;
+	}          
+	
+.b-report__search_missings_button {
+	width: 94%;
+	margin: 7px 3% 0;
+}                       
+
+/* Поиск сообщений */
+.b-report__search.messages {
+	margin: 4px 19px;
+}                   
+
+.messages input.b-report__search_field {
+	margin-left: 19px;
+}      
+input.b-report__search_field {
+	width: 181px;
+	margin: 0 9px 0 0;
+}       
+
+
+.b-report__search.contacts {
+		margin: 10px 0 16px;
 }

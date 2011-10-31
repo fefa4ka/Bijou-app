@@ -3,7 +3,7 @@
 </style>
 <div class="container_16">
 	
-<div class="grid_12">
+<div class="grid_11">
 	<div class="b-header">
 		Эти люди пропали в <a href="#">Москве</a>
 	</div>
@@ -19,7 +19,7 @@
 			<% unless missing.photos.first %>
 				<%= image_tag 'no_photo.jpg', :size => "160x160", :class => "b-list__image"  %>
 			<% else %>
-				<%= image_tag "/photos/" + missing.photos.first.image_name, :size => "160x160", :class => "b-list__image" %>
+				<%= image_tag missing.photos.first.photo.url(:small), :size => "160x160", :class => "b-list__image" %>
 			<% end %>
 			<%= missing.name %>
 			</a>
@@ -29,12 +29,12 @@
 	<% end %>
 	</div>
 </div>
-<div class="grid_4">
+<div class="grid_5  b-rightside">
 	<div class="b-sidebar">
 		<div class="b-sidebar__header">
 			Если у вас пропал близкий
 		</div>
-		<%= button_to 'Создайте объявление', '/add_missing/common',  :class => "green b-sidebar__create_missing t-medium"  %>
+		<%= button_to 'Создайте объявление', '/add_missing/common',  :class => "blue b-sidebar__create_missing t-medium", :method => "get"  %>
 		<div class="b-sidebar__hr"></div>
 		<div class="b-sidebar__header">
 			Мы собираем информацию об опасных местах

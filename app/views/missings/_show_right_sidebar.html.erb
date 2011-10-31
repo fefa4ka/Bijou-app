@@ -29,42 +29,78 @@
 					<% else %>
 					<%= tag :input, { :type => "button", :value => "Написать личное сообщение", :class => "b-missing__toggle_send_message" } %>                                                                               
 					<% end %>
+				</div>                              
+				
+				<hr class="b-hr b-missing__send_message" />
+				                                   
+				<div class="b-missing__send_message_status t-medium">
+				</div>
+				
+				<div class="b-missing__send_message">
+				<div class="t-medium">Личное сообщение автору</div>
+				<%= form_for @message, :url => '/send_message.json', :remote => true do |message| %>
+			        <%= message.hidden_field :destination_user_id, :value => @missing.user_id %>
+					<%= message.text_area :text, :rows => 4, :class => "b-missing__add_comment", :placeholder => "Текст сообщения" %>  
+					<% unless logged_in? %> 
+					<p class="b-missing__send_message_field">
+					<%= message.label :name, "Ваше имя" %><br/>
+					<%= message.text_field :name %>  
+					</p>                              
+					<p class="b-missing__send_message_field">
+					<%= message.label :email, "Электронная почта" %><br/>
+					<%= message.text_field :email %>       
+					</p>
+					<p class="b-missing__send_message_field">
+					<%= message.label :phone, "Телефон" %><br/>
+					<%= message.text_field :phone %>       
+					</p> 
+					<% end %> 
+					<%= message.submit "Отправить", :class=> "b-missing__send_message_button" %>     
+					<div class="clear"></div>           
+
+				<% end %>
 				</div>
 			</div>
 
 		<div class="clear"></div>             	
 		
 			<div class="b-sidebar b-missing__rightside">
-				<p class="b-sidebar__header">Люди которые могут помочь</p>
+				<div class="b-missing__i_can_help">
+					<ul class="b-sidebar__list">
+						<li class="b-sidebar__list_element">Можете оказать помощь</li>
+						<li class="b-sidebar__list_element">Вы знаете этого человека</li>
+						<li class="b-sidebar__list_element">У вас похожий случай</li>
+					</ul>
+	
+					<div class="t-center">
+						<%= tag :input, { :type => "button", :value => "Я могу помочь", :class => "blue t-medium b-missing__i_can_help" } %>
+					</div>
+				</div>                                      
+				           
+				<% if @helpers.length > 0 %>
+				<div class="b-sidebar__hr_100"></div>
+				
+				<div class="b-sidebar__header b-missing__people_can_help">Люди которые могут помочь</div>
                 
-				<div class="b-sidebar__block_list b-list">
-				<% @helpers.each do |user| %>
+				<div class="b-sidebar__block_list b-list b-missing__people_can_help">
+				<% @helpers.each do |can_help| %>
 				  <div class="b-list__element">
 					<div class="b-list__element_content">
-						<a href="<%= user_path(user) %>" class="b-list__name_link">
-						<% if user.image_name.nil? %>
+						<a href="<%= user_path(can_help.user) %>" class="b-list__name_link">
+						<% if can_help.user.image_name.nil? %>
 							<%= image_tag 'no_photo.jpg', :size => "100x100", :class => "b-list__image"  %>
 						<% else %>
-							<%= image_tag "/users/" + user.image_name, :size => "100x100", :class => "b-list__image" %>
+							<%= image_tag "/users/" + can_help.user.image_name, :size => "100x100", :class => "b-list__image" %>
 						<% end %>
-						<%= user.username %>
+						<%= can_help.user.username %>
 						</a>                  
-						<% if user.role == 1%><p>Детектив</p><% end %>
+						<% if can_help.user.role == 1%><p>Детектив</p><% end %>
 					</div>
 					<div class="b-list__element_min"></div>
 				  </div>
 				<% end %>
 				</div>
+				<% end %>           
 				
-				<div class="b-sidebar__hr_100"></div>
-
-				<ul class="b-sidebar__list">
-					<li class="b-sidebar__list_element">Можете оказать помощь</li>
-					<li class="b-sidebar__list_element">Вы знаете этого человека</li>
-					<li class="b-sidebar__list_element">У вас похожий случай</li>
-				</ul>
-
-				<div class="t-center">
-					<%= tag :input, { :type => "button", :value => "Я могу помочь", :class => "green t-medium b-missing__i_can_help" } %>
-				</div>
+				
 			</div>

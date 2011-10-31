@@ -1,0 +1,176 @@
+/* Сообщения */
+.b-inbox__list {
+	position: relative;
+}                  
+
+/* Белая тень списка сообщений */     
+.b-inbox__list_container {
+	overflow: hidden;
+}
+.b-inbox__fadein_top, .b-inbox__fadein_bottom {
+	height: 25px;
+	
+	position: relative;
+	z-index: 3;
+}                
+
+.b-inbox__fadein_top {
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAZCAYAAABD2GxlAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAGxJREFUeNrs1LENgCAURVFJDKUtLb0DsH/lBA5gTYAEGosflR2wuCH/Jbc/1TMi8i7gGQX+AHzoQKEDbzqw0YGRDrzowJMOPMjAtVfowEwHJgXODqx0YFPg4FEHOnCnAz0d6OjAjQ60ZOAnwACjMUTZDudhZwAAAABJRU5ErkJggg==);
+
+}
+
+.b-inbox__fadein_bottom {
+	background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAZCAYAAABD2GxlAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAF1JREFUeNrs1kEKwCAMRFEVK7a2BfX+Z017h2y+MoHZPwJhEs2sBPDkP5UOPAV0AhsdeAvoBD4COoEvHTgF3B046MCuK969SS49rE7gQQdmOjDRgZEMRG9vCeAnwABHSwRawg4SNgAAAABJRU5ErkJggg==);
+} 
+
+.b-inbox__message {      
+	position: relative;
+	cursor: pointer;
+
+	border: 1px solid #e0e0e0;            
+	padding: 18px 17px;        
+	margin: -1px 20px 0 19px; 
+	   
+	z-index: 1;
+}       
+.b-inbox__message.unread, .b-inbox__message.unread:hover {                    
+	border-left-color: #ffbe00;
+	-webkit-box-shadow: inset 1px 0 0 #ffe592;
+	-moz-box-shadow: inset 1px 0 0 #ffe592;
+	box-shadow: inset 1px 0 0 #ffe592;
+}
+              
+.b-inbox__message:hover { 
+	border-color: #cbe0f7;  
+	 
+	z-index: 2;
+}         
+
+.b-inbox__message_photo, .b-inbox__message_block {
+	display: inline-block;      
+	vertical-align: top;
+}           
+                             
+.b-inbox__message_block {
+	margin-top: -2px;
+}                   
+
+.b-inbox__message_photo {
+	margin-right: 18px;
+}            
+  
+.b-inbox__message_header {
+	margin-bottom: 10px;
+}                     
+
+.b-inbox__message_author, .b-inbox__message_date {
+	color: #666;
+}              
+
+.b-inbox__message_date {
+	margin: 0 28px 0 22px;
+}
+
+#b-inbox__message_answer { 
+	background: #fff;
+}                   
+
+.b-inbox__message:hover #b-inbox__message_answer {
+	background: #d8ebdc; /* Old browsers */
+	background: -moz-linear-gradient(top, #e1f1ff 0%, #cbe0f7 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e1f1ff), color-stop(100%,#cbe0f7)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #e1f1ff 0%,#cbe0f7 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #e1f1ff 0%,#cbe0f7 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, #e1f1ff 0%,#cbe0f7 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e1f1ff', endColorstr='#cbe0f7',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, #e1f1ff 0%,#cbe0f7 100%); /* W3C */
+}                                 
+
+
+.b-inbox__contacts {
+	padding: 0 !important;
+}              
+
+.b-inbox__contacts .b-sidebar__header {
+	padding: 8px 12px 0 12px;
+}
+
+.b-report__search.contacts {          
+	margin-left: 13px !important;
+	
+}                        
+
+.b-inbox__contacts .b-inbox__send_message {
+	margin-top: 5px;
+
+}        
+
+
+.b-inbox__contacts .ui-state-default.silver_action, .b-inbox__contacts .ui-widget-content.silver_action .ui-state-default, .b-inbox__contacts .ui-widget-header.silver_action .ui-state-default
+{	
+	font: 11px/11px verdana;
+	color: #4a4a4a;
+	
+	border: 0;
+	
+	background: #e4e4e4; /* Old browsers */
+	background: -moz-linear-gradient(top, #e6e6e6 0%, #cacaca 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cacaca), color-stop(100%,#cacaca)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #e6e6e6 0%,#cacaca 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #e6e6e6 0%,#cacaca 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, #e6e6e6 0%,#cacaca 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6e6e6', endColorstr='#cacaca',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, #e6e6e6 0%,#cacaca 100%); /* W3C */
+	
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}           
+
+
+/* Новое сообщение, тени */
+
+.b-inbox__new_message { 
+	margin: -1px 0;     
+	                   
+/*	 Чтобы сливались вертикальные полосочки */
+    position: relative;
+	z-index: 2;
+}
+                      
+.b-inbox__new_message_box { 
+	margin: 17px 31px;
+}
+
+.b-inbox__new_message_top {
+	height: 4px;
+	
+	background: url(data:application/octet-stream;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAAECAMAAACTMR4LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA9QTFRF2NjYsbGx7e3t3t7e39/fy5kXgAAAABVJREFUeNpiYGJiYGFmAAJGRoAAAwAAbgAO29P+qAAAAABJRU5ErkJggg==);
+}            
+
+.b-inbox__new_message_bottom {
+	height: 4px;
+	
+	background-image: url(data:application/octet-stream;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAAECAMAAACTMR4LAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA9QTFRF2NjYsbGx7e3t3t7e39/fy5kXgAAAABVJREFUeNpiYGRkAAIWZgYmJoAAAwAARwAO6q7xAAAAAABJRU5ErkJggg==);
+}    
+
+.b-inbox__new_message_top_left, .b-inbox__new_message_top_right,
+.b-inbox__new_message_bottom_left, .b-inbox__new_message_bottom_right {
+	background: url(<%= asset_path 'inbox_shadow.png' %>);           
+	
+	width: 57px;
+	height: 4px;
+}                                                  
+                               
+.b-inbox__new_message_bottom_left {
+	background-position: 0 4px;
+}
+                 
+.b-inbox__new_message_top_right {
+	background-position: 57px 0;
+}
+                               
+.b-inbox__new_message_bottom_right {
+	background-position: 57px 4px;
+}               
+

@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111003055952) do
+ActiveRecord::Schema.define(:version => 20111030194316) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -29,6 +28,16 @@ ActiveRecord::Schema.define(:version => 20111003055952) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "can_helps_places", :force => true do |t|
+    t.integer  "place_id"
+    t.integer  "can_help_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "can_helps_places", ["can_help_id"], :name => "index_can_helps_places_on_can_help_id"
+  add_index "can_helps_places", ["place_id"], :name => "index_can_helps_places_on_place_id"
 
   create_table "discussions", :force => true do |t|
     t.text     "comment"
@@ -104,6 +113,7 @@ ActiveRecord::Schema.define(:version => 20111003055952) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.date     "date"
   end
 
   create_table "photos", :force => true do |t|
@@ -111,6 +121,9 @@ ActiveRecord::Schema.define(:version => 20111003055952) do
     t.integer  "missing_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
   end
 
   add_index "photos", ["missing_id"], :name => "index_photos_on_missing_id"
@@ -125,6 +138,8 @@ ActiveRecord::Schema.define(:version => 20111003055952) do
     t.integer  "missing_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "missing"
+    t.boolean  "is_missing"
   end
 
   add_index "places", ["missing_id"], :name => "index_places_on_missing_id"
@@ -144,18 +159,26 @@ ActiveRecord::Schema.define(:version => 20111003055952) do
     t.string   "email"
     t.string   "crypted_password"
     t.string   "salt"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "remember_me_token"
-    t.datetime "remember_me_token_expires_at"
-    t.string   "callback"
     t.string   "phone"
+    t.string   "callback"
     t.text     "coverage"
     t.text     "specialization"
     t.string   "image_name"
     t.integer  "role"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
+    t.string   "remember_me_token"
+    t.datetime "remember_me_token_expires_at"
+    t.datetime "last_login_at"
+    t.datetime "last_logout_at"
+    t.datetime "last_activity_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
+  add_index "users", ["last_logout_at", "last_activity_at"], :name => "index_users_on_last_logout_at_and_last_activity_at"
   add_index "users", ["remember_me_token"], :name => "index_users_on_remember_me_token"
 
 end

@@ -115,14 +115,14 @@ $(function(){
     }
 	
 	// По Enter в оверлее добавления места, место добавляется
-	$('.b-form__add_place').keydown( function( event ) {
-		if( event.keyCode == 13) {
-			$(".b-form__add_place_button").click();
-			
-			return false;
-		}
-	});
-	
+	// $('.b-form__add_place').keydown( function( event ) {
+	// 	if( event.keyCode == 13) {
+	// 		$(".b-form__add_place_button").click();
+	// 		
+	// 		return false;
+	// 	}
+	// });
+	//      
 	
 	$(".b-form__place_search_button").click(function() {
 		add_place( $(".b-form__place_search_text_field").val() );
@@ -130,11 +130,12 @@ $(function(){
 	
 	
 	$(".b-form__add_place_button_cancel").live("click", hide_place);
-	
+	                                             
+	log('loading add_places');
 	$(".b-form__add_place_button").live("click", function() {
 		log(this);
 		var prefix = ".b-form__add_place_",
-			fields = ['name', 'address', 'description'],
+			fields = ['name', 'address', 'description', 'missing'],
 			new_id = new Date().getTime(),
 			element = $("<div></div>")
 						.addClass("b-form__field b-form__place")
@@ -143,13 +144,14 @@ $(function(){
 								.text( $(prefix + fields[0]).val() )
 						)
 						.append( $("<p></p>")
-							.text( $(prefix + fields[2]).val() )
+							.text( $(prefix + fields[2]).nl2br().val() )
 						)
-						.append( $("<p></p>")
+						.append( $("<p class='t-small'></p>")
 							.text( $(prefix + fields[1]).val() )
 						);
 						
 		add_hidden_fields(element, prefix, fields);
+		// Сохраняем поле с датой пропажи, если оно было указано
 		
 		console.log(element)
 		$(".b-form__places").append( element );
@@ -159,5 +161,34 @@ $(function(){
 		// Сохраняем добавленное место
 		redirect_disallow = true;
 		$("#new_missing").submit();
+	});                        
+	
+    // Обработчик чекбокса "Это место пропажи"
+	$('.b-form__add_place_missing').live('change', function(){             
+		var $div = $('.b-form__its_missing_place_date'),
+			checked = $(".b-form__add_place_missing:checked").val() !== undefined ? $div.show() : $div.hide();     
+	});              
+	
+	// Удаление мест
+	$(".b-form__place .destroy").live('click', function(){
+		$(this).toggle(function(){	
+			$(this)
+				.val('восстановить')
+				.removeClass('red_action').addClass('silver_action')
+			.parents('.b-form__place')
+				.removeClass('active').addClass('deleted')
+			.find('input[name$="[_destroy]"]')
+				.val(1);
+		},
+		function(){
+			$(this)
+				.val('удалить')
+				.removeClass('silver_action').addClass('red_action')
+			.parents('.b-form__place')
+				.removeClass('deleted').addClass('active')
+			.find('input[name$="[_destroy]"]')
+				.val(0);
+		}).trigger('click');
 	});
+			
 })

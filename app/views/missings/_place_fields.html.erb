@@ -18,6 +18,12 @@
 	      <span class="b-form__samples_element b-pseudo_link">клуб</span>
 	    </div> 
 	  </div>
+	  <div class="b-form__field b-form__its_missing_place ui-corner-all">             
+	  	<%= place_form.check_box :is_missing, :class => "b-form__add_place_missing" %> <%= place_form.label :is_missing, "это место пропажи #{form.object.name}" %>   
+		<div class="b-form__its_missing_place_date l-hidden">
+			Дата <%= form.date_select :date, :order => [:day, :month, :year], :start_year => 2000, :end_year => Time.now.year  %> года
+		</div>
+	  </div>                                
 	  <div class="b-form__field">
 	    <%= place_form.label :description, "Подробнее об этом месте", :class => "b-form__label" %>
 	    <%= place_form.text_area :description, :rows => 4, :class => "b-form__nested_field b-form__add_place_description" %>
@@ -35,16 +41,18 @@
 	<div class="b-form__label">
 		<%= place_form.object.name %>
 		<div class="b-form__field_edit_action t-normal">
-			<%= tag :input, { :type => "button", :value => "редактировать", :class => "b-form__place_edit silver_action" } %>
-			<%= tag :input, { :type => "button", :value => "удалить", :class => "b-form__place_delete red_action" } %>
+			<%= tag :input, { :type => "button", :value => "редактировать", :class => "edit silver_action l-hidden" } %>
+			<%= tag :input, { :type => "button", :value => "удалить", :class => "destroy red_action" } %>
 		</div>
+	</div>     
+	<div class="b-form__place_inner">
+		<p><%= simple_format(place_form.object.description) %></p>
+		<p class="t-small"><%= place_form.object.address %></p>
+		<%= place_form.hidden_field :name %>
+		<%= place_form.hidden_field :address %>
+		<%= place_form.hidden_field :description %>
+		<%= place_form.hidden_field :_destroy %>         
 	</div>
-	<p><%= place_form.object.description %></p>
-	<p class="t-small"><%= place_form.object.address %></p>
-	<%= place_form.hidden_field :name %>
-	<%= place_form.hidden_field :address %>
-	<%= place_form.hidden_field :description %>
-	<%= place_form.hidden_field :_destroy %>
 </div>
 <% end %>
 <% end %>

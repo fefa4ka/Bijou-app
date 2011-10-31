@@ -114,7 +114,7 @@
 			<%= link_to_unless_current content_tag("li", "Сводка по объявлению", :class => "b-missing__tab"), '/report', :class => "b-missing__tab_link" %>     
 			<% else %>
 			<%= link_to_unless_current content_tag("li", "Обзор дел", :class => "b-missing__tab"), '/report', :class => "b-missing__tab_link" %>
-			<%= link_to_unless_current content_tag("li", 'Сообщения', :escape => true, :class => "b-missing__tab"), '/inbox', :class => "b-missing__tab_link" %>
+			<%= link_to_unless_current content_tag("li", content_tag("span", "Сообщения") + tag("input", :type => "button", :value => "3", :class => "orange b-missing__tab_message_count"), :escape => true, :class => "b-missing__tab"), '/inbox', :class => "b-missing__tab_link" %>
 			<% end %>
 		</ul>
 	</div>	   
@@ -156,7 +156,7 @@
 
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
   <script>
-    var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview'],['_trackPageLoadTime']];
+    var _gaq=[['_setAccount','UA-26145427-1'],['_trackPageview'],['_trackPageLoadTime'],['_setDomainName', '.yapropal.ru']];
     (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
     g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
     s.parentNode.insertBefore(g,s)}(document,'script'));
