@@ -28,9 +28,31 @@ class Missing < ActiveRecord::Base
   
   default_scope :order => "updated_at DESC"
                              
-  def to_param
-    "#{id}-#{name.parameterize}"
+  def to_param                 
+    "#{id}-#{name.parameterize}/"
   end
+                 
+  def last_visit
+      @current_user.last_visit("Missing", self.id)
+  end
+  
+  def new_places(action=nil)
+    if action == :get_count        
+      self.places.count(:conditions => { :created_at => self.last_visit..Time.now })
+    else
+      self.places.where(:created_at => last_visit..Time.now)       
+    end
+  end    
+  
+  def new_familiars_count
+    self.familiars.count(:conditions => { :created_at => self.last_visit..Time.now })
+  end
+  
+  def new_helpers_count
+    CanHelp.where(:created_at => self.last_visit..Time.now)
+  end
+  
+    
   
 
   def current_step
@@ -53,14 +75,13 @@ class Missing < ActiveRecord::Base
     current_step == steps.last
   end            
        
-  private   
-               
-  def steps
-    %w[common characteristic history contacts]
-  end
+  private               
+    def steps
+      %w[common characteristic history contacts]
+    end
     
-  def prepare_data
-    now = Date.today
-    self.man_age = now.year - self.birthday.year if self.birthday.is_a?(Date)       
-  end
+    def prepare_data
+      now = Date.today
+      self.man_age = now.year - self.birthday.year if self.birthday.is_a?(Date)       
+    end  
 end                                

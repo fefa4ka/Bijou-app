@@ -22,68 +22,27 @@
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
  
   <!-- jQuery & jQuery UI -->
-  <%= stylesheet_link_tag "application" %>        
-	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4e5c782a66f297f6"></script>
-  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag "application" %>
+  
+  <%= javascript_include_tag "application" %>                      
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4e5c782a66f297f6"></script>
 
 </head>
 
 <body>	
 <div id="wrapper"> 
-<% unless logged_in? %>
+
+
+<!-- Check user auth, if user not logged in then show block below -->
+<%# unless user_signed_in? %>
+<% unless false %>
 <div class="b-head-bg">
   <div class="container_16">
- 	<div class="b-head__logo grid_3">
-		<%= link_to_unless_current image_tag('logo.png', :class => 'l-left'), '/' %>
-		</a>           
-	</div>                             
-	<div class="grid_11 b-head__menu">
-	   <table class="b-head__menu_table">
-		<tr>
-			<td>
-				<div class="t-medium">У вас пропал человек</div>
-				<div class="b-head__menu_description">
-					Все будут искать потеряшку
-				</div>   
-				<%= button_to 'Создайте объявление', '/add_missing/common', :class => "black" %> 
-			</td>
-			<td>
-				<div class="t-medium">Вы детектив</div>
-				<div class="b-head__menu_description">
-					Найдите себе клиентов
-				</div>   
-				<%= button_to 'Зарегистрируйтесь', '/singup/detective', :class => "black"  %> 
-			</td>                                
-			<td>
-				<div class="t-medium">Доброволец</div>
-				<div class="b-head__menu_description">
-					Ты можешь помочь в поиске потеряшек
-				</div>   
-				<%= button_to 'Стать добровольцем', '/singup/volunteer', :class => "black"  %> 
-			</td>              
-		</tr>
-		</table>   	
-	</div>
-    <div class="b-head__auth grid_1">  
-		<input class="b-head__login black" type="button" value="Войти" />
-		<div class="b-head__login_form">                                    
-			<%= form_tag sessions_path, :tabindex => 1 do %>   
-			<%= text_field_tag :email, params[:email], :class => "b-head__login_form_text", :placeholder => "эл. почта или телефон", :tabindex => 2 %>
-				<%= text_field_tag :password, "", :class => "b-head__login_form_text", :placeholder => "пароль", :tabindex => 3 %>
-			<p class="b-head__block">
-				<%= check_box_tag :remember_me, 1 %> <%= label_tag :remember_me, "запомниь меня", :tabindex => 4 %>
-			</p>
-			<p class="b-head__block">  
-				<%= submit_tag "Войти", :class => "t-medium", :tabindex => 5 %>
-			</p>
-			<p class="b-head__block">
-				<a href="#">вспомнить пароль</a>
-			</p>   
-			<% end %>
-		</div>     
-	</div>                  
+ 	<div class="grid_16"><a href="#" class="b-button-type-a b-button-enter-to-site"/>Войти на сайт</a></div>
   </div>      
  </div>  
+
+<!-- User already logged in, show this block -->
 <% else %> 
 <div class="b-head-bg__logged">
   <div class="container_16">
@@ -95,14 +54,15 @@
 	   <table class="b-head__menu_table">
 		<tr>
 			<td>
-				<div class="b-head__logined">Для вас есть новости, <%= current_user.username %>.<br/> 
+				<div class="b-head__logined">Для вас есть новости, <%= current_user.name %>.<br/> 
 			</td>              
 		</tr>
 		</table>   	
 	</div>
     <div class="b-head__auth grid_1">  
 	    <%= link_to "Настройки", "/settings", :class => "b-head__settings"  %>
-		<%= button_to "Выйти", '/logout', :class => "black" %>  
+		<%= button_to "Выйти", destroy_user_session_path, :method => :delete,  :class => "black" %>     
+		
   
  
 	</div>                 

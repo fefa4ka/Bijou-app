@@ -12,7 +12,7 @@ $(function (){
 			if( message.message_id > 0 )
 			{                   
 				message_el = $('<div class="b-missing__comment sub"/>')
-							.append( $('<div class="b-missing__comment_header messagel-left">') 
+							.append( $('<div class="b-missing__comment_header message l-left">') 
 									 	.append( $('<a class="b-missing__comment_author"/>')
 									 			 	.attr('href', '/user/' + message.user.id)      
 													.text(message.user.username)

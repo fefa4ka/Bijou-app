@@ -32,7 +32,7 @@
 					<% if message.user.nil? %>
 						<%= link_to "Анонимный комментарий", "", :class => "t-medium b-missing__comment_author" %>    
 					<% else %>
-						<%= link_to message.user.username, "", :class => "t-medium b-missing__comment_author" %>    
+						<%= link_to message.user.name, "", :class => "t-medium b-missing__comment_author" %>    
 					<% end %>
 					<span class="b-missing__comment_date t-small"><%= Russian.strftime message.created_at, "%d %B" %></span>   
 					<%= tag :input, { :type => "button", :value => "Ответить", :class => "b-report__message_answer silver_action l-right" } %>
@@ -51,7 +51,7 @@
 					<% if sub_message.user.nil? %>
 						<%= link_to "Анонимный комментарий", "", :class => "b-missing__comment_author" %>    
 					<% else %>
-						<%= link_to sub_message.user.username, "", :class => "b-missing__comment_author" %>    
+						<%= link_to sub_message.user.name, "", :class => "b-missing__comment_author" %>    
 					<% end %>			
 					<span class="b-missing__comment_date t-small l-right"><%= Russian.strftime sub_message.created_at, "%d %B" %></span>   
 				</div>

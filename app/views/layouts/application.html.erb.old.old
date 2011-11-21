@@ -1,0 +1,127 @@
+<!doctype html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+   <%= csrf_meta_tag %>
+
+  <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+       Remove this if you use the .htaccess -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>Я пропал &mdash; поиск пропавших без вести</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+ 
+  <!-- jQuery & jQuery UI -->
+  <%= stylesheet_link_tag "application" %>
+  
+  <%= javascript_include_tag "application" %>                      
+  <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4e5c782a66f297f6"></script>
+
+</head>
+
+<body>	
+<div id="wrapper"> 
+
+
+<!-- Check user auth, if user not logged in then show block below -->
+<%# unless user_signed_in? %>
+<% unless false %>
+<div class="b-head-bg">
+  <div class="container_16">
+ 	<div class="grid_16"><input type="submit" value="Войти на сайт" class="b-button-type-a b-button-enter-to-site"/></div>
+  </div>      
+ </div>  
+
+<!-- User already logged in, show this block -->
+<% else %> 
+<div class="b-head-bg__logged">
+  <div class="container_16">
+ 	<div class="b-head__logo grid_3">
+		<%= link_to_unless_current image_tag('logo.png', :class => 'l-left'), '/' %>
+		</a>           
+	</div>  
+	<div class="grid_11 b-head__menu">
+	   <table class="b-head__menu_table">
+		<tr>
+			<td>
+				<div class="b-head__logined">Для вас есть новости, <%= current_user.name %>.<br/> 
+			</td>              
+		</tr>
+		</table>   	
+	</div>
+    <div class="b-head__auth grid_1">  
+	    <%= link_to "Настройки", "/settings", :class => "b-head__settings"  %>
+		<%= button_to "Выйти", destroy_user_session_path, :method => :delete,  :class => "black" %>     
+		
+  
+ 
+	</div>                 
+	<div class="clear"></div>
+	<div class="grid_10 b-missing__tabs">
+		<ul class="b-missing__tabs">      
+			<% if current_user.has_missing? %>			
+			<%= link_to_unless_current content_tag("li", "Объявление", :class => "b-missing__tab"), missing_path(current_user.missings.first), :class => "b-missing__tab_link"  %>    
+			<%= link_to_unless_current content_tag("li", "Сводка по объявлению", :class => "b-missing__tab"), '/report', :class => "b-missing__tab_link" %>     
+			<% else %>
+			<%= link_to_unless_current content_tag("li", "Обзор дел", :class => "b-missing__tab"), '/report', :class => "b-missing__tab_link" %>
+			<%= link_to_unless_current content_tag("li", content_tag("span", "Сообщения") + tag("input", :type => "button", :value => "3", :class => "orange b-missing__tab_message_count"), :escape => true, :class => "b-missing__tab"), '/inbox', :class => "b-missing__tab_link" %>
+			<% end %>
+		</ul>
+	</div>	   
+	
+  </div>      
+ </div>
+<% end %>    
+
+  <div class="clear"></div> 
+  <%= yield %> <!--! end of #container -->
+
+  <div class="clear"></div>
+
+</div>
+<!-- end div#wrapperer -->
+
+<div id="footer">
+  <hr class="b-hr" />
+  <div class="container_16">
+	  <table class="b-footer">
+	  <tr>
+		<td class="b-footer__statistic">
+			<p>Мы помогли найти 1042 человек. Сейчас в розыске 14 132 человек, <a href="#">помогите их найти</a></p>
+		</td>
+		<td class="b-footer__nav">
+			<ul class="b-footer__nav_list">
+				<li class="b-footer__nav_element"><a href="#">Что это такое?</a></li>
+				<li class="b-footer__nav_element"><a href="#">Обратная связь</a></li>
+			</ul>
+		</td>
+		<td class="b-footer__copyright">
+			<p>&copy; 2011 Bijou people &mdash; поиск пропавших безвести</p>
+		</td>
+	  </table>
+  </div>
+</div>
+  <!-- JavaScript at the bottom for fast page loading -->
+
+
+  <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
+  <script>
+    var _gaq=[['_setAccount','UA-26145427-1'],['_trackPageview'],['_trackPageLoadTime'],['_setDomainName', '.yapropal.ru']];
+    (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];g.async=1;
+    g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g,s)}(document,'script'));
+  </script>
+
+  <%= yield :scripts %>
+</body>
+</html>

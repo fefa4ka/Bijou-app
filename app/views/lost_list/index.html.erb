@@ -5,7 +5,7 @@
 	
 <div class="grid_11">
 	<div class="b-header">
-		Эти люди пропали в <a href="#">Москве</a>
+		Эти люди пропали в <a href="#">Москве</a>   
 	</div>
 	<p class="b-header__description">
 	Вы можете помочь нам в поиске людей, пропавших в вашем районе.
@@ -15,7 +15,7 @@
 	<% @missings.each do |missing| %>
 	  <div class="b-list__element">
 		<div class="b-list__element_content">
-			<a href="<%= missing_path(missing) %>" class="b-list__name_link">
+			<a href="<%= missing_path(missing) %>/" class="b-list__name_link">
 			<% unless missing.photos.first %>
 				<%= image_tag 'no_photo.jpg', :size => "160x160", :class => "b-list__image"  %>
 			<% else %>

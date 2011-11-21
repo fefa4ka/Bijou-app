@@ -1,16 +1,12 @@
 .b-head-bg, .b-head-bg__logged {
-	background: #333;
+	background: #913A64;
 	
-	border-bottom: 1px solid #ccc;                
+	border-bottom: 1px solid #794054;                
 	margin-bottom: 20px;
-	
-	-webkit-box-shadow: inset 0px -1px 4px 1px rgba(00, 00, 00, 0.1);
-	-moz-box-shadow: inset 0px -1px 4px 1px rgba(00, 00, 00, 0.1);
-	box-shadow: inset 0px -1px 4px 1px rgba(00, 00, 00, 0.1);
 }
 
 .b-head-bg {
-	height: 99px;
+	height: 45px;
 }        
 
 .b-head-bg__logged {
@@ -32,10 +28,7 @@
 	
 	.b-head__logo {   
 		margin-top: 34px;
-		width: 220px !important;
-		
-		background: url(../images/logo.png) no-repeat;
-		
+		width: 220px !important;		
 	}                
 	
 	.b-head__auth {

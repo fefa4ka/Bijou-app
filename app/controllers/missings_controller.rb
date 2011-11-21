@@ -7,15 +7,8 @@ class MissingsController < ApplicationController
   # Каталог для фоток
   PHOTO_STORE = File.join Rails.root, 'public', 'photos'
   
-  impressionist :actions => [:show] 
-  after_filter :set_access_control_headers
+  impressionist :actions => [:show]           
   
- 
- 
-  def set_access_control_headers
-   headers['Access-Control-Allow-Origin'] = '*'
-   headers['Access-Control-Request-Method'] = '*'
-  end
   # GET /missings
   # GET /missings.xml
   def index                          
@@ -29,7 +22,7 @@ class MissingsController < ApplicationController
   # GET /missings/1
   # GET /missings/1.xml
   def show                                             
-
+    
   	@missing = Missing.find(params[:id])                  
   	
     @places = @missing.places.to_gmaps4rails
@@ -41,9 +34,13 @@ class MissingsController < ApplicationController
 	  @helpers = @missing.can_helps                   
 	  
 	  # Данные, о чем может помочь посетитель   
-	  if logged_in?
-      @i_can_help = CanHelp.where(:user_id => current_user.id, :missing_id => params[:id]).first
-	  end
+	  @help_types = HelpType.all
+	  
+	  if user_signed_in?
+      @i_can_help = CanHelp.where(:user_id => current_user.id, :missing_id => params[:id]).first || CanHelp.new
+	  else
+	    @i_can_help = CanHelp.new
+    end        
 	  
     respond_to do |format|
       format.html # show.html.erb
@@ -73,7 +70,7 @@ class MissingsController < ApplicationController
       :date => Russian.strftime(@comment.created_at, "%d %B"), 
       :user => {
         :id => @comment.user.id,
-        :username => @comment.user.username
+        :username => @comment.user.name
       }
     }                                                         
 
@@ -87,14 +84,19 @@ class MissingsController < ApplicationController
   
   # I can help method
   def i_can_help
-  	if logged_in?
-	  	data = {
-	  		:missing => Missing.find(params[:missing_id]),
-	  		:user_id => current_user.id
-		}
+  	unless user_signed_in?
+	  	render :nothing => true   
+	  	return
 	  end
-	
-  	i_can_help = CanHelp.new(data)
+	          
+	  data = {
+  		:missing => Missing.find(params[:missing_id]),
+  		:user_id => current_user.id
+	  }
+	               
+    i_can_help = CanHelp.where(:user_id => current_user.id, :missing_id => params[:missing_id]).first || CanHelp.new
+    i_can_help.update_attributes(params[:can_help])
+    
  	  i_can_help.save
  	
  	  respond_to do |format|
@@ -173,7 +175,7 @@ class MissingsController < ApplicationController
     	# 	
     	# else
     		user = {
-	      		:username => session[:missing_params]["author_name"],
+	      		:name => session[:missing_params]["author_name"],
 	      		:email => session[:missing_params]["author_email"],
 	      		:phone => session[:missing_params]["author_phone"],
 	      		:callback => session[:missing_params]["author_callback_hash"],
@@ -182,11 +184,12 @@ class MissingsController < ApplicationController
 
 	      @user = User.new(user)
   		  @user.missings.push(@missing)  
-        @user.save      
+        @user.save    
+         
         
         session[:missing_params] = session[:missing_photos] = nil
         
-        #login user.email, user.password, true
+        sign_in @user
 		    # end
         flash[:notice] = "Объявление размещено"
       end
@@ -282,11 +285,14 @@ class MissingsController < ApplicationController
   # Получение данных по адресу
   def address_data
     if params[:address]
-      georesult = Gmaps4rails.geocode(params[:address], "ru")
-      
+      georesult = Geocoder.search(params[:address]).first
       respond_to do |format|
         format.json {
-          render :json => georesult.first
+          render :json => {
+            :lat => georesult.latitude,
+            :lng => georesult.longitude,           
+            :address => georesult.address
+          }
         }
       end
     # else

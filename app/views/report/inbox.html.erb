@@ -24,7 +24,7 @@
 				</div>
 				<div class="b-inbox__message_block">   
 					<div class="b-inbox__message_header">
-				   	    <span class="b-inbox__message_author"><%= message.user.username %></span>
+				   	    <span class="b-inbox__message_author"><%= message.user.name %></span>
 					    <span class="b-inbox__message_date"><%= Russian.strftime message.created_at, "%d %B" %></span>   
 				        <%= tag :input, { :type => "button", :value => "5 сообщений", :class => "blue_action b-inbox__message_answer", :id => "b-inbox__message_answer" } %>
 			        </div>
@@ -46,7 +46,7 @@
 					</div>
 					<div class="b-inbox__message_block">   
 						<div class="b-inbox__message_header">
-					   	    <span class="b-inbox__new_message_author"><%= message.user.username %></span>       
+					   	    <span class="b-inbox__new_message_author"><%= message.user.name %></span>       
 							<p>Детектив</p>
 							<div class="b-report__detective_silver">
 								<p>Секты, интимный бизнес</p>
@@ -83,7 +83,7 @@
 			<p class="b-sidebar__header">Список контактов</p>  
 			<table class="b-report__search contacts">
 				<tr><td class="b-report__search_field">
-					<%= text_field_tag "place_search", nil, :placeholder => "Поиск по сообщениям", :class => "b-report__search_field"  %> 
+					<%= text_field_tag "place_search", nil, :placeholder => "Поиск по контактам", :class => "b-report__search_field"  %> 
 				</td><td class="b-report__search_button">
 					<%= tag :input, { :type => :button, :value => "Найти" } %>
 				</td></tr>
@@ -91,23 +91,29 @@
 			<div class="b-gradient-block__list">
 				<% @contacts.each do |user| %>
 				  <div class="b-gradient-block__list_element">     
-						<div class="l-left">
-						<a href="<%= user_path(user) %>">
-						<% if user.avatar_file_name.nil? %>
-							<%= image_tag 'no_photo.jpg', :size => "100x100", :class => "b-gradient-block__list_image"  %>
-						<% else %>
-							<%= image_tag user.avatar.url(:thumb), :size => "93x93", :class => "b-gradient-block__list_image" %>
-						<% end %>
-						</a>        
-                        </div>
-						<div class="l-left b-gradient-block__list_info">
-						<%= link_to user.username, user_path(user) %>   
-						<p>          
-						<%= user.role.nil? ? "Автор объявления" : "Детектив" %>
-						</p>
-						<div class="b-report__detective_silver">Секты, интимный бизнес</div> 
-						<%= tag :input, { :type => "button", :value => "Написать сообщение", :class => "silver_action b-inbox__send_message" } %>  
-						</div>
+						<table>
+							<tr>
+								<td>
+									<a href="<%= user_path(user) %>">
+									<% if user.avatar_file_name.nil? %>
+										<%= image_tag 'no_photo.jpg', :size => "100x100", :class => "b-gradient-block__list_image"  %>
+									<% else %>
+										<%= image_tag user.avatar.url(:thumb), :size => "93x93", :class => "b-gradient-block__list_image" %>
+									<% end %>
+									</a>   
+								</td> 
+								<td class="b-gradient-block__list_info">     
+									<%= link_to user.name, user_path(user) %>   
+									<p>          
+									<%= "Детектив" if user.detective? %>
+									<%= "Волонтер" if user.volunteer? %> 
+									<%= "Автор объявления" unless user.detective? && user.detective? %>
+									</p>
+									<div class="b-report__detective_silver">Секты, интимный бизнес</div> 
+									<%= tag :input, { :type => "button", :value => "Написать сообщение", :class => "silver_action b-inbox__send_message" } %>   
+								</td>
+							</tr>							
+						</table>
 						<div class="clear"></div>                 
 				  </div>
 				<% end %>            

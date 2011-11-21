@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  text: MyText
+  type: 1
+
+two:
+  text: MyText
+  type: 1

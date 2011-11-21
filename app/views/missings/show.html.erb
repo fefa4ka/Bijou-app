@@ -57,7 +57,7 @@
 			<% if comment.user.nil? %>
 				<%= link_to "Анонимный комментарий", "", :class => "t-medium b-missing__comment_author" %>    
 			<% else %>
-				<%= link_to comment.user.username, "", :class => "t-medium b-missing__comment_author" %>    
+				<%= link_to comment.user.name, "", :class => "t-medium b-missing__comment_author" %>    
 			<% end %>
 			<span class="b-missing__comment_date t-small"><%= comment.discussion_id %> <%= Russian.strftime comment.created_at, "%d %B" %></span>   
 			<%= tag :input, { :type => "button", :value => "Ответить", :class => "b-missing__comment_answer silver_action l-right" } %>
@@ -76,7 +76,7 @@
 			<% if sub_comment.user.nil? %>
 				<%= link_to "Анонимный комментарий", "", :class => "b-missing__comment_author" %>    
 			<% else %>
-				<%= link_to sub_comment.user.username, "", :class => "b-missing__comment_author" %>    
+				<%= link_to sub_comment.user.name, "", :class => "b-missing__comment_author" %>    
 			<% end %>			
 			<span class="b-missing__comment_date t-small l-right"><%= Russian.strftime sub_comment.created_at, "%d %B" %></span>   
 		</div>
@@ -112,22 +112,25 @@
 </div>
 
 <div class="clear"></div>  
-
-<div class="b-missing__i_can_help_window l-hidden">     
+                                
+                                                        
+<div class="b-missing__i_can_help_window l-hidden">            
+	<%= form_for @i_can_help, :url => "i_can_help.json", :remote => true do |help| %>
+	
 	<div class="t-biggest">Чем вы можете помочь</div>
 	<ul class="b-missing__i_can_help_variants">
-		<li class="l-left"><%= check_box_tag "i_can_help__information" %><%= label_tag "i_can_help__information", "У меня есть информация" %></li>                    
-		<li class="l-left"><%= check_box_tag "i_can_help__search" %><%= label_tag "i_can_help__search", "Могу помочь в поисках" %></li>
+		<li class="l-left"><%= check_box_tag "i_can_help__information", 1, !(help.object.missing_information.nil? && help.object.places.length == 0) %><%= label_tag "i_can_help__information", "У меня есть информация" %></li>                    
+		<li class="l-left"><%= check_box_tag "i_can_help__search", 1, !(help.object.information.nil? && help.object.help_types.length == 0) %><%= label_tag "i_can_help__search", "Могу помочь в поисках" %></li>
 		<li class="l-left"><%= check_box_tag "i_can_help__similar" %><%= label_tag "i_can_help__similar", "У меня похожий случай" %></li> 
 	</ul>               
 	<div class="clear"></div>       
 	
 	<div class="b-missing__i_can_help_window_blocks">
-	   	<div class="b-missing__i_can_help_window_information l-hidden">
+	   	<div class="b-missing__i_can_help_window_information <%= "l-hidden" if help.object.information.nil? and help.object.places.length == 0 %>">
 			<div class="t-big">Информация</div>
 			<div class="l-half_width l-left">
 				<div class="t-bold">В свободной форме</div>
-				<%= text_area_tag "i_can_help__information_text", nil, :rows => 4 %>
+				<%= help.text_area :missing_information, :rows => 4 %>
 				<div class="b-form__field_description">Пожалуйста, опишите как можно подробнее</div>
 			</div>           
 			<div class="l-half_width l-left">
@@ -152,17 +155,19 @@
 	 
 		
 	
-		<div class="b-missing__i_can_help_window_search l-hidden"> 
+		<div class="b-missing__i_can_help_window_search <%= "l-hidden" if help.object.information.nil? and help.object.help_types.length == 0 %>"> 
 			<div class="t-big">Помощь в розыске</div>    
-	    	<ul class="b-missing__i_can_help__search_types">
-				<li class="b-missing__i_can_help__search_types_item"><%= check_box_tag "i_can_help__1" %><%= label_tag "i_can_help__1", "Расклею ориентировки" %></li>                    
-				<li class="b-missing__i_can_help__search_types_item"><%= check_box_tag "i_can_help__2" %><%= label_tag "i_can_help__2", "Займусь прочесом месности" %></li>
-				<li class="b-missing__i_can_help__search_types_item"><%= check_box_tag "i_can_help__3" %><%= label_tag "i_can_help__3", "Помогу в организации поисков" %></li> 
+	    	<ul class="b-missing__i_can_help__search_types">          
+				<% @help_types.each do |help_type, index| %>      
+				<li class="b-missing__i_can_help__search_types_item"><%= check_box_tag "can_help[help_type_ids][]", help_type.id, @i_can_help.help_type_ids.include?(help_type.id), { :id => "can_help_help_type_ids_#{help_type.id}" } %><%= label_tag "can_help[help_type_ids][#{help_type.id}]", help_type.name %></li>
+				<% end %>                    
 			</ul>                                                                                                             
 			<div class="t-bold">Напишите, если можете помочь чем-то еще</div>
-			<%= text_area_tag "i_can_help__search_text" %>
+			<%= help.text_area :information, :rows => 4 %>
 			<div class="b-form__field_description">Например, у вас есть автомобиль или GPS</div>    
 			<div class="clear"></div>                      
 		</div>   
-	</div>
+	</div>                  
+	
+	<% end %>
 </div>

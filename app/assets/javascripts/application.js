@@ -1,7 +1,11 @@
 //= require jquery
 //= require jquery_ujs             
 //= require_self
-//= require_tree .
+//= require_tree ./plugins 
+//= require_tree ./fancybox    
+//= require_tree ./missing
+//= require_tree ./report
+//= require_tree ./user
 //= require gmaps4rails/bing.js
 //= require gmaps4rails/googlemaps.js
 //= require gmaps4rails/mapquest.js
@@ -22,6 +26,16 @@ $(function()
 			draggable: false,
 			closeOnOverlayClick: true
 		});
+	});     
+	
+	// Обработка аутентификации
+	$("#login_form")
+		.bind("ajax:error", function(e){      
+			$('.b-head__login_form').parent().effect('bounce', { direction: 'left', times: 3}, 200 );
+		})
+		.bind("ajax:success", function(evt, data, status, xhr){
+			document.location = data.redirect;
+			
 	});
 });
 

@@ -9,7 +9,7 @@
 							Автор
 						</td>
 						<td class="b-missing__author_data_data">
-							<%= @author.username %>
+							<%= @author.name %>
 						</td>
 					</tr>
 					<% unless @author.phone == "" %>
@@ -23,7 +23,7 @@
 					</tr>
 					<% end %>
 				</table>
-				<div class="t-center">              
+				<div class="t-center">        
 					<% if @author.id == current_user.object_id %>
 					<%= tag :input, { :type => "button", :value => "Отредактировать объявление", :class => "b-missing__toggle_send_message" } %>                                                         
 					<% else %>
@@ -41,7 +41,7 @@
 				<%= form_for @message, :url => '/send_message.json', :remote => true do |message| %>
 			        <%= message.hidden_field :destination_user_id, :value => @missing.user_id %>
 					<%= message.text_area :text, :rows => 4, :class => "b-missing__add_comment", :placeholder => "Текст сообщения" %>  
-					<% unless logged_in? %> 
+					<% unless user_signed_in? %> 
 					<p class="b-missing__send_message_field">
 					<%= message.label :name, "Ваше имя" %><br/>
 					<%= message.text_field :name %>  
@@ -87,14 +87,14 @@
 				  <div class="b-list__element">
 					<div class="b-list__element_content">
 						<a href="<%= user_path(can_help.user) %>" class="b-list__name_link">
-						<% if can_help.user.image_name.nil? %>
+						<% if can_help.user.avatar.nil? %>
 							<%= image_tag 'no_photo.jpg', :size => "100x100", :class => "b-list__image"  %>
 						<% else %>
-							<%= image_tag "/users/" + can_help.user.image_name, :size => "100x100", :class => "b-list__image" %>
+							<%= image_tag "/users/" + can_help.user.avatar.url(:thumb), :size => "100x100", :class => "b-list__image" %>
 						<% end %>
-						<%= can_help.user.username %>
+						<%= can_help.user.name %>
 						</a>                  
-						<% if can_help.user.role == 1%><p>Детектив</p><% end %>
+						<%= content_tag :p, "Детектив" if can_help.user.detective? %>
 					</div>
 					<div class="b-list__element_min"></div>
 				  </div>

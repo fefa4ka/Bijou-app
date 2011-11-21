@@ -1,7 +1,8 @@
 class LostListController < ApplicationController
-  def index
+  def index                            
       # @user_city = "Москва"
-      @missings = Missing.all
+      @missings = Missing.all   
+      @request = request
       
   end
 

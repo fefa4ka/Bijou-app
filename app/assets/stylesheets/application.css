@@ -1,6 +1,8 @@
 /*
-*= require_self
-*= require_tree .
+*= require_self         
+*= require_tree ./plugins
+*= require_tree ./app
+*= require_tree ./fancybox
 */
 
 /*  
@@ -21,13 +23,15 @@ html, body, #wrapper {
 	background: linear-gradient(top, rgba(248,248,248,1) 0%,rgba(255,255,255,1) 250px); /* W3C */
 }
 
-body > #wrapper { height: auto; min-height: 100%; }     
+/*body > #wrapper { height: auto; min-height: 100%; }     */
+body > #wrapper { height: auto; min-height: 0%; }
 
 p {
 	line-height: 125%;
 } 
 
-#wrapper { padding-bottom: 3em;  }
+/*#wrapper { padding-bottom: 3em;  }*/
+#wrapper { padding-bottom: 0em;  }
 
 /* must be same height as the footer */
 #content { overflow: auto; padding-bottom: 35px; } 

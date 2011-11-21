@@ -382,7 +382,11 @@ div.b-missing__tabs {
 	    
 	.b-missing__i_can_help_dialog .ui-dialog-buttonset {
 		float: none !important;
-	}                     
+	}  
+	
+	.b-missing__i_can_help_dialog .ui-dialog-buttonset .silver_action {
+		margin: 1.2em 0 0 3em;
+	}                   
 	
 
 .b-missing__i_can_help_window {
@@ -400,7 +404,13 @@ div.b-missing__tabs {
 	
 	.b-missing__i_can_help_variants {
 		list-style: none;                  
-		margin: 20px 0 0;
+		margin: 20px 0 0;    
+		
+/*		Плавающий
+		position: absolute;          
+		background: #fff;
+		height: 3em;              
+		*/
 	}
 	
 	.b-missing__i_can_help_variants .l-left {

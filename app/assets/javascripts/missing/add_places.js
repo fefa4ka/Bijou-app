@@ -2,11 +2,11 @@ $(function(){
 	function add_place(address)
 	{
 		$.getJSON( "/add_missing/address_data.json", { address: address }, function( data, status, xhr ) {
-			if ( data.matched_address ) {;
+			if ( data.address ) {
 				var marker = {
 					lat: data.lat,
 					lng: data.lng,
-					title: [data.full_data.address_components[1].long_name, data.full_data.address_components[0].long_name].join(", ")
+					title: data.address
 				}
 				
 				// Gmaps.map.addMarkers( [marker] );
@@ -14,7 +14,7 @@ $(function(){
 				$(".b-form__place").hide();
 				$(".b-form__add_place").show();
 
-				$(".b-form__add_place_address").val(data.matched_address);
+				$(".b-form__add_place_address").val(data.address);
 				
 				
 				// Фокусируемся на названии

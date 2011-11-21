@@ -12,27 +12,13 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     
     if @user.save    
-      login @user.username, params[:user]["password"], true
+      sign_in @user
       redirect_to root_url
     else
       render :new
     end
   end
 
-  def convert_to_hash
-  	data = params[:user]
-  	specialization = {
-  		:specialization_1 => data["specialization_1"],
-  		:specialization_2 => data["specialization_2"],
-  		:specialization_3 => data["specialization_3"],
-  		:specialization_additional => data["specialization_additional"]
-  	}                                                                
-  	
-  	callback_hash = data["callback_phone"].to_s + data["callback_email"].to_s
-  	
-  	params[:user]["specialization"] = specialization
-  	params[:user]["callback"] = callback_hash
-  end
   
   def send_message                        
      params[:message]["user_id"] = current_user.id
@@ -51,7 +37,7 @@ class UsersController < ApplicationController
        :date => Russian.strftime(@message.created_at, "%d %B"), 
        :user => {
          :id => @message.user.id,
-         :username => @message.user.username
+         :username => @message.user.name
        }
      }                                                         
 
@@ -61,5 +47,21 @@ class UsersController < ApplicationController
          render :json => { :ok => "true", :message => data } 
        }           
      end
-  end
+  end   
+  
+  private 
+    def convert_to_hash
+    	data = params[:user]
+    	specialization = {
+    		:specialization_1 => data["specialization_1"],
+    		:specialization_2 => data["specialization_2"],
+    		:specialization_3 => data["specialization_3"],
+    		:specialization_additional => data["specialization_additional"]
+    	}                                                                
+
+    	callback_hash = data["callback_phone"].to_s + data["callback_email"].to_s
+
+    	params[:user]["specialization"] = specialization
+    	params[:user]["callback"] = callback_hash
+    end
 end

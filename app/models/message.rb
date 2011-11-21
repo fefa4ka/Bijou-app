@@ -12,7 +12,7 @@ class Message < ActiveRecord::Base
 	      self.message_id = parent.id
 	      self.destination_user_id = parent.user_id
 	    end
-	end
+	  end
   end
   
   # typograf :message, :use_p => true, :use_br => true, :encoding => "UTF-8"
