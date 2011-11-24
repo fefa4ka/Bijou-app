@@ -34,13 +34,31 @@
 
 
 <!-- Check user auth, if user not logged in then show block below -->
-<%# unless user_signed_in? %>
-<% unless false %>
+<% unless user_signed_in?  %>
 <div class="b-head-bg">
-  <div class="container_16">
- 	<div class="grid_16"><a href="#" class="b-button-type-a b-button-enter-to-site"/>Войти на сайт</a></div>
+  <div class="container_16">  
+	<div class="grid_16">    
+		<input type="button" class="b-head__login maroon l-right" value="Войти на сайт" />  
+		<div class="b-head__login_form">
+			<%= form_for "user", :url => user_session_path, :remote => true, :tabindex => 1, :html => { :id => "login_form" } do |login_form| %>   
+			<%= login_form.text_field :email, :class => "b-head__login_form_text", :placeholder => "эл. почта или телефон", :tabindex => 2 %>
+			<%= login_form.text_field :password,  :class => "b-head__login_form_text", :placeholder => "пароль", :tabindex => 3 %>
+		<p class="b-head__block">
+			<%= login_form.check_box :remember_me %> <%= login_form.label :remember_me, "запомниь меня", :tabindex => 4 %> 
+			</p>
+			<p class="b-head__block">  
+				<%= login_form.submit "Войти", :class => "t-medium", :tabindex => 5 %>
+			</p>
+			<p class="b-head__block">
+				<%= link_to "вспомнить пароль", new_password_path('user') %>
+			</p>   
+			<% end %>
+		</div>
+	</div>
+       
+    
   </div>      
- </div>  
+</div>  
 
 <!-- User already logged in, show this block -->
 <% else %> 
@@ -60,8 +78,7 @@
 		</table>   	
 	</div>
     <div class="b-head__auth grid_1">  
-	    <%= link_to "Настройки", "/settings", :class => "b-head__settings"  %>
-		<%= button_to "Выйти", destroy_user_session_path, :method => :delete,  :class => "black" %>     
+		<%= button_to "Выйти", destroy_user_session_path, :method => :delete,  :class => "maroon" %>     
 		
   
  

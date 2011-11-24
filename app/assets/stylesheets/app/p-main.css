@@ -4,10 +4,14 @@
 
 
 /* Common elements */
+               
+.b-main-info-margin {
+	margin-right: 3.8%;
+}        
 
 .p-main-info{
 	margin-top: 50px;
-}
+}              
 
 
 .p-main-info-list li{
@@ -19,7 +23,7 @@
 		font-weight: normal;
 	}
 
-	.p-main-info-list li p{
+	.p-main-info-text {
 		height: 65px;
 		width: 330px;
 		line-height: 1.5;
@@ -107,7 +111,10 @@
 		margin-bottom: 20px;
 		/*border: 1px solid #ccc;*/
 	}
-
+   
+ 	.p-main-suggest-head .margin {
+		margin-left: 3em;
+	}
 	.p-main-suggest-popup{
 		position: absolute;
 		background: white;
@@ -157,3 +164,15 @@
 .p-main-info-list-button{
 	width: 320px;
 }
+
+
+
+/* Register box */
+.p-main-register-box .t-medium {
+	margin-bottom: 5px;
+}
+
+.p-main-socials {
+	margin-bottom: 10px;
+}
+

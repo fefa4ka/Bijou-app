@@ -1,6 +1,7 @@
 //= require jquery
 //= require jquery_ujs             
-//= require_self
+//= require_self          
+//= require_tree ./main
 //= require_tree ./plugins 
 //= require_tree ./fancybox    
 //= require_tree ./missing
@@ -9,12 +10,12 @@
 //= require gmaps4rails/bing.js
 //= require gmaps4rails/googlemaps.js
 //= require gmaps4rails/mapquest.js
-//= require gmaps4rails/openlayers.js
+//= require gmaps4rails/openlayers.js    
 //= require gmaps4rails/all_apis.js
 
 $(function()
 {
-	$('input[class!=b-form-custom-false]').customInput();
+	$('input[class!=b-form-custom-false],button[class!=b-form-custom-false]').customInput();
 	$(".toolbar").buttonset();   
 	$('.b-head__login').click(function()
 	{
@@ -28,7 +29,7 @@ $(function()
 		});
 	});     
 	
-	// Обработка аутентификации
+	// auth
 	$("#login_form")
 		.bind("ajax:error", function(e){      
 			$('.b-head__login_form').parent().effect('bounce', { direction: 'left', times: 3}, 200 );

@@ -21,7 +21,10 @@
 .b-head { 
 	height: 60px;
 	padding-top: 1em;
-}
+}                
+	.b-head-bg {
+		padding-top: 10px;
+	}
 	.b-head-hr {
 		margin: 0 0 10px !important;
 	}

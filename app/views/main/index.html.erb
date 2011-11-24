@@ -1,31 +1,51 @@
 
+
 <!-- Main page content -->
 
 <!-- Info -->
 
 
 <div class="container_16 p-main-info">
-
-	<div class="grid_5">
+	<div class="b-main-info-margin grid_5">
 		<ul class="b-list p-main-info-list">
 			<li><%= image_tag "missing-ico.png" %></li>
 			<li><h3>Если пропал близкий вам человек</h3></li>
 			<li>
-				<p>
+				<p class="p-main-info-text">
 				Мы поможем вам связаться с профессиональными следователями, волонтерами и просто полезными людьми, готовыми заняться поиском пропавшего.
 				</p>
 			</li>
-			<li><input type="submit" class="b-button-type-b-bright p-main-info-list-button" value="Создать объявление" /></li>
+			<li><%= button_to "Создать объявление", "/add_missing/common", :class => "t-medium_fat silver blow l-full_width"%></li>
 		</ul>	
 	</div>
 	
 
-	<div class="grid_5">
+	<div class="b-main-info-margin grid_5">
 		<ul class="b-list p-main-info-list">
 			<li><%= image_tag "volonter-ico.png" %></li>
 			<li><h3>Хотите помочь в поисках?</h3></li>
-			<li><p>Если вы готовы уделить ваше время поиску про-<br/>павших без вести. Мы с радостью примем любую помощь от вас.</p></li>
-			<li><input type="submit" class="b-button-type-b p-main-info-list-button" value="Хочу принять участие" /></li>
+			<li><p class="p-main-info-text">Если вы готовы уделить ваше время поиску про-<br/>павших без вести. Мы с радостью примем любую помощь от вас.</p></li>
+			<li><%= tag :input, { :type => "button", :value => "Хочу принять участие", :class => "p-main-register t-medium_fat silver l-full_width", :for => "volunteer" } %></li>
+			<li>
+				<div class="b-sidebar p-main-register-box volunteer l-hidden">
+					<p class="t-medium">Войдите через</p>
+					<div class="p-main-socials">         
+						<button class="b-button_social" provider="ok">          
+						<button class="b-button_social" provider="vkontakte"> 
+						<button class="b-button_social" provider="facebook"> 
+						<button class="b-button_social" provider="yandex">
+						<button class="b-button_social" provider="twitter">  	
+					</div>
+					<p class="t-medium">или укажите электронную почту</p> 
+					<table class="b-report__search">
+						<tr><td class="b-report__search_field">
+							<%= text_field_tag "place_search", nil, :placeholder => "your@mail.ru", :class => "b-report__search_field"  %> 
+						</td><td class="b-report__search_button">
+							<%= tag :input, { :type => :button, :value => "Продолжить" } %>
+						</td></tr>
+					</table>
+				</div> 
+			</li>
 		</ul>
 	</div>
 
@@ -34,8 +54,28 @@
 		<ul class="b-list p-main-info-list">
 			<li><%= image_tag "detective-ico.png" %></li>
 			<li><h3>Если вы детектив</h3></li>
-			<li><p>Все, что вам необходимо — пройти регистрацию детектива на нашем сайте. Через несколько минут сотни новых дел уже будут ждать вашего участия.</p></li>
-			<li><input type="submit" class="b-button-type-b p-main-info-list-button" value="Заполнить анкету" /></li>
+			<li><p class="p-main-info-text">Все, что вам необходимо — пройти регистрацию детектива на нашем сайте. Через несколько минут сотни новых дел уже будут ждать вашего участия.</p></li>
+			<li><%= tag :input, { :type => "button", :value => "Заполнить анкету", :class => "p-main-register t-medium_fat silver l-full_width", :for => "detective" } %></li>         
+			<li>
+				<div class="b-sidebar p-main-register-box detective l-hidden">
+					<p class="t-medium">Войдите через</p>
+					<div class="p-main-socials">         
+						<button class="b-button_social" provider="ok">          
+						<button class="b-button_social" provider="vkontakte"> 
+						<button class="b-button_social" provider="facebook"> 
+						<button class="b-button_social" provider="yandex">
+						<button class="b-button_social" provider="twitter">  	
+					</div>
+					<p class="t-medium">или укажите электронную почту</p> 
+					<table class="b-report__search">
+						<tr><td class="b-report__search_field">
+							<%= text_field_tag "place_search", nil, :placeholder => "your@mail.ru", :class => "b-report__search_field"  %> 
+						</td><td class="b-report__search_button">
+							<%= tag :input, { :type => :button, :value => "Продолжить" } %>
+						</td></tr>
+					</table>
+				</div> 
+			</li>
 		</ul>
 	</div>
 
@@ -55,18 +95,24 @@
 
 <div class="container_16">
 	<div class="grid_10 p-main-suggest-head"><h2>Что мы предлагаем детективам</h2></div>
-	<div class="grid_6 p-main-suggest-head"><h2>Как пользоваться сайтом</h2></div>
-</div>
+	<div class="grid_6 p-main-suggest-head"><h2 class="margin">Как пользоваться сайтом</h2></div>
 
-
-<div class="container_16">
+	<div class="clear"></div>
 	
-	<div class="grid_5">
+	<div class="b-main-info-margin grid_5">
 		<h3>Большая база пропавших людей</h3>
 		<div class="p-main-suggest-images">
-			<% (1..45).each do |count|%>
+			<% @missings.each do |missing| %>                                         
+			    <% if missing.photos.first %>
+				<%= image_tag missing.photos.first.photo.url(:thumb), { :size => "30x30", "data-name" => missing.name, "data-date" => Russian.strftime(missing.created_at, "%e %B %Y года") } %>   
+				<% else %>
+				<%= image_tag 'no_photo.jpg', { :size => "30x30", "data-name" => missing.name, "data-date" => missing.created_at }  %>
+				<% end %> 
+			<% end %> 	
+			<% (45-@missings.length).times do |count|%>
 				<%= image_tag "small-photo-test.jpg" %>
-			<%end%>
+			<% end %>      
+			
 		</div>
 		<div class="p-main-suggest-popup">
 			<%= image_tag "small-photo-test.jpg" %>
@@ -75,7 +121,7 @@
 		</div>
 	</div>
 
-	<div class="grid_5">
+	<div class="b-main-info-margin grid_5">
 		<ul>
 			<li><h3>Инструмент для анализа</h3></li>
 			<li><p>Вы готовы уделить ваше время поиску пропавших без вести? Мы с радостью примем любую помощь от вас.</p></li>
@@ -85,10 +131,11 @@
 	</div>
 
 	<div class="grid_5">
-		
 		<iframe src="http://player.vimeo.com/video/31262642" width="315" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
 		<p class="p-main-suggest-video-comment">Обучайющий видеоролик расскажет вам об осо-<br/>бенностях работы с сайтом, если вы детектив.</p>
 	</div>
+
+</div>      
 
 </div>
 </div>

@@ -4,14 +4,15 @@ People::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
 
   # Систему аутентификации обрабатываем своим контроллером
-  devise_for :users, :controllers => {:sessions => 'sessions'}  
+  devise_for :users, :controllers => {:sessions => 'sessions', :omniauth_callbacks => "users/omniauth_callbacks" }  
   
   root :to => "main#index"
   
   resources :users
   resources :sessions
   resources :missings 
-  
+                                  
+  match "missings_list" => "lost_list#index"
   match "add_missing" => "missings#new"
   match "add_missing/save_step" => "missings#save_step"
   match "add_missing/places" => "missings#places"

@@ -1,8 +1,9 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.1.0'
+gem 'unicorn'
 
-gem 'execjs'
+gem 'execjs', :git => "git://github.com/sstephenson/execjs.git"
 gem 'therubyracer'
                          
 
@@ -20,7 +21,9 @@ gem 'jquery-rails'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 # gem 'sqlite3', '1.3.4'
-gem 'mysql'
+gem 'mysql2'
+#gem 'sam-mysql-ruby'
+
 gem 'rake', '0.9.2'
 gem 'rack', '1.3.2'
 
@@ -36,8 +39,12 @@ gem 'gmaps4rails'
 gem 'geocoder', :git => "git://github.com/alexreisner/geocoder.git"
 
 #gem "opencv", :git => "http://github.com/pcting/ruby-opencv.git"
-                     
-gem 'devise'
+                   
+# auth  
+gem 'devise', '1.5.1'
+gem 'omniauth-facebook'       
+
+
 
 
 # Admin

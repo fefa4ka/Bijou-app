@@ -1,16 +1,17 @@
 /*
-*= require_self         
+*= require_self      
+*= require ui   
 *= require_tree ./plugins
 *= require_tree ./app
 *= require_tree ./fancybox
 */
+
 
 /*  
 Sticky Footer Solution
 by Steve Hatcher
 http://stever.ca http://www.cssstickyfooter.com
 */
-
 html, body, #wrapper {
 	height: 100%;
 	background: rgb(248,248,248); /* Old browsers */
@@ -23,8 +24,8 @@ html, body, #wrapper {
 	background: linear-gradient(top, rgba(248,248,248,1) 0%,rgba(255,255,255,1) 250px); /* W3C */
 }
 
-/*body > #wrapper { height: auto; min-height: 100%; }     */
-body > #wrapper { height: auto; min-height: 0%; }
+body > #wrapper { height: auto; min-height: 100%; }     
+/*body > #wrapper { height: auto; min-height: 0%; }*/
 
 p {
 	line-height: 125%;
@@ -32,7 +33,7 @@ p {
 
 /*#wrapper { padding-bottom: 3em;  }*/
 #wrapper { padding-bottom: 0em;  }
-
+               
 /* must be same height as the footer */
 #content { overflow: auto; padding-bottom: 35px; } 
 
@@ -74,7 +75,7 @@ a:hover { color: red;}
 	font-size: 18px;
 }
 
-.t-medium {
+.t-medium, .t-medium_fat {
 	font-size: 16px !important;
 }
 

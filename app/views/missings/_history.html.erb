@@ -15,55 +15,19 @@
 <div class="clear"></div>
 <hr class="b-hr" />
 
-<div class="container_16">
-  <div class="grid_6">
-	<%= label_tag "place_search", "1. Посещаемые места", :class => "b-form__label" %>
-	<table class="b-form__place_search">
-		<tr><td class="b-form__place_search_field">
-			<%= text_field_tag "place_search", nil, :placeholder => "Адрес места", :class => "b-form__place_search_text_field"  %> 
-		</td><td class="b-form__place_search_button">
-			<%= tag :input, { :type => :button, :value => "Найти" } %>
-		</td></tr>
-	</table>
-	<% if @places %>
-	  <%= gmaps({ "markers" => { "data" => @places }, "map_options" => { "detect_location" => true, "center_on_user" => true } }) %>
-  	<% else %>
-      <%= gmaps({ "map_options" => { "detect_location" => true, "center_on_user" => true } }) %>
-    <% end %>
-  </div>
-  <div class="grid_8 b-form__places">
-      <%= render "place_fields", :form => f %>
-   </div>
-</div>
-
-<!-- End grid_8 and container from new.html.erb -->
-
-<div class="clear"></div>
-<hr class="b-hr" />
-
 <div class="container_16">   
-   <div class="grid_4">
-	<%= label_tag "familiars", "2. Отношения с другими людьми", :class => "b-form__label" %>
+   <div class="grid_8">
+   	<div class="b-header">Характер пропажи</div>
+	<%= label_tag "question", "Связь с ним утеряна давно и об обстоятельствах пропажи ничего не известо?", :class => "b-form__label" %>
 	<div class="b-form__button_corner ui-corner-all">
-	   <%= tag :input, { :type => :button, :value => "Добавить знакомого", :class => "b-form__open_familiar_fields" } %>
+	   <%= tag :input, { :type => :button, :value => "да", :class => "b-form-question yes" } %>
+	   <%= tag :input, { :type => :button, :value => "нет", :class => "b-form-question no" } %>
+		<%= tag :input, { :type => :button, :value => "не знаю", :class => "b-form-question dont_know" } %>
 	</div>
    </div>
 
    <div class="grid_8 b-form__familiars">
 	  <%= render 'familiar_fields', :form => f  %>
    </div>
-</div>
-<!-- End grid_8 and container from new.html.erb -->
 
-  
-<div class="clear"></div>
-<hr class="b-hr" />
-
-<div class="container_16">   
-   <div class="grid_8">
-	<%= label_tag :description, "3. История пропажи", :class => "b-form__label" %>
-	<%= f.text_area :description, :rows => 8, :class => "l-full_width" %>
-   </div>
-	
-   <div class="clear"></div>
 <!-- Container and grid_8 div closed in new.html.erb -->
