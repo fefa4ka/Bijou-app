@@ -1,0 +1,46 @@
+<style type="text/css" media="screen">
+	.b-header { margin-top: 8px; }
+</style>
+<div class="container_16">
+	
+<div class="grid_11">
+	<div class="b-header">
+		Эти люди пропали <a href="#">Москве</a>
+	</div>
+
+<%= render :partial => 'missings_list' %>
+
+</div>
+<div class="grid_5  b-rightside">
+	<div class="b-sidebar p-detective-search__filter">
+		<div class="b-sidebar__header">
+			Расширенный поиск
+		</div>
+		<br>
+		<%= label_tag 'filter-city', 'Город', :class => "b-form__label" %>
+		<%= select_tag 'filter-city', '<option>Москва</option>'.html_safe %>
+		<br>
+		<%= select_tag 'filter-sex', '<option>Любой пол</option><option>Мужской</option><option>Женский</option>'.html_safe %>
+		<%= label_tag 'filter-age', 'Возраст', :class => "b-form__label" %>
+		<%= select_tag 'filter-age', '<option>Любой</option>'.html_safe %> - <%= select_tag 'filter-age2', '<option>Любой</option>'.html_safe %>
+		<br>
+		<%= select_tag 'filter-ageyear', '<option>Год рождения</option>'.html_safe %>
+		<div class="b-sidebar__hr"></div>
+		<%= check_box_tag 'psy' %>
+		<%= label_tag 'psy', 'Психически не здоров' %>	
+		<br>
+		<%= check_box_tag 'nark' %>
+		<%= label_tag 'nark', 'Накроман' %>	
+		<div class="b-sidebar__hr"></div>
+		<%= check_box_tag 'am' %>
+		<%= label_tag 'am', 'Ушел из дома сам' %>
+		<br>
+		<%= check_box_tag 'nam' %>
+		<%= label_tag 'nam', 'Пропал неожиданно' %>	
+
+		<br><br>
+		<%= button_to 'Показать', new_missing_path  %>
+	</div>
+</div>
+
+</div>

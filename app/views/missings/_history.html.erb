@@ -1,33 +1,21 @@
 
 <div class="b-header__description">
-	<h2>Чем больше информации тем лучше</h2>
-  	<p>Постарайтесь как можно подробнее описать обстоятельства пропажи: места, где часто бывал пропавший человек, его маршруты, знакомства и близкое окружение.</p>
-	<p>Для нас это особенно важно, так как результаты поиска во многом зависят от количества и точности предоставленной вами информации.</p> 
-	<h2>Люди пропадают при схожих обстоятельствах</h2>
-	<p>Как правило, большинство исчезновений случается при схожих обстоятельствах.  А это значит, чем больше похожих случаев пропажи — тем больше вероятность того, что в результате поисков будут найдены сразу несколько человек, попавших в беду.</p>
-	<span></span>
-</div>
- 
+	<div class="t-medium">Вопросы про характер пропажи</div>
 </div>
 </div>
-<!-- End grid_8 and container from new.html.erb -->
-
 <div class="clear"></div>
-<hr class="b-hr" />
+ 
+<div class="grid_8">
+<%= label_tag "question", "Связь с пропавшим утеряна давно и об обстоятельствах пропажи ничего не известо?", :class => "b-form__label" %>
+<div class="b-form__button_corner ui-corner-all">
+   <%= tag :input, { :type => :button, :value => "да", :class => "b-form-question yes" } %>
+   <%= tag :input, { :type => :button, :value => "нет", :class => "b-form-question no" } %>
+	<%= tag :input, { :type => :button, :value => "не знаю", :class => "b-form-question dont_know" } %>
+</div>
+</div>
 
-<div class="container_16">   
-   <div class="grid_8">
-   	<div class="b-header">Характер пропажи</div>
-	<%= label_tag "question", "Связь с ним утеряна давно и об обстоятельствах пропажи ничего не известо?", :class => "b-form__label" %>
-	<div class="b-form__button_corner ui-corner-all">
-	   <%= tag :input, { :type => :button, :value => "да", :class => "b-form-question yes" } %>
-	   <%= tag :input, { :type => :button, :value => "нет", :class => "b-form-question no" } %>
-		<%= tag :input, { :type => :button, :value => "не знаю", :class => "b-form-question dont_know" } %>
-	</div>
-   </div>
-
-   <div class="grid_8 b-form__familiars">
-	  <%= render 'familiar_fields', :form => f  %>
-   </div>
+<div class="grid_8 b-form__familiars">
+  <%= render 'familiar_fields', :form => f  %>
+</div>
 
 <!-- Container and grid_8 div closed in new.html.erb -->
