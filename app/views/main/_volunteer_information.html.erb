@@ -1,0 +1,42 @@
+<div class="container_16 p-main-suggest-info" type="volunteer"> 
+	<div class="grid_10 p-main-suggest-head"><h2>Что мы предлагаем детективам</h2></div>
+	<div class="grid_6 p-main-suggest-head"><h2 class="margin">Как пользоваться сайтом</h2></div>
+
+	<div class="clear"></div>
+	
+	<div class="b-main-info-margin grid_5">
+		<h3>Большая база пропавших людей</h3>
+		<div class="p-main-suggest-images">
+			<% @missings.each do |missing| %>                                         
+			    <% if missing.photos.first %>
+				<%= image_tag missing.photos.first.photo.url(:thumb), { :size => "30x30", "data-name" => missing.name, "data-date" => Russian.strftime(missing.created_at, "%e %B %Y года") } %>   
+				<% else %>
+				<%= image_tag 'no_photo.jpg', { :size => "30x30", "data-name" => missing.name, "data-date" => missing.created_at }  %>
+				<% end %> 
+			<% end %> 	
+			<% (45-@missings.length).times do |count|%>
+				<%= image_tag "small-photo-test.jpg" %>
+			<% end %>      
+			
+		</div>
+		<div class="p-main-suggest-popup">
+			<%= image_tag "small-photo-test.jpg" %>
+			<a href="#">Бухал Бухалыч</a>
+			<p>Пропал 20 мая 2009 года</p>
+		</div>
+	</div>
+
+	<div class="b-main-info-margin grid_5">
+		<ul>
+			<li><h3>Инструмент для анализа</h3></li>
+			<li><p>Вы готовы уделить ваше время поиску пропавших без вести? Мы с радостью примем любую помощь от вас.</p></li>
+			<li><h3 class="p-main-suggest-hshift">Еще одно достоинство</h3></li>
+			<li><p>Этот блок ведь такой рекламный, поэтому здесь перечисляются всякие достоинства для каждого типа.</p></li>
+		</ul>
+	</div>
+
+	<div class="grid_5">
+		<iframe src="http://player.vimeo.com/video/31262642" width="315" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+		<p class="p-main-suggest-video-comment">Обучайющий видеоролик расскажет вам об осо-<br/>бенностях работы с сайтом, если вы детектив.</p>
+	</div>                
+</div>

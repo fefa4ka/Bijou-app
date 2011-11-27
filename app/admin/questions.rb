@@ -10,7 +10,8 @@ ActiveAdmin.register Question do
     f.inputs do
       f.input :text
       f.has_many :answers do |a|
-        a.input :text
+        a.input :text    
+        a.input :type
       end
     end
     f.buttons

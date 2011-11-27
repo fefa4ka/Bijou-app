@@ -147,7 +147,9 @@ class MissingsController < ApplicationController
     session[:missing_params] ||= {}  
     session[:missing_photos] ||= []
     session[:missing] ||= {}
-    
+    params[:missing] ||= {}
+     
+    logger.debug(session.inspect)
   	# Сохраняем фотографии
   	data_type = data = ""
   	photos = params[:missing]["photos_attributes"] || {}

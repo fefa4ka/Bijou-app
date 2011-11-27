@@ -1,5 +1,26 @@
 $(function(){        
-	var last_image = 0;
+	var last_image = 0;            
+	
+	$('.p-main-suggest-info[type=volunteer]').hide();
+	
+	$('.p-main-info div').mouseenter(function(){ 
+		var div = $(this),                        
+			type = div.attr('type'),
+			suggest = $('.p-main-suggest-info[type=' + type + ']'),
+		   	pointer = $('.p-main-img-pointer'), 
+			left = div.offset().left + div.width()/2 - pointer.width()*1.5; 
+		                                                      
+		if(type == undefined) {
+			return;
+		}          
+		
+		log('enter', '.p-main-suggest-info[type=' + type + ']', suggest); 
+		
+		pointer.animate({'left': left}, 500); 
+		$('.p-main-suggest-info[type!=' + type + ']').fadeOut(300);          
+		suggest.fadeIn(500);                     
+		
+	});
 	
 	$('.p-main-suggest-images img').mouseover(function(){ 
 		var img = $(this), 
@@ -23,7 +44,8 @@ $(function(){
 		popupDate.text('' + date);       
 		
 		last_image = src;
-	});       
+	});               
+	
 	
 	$('.p-main-register').click(function() { 
 		var role = $(this).attr('for');

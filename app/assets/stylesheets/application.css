@@ -31,16 +31,19 @@ p {
 	line-height: 125%;
 } 
 
-/*#wrapper { padding-bottom: 3em;  }*/
-#wrapper { padding-bottom: 0em;  }
+#wrapper { 
+   margin-bottom: -35px;  
+}
                
 /* must be same height as the footer */
-#content { overflow: auto; padding-bottom: 35px; } 
+#content { overflow: auto; padding-bottom: 65px; } 
 
 #footer {
     position: relative;
     height: 35px;
-    clear: both;
+    clear: both;      
+    
+	margin-top: 35px;
 } 
 	#footer .b-hr {
 		margin: 0;

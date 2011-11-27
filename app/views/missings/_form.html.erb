@@ -4,26 +4,23 @@
 	:previous_step => "/add_missing/" + @missing.previous_step } do |f| %>
 
 <div class="container_16">
-<div class="grid_8">
+	<div class="grid_8">
 	
-  <% if @missing.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@missing.errors.count, "error") %> prohibited this missing from being saved:</h2>
+	  <% if @missing.errors.any? %>
+	    <div id="error_explanation">
+	      <h2><%= pluralize(@missing.errors.count, "error") %> prohibited this missing from being saved:</h2>
 
-      <ul>
-      <% @missing.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+	      <ul>
+	      <% @missing.errors.full_messages.each do |msg| %>
+	        <li><%= msg %></li>
+	      <% end %>
+	      </ul>
+	    </div>
+	  <% end %>
   
-  <%= render @missing.current_step, :f => f %>
+	  <%= render @missing.current_step, :f => f %>
 
-
-	
-
-</div>
+	</div>
 </div>
 
 
@@ -31,15 +28,14 @@
 <!-- End grid_16 and container -->
 <div class="b-form__action_panel">    
 	<div class="container_16">
-	<div class="grid_8">
-	<div class="b-form__actions">
-		<%= f.submit "Предыдущий шаг", :class => "b-form__back_button", :tabindex => "-1" unless @missing.first_step? %>
-		<%= f.submit "Следующий шаг", :class => "b-form__next_button" unless @missing.last_step?  %>
-		<%= f.submit "Опубликовать объявление", :class => "b-form__save_button blue" if @missing.last_step?  %>
-	</div>  
+		<div class="grid_8">
+			<div class="b-form__actions">
+				<%= f.submit "Предыдущий шаг", :class => "b-form__back_button", :tabindex => "-1" unless @missing.first_step? %>
+				<%= f.submit "Следующий шаг", :class => "b-form__next_button" unless @missing.last_step?  %>
+				<%= f.submit "Опубликовать объявление", :class => "b-form__save_button blue" if @missing.last_step?  %>
+			</div>  
+		</div>
 	</div>
-	</div>
-	
 </div>
   
 <% end %>
