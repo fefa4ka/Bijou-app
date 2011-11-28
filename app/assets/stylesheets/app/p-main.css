@@ -165,9 +165,50 @@
 		.p-main-suggest-popup p{
 			font-size: 11px;
 		}
+.p-main-socialEnterForm{
+	position: relative;
+	background: #f4f4f4;
 
-	
+	width: 310px;
+	padding: 10px 0px 20px 10px;
 
+	border: 1px solid #d9d9d9;
+
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+		.p-main-socialEnterForm h3{
+			margin: 0px 0px 10px 0px;
+		}
+
+		.p-main-socialEnterForm img{
+			position: relative;
+			top: 3px;
+
+			width: 16px;
+			height: 16px;
+
+			margin-right: 5px;
+			border: none;
+		}
+
+		.p-main-socialEnterForm ul{
+			margin: 0px 0px 10px 0px;
+		}
+
+		.p-main-socialEnterForm li{
+			list-style: none;
+			display: inline;
+			line-height: 2.3;
+			margin-right: 8px;
+		}
+
+		.p-main-socialEnterForm input[type=text]{
+				margin-right: 10px;
+				color: #afaeae;
+		}
 
 /* Custom elements */
 
@@ -186,3 +227,84 @@
 	margin-bottom: 10px;
 }
 
+
+.p-main-dialog-a-service{
+	padding-right: 0px;
+}
+	.p-main-dialog-a-service h3{
+		font-size: 16px;
+		font-weight: normal;
+		color: #000000;		
+	}
+
+	.p-main-dialog-a-service ul{
+		margin: 15px 0px 15px 0px;
+		padding: 0px;
+	}
+	.p-main-dialog-a-service li{
+		list-style: none;
+		margin-bottom: 10px;
+		vertical-align: center;
+	}
+
+	.p-main-dialog-a-service ul div{
+		float: left;
+		width: 65px; 
+	}
+	
+	.p-main-dialog-a-service-soc{
+		width: auto;
+		float: left;
+
+		margin-right: 40px;
+		text-align: center;
+	}
+
+	.p-main-dialog-a-service-soc img{
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: 5px;
+	}
+
+	.p-main-dialog-a-service-sep{
+		position: relative;
+		clear: both;
+		margin-bottom: 10px;
+	}
+
+	.p-main-dialog-a-service-submit_enter{
+		margin-right: 10px;
+	}
+	.p-main-dialog-a-service-submit_register{
+		margin-left: 10px;	
+	}
+
+
+
+.p-main-dialog-a-afterlogin{
+	width: 760px;
+	margin-left: -380px;
+	padding-right: 15px;
+
+	height: 110px;
+}
+	.p-main-dialog-a-afterlogin h3{
+		font-size: 16px;
+		font-weight: normal;
+		color: #000000;		
+
+		margin: 13px 0px 13px 0px;
+	}
+
+	.p-main-dialog-a-afterlogin ul{
+		margin-left: auto;
+		margin-right: auto;
+		padding: 0px;
+	}
+
+	.p-main-dialog-a-afterlogin li{
+		float: left;
+		margin-right: 20px;
+		list-style: none;
+	}

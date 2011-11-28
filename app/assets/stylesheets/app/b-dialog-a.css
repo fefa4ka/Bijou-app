@@ -1,0 +1,30 @@
+/*
+	Dialog type A
+	Simple popup message with white color and shadow by default
+*/
+
+.b-dialog-a{
+	position: absolute;
+	z-index: 9000;
+
+	width: 465px;
+	height: 265px;
+
+	left: 50%;
+	top: 275px;
+
+	margin-left: -225px;
+	margin-top:  -132px;
+
+	padding: 30px 40px;
+
+	background: #fff;
+
+	-moz-box-shadow: 	0px 0px 25px #7a7a7a;
+	-webkit-box-shadow: 0px 0px 25px #7a7a7a;
+	box-shadow: 		0px 0px 25px #7a7a7a;
+
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}

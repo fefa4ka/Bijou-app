@@ -39,6 +39,7 @@
   <div class="container_16">  
 	<div class="grid_16">    
 		<input type="button" class="b-head__login maroon l-right" value="Войти на сайт" />  
+		<!--
 		<div class="b-head__login_form">
 			<%= form_for "user", :url => user_session_path, :remote => true, :tabindex => 1, :html => { :id => "login_form" } do |login_form| %>   
 			<%= login_form.text_field :email, :class => "b-head__login_form_text", :placeholder => "эл. почта или телефон", :tabindex => 2 %>
@@ -53,7 +54,11 @@
 				<%= link_to "вспомнить пароль", new_password_path('user') %>
 			</p>   
 			<% end %>
+
+
 		</div>
+			-->
+			<%= render :partial=> 'service_dialog'%>
 	</div>
        
     

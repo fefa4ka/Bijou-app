@@ -2,6 +2,12 @@
 
 <!-- Main page content -->
 
+<!-- Service popup -->
+<%#= render :partial => 'service_dialog' %>
+
+<!-- Afterlogin popup -->
+<%#= render :partial => 'aftershow_dialog' %>
+
 <!-- Info -->
 
 
@@ -27,6 +33,9 @@
 			<li><p class="p-main-info-text">Если вы готовы уделить ваше время поиску про-<br/>павших без вести. Мы с радостью примем любую помощь от вас.</p></li>
 			<li><%= tag :input, { :type => "button", :value => "Хочу принять участие", :class => "p-main-register t-medium_fat silver l-full_width", :for => "volunteer" } %></li>
 			<li>
+
+			  <!-- enter via social -->
+
 				<div class="b-sidebar p-main-register-box volunteer l-hidden">
 					<p class="t-medium">Войдите через</p>
 					<div class="p-main-socials">         
@@ -45,6 +54,9 @@
 						</td></tr>
 					</table>
 				</div> 
+
+				<%#= render :partial => 'socialenter_form' %>
+
 			</li>
 		</ul>
 	</div>
