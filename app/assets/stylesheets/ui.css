@@ -1052,18 +1052,17 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
  * http://docs.jquery.com/UI/Dialog#theming
  */
 .ui-dialog { position: absolute; padding: .2em; width: 300px; overflow: hidden; 
-	background: #f7f7f7; /* Old browsers */
-	background: -moz-linear-gradient(top, #f7f7f7 0%, #d4d4d4 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f7f7), color-stop(100%,#d4d4d4)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #f7f7f7 0%,#d4d4d4 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #f7f7f7 0%,#d4d4d4 100%); /* Opera11.10+ */
-	background: -ms-linear-gradient(top, #f7f7f7 0%,#d4d4d4 100%); /* IE10+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#d4d4d4',GradientType=0 ); /* IE6-9 */
-	background: linear-gradient(top, #f7f7f7 0%,#d4d4d4 100%); /* W3C */
+	background: #fff; /* Old browsers */
 	
-	-webkit-box-shadow: 0px 5px 45px 0px #525252;
-	-moz-box-shadow: 0px 5px 25px 0px #333;
-	box-shadow: 0px 5px 45px 0px #525252;
+	-moz-box-shadow: 	0px 0px 25px #7a7a7a;
+	-webkit-box-shadow: 0px 0px 25px #7a7a7a;
+	box-shadow: 		0px 0px 25px #7a7a7a;
+
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	
+	
 }
 .ui-dialog .ui-dialog-titlebar { padding: .4em 1em; position: relative;  }
 .ui-dialog .ui-dialog-title { float: left; margin: .1em 16px .1em 0; } 

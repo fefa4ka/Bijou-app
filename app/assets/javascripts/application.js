@@ -20,8 +20,8 @@ $(function()
 	$('.b-head__login').click(function()
 	{
 		$('.b-head__login_form').dialog({
-			width: 350,
-			height: 246,
+			width: 500,
+			height: 325,
 			modal: true,
 			resizable: false,
 			draggable: false,

@@ -21,8 +21,7 @@ class MissingsController < ApplicationController
 
   # GET /missings/1
   # GET /missings/1.xml
-  def show                                             
-    
+  def show                                                 
   	@missing = Missing.find(params[:id])                  
   	
     @places = @missing.places.to_gmaps4rails
@@ -149,7 +148,8 @@ class MissingsController < ApplicationController
     session[:missing] ||= {}
     params[:missing] ||= {}
      
-    logger.debug(session.inspect)
+
+    
   	# Сохраняем фотографии
   	data_type = data = ""
   	photos = params[:missing]["photos_attributes"] || {}
@@ -160,8 +160,7 @@ class MissingsController < ApplicationController
   	end
 
     session[:missing_params].merge!(params[:missing]) if params[:missing]
-        
-    logger.debug('before respond')                    
+                           
     
     respond_to do |format|
       logger.debug(params[:save])
@@ -172,20 +171,18 @@ class MissingsController < ApplicationController
         @missing = Missing.new(session[:missing_params])
         @missing.photos = session[:missing_photos]     
         @missing.save  
-    	#         if logged_in? 
-    	# 	current_user.push(@missing)
-    	# 	
-    	# else
-    		user = {
-	      		:name => session[:missing_params]["author_name"],
-	      		:email => session[:missing_params]["author_email"],
-	      		:phone => session[:missing_params]["author_phone"],
-	      		:callback => session[:missing_params]["author_callback_hash"],
-	      		:password => session[:missing_params]["missing_password"]
-	  	  }                    
 
-	      @user = User.new(user)
-  		  @user.missings.push(@missing)  
+		# TODO: Проверять, залогинен ли пользователь, и тогда создавать объявление на него
+    	user = {
+      		:name => session[:missing_params]["author_name"],
+      		:email => session[:missing_params]["author_email"],
+      		:phone => session[:missing_params]["author_phone"],
+      		:callback => session[:missing_params]["author_callback_hash"],
+      		:password => session[:missing_params]["missing_password"]
+  	    }                    
+
+        @user = User.new(user)
+	    @user.missings.push(@missing)  
         @user.save    
          
         

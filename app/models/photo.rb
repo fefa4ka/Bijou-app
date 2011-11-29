@@ -7,6 +7,10 @@ class Photo < ActiveRecord::Base
       :small  => ["160x160#", :jpg],
       :medium => ["300x300>", :jpg],
       :large  => ["700x700>", :jpg] 
-    }          
+    }# ,
+    #     :storage => :s3,
+    #     :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
+    #     :path => "missings/:id/:style.:extension",
+    #     :bucket => "missing_photos"
 
 end

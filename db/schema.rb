@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111127135411) do
+ActiveRecord::Schema.define(:version => 20111129123127) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -57,10 +56,10 @@ ActiveRecord::Schema.define(:version => 20111127135411) do
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
 
   create_table "answers", :force => true do |t|
+    t.integer  "question_id"
     t.string   "text"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "question_id"
   end
 
   create_table "can_helps", :force => true do |t|
@@ -155,6 +154,15 @@ ActiveRecord::Schema.define(:version => 20111127135411) do
 
   add_index "messages", ["account_id"], :name => "index_messages_on_account_id"
 
+  create_table "missing_histories", :force => true do |t|
+    t.integer  "misssing_id"
+    t.integer  "question_id"
+    t.integer  "user_id"
+    t.text     "answer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "missings", :force => true do |t|
     t.string   "name"
     t.text     "description"
@@ -207,6 +215,14 @@ ActiveRecord::Schema.define(:version => 20111127135411) do
     t.integer  "type"
     t.integer  "questionnaire_id"
     t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "related_questions", :force => true do |t|
+    t.integer  "related_question_id"
+    t.integer  "question_id"
+    t.text     "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
