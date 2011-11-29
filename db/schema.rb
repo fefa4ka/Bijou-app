@@ -162,7 +162,8 @@ ActiveRecord::Schema.define(:version => 20111129123127) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.date     "date"
+    t.date     "date" 
+    t.boolean  "published"
   end
 
   create_table "photos", :force => true do |t|
