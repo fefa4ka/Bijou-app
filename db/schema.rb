@@ -143,8 +143,8 @@ ActiveRecord::Schema.define(:version => 20111129123127) do
 
   add_index "messages", ["account_id"], :name => "index_messages_on_account_id"
 
-  create_table "missing_histories", :force => true do |t|
-    t.integer  "misssing_id"
+  create_table "missings_histories", :force => true do |t|
+    t.integer  "missing_id"
     t.integer  "question_id"
     t.integer  "user_id"
     t.text     "answer"
@@ -202,7 +202,7 @@ ActiveRecord::Schema.define(:version => 20111129123127) do
 
   create_table "questions", :force => true do |t|
     t.text     "text"
-    t.integer  "type"
+    t.integer  "answer_type"
     t.integer  "questionnaire_id"
     t.integer  "position"
     t.datetime "created_at"
@@ -213,8 +213,6 @@ ActiveRecord::Schema.define(:version => 20111129123127) do
     t.integer  "related_question_id"
     t.integer  "question_id"
     t.text     "answer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "sessions", :force => true do |t|

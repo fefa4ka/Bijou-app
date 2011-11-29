@@ -1,17 +1,21 @@
 ActiveAdmin.register Question do   
   index do
-    column :text
+    column :text  
+    column :answer_type
     column "Answers" do |question|
       (question.answers.map{ |a| a.text }).join(', ')
-    end
+    end             
+    default_actions
   end
 
   form do |f|
     f.inputs do
-      f.input :text
+      f.input :collection_id, :as => :select, :collection => { "При регистрации" => 1, "Остальные вопросы для автора" => 2, "Для посетителей" => 3 }
+      f.input :text     
+      f.input :answer_type, :as => :select, :collection => { "Да-Нет" => 0, "Один вариант" => 1, "Несколько вариантов" => 2, "Свободное поле" => 3, "Карта" => 4, "Описание человека" => 5 }
+      f.input :other, :as => :radio, :label => "С другим вариантом"
       f.has_many :answers do |a|
         a.input :text    
-        a.input :type
       end
     end
     f.buttons
