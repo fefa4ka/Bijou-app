@@ -11,17 +11,6 @@
 # It's strongly recommended to check this file into your version control system.
 
 ActiveRecord::Schema.define(:version => 20111129123127) do
-
-  create_table "accounts", :force => true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "phone"
-    t.integer  "callback"
-    t.string   "password"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
     t.string   "resource_type", :null => false

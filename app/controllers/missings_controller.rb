@@ -108,11 +108,10 @@ class MissingsController < ApplicationController
   	
   # GET /missings/new
   # GET /missings/new.xml
-  def new                  
-          
+  def new                
     session[:missing_params] ||= {}                  
 
-    logger.debug(session[:missing_params].inspect)
+
     @missing = Missing.new(session[:missing_params])
     @missing.valid?
     @places = @missing.places.to_gmaps4rails
@@ -122,9 +121,9 @@ class MissingsController < ApplicationController
     # Поля для мест и людей
     # Строятся только один раз
     if @missing.new_record?
-      	@missing.places.build
-      	@missing.photos.build
-      	@missing.familiars.build
+      @missing.places.build
+      @missing.photos.build
+      @missing.familiars.build
 
       respond_to do |format|
         format.html # new.html.erb
@@ -142,14 +141,13 @@ class MissingsController < ApplicationController
   end
 
   # Сохраняем данные текущего шага
-  def save_step
+  def save_step 
+  	session[:missing_id] ||= 0
     session[:missing_params] ||= {}  
     session[:missing_photos] ||= []
     session[:missing] ||= {}
     params[:missing] ||= {}
      
-
-    
   	# Сохраняем фотографии
   	data_type = data = ""
   	photos = params[:missing]["photos_attributes"] || {}
@@ -160,20 +158,37 @@ class MissingsController < ApplicationController
   	end
 
     session[:missing_params].merge!(params[:missing]) if params[:missing]
-                           
     
+	# TODO: переделать http://stackoverflow.com/questions/1002963/how-to-edit-a-rails-serialized-field-in-a-form
+    convert_to_hash
+             
+    # Если объявление уже создано, сохраняем в базу изменения
+    # или создаем в базе копию          
+    if session[:missing_id] > 0
+    	@missing = Missing.find(session[:missing_id])
+    	@missing.update_attributes(session[:missing_params])
+    else
+		@user = current_or_guest_user
+
+    	@missing = Missing.new(session[:missing_params])
+    	@missing.published = false;
+    	@missing.user = @user
+    	@missing.save
+    	
+    	session[:missing_id] = @missing.id
+	end
+	
     respond_to do |format|
-      logger.debug(params[:save])
+
       if params[:save] == "1"
-        logger.debug(session[:missing_params].inspect)
-      	convert_to_hash
         
-        @missing = Missing.new(session[:missing_params])
-        @missing.photos = session[:missing_photos]     
+        @missing = Missing.find(session[:missing_id])
+        @missing.photos = session[:missing_photos]   
+        @missing.published = true  
         @missing.save  
 
 		# TODO: Проверять, залогинен ли пользователь, и тогда создавать объявление на него
-    	user = {
+    	user_attr = {
       		:name => session[:missing_params]["author_name"],
       		:email => session[:missing_params]["author_email"],
       		:phone => session[:missing_params]["author_phone"],
@@ -181,15 +196,14 @@ class MissingsController < ApplicationController
       		:password => session[:missing_params]["missing_password"]
   	    }                    
 
-        @user = User.new(user)
-	    @user.missings.push(@missing)  
+        @user = current_or_guest_user
+        @user.update_attributes(user_attr)
         @user.save    
-         
-        
-        session[:missing_params] = session[:missing_photos] = nil
+
+        session[:missing_params] = session[:missing_photos] = session[:missing_id] = nil
         
         sign_in @user
-		    # end
+
         flash[:notice] = "Объявление размещено"
       end
              

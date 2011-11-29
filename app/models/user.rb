@@ -1,10 +1,12 @@
 class User < ActiveRecord::Base    
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
+  # TODO: сделать validable, и убрать правила на пароль. Может сломаться создание гостевого пользователя, не работал User.save(false)
+  
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
+         :recoverable, :rememberable, :trackable, 
          :omniauthable
-
+ 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :phone, :callback, :password, :password_confirmation, :remember_me,
                   :admin, :detective, :volunteer,

@@ -1,5 +1,6 @@
 class Question < ActiveRecord::Base        
   has_many :answers
+  has_many :related_questions
   
   accepts_nested_attributes_for :answers      
   
