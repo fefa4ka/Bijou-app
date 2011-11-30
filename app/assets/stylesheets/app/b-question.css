@@ -1,0 +1,57 @@
+
+/* Question block */
+
+
+.b-questions{
+	
+}
+
+
+/* Headers */
+
+	.b-questions h2, .b-questions h3{
+			font-weight: normal;
+			margin-bottom: 15px;
+	}
+
+	.b-questions h2{
+		font-size: 21px;
+
+	}
+
+	.b-questions h3{
+		font-size: 16px;
+	}
+
+
+/* Common text */
+
+	.b-questions p{
+		line-height: 1.7;
+		color: #666666;
+	}
+
+	.b-questions br{
+		clear: both;
+		margin-bottom: 30px;
+	}
+
+.b-questions-sep{
+	clear: both;
+	margin-bottom: 15px;
+}
+
+
+/* Social */
+
+.b-questions-social, .b-questions-social span, .b-questions-social li{
+	float: left;
+}
+
+.b-questions-social ul{
+	margin: 0px;
+}
+.b-questions-social li{
+	list-style: none;
+	margin: 0px 20px 15px 0px;
+}

@@ -1,0 +1,40 @@
+
+/* 	
+	Small social images
+	sample: <span class=".b-socimg-vk"></span>;
+ */
+
+
+.b-socimg, .b-socimg-vk, .b-socimg-fb, .b-socimg-tw, .b-socimg-od, .b-socimg-gl, .b-socimg-ml{
+	display: block;
+	height: 16px;
+	width: 16px;
+
+	margin: 0px 5px;
+
+	background-repeat: no-repeat;
+	background-image: url('/assets/soc_small.png');
+}
+
+.b-socimg-vk{
+	background-position: -32px 0px;
+}
+
+.b-socimg-fb{
+	background-position: 0px 0px;
+}
+
+.b-socimg-od{
+	background-position: -16px 0px;
+}
+
+.b-socimg-gl{
+	background-position: -64px 0px;
+}
+
+.b-socimg-ml{
+	background-position: -80px 0px;
+}
+.b-socimg-tw{
+	background-position: -48px 0px;
+}
