@@ -6,7 +6,8 @@
 //= require_tree ./fancybox    
 //= require_tree ./missing
 //= require_tree ./report
-//= require_tree ./user
+//= require_tree ./user              
+//= require_tree ./questions
 //= require gmaps4rails/bing.js
 //= require gmaps4rails/googlemaps.js
 //= require gmaps4rails/mapquest.js

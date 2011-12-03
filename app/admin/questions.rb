@@ -10,7 +10,8 @@ ActiveAdmin.register Question do
 
   form do |f|
     f.inputs do
-      f.input :collection_id, :as => :select, :collection => { "При регистрации" => 1, "Остальные вопросы для автора" => 2, "Для посетителей" => 3 }
+      f.input :collection_id, :as => :select, :collection => { "При регистрации" => 1, "Остальные вопросы для автора" => 2, "Для посетителей" => 3 }                              
+      f.input :questionnaire, :as => :select
       f.input :text     
       f.input :answer_type, :as => :select, :collection => { "Да-Нет" => 0, "Один вариант" => 1, "Несколько вариантов" => 2, "Свободное поле" => 3, "Карта" => 4, "Описание человека" => 5 }
       f.input :other, :as => :radio, :label => "С другим вариантом"

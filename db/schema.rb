@@ -10,7 +10,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111129123127) do
+ActiveRecord::Schema.define(:version => 20111201185516) do
+
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
     t.string   "resource_type", :null => false
@@ -143,15 +144,6 @@ ActiveRecord::Schema.define(:version => 20111129123127) do
 
   add_index "messages", ["account_id"], :name => "index_messages_on_account_id"
 
-  create_table "missings_histories", :force => true do |t|
-    t.integer  "missing_id"
-    t.integer  "question_id"
-    t.integer  "user_id"
-    t.text     "answer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "missings", :force => true do |t|
     t.string   "name"
     t.text     "description"
@@ -162,12 +154,20 @@ ActiveRecord::Schema.define(:version => 20111129123127) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.date     "date" 
+    t.date     "date"
     t.boolean  "published"
   end
 
+  create_table "missings_histories", :force => true do |t|
+    t.integer  "missing_id"
+    t.integer  "question_id"
+    t.integer  "user_id"
+    t.text     "answer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "photos", :force => true do |t|
-    t.string   "image_name"
     t.integer  "missing_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -195,24 +195,25 @@ ActiveRecord::Schema.define(:version => 20111129123127) do
   add_index "places", ["missing_id"], :name => "index_places_on_missing_id"
 
   create_table "questionnaires", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string  "name"
+    t.integer "position"
   end
 
   create_table "questions", :force => true do |t|
     t.text     "text"
-    t.integer  "answer_type"
+    t.integer  "collection_id"
     t.integer  "questionnaire_id"
+    t.integer  "answer_type"
+    t.boolean  "other"
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "related_questions", :force => true do |t|
-    t.integer  "related_question_id"
-    t.integer  "question_id"
-    t.text     "answer"
+    t.integer "related_question_id"
+    t.integer "question_id"
+    t.text    "answer"
   end
 
   create_table "sessions", :force => true do |t|

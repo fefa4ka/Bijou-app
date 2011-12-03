@@ -20,7 +20,9 @@ html, body, #wrapper {
 	background: -o-linear-gradient(top, rgba(248,248,248,1) 0%,rgba(255,255,255,1) 250px); /* Opera11.10+ */
 	background: -ms-linear-gradient(top, rgba(248,248,248,1) 0%,rgba(255,255,255,1) 250px); /* IE10+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
-	background: linear-gradient(top, rgba(248,248,248,1) 0%,rgba(255,255,255,1) 250px); /* W3C */
+	background: linear-gradient(top, rgba(248,248,248,1) 0%,rgba(255,255,255,1) 250px); /* W3C */             
+	
+    min-width: 1024px;
 }
 
 body > #wrapper { height: auto; min-height: 100%; }     
@@ -31,7 +33,7 @@ p {
 } 
 
 #wrapper { 
-   margin-bottom: -70px;  
+   margin-bottom: -35px;  
 }
                
 /* must be same height as the footer */

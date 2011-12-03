@@ -49,4 +49,8 @@ gem 'omniauth-facebook'
 
 # Admin
 gem 'activeadmin'
-gem 'meta_search'
+gem 'meta_search' 
+
+
+# Proc manager
+gem 'foreman'

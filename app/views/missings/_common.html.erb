@@ -59,16 +59,15 @@ $(function(){
 	
 
 	<ul class="b-form__photos">
-	<%= f.fields_for :photos do |photo_form| %>
-	  <% if photo_form.object.image_name.nil? %>
+	<%= f.fields_for :photos do |photo_form| %> 
+	  <% if photo_form.object.new_record? %>
 		<li class="b-form__photo_field">
 	    <%= photo_form.file_field :photo, :class => "invisible" %>
 	 	</li>
 	  <% else %>
 	    <li class="b-form__photo">
-			<%= image_tag photo_form.object.image_name, :size => "100x100", :class => "b-form__photo" %>
+			<%= image_tag photo_form.object.photo.url(:small), :size => "100x100", :class => "b-form__photo" %>
 			<%= tag :input, { :type => "button", :value => "удалить", :class => "b-form__photo_delete red_action destroy" } %>
-			<%= photo_form.hidden_field :image_name %>
 			<%= photo_form.hidden_field :_destroy %>
 		</li>
       <% end %>

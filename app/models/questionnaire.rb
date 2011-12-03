@@ -1,2 +1,3 @@
-class Questionnaire < ActiveRecord::Base
+class Questionnaire < ActiveRecord::Base             
+  has_many :questions
 end

@@ -20,15 +20,15 @@
 <!-- End grid_10 -->
 <div class="clear"></div>
 <!-- End header -->
+</div>
 
+<div class="b-form__nav_panel">
+<div class="container_16"> 
 <div class="grid_16">
 	
 <ul class="b-form__nav_list">
 	<li class="b-form__nav_element b-form__nav_first_element <%- if @missing.current_step == "common" -%> b-form__nav_current_element <%- end -%>">
 	  <%= link_to_unless_current "Заполнение основной информации", "/add_missing/common", { :class => "missing_step" } %>
-	</li>
-	<li class="b-form__nav_element<%- if @missing.current_step == "characteristic" -%> b-form__nav_current_element <%- end -%>">
-	  <%= link_to_unless_current "Описание человека", "/add_missing/characteristic", { :class => "missing_step" }  %>
 	</li>
 	<li class="b-form__nav_element<%- if @missing.current_step == "history" -%> b-form__nav_current_element <%- end -%>">
 	  <%= link_to_unless_current "Обстоятельства пропажи", "/add_missing/history", { :class => "missing_step" } %>
@@ -43,7 +43,6 @@
 
 <div class="clear"></div>
 <!-- End grid_16 and container -->
-<div class="b-form__nav_panel">
 </div>
 
 
