@@ -148,14 +148,12 @@ ActiveRecord::Schema.define(:version => 20111201185516) do
     t.string   "name"
     t.text     "description"
     t.boolean  "gender"
-    t.date     "birthday"
-    t.text     "characteristics"
-    t.integer  "private"
+    t.date     "birthday"      
+    t.date     "date"
+    t.boolean  "published"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.date     "date"
-    t.boolean  "published"
   end
 
   create_table "missings_histories", :force => true do |t|

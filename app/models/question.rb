@@ -19,10 +19,11 @@ class Question < ActiveRecord::Base
      
      # Выдаем в формате
      # question = {                                       
-     #        id,
+     #        id,        
+     #        questionnaire,
      #        text,     
-     #        type = ['one', 'any', 'map', 'man', 'text'],     
-     #        additional_field = true/false,
+     #        answer_type = ['one', 'any', 'map', 'man', 'text'],     
+     #        other = true/false,
      #        answers = ['example 1', 'example 2', 'example 3']
      #      }     
                                                         
@@ -76,7 +77,16 @@ class Question < ActiveRecord::Base
      result
   end               
   
-  def self.answer(question_params, missing, user)    
+  def self.answer(question_params, missing, user)  
+    # question_params = {
+    #   id,           
+    #   action_type = yes/no/dont_know/skip/answer,
+    #   answer = {
+    #     text - свободный ответ или другой вариант,
+    #     answers_ids = [] - массив с ответами на вопрос с несколькими вариантами
+    #     id - ответ на вопрос с одним вариантом
+    #   }
+    # }  
     # Для разных типов вопросов свои обработчики:
     #       one, text - сохраняет один вариант
     #       any - сохраняет несколько вариантов
