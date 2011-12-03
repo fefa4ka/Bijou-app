@@ -145,15 +145,14 @@ ActiveRecord::Schema.define(:version => 20111201185516) do
   add_index "messages", ["account_id"], :name => "index_messages_on_account_id"
 
   create_table "missings", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.boolean  "gender"
-    t.date     "birthday"      
-    t.date     "date"
-    t.boolean  "published"
+    t.string   "name"           # Имя
+    t.boolean  "gender"         # Пол. 0 - женщина, 1 - мужчина
+    t.date     "birthday"       # День рождения. Если указан только возраст, устанавливает как 1 января
+    t.date     "date"           # Не помню
+    t.boolean  "published"      # Если стоит 0 - объявление не появляется в поиске 
+    t.integer  "user_id"        # Автор объявления    
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
   end
 
   create_table "missings_histories", :force => true do |t|
