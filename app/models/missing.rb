@@ -10,17 +10,19 @@ class Missing < ActiveRecord::Base
   
   has_many :can_helps 
 
-  serialize :man_char_hash
-
   attr_writer :current_step  
 
   # Поля характеристик
-  attr_accessor :man_age, :man_growth, :man_physique, :man_physique_another, :man_hair_color, :man_hair_color_another, :man_hair_length, :man_specials_tattoo, :man_specials_piercing, :man_specials_scar, :man_specials,  
-                :author_callback_phone, :author_callback_email, :private_history, :private_contacts, :photos_attributes, :author_name, :author_email, :author_phone, :author_callback_email, :author_callback_phone, :author_callback_hash, :missing_password
+  attr_accessor :man_age,
+                :author_callback_phone, :author_callback_email, :private_history, :private_contacts, :photos_attributes, :author_name, :author_email, :author_phone, :author_callback_email, :author_callback_phone, :author_callback_hash, :missing_password,
+                :questions
   
+  accepts_nested_attributes_for :user
   accepts_nested_attributes_for :photos
   accepts_nested_attributes_for :places, :allow_destroy => true, :reject_if => lambda { |obj| obj[:address].blank? }
-  accepts_nested_attributes_for :familiars, :allow_destroy => true, :reject_if => lambda { |obj| obj[:name].blank? }
+  accepts_nested_attributes_for :familiars, :allow_destroy => true, :reject_if => lambda { |obj| obj[:name].blank? }  
+ 
+  
                             
   # typograf :decription, :use_p => true, :use_br => true, :encoding => "UTF-8"
   
@@ -51,9 +53,8 @@ class Missing < ActiveRecord::Base
   def new_helpers_count
     CanHelp.where(:created_at => self.last_visit..Time.now)
   end
-  
-    
-  
+
+
 
   def current_step
     @current_step || steps.first
@@ -77,7 +78,7 @@ class Missing < ActiveRecord::Base
        
   private               
     def steps
-      %w[common characteristic history contacts]
+      %w[common history contacts]
     end
     
     def prepare_data

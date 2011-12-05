@@ -10,17 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111129123127) do
-
-  create_table "accounts", :force => true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "phone"
-    t.integer  "callback"
-    t.string   "password"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(:version => 20111201185516) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -154,8 +144,19 @@ ActiveRecord::Schema.define(:version => 20111129123127) do
 
   add_index "messages", ["account_id"], :name => "index_messages_on_account_id"
 
-  create_table "missing_histories", :force => true do |t|
-    t.integer  "misssing_id"
+  create_table "missings", :force => true do |t|
+    t.string   "name"           # Имя
+    t.boolean  "gender"         # Пол. 0 - женщина, 1 - мужчина
+    t.date     "birthday"       # День рождения. Если указан только возраст, устанавливает как 1 января
+    t.date     "date"           # Не помню
+    t.boolean  "published"      # Если стоит 0 - объявление не появляется в поиске 
+    t.integer  "user_id"        # Автор объявления    
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "missings_histories", :force => true do |t|
+    t.integer  "missing_id"
     t.integer  "question_id"
     t.integer  "user_id"
     t.text     "answer"
@@ -163,21 +164,7 @@ ActiveRecord::Schema.define(:version => 20111129123127) do
     t.datetime "updated_at"
   end
 
-  create_table "missings", :force => true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.boolean  "gender"
-    t.date     "birthday"
-    t.text     "characteristics"
-    t.integer  "private"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "user_id"
-    t.date     "date"
-  end
-
   create_table "photos", :force => true do |t|
-    t.string   "image_name"
     t.integer  "missing_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -205,26 +192,25 @@ ActiveRecord::Schema.define(:version => 20111129123127) do
   add_index "places", ["missing_id"], :name => "index_places_on_missing_id"
 
   create_table "questionnaires", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string  "name"
+    t.integer "position"
   end
 
   create_table "questions", :force => true do |t|
     t.text     "text"
-    t.integer  "type"
+    t.integer  "collection_id"
     t.integer  "questionnaire_id"
+    t.integer  "answer_type"
+    t.boolean  "other"
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "related_questions", :force => true do |t|
-    t.integer  "related_question_id"
-    t.integer  "question_id"
-    t.text     "answer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer "related_question_id"
+    t.integer "question_id"
+    t.text    "answer"
   end
 
   create_table "sessions", :force => true do |t|

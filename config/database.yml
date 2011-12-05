@@ -3,9 +3,9 @@
 development:
   adapter: mysql2
   database: people
-  username: people
-  password: people
-  host: 127.0.0.1
+  username: yapropal
+  password: ,b;egbgk
+  host: localhost
   encoding: utf8
 
 # Warning: The database defined as "test" will be erased and
@@ -14,15 +14,15 @@ development:
 test:
     adapter: mysql2
     database: people
-    username: people
-    password: people
-    host: 127.0.0.1
+    username: yapropal
+    password: ,b;egbgk
+    host: localhost
     encoding: utf8
 
 production:
     adapter: mysql2
     database: people
-    username: people
-    password: people
-    host: 127.0.0.1
+    username: yapropal
+    password: ,b;egbgk
+    host: localhost
     encoding: utf8

@@ -1,18 +1,3 @@
-
-<div class="b-header__description">
-	<div class="t-medium">Вопросы про характер пропажи</div>
-</div>
-
-<div class="clear"></div>
- 
-<div>
-<%= label_tag "question", "Связь с пропавшим утеряна давно и об обстоятельствах пропажи ничего не известо?", :class => "b-form__label" %>
-<div class="b-form__button_corner ui-corner-all">
-   <%= tag :input, { :type => :button, :value => "да", :class => "b-form-question yes" } %>
-   <%= tag :input, { :type => :button, :value => "нет", :class => "b-form-question no" } %>
-	<%= tag :input, { :type => :button, :value => "не знаю", :class => "b-form-question dont_know" } %>
-</div>     
-
-</div>
- 
-<!-- Container and grid_8 div closed in new.html.erb -->
+<script>                     
+var questions = <%= @questions.to_json.html_safe %> 
+</script>         
