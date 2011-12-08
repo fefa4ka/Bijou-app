@@ -179,14 +179,8 @@ ActiveRecord::Schema.define(:version => 20111201185516) do
     t.string   "address"
     t.float    "latitude"
     t.float    "longitude"
-    t.boolean  "gmaps"
-    t.string   "name"
-    t.text     "description"
-    t.integer  "missing_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "missing"
-    t.boolean  "is_missing"
   end
 
   add_index "places", ["missing_id"], :name => "index_places_on_missing_id"
@@ -230,7 +224,11 @@ ActiveRecord::Schema.define(:version => 20111201185516) do
     t.string   "callback"
     t.boolean  "admin",                                 :default => false
     t.boolean  "detective",                             :default => false
-    t.boolean  "volunteer",                             :default => false
+    t.boolean  "volunteer",                             :default => false        
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
     t.string   "encrypted_password",     :limit => 128, :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -242,10 +240,6 @@ ActiveRecord::Schema.define(:version => 20111201185516) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

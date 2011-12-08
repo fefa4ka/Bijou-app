@@ -19,7 +19,7 @@ input[type="text"] {
 
 /* hr в форме */
 .b-hr.form {
-	border-top-color: #f4f4f4;
+	border-top-color: #d6d6d6;
 }
 
 /* Навигационная панель в размещении объявления */
@@ -31,7 +31,7 @@ input[type="text"] {
 }                   
 
 	.b-form__nav_panel {
-		margin-bottom: 20px;
+/*		margin-bottom: 20px;*/
 	}
     
 	/* Список шагов в объявлении */
@@ -102,7 +102,7 @@ input[type="text"] {
 
 /* Полоска для кнопок */
 .b-form__action_panel {
-  margin-top: 4em; 
+/*  margin-top: 4em; */
 }
 
   .b-form__actions .ui-button {
@@ -321,7 +321,9 @@ input[type="text"] {
 	left: 2px;
 	top: 3px;
 	margin: 0;
-	z-index: 0;
+	z-index: 0;    
+	
+	display: none;
 }
 
 .b-form-checkbox label, 
@@ -330,7 +332,7 @@ input[type="text"] {
 	position: relative;
 	/* z-index: 1; */
 	line-height: 1.2em;
-	padding: 0.2em 0 0.3em 17px;
+	padding: 0.2em 0 0.3em 20px;  
 	cursor: pointer;
 	
 	color: #666;
@@ -346,26 +348,26 @@ input[type="text"] {
 }
 
 .b-form-checkbox label, .b-form-radio label {
-	background-position: -17px -19px;
+	background-position: -15px -19px;
 }
 
 .b-form-checkbox label.hover,
 .b-form-checkbox label.focus,
 .b-form-radio label.hover,
 .b-form-radio label.focus {
-	background-position: -17px -119px;
+	background-position: -15px -119px;
 }
 
 .b-form-checkbox label.checked, 
 .b-form-radio label.checked {
-	background-position: -17px -219px;
+	background-position: -15px -219px;
 	
 	color: #000;
 }
 
 .b-form-checkbox label.checkedHover, 
 .b-form-checkbox label.checkedFocus {
-	background-position: -17px -319px;
+	background-position: -15px -319px;
 }
 
 .b-form-checkbox label.focus, 
@@ -398,11 +400,30 @@ input[type="text"] {
 }                  
 
 
-/*Questions */            
+/*Questions */       
+.b-form__background {
+	background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAASUlEQVR42k1ORw4AIAjr/z/puojjDZqa1PRAgNIBVsSZvR/2VvKf2aGl5vQAJ0CKPeIB7gBnehEH7ahyguyhwR9TPpSlXB7kcAEOgrWxUApcIwAAAABJRU5ErkJggg%3D%3D);
+	
+	-webkit-box-shadow: inset 0px 0px 10px 1px rgba(0, 0, 0, .2);
+	-moz-box-shadow: inset 0px 0px 10px 1px rgba(0, 0, 0, .2);
+	box-shadow: inset 0px 0px 10px 1px rgba(0, 0, 0, .2);
+	
+	padding: 2em 0;
+}     
+
+.b-form__questions_fade {
+	background: url(<%= asset_path 'questions_bg_fade.png' %>);
+	
+	width: 42px;
+	height: 100%;
+	
+	position: absolute;
+	right: 0;
+}
+
 .b-form__questions_infinity {
 	overflow: hidden;    
 	
-	min-height: 220px;
 }                    
 
 .b-form__questionnaire {
@@ -412,25 +433,76 @@ input[type="text"] {
 .b-form__questions {
 	width: 1000%;   
 	min-height: 250px;
+}                   
+
+.show_page .b-form__questions {
+	min-height: 0;
 }
 
 .b-form__question {  
 	width: 400px; 
-	padding: 12px 15px; 
+	 
+	-webkit-border-radius: 7px;
+	-moz-border-radius: 7px;
+	border-radius: 7px;
+	
+	background: #fefefe;
+	border: 2px solid rgba(0,0,0,.15); 
+	margin: 0 64px 0 0;
+
 }
 
 .b-form__question.selected {
-	border: 2px solid #ccc; 
-	padding: 11px 14px;
+	background: #fefefe;
+	border: 2px solid rgba(0,0,0,.15); 
+	margin: 0 64px 0 0;  
+	
+}
+
+.b-form__question.selected.map {
+	width: 600px;
+}               
+                         
+.b-form__question_form {
+	padding: 11px 14px;   
+	
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.selected .b-form__question_form {
+	border: 1px solid #d9d9d9; 
+}
+/*
+.b-form__question_form {
+	padding: 12px 15px;
+	
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
 }                    
 
 	.b-form__question_answer {
-		display: none;
-	}                 
+		padding: 11px 14px;
+		
+		background: #fefefe;
+		border: 2px solid rgba(0,0,0,.15); 
+		
+		-webkit-border-radius: 7px;
+		-moz-border-radius: 7px;
+		border-radius: 7px;
+	}            
+	*/
 	
-	.b-form__question.selected .b-form__question_answer {
+	.b-form__question_answer { 
+		display: none
+	}
+	
+	.selected .b-form__question_answer {
 		display: block;
 	}
+
 
 	.b-form__question_answers_list {
 		list-style: none; 
@@ -450,9 +522,54 @@ input[type="text"] {
 	}
 	
 	.b-form__question__actions {
-		margin-top: 20px;
+		margin-top: 20px;  
 	}                       
 		.b-form__question__action_button.next_question {
-			margin-left: 36px;
+/*			display: none;*/
+			margin-top: 3px;
 		}
+	           
 	
+.b-form__question_map { 
+	width: 100%;
+}
+                              
+.b-form__question_map_container {
+	padding-right: 20px;
+}             
+.b-form__question_search_container{
+	margin-bottom: 5px;
+}                     
+
+.b-form__question_map_search { 
+	width: 228px;  
+	margin-right: 7px;
+}               
+
+.b-form__question_map_container, .b-form__question_yandex_map {
+	width: 300px;
+	height: 225px;
+}
+
+	.b-question__map_balloon {
+		width: 200px;
+	}
+	
+	.b-question__map_balloon_button {
+		margin-top: 10px;
+	}                       
+	
+.b-form__question_map_list {
+	list-style: url(<%= asset_path 'question_map_bullet.png' %>);   
+	margin: 1em 0 0 1.3em ;
+}
+
+.b-form__question_map_item {
+	color: #0065cc;         
+	
+	cursor: pointer;
+} 	
+
+.b-form__question_map_item:hover {
+	color: red;
+}

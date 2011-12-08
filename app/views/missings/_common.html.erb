@@ -55,6 +55,7 @@ $(function(){
     <%= f.label :man_birthday, "Фотографии", :class => "b-form__label" %>
 	<div class="b-form__button_corner l-left ui-corner-all">
 	   <input id="add_photo" type="button" value="Добавить" class="t-medium">
+	   <input id="upload_photo" name="missing_upload_photo" type="hidden" value=0>
 	</div>
 	
 
@@ -68,7 +69,6 @@ $(function(){
 	    <li class="b-form__photo">
 			<%= image_tag photo_form.object.photo.url(:small), :size => "100x100", :class => "b-form__photo" %>
 			<%= tag :input, { :type => "button", :value => "удалить", :class => "b-form__photo_delete red_action destroy" } %>
-			<%= photo_form.hidden_field :_destroy %>
 		</li>
       <% end %>
     <% end %>

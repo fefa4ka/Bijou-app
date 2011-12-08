@@ -1,3 +1,11 @@
 <script>                     
-var questions = <%= @questions.to_json.html_safe %> 
-</script>         
+var questions = <%= @questions.to_json.html_safe %>;
+$(function(){
+   $('.b-form__background.form').hide(); 
+}); 
+</script>                                  
+                                     
+<% if @questions.empty? %>
+	<div class="t-medium ">Спасибо за ответы. У нас к вам есть еще вопросы, мы их зададим после размещения объявления.</div> 
+	<p><br>Переходите к следующему шагу</p>                              
+<% end %>

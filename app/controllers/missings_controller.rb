@@ -21,25 +21,17 @@ class MissingsController < ApplicationController
 
   # GET /missings/1
   # GET /missings/1.xml
-  def show                                                 
+  def show               
   	@missing = Missing.find(params[:id])                  
-  	
-    @places = @missing.places.to_gmaps4rails
-    @author = User.find(@missing.user_id)             
+    @author = User.find(@missing.user_id)
 
-	  @discussion = Discussion.new({ :missing_id => @missing.id })        
-	  @message = Message.new({ :user_id => @missing.user_id }) 
+	@discussion = Discussion.new({ :missing_id => @missing.id })
+	@message = Message.new({ :user_id => @missing.user_id }) 
 	  
-	  @helpers = @missing.can_helps                   
-	  
-	  # Данные, о чем может помочь посетитель   
-	  @help_types = HelpType.all
-	  
-	  if user_signed_in?
-      @i_can_help = CanHelp.where(:user_id => current_user.id, :missing_id => params[:id]).first || CanHelp.new
-	  else
-	    @i_can_help = CanHelp.new
-    end        
+	@helpers = []
+
+	  # Вопросы 
+	  @questions = Question.for @missing, current_or_guest_user, :all   
 	  
     respond_to do |format|
       format.html # show.html.erb
@@ -113,15 +105,12 @@ class MissingsController < ApplicationController
 
     @missing = session[:missing_id] > 0 ? Missing.find(session[:missing_id]) : Missing.new
     @missing.valid?
-    @places = @missing.places.to_gmaps4rails
     
     @missing.current_step = params[:step]
   	
     # Поля для мест и людей
     # Строятся только один раз
-    @missing.places.build
     @missing.photos.build
-    @missing.familiars.build
       
     @questions = Question.for(@missing, current_or_guest_user, :all)
     respond_to do |format|
@@ -138,7 +127,6 @@ class MissingsController < ApplicationController
   # Сохраняем данные текущего шага
   def save_step 
   	session[:missing_id] ||= 0
-    session[:missing] ||= {}
     params[:missing] ||= {}
   	data_type = data = ""
        
@@ -159,11 +147,11 @@ class MissingsController < ApplicationController
     	session[:missing_id] = @missing.id
 	  end         
 	  
-	  if params[:missing]["upload_photo"]     
+	  if params["missing_upload_photo"]     
 	    data_type = "photos"
 	    data = []
 	    @missing.photos.each do |p|
-	      data[p.id] = { :image_name => p.photo.url(:small) }
+	      data.push({ :id => p.id, :image_name => p.photo.url(:small) })
       end
 	  end                  
 	
@@ -175,11 +163,11 @@ class MissingsController < ApplicationController
         @missing.published = true  
         @missing.save  
 
-        session[:missing_params] = session[:missing_id] = nil
+        session[:missing_id] = nil
         
         sign_in @missing.user
 
-        flash[:notice] = "Объявление размещено"
+        flash[:hidden] = "new"
       end
              
       
@@ -188,46 +176,6 @@ class MissingsController < ApplicationController
       }
     end
   end 
-  
-
-  def upload_photos(photos)
-  	# Сохраняем фотку
-  	# как результат возвращаем массив из имен файлов
-  	photos_params = {}
-  	  	
-  	photos.each do |id, photo|
-      # file = photo[:load_photo_file]
-  		
-      # unless file
-      unless photo[:photo] 
-  		  photos_params[id] = photo
-  		  next
-  		end
-  		
-      # # Генерируется уникальное имя
-      # filename = Digest::MD5.hexdigest(Time.now.to_s + file.original_filename) + File.extname(file.original_filename)
-      # name = File.join PHOTO_STORE, filename
-      #     
-      # result.push(filename)
-      # # Сохраняем файл
-      # File.open(name, 'wb') do |f|
-      #   f.write(file.read)
-      # end   
-      
-      new_photo = Photo.new(photo)               
-      new_photo.save
-      photos_params[id] = { :image_name => new_photo.photo.url(:thumb) }
-      logger.debug("====FOTO")
-      logger.debug(new_photo.inspect)
-      session[:missing_photos].push(new_photo)
-  	end
-  	
-    # Убираем из параметров загруженный файл. Он не сохранится в сессии
-  	# Вместо этого добавляем названия сохраненных файлов    	
-  	logger.debug('AVAILABLE PHOTOS')
-  	logger.debug(photos_params.inspect)
-    photos_params
-  end
   
   # Обработка посещаяемых мест
   def address_suggest

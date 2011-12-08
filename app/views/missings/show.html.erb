@@ -1,3 +1,92 @@
+<script>
+var questions = <%= @questions.to_json.html_safe %>; 
+</script>
+
+<% if flash[:hidden] == "new" %>                  
+
+<div class="container_16 b-questions">
+
+	<div class="grid_8">
+		<h2>Вы завершили главную часть!</h2>
+		<p>
+			Теперь наша система знает про пропавшего человека. Это очень хорошо, бла-бла-бла. Блин, очень нужны на самом деле тексты для таких штук. Хочется чтобы максимально приближенно к оригиналу все было. Не понятно сколько здесь может быть строк текста.
+		</p>
+
+		
+	</div>
+
+	<div class="grid_8">
+		<h2>Следующий необходимый шаг</h2>
+		<p>
+		Очень важно чтобы про пропажу стало известно за пределами нашего сервиса. Социальные сети имеют большую значимость в данном вопросе.	 
+		Для улучшения пищеварения, пожалуйста, поделитесь ссылкой на пропажу
+		в социалочках:
+		</p>
+
+	</div>
+</div>
+
+<div class="b-questions-sep">&nbsp;</div>
+
+<div class="container_16 b-questions">
+
+	<div class="grid_8">
+		<h3>На самом деле у нас еще много вопросов по вашему делу.</h3>
+		<p>Вы можете продолжить отвечать на вопросы.</p>
+	</div>
+
+	<div class="grid_8">
+		<div class="b-questions-social">
+		<ul>
+			<li>
+				<a href="#"> <span class="b-socimg-vk"></span> Вконтакте</a>
+			</li>
+			<li>
+				<a href="#"> <span class="b-socimg-fb"></span> Facebook</a>
+			</li>
+			<li>
+				<a href="#"> <span class="b-socimg-tw"></span> Twitter</a>
+			</li>
+			<li>
+				<a href="#"> <span class="b-socimg-od"></span> Одноклассники</a>
+			</li>
+			<li>
+				<a href="#"> <span class="b-socimg-gl"></span> Google</a>
+			</li>
+			<li>
+				<a href="#"> <span class="b-socimg-ml"></span> Mail.ru</a>
+			</li>
+		</ul>
+			
+			
+			
+			
+			
+			
+		</div>
+	</div>
+	
+</div>
+
+<div class="clear"></div>
+<% end %>
+     
+<div class="b-form__background b-form__questions_container show_page l-hidden">
+	<div class="container_16">
+		<div class="b-form__questions_infinity grid_16">    
+			<div class="b-form__questions_fade"></div>  
+			<div class="t-big b-form__questionnaire"></div>                  
+			<div class="b-form__questions">
+			</div>
+		</div>       
+		<div class="b-form__questions_finish l-hidden">
+			<div class="t-medium ">Спасибо за ответы. У нас к вам есть еще вопросы, мы их зададим после размещения объявления.</div> 
+			<p><br>Переходите к следующему шагу</p>    
+		</div>
+	</div>
+	<div class="clear"></div>
+</div>
+
 <div class="container_16 b-missing">
 	<div class="grid_11">
 		<div class="b-header">
@@ -113,61 +202,3 @@
 
 <div class="clear"></div>  
                                 
-                                                        
-<div class="b-missing__i_can_help_window l-hidden">            
-	<%= form_for @i_can_help, :url => "i_can_help.json", :remote => true do |help| %>
-	
-	<div class="t-biggest">Чем вы можете помочь</div>
-	<ul class="b-missing__i_can_help_variants">
-		<li class="l-left"><%= check_box_tag "i_can_help__information", 1, !(help.object.missing_information.nil? && help.object.places.length == 0) %><%= label_tag "i_can_help__information", "У меня есть информация" %></li>                    
-		<li class="l-left"><%= check_box_tag "i_can_help__search", 1, !(help.object.information.nil? && help.object.help_types.length == 0) %><%= label_tag "i_can_help__search", "Могу помочь в поисках" %></li>
-		<li class="l-left"><%= check_box_tag "i_can_help__similar" %><%= label_tag "i_can_help__similar", "У меня похожий случай" %></li> 
-	</ul>               
-	<div class="clear"></div>       
-	
-	<div class="b-missing__i_can_help_window_blocks">
-	   	<div class="b-missing__i_can_help_window_information <%= "l-hidden" if help.object.information.nil? and help.object.places.length == 0 %>">
-			<div class="t-big">Информация</div>
-			<div class="l-half_width l-left">
-				<div class="t-bold">В свободной форме</div>
-				<%= help.text_area :missing_information, :rows => 4 %>
-				<div class="b-form__field_description">Пожалуйста, опишите как можно подробнее</div>
-			</div>           
-			<div class="l-half_width l-left">
-				<div class="t-bold"><nobr>Возможно вы видели человека в конкретном месте</nobr></div>
-				<table class="b-report__search">
-					<tr><td class="b-report__search_field">
-						<%= text_field_tag "i_can_help__place_search", nil, :placeholder => "Адрес места", :class => "b-report__search_field"  %> 
-					</td><td class="b-report__search_button">
-						<%= tag :input, { :type => :button, :value => "Добавить" } %>
-					</td></tr>
-				</table>      
-			
-				<%= gmaps( :map_options => { :container_class => "b-missing__i_can_help_map_container", :id => "i_can_help_map", :class => "b-missing__i_can_help_map" }) %>
-			
-			
-				<ol class="b-missing__i_can_help__places">                        
-					<li><p class="b-missing__i_can_help__places_item">город Москва, ул Добромиловка, дом 45</p> <i class="b-form__item_remove" ></i></li>    
-				</ol>
-			</div>  
-			<div class="clear"></div>                      
-		</div>   
-	 
-		
-	
-		<div class="b-missing__i_can_help_window_search <%= "l-hidden" if help.object.information.nil? and help.object.help_types.length == 0 %>"> 
-			<div class="t-big">Помощь в розыске</div>    
-	    	<ul class="b-missing__i_can_help__search_types">          
-				<% @help_types.each do |help_type, index| %>      
-				<li class="b-missing__i_can_help__search_types_item"><%= check_box_tag "can_help[help_type_ids][]", help_type.id, @i_can_help.help_type_ids.include?(help_type.id), { :id => "can_help_help_type_ids_#{help_type.id}" } %><%= label_tag "can_help[help_type_ids][#{help_type.id}]", help_type.name %></li>
-				<% end %>                    
-			</ul>                                                                                                             
-			<div class="t-bold">Напишите, если можете помочь чем-то еще</div>
-			<%= help.text_area :information, :rows => 4 %>
-			<div class="b-form__field_description">Например, у вас есть автомобиль или GPS</div>    
-			<div class="clear"></div>                      
-		</div>   
-	</div>                  
-	
-	<% end %>
-</div>

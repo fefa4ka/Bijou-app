@@ -17,7 +17,7 @@ $(function(){
 		
 		for(id in data) {
 			var element = data[id],
-				name = 'missing[photos_attributes][' + id + ']';
+				name = 'missing[photos_attributes][' + element.id + ']';
 			
 			$('.b-form__photos')
 				.append( 
@@ -35,18 +35,7 @@ $(function(){
 								.val('удалить')
 								.button()
 						)
-						.append(
-							$('<input/>')
-								.attr('name', name + '[image_name]')
-								.attr('type', 'hidden')
-								.val(element.image_name)
-						)
-						.append(
-							$('<input/>')
-								.attr('name', name + '[_destroy]')
-								.attr('type', 'hidden')
-								.val(0)
-					)
+						
 			);
 		}
 	}         
@@ -70,11 +59,9 @@ $(function(){
 	$("#new_missing")
 		.bind("ajax:beforeSend", function(e, xhr, settings){      
 			if ( submit_action == "upload_photo")
-			{                                 
-				log('settings', settings.data);
-                settings.data += "&missing[upload_photo]=true";    
-				settings.data.push({ name: "missing[upload_photo]", value: true });
-				log('settings_photo', settings, settings.data);
+			{      
+				$("#upload_photo").val(0); 
+			    submit_action = "";                          
 				$('.b-form__photos')
 					.append( 
 						$('<li/>')
@@ -116,6 +103,7 @@ $(function(){
 	
 	$(".b-form__photos input[type=file]").change(function(){    
 		submit_action = "upload_photo";
+		$("#upload_photo").val(1);
 		$("#new_missing").submit();
 	});
 	

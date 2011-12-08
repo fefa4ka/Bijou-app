@@ -2,7 +2,7 @@
 
 class MainController < ApplicationController            
   def index                             
-    @missings = Missing.all
+    @missings = Missing.where(:published => 1)
     logger.debug(session.inspect)
   end
 end

@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
     if current_user
       if session[:guest_user_id]
         logging_in
-        guest_user.destroy
+        guest_user.destroy unless session[:guest_user_id] == current_user.id
         session[:guest_user_id] = nil
       end
       current_user

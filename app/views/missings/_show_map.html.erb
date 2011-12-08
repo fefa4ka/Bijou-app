@@ -1,27 +1,19 @@
 <div class="b-header">Места, где <% if @missing.gender == true %>бывал<% else %>бывала<% end %> <%= @missing.name %></div>
-<div class="l-left b-missing__map">
-
-	<% if @places %>
-	  <%= gmaps({ "markers" => { "data" => @places } }) %>
-	<% else %>
-	  <%= gmaps({ "map_options" => { "detect_location" => true, "center_on_user" => true, :container_class => "b-missing__map_container", :id => "missing_places", :class => "b-missing__map" } }) %>
-	<% end %>                                                                      
-
-	
+  <div class="b-missing__map">
+                                                                    
   </div>
 
-  <div class="l-left b-missing__places">
-	<% @missing.places.each do |place| %>
-	   <div class="b-form__field b-form__place">
+  <div class="b-missing__places">
+	   <div class="b-form__field b-form__place l-left">
 		<div class="b-form__label b-missing__wide_label">
-			<%= place.name %>
+			Работа
 				<%= tag :input, { :type => "button", :value => "Показать на карте", :class => "blue_action b-missing_hidden_action" } %>
 
 		</div>        
 		<div class="b-form__place_inner">
-			<p><%= place.description %></p>
-			<p class="t-small"><%= place.address %></p>   
+			<p>Описание</p>
+			<p class="t-small">улица Тар тарары</p>   
 		</div>               
 	   </div>
-	<% end %>
+
    </div>

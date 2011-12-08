@@ -122,14 +122,14 @@ div.b-missing__share {
 	margin-left: 3px;
 }
 
-.b-missing__map .gmaps4rails_map {
-	width: 300px !important;
-	height: 225px !important;
+.b-missing__map {
+	height: 225px;
+	margin-bottom: 10px;
 }
 
 
 .b-missing__places {
-	margin-left: 38px;
+	
 }
 
 .b-missing_hidden_action { 

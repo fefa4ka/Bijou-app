@@ -9,6 +9,33 @@ $(function(){
 	   
    }
    
+	function generate_map() {
+       // Создание экземпляра карты и его привязка к созданному контейнеру               
+       var map = new YMaps.Map($(".b-missing__map")),
+       		zoomControl = new YMaps.SmallZoom(),
+			zoom = 10,
+			center;
+	 
+		
+		$.template('tmpl-question__map_balloon', '<div class="b-question__map_balloon t-strong">${address}</div> \
+											      <input type="button" class="b-question__map_balloon_button b-question__map_balloon_button_${id} {{if saved}}red_action{{else}}blue_action{{/if}}" value="{{if saved}}Удалить место{{else}}Добавить место{{/if}}">');
+		
+       // Установка для карты ее центра и масштаба
+		if (YMaps.location) {
+		    center = new YMaps.GeoPoint(YMaps.location.longitude, YMaps.location.latitude);
+      	} else {
+			center = new YMaps.GeoPoint(37.64, 55.76);
+		}
+		
+		map.enableDblClickZoom();
+		map.addControl(zoomControl);
+		map.setCenter(center, zoom);
+   }                                           	
+   
+   if( $(".b-missing__map").length > 0){
+   	generate_map();
+   }
+	
    // Фотографии загружаем в оверлеи 
    $(".b-missing__photo_link").fancybox();
     

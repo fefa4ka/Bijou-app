@@ -12,8 +12,6 @@ class User < ActiveRecord::Base
                   :admin, :detective, :volunteer,
                   :last_visit
                   
-  attr_accessor :detective_license, :callback_phone, :callback_email, :coverage,
-                :specialization_1, :specialization_2, :specialization_3, :specialization_additional
   
   has_attached_file :avatar, :url => '/users/:style/:id', :styles => { :thumb => "100x100#", :small => "160x160#", :medium => "300x300>", :large => "700x700>" } 
   
@@ -30,8 +28,8 @@ class User < ActiveRecord::Base
     record = Impression.where(:user_id => self.id, :impressionable_type => type, :impressionable_id => id).last
     record.created_at
   end            
+  
   def last_visit=
   end
-  
-                    
+   
 end

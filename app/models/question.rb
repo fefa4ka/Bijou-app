@@ -75,7 +75,14 @@ class Question < ActiveRecord::Base
      end                   
      
      result
-  end               
+  end      
+ 
+  # Ответы на вопросы по пропаже от пользователя
+  def self.answers_for(missing, user, type = :all) 
+ 	  missing.missings_histories.find( :join => "LEFT JOIN `questions` ON questions.id = question_id", 
+ 	  								   :conditions => ["user_id = :id AND answer_type = :type", { :id => user.id, :type => type }]) unless type == :all
+	  missing.missings_histories.find( :conditions => ["user_id = :id", { :id => user.id, :type => type }]) if type == :all
+  end
   
   def self.answer(question_params, missing, user)  
     # question_params = {
@@ -112,13 +119,16 @@ class Question < ActiveRecord::Base
     								 :answer => "skip" 
 		   })
 	    else
-	    	case question.answer_type
+	    	case question.answer_type  
+        # Ответ да-нет
     		when 0
     			MissingsHistory.create({ :missing => missing, 
     								 :question => question,
     								 :user => user,
     								 :answer => question_params["action_type"]
-			   })
+			   })   
+			   
+         # Один вариант ответа
 		    when 1                        
 		    	MissingsHistory.create({ :missing => missing, 
     								 :question => question,
@@ -130,7 +140,9 @@ class Question < ActiveRecord::Base
     								 :question => question,
     								 :user => user,
     								 :answer => answer["text"]
-			   }) if answer["id"] == "other" and answer["text"].empty?
+			   }) if answer["id"] == "other" and answer["text"].empty?    
+			   
+         # Несколько вариантов ответа
 		    when 2
 		    	answer["answers_ids"].each do |a|
 		    	   MissingsHistory.create({ :missing => missing, 
@@ -144,14 +156,40 @@ class Question < ActiveRecord::Base
     								 :question => question,
     								 :user => user,
     								 :answer => answer["text"]
-			   }) unless answer["text"].empty?
+			   }) unless answer["text"].empty?    
+			   
+         # Свободное поле
 		   when 3
 		   	   MissingsHistory.create({ :missing => missing, 
     								 :question => question,
     								 :user => user,
     								 :answer => answer["text"]
-			   }) unless answer["text"].empty?
+			   }) unless answer["text"].empty?      
+			   
+         # Карта
+       when 4
+         answer["places"]["geopoint"].each_with_index do |a,index|
+           geoPoint = a.split(',') 
+           place = Place.create({ :address => answer["places"]["address"][index],
+                          :latitude => geoPoint[1],
+                          :longitude => geoPoint[0]
+           })
+            
+           MissingsHistory.create({ :missing => missing, 
+     								 :question => question,
+     								 :user => user,
+     								 :answer => place.id
+   			   })  
+ 			   end
+		   # Дата
+	     when 6
+  	     MissingsHistory.create({ :missing => missing, 
+   								 :question => question,
+   								 :user => user,
+   								 :answer => answer["date"]
+  		   }) unless answer["date"].empty?         
 		   end
+		   
 	   end
 		
 	    # Получаем следующий вопрос

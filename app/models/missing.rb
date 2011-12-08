@@ -4,10 +4,9 @@ class Missing < ActiveRecord::Base
   belongs_to :user
   
   has_many :photos, :dependent => :destroy
-  has_many :places
-  has_many :familiars
   has_many :discussions, :dependent => :destroy   
   
+  has_many :missings_histories
   has_many :can_helps 
 
   attr_writer :current_step  
@@ -19,8 +18,7 @@ class Missing < ActiveRecord::Base
   
   accepts_nested_attributes_for :user
   accepts_nested_attributes_for :photos
-  accepts_nested_attributes_for :places, :allow_destroy => true, :reject_if => lambda { |obj| obj[:address].blank? }
-  accepts_nested_attributes_for :familiars, :allow_destroy => true, :reject_if => lambda { |obj| obj[:name].blank? }  
+
  
   
                             
@@ -35,25 +33,18 @@ class Missing < ActiveRecord::Base
   end
                  
   def last_visit
-      @current_user.last_visit("Missing", self.id)
+    @current_user.last_visit("Missing", self.id)
   end
   
-  def new_places(action=nil)
-    if action == :get_count        
-      self.places.count(:conditions => { :created_at => self.last_visit..Time.now })
-    else
-      self.places.where(:created_at => last_visit..Time.now)       
-    end
-  end    
-  
-  def new_familiars_count
-    self.familiars.count(:conditions => { :created_at => self.last_visit..Time.now })
+  def answers(user, type = :all)
+  	Question.asnwer_for(self, user, type)
   end
-  
-  def new_helpers_count
-    CanHelp.where(:created_at => self.last_visit..Time.now)
-  end
+  	
+  def places(user = current_or_guest_user)
+  	answers = self.answers(user, 4)
 
+  end
+  
 
 
   def current_step

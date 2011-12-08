@@ -29,21 +29,22 @@ $(function(){
 			popupName = $('.p-main-suggest-popup a'),  
 			popupDate = $('.p-main-suggest-popup p'),
 			src = img.attr('src'),
-			name = img.attr('data-name'),
+			name = img.attr('data-name'), 
+			url = img.attr('data-url'),
 			date = img.attr('data-date'),       
 			box = img.parent(), 
 			boxTop = box.offset().top, 
 			boxLeft = box.offset().left, 
 			top = img.offset().top - boxTop + img.height() * 1.2, 
 			left = img.offset().left - boxLeft; 
-		if(last_image == src) return;
+		if(last_image == url) return;
 			                              
 		popup.css('top', top).css('left', left);    
 	    popupImage.attr('src', src);
-		popupName.text(name);
+		popupName.html('<a href="' + url + '">' + name + '</a>');
 		popupDate.text('' + date);       
 		
-		last_image = src;
+		last_image = url;
 	});               
 	
 	
