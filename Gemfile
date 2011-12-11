@@ -18,6 +18,7 @@ group :assets do
 end                         
 
 group :development do
+ gem 'capistrano'
  gem 'capistrano-deploy'
 end
 

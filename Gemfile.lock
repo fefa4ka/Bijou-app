@@ -209,6 +209,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin
+  capistrano
   capistrano-deploy
   coffee-rails (~> 3.1.0)
   devise (= 1.5.1)
