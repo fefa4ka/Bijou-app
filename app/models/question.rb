@@ -1,10 +1,16 @@
 # encoding: utf-8
 
 class Question < ActiveRecord::Base           
-  belongs_to :questionnaire
-  has_many :answers, :dependent => :destroy
+  belongs_to :questionnaire    
   
-  accepts_nested_attributes_for :answers      
+  has_many :answers, :dependent => :destroy   
+  
+  has_many :histories                       
+  has_many :missings, :through  => :histories
+  
+  accepts_nested_attributes_for :answers 
+  
+  after_save :save_answers     
   
   def self.for(missing, user, limit = 1)                
      # Для каждого человека новый набор вопросов
@@ -42,25 +48,25 @@ class Question < ActiveRecord::Base
      end
       
      # TODO: Пропущенные вопросы задавать через день
-     questions = Question.where("id IN (SELECT related_question_id FROM related_questions LEFT JOIN missings_histories USING (question_id, answer) WHERE missings_histories.missing_id = ? AND missings_histories.user_id = ?) AND id NOT IN (SELECT question_id FROM missings_histories WHERE missing_id = ? AND user_id = ?)", missing.id, user.id, missing.id, user.id).order(:position).limit(limit)     
+     questions = Question.where("id IN (SELECT related_question_id FROM related_questions LEFT JOIN histories ON histories.question_id = related_questions.question_id AND (histories.text = related_questions.answer OR histories.answer_id = related_questions.answer) WHERE histories.missing_id = ? AND histories.user_id = ?) AND id NOT IN (SELECT question_id FROM histories WHERE missing_id = ? AND user_id = ?)", missing.id, user.id, missing.id, user.id).order(:position).limit(limit)     
      
      if questions.length == 0 or limit == :all or questions.length < limit
-       questions += Question.where("id NOT IN (SELECT question_id FROM missings_histories WHERE missing_id = ? AND user_id = ?) AND collection_id = ?", missing.id, user.id, collection_id[collection]).order(:position).limit(limit)
+       questions += Question.where("id NOT IN (SELECT question_id FROM histories WHERE missing_id = ? AND user_id = ?) AND collection_id = ?", missing.id, user.id, collection_id[collection]).order(:position).limit(limit)
      end
      
      # Подготавливаем данные
      result = []  
      questions.each do |q| 
-       answers = []        
-       q.answers.each do |a|  
+       answers = []      
+
+       q.answers.each do |a| 
          answer = { 
                     :id => a.id,
                     :text => a.text 
                   }   
-                  
          answers.push(answer)
-       end
-       
+       end    
+
        
        question = { 
                     :id => q.id,     
@@ -76,13 +82,7 @@ class Question < ActiveRecord::Base
      
      result
   end      
- 
-  # Ответы на вопросы по пропаже от пользователя
-  def self.answers_for(missing, user, type = :all) 
- 	  missing.missings_histories.find( :join => "LEFT JOIN `questions` ON questions.id = question_id", 
- 	  								   :conditions => ["user_id = :id AND answer_type = :type", { :id => user.id, :type => type }]) unless type == :all
-	  missing.missings_histories.find( :conditions => ["user_id = :id", { :id => user.id, :type => type }]) if type == :all
-  end
+
   
   def self.answer(question_params, missing, user)  
     # question_params = {
@@ -113,57 +113,57 @@ class Question < ActiveRecord::Base
     	# Если нажали отложить вопрос
     	if question_params["action_type"] == "skip"
     		# Сохраняем запись с пометкой пропущен
-    		MissingsHistory.create({ :missing => missing, 
+    		History.create({ :missing => missing, 
     								 :question => question,
     								 :user => user,
-    								 :answer => "skip" 
+    								 :text => "skip" 
 		   })
 	    else
 	    	case question.answer_type  
         # Ответ да-нет
-    		when 0
-    			MissingsHistory.create({ :missing => missing, 
+    		when 0 
+    			History.create({ :missing => missing, 
     								 :question => question,
-    								 :user => user,
-    								 :answer => question_params["action_type"]
-			   })   
+    								 :user => user,                         
+    								 :answer_id => question.answers.where(:text => question_params["action_type"]).first.id,
+    								 :text => question_params["action_type"]
+			    })   
 			   
          # Один вариант ответа
-		    when 1                        
-		    	MissingsHistory.create({ :missing => missing, 
+		    when 1
+		    	History.create({ :missing => missing, 
     								 :question => question,
     								 :user => user,
-    								 :answer => answer["id"]
-			   }) unless answer["id"].is_a? Integer
+    								 :text => answer["text"]
+			   }) if answer["id"] == "other" and !answer["text"].empty?    
 			   
-		    	MissingsHistory.create({ :missing => missing, 
-    								 :question => question,
-    								 :user => user,
-    								 :answer => answer["text"]
-			   }) if answer["id"] == "other" and answer["text"].empty?    
-			   
+			   History.create({ :missing => missing, 
+     								 :question => question,
+     								 :user => user,
+     								 :answer_id => answer["id"]
+ 			   }) unless answer["id"] == "other"
          # Несколько вариантов ответа
 		    when 2
 		    	answer["answers_ids"].each do |a|
-		    	   MissingsHistory.create({ :missing => missing, 
+		    	   History.create({ :missing => missing, 
 	    								 :question => question,
 	    								 :user => user,
-	    								 :answer => a.first
+	    								 :answer_id => a.first
 				   })
 			   end
 
-			   MissingsHistory.create({ :missing => missing, 
+			   History.create({ :missing => missing, 
     								 :question => question,
     								 :user => user,
-    								 :answer => answer["text"]
+    								 :text => answer["text"]
 			   }) unless answer["text"].empty?    
 			   
          # Свободное поле
 		   when 3
-		   	   MissingsHistory.create({ :missing => missing, 
+		   	   History.create({ :missing => missing, 
     								 :question => question,
     								 :user => user,
-    								 :answer => answer["text"]
+    								 :text => answer["text"]
 			   }) unless answer["text"].empty?      
 			   
          # Карта
@@ -175,18 +175,18 @@ class Question < ActiveRecord::Base
                           :longitude => geoPoint[0]
            })
             
-           MissingsHistory.create({ :missing => missing, 
+           History.create({ :missing => missing, 
      								 :question => question,
      								 :user => user,
-     								 :answer => place.id
+     								 :text => place.id
    			   })  
  			   end
 		   # Дата
 	     when 6
-  	     MissingsHistory.create({ :missing => missing, 
+  	     History.create({ :missing => missing, 
    								 :question => question,
    								 :user => user,
-   								 :answer => answer["date"]
+   								 :text => answer["date"]
   		   }) unless answer["date"].empty?         
 		   end
 		   
@@ -197,5 +197,22 @@ class Question < ActiveRecord::Base
     end
   end 
   
+  
+  def self.answer_type(value)                 
+    return %w[yes_no one many text geo man date][value] if value.is_a? Integer
+    return { "yes_no" => 0, "one" => 1, "many" => 2, "text" => 3, "geo" => 4, "man" => 5, "date" => 6 }[value] if value.is_a? String
+  end  
+  
+  private 
+  
+  def save_answers
+    if self.answer_type = 0
+      ["yes","no"].each do |answer| 
+         Answer.create({ :question_id => self.id, :text => answer }) if self.answers.where({ :text => answer }).empty?
+      end                                                     
+    end
+  end
+  
+      
 end
   

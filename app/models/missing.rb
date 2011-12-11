@@ -6,15 +6,18 @@ class Missing < ActiveRecord::Base
   has_many :photos, :dependent => :destroy
   has_many :discussions, :dependent => :destroy   
   
-  has_many :missings_histories
+  has_many :histories, :dependent => :destroy
+  has_many :questions, :through => :histories
+  
+  has_many :user_answers
+  
   has_many :can_helps 
 
   attr_writer :current_step  
 
   # Поля характеристик
   attr_accessor :man_age,
-                :author_callback_phone, :author_callback_email, :private_history, :private_contacts, :photos_attributes, :author_name, :author_email, :author_phone, :author_callback_email, :author_callback_phone, :author_callback_hash, :missing_password,
-                :questions
+                :author_callback_phone, :author_callback_email, :private_history, :private_contacts, :photos_attributes, :author_name, :author_email, :author_phone, :author_callback_email, :author_callback_phone, :author_callback_hash, :missing_password
   
   accepts_nested_attributes_for :user
   accepts_nested_attributes_for :photos
@@ -35,17 +38,62 @@ class Missing < ActiveRecord::Base
   def last_visit
     @current_user.last_visit("Missing", self.id)
   end
-  
-  def answers(user, type = :all)
-  	Question.asnwer_for(self, user, type)
+     
+  def answers(answer_type=nil, user_id=self.user_id)
+    # Загружаем пользовательские ответы для каждого вопроса    
+    result_questions = {}                                    
+    
+    questions = self.questions.where("user_id = ? AND answer_type = ?", user_id, answer_type).select("DISTINCT question_id, questions.*") unless answer_type.nil?
+    questions = self.questions.where("answer_type IS NOT NULL AND user_id = ?", user_id).select("DISTINCT question_id, questions.*") if answer_type.nil?
+    
+    questions.each do |q|        
+      question = result_questions[q.id] || nil
+      question = { 
+        :questionnaire => q.questionnaire.name || "",
+        :id => q.id, 
+        :text => q.text,
+        :label => q.field_text,  
+        :answer_type => q.answer_type,
+        :answers => [],
+        :human_answer => nil 
+      } if question.nil?    
+                   
+      user_answers = History.where( :missing_id => self.id, :question_id => q.id, :user_id => user_id )
+          
+      user_answers.each do |a|  
+        answer = human_answer = a.answer.nil? ? a.text : a.answer.human_text || a.text || a.answer.text
+        
+        case q.answer_type
+          # Несколько вариантов ответа
+        when 2             
+          human_answer = question[:human_answer].to_s + ", #{human_answer}" if question[:answers].size > 0
+        
+        # Карты
+        when 4
+          place = Place.find(answer.to_i)
+          
+          human_answer = "" 
+          answer = { 
+            :address => place.address,
+            :latitude => place.latitude,
+            :logitude => place.longitude 
+          } unless place.nil?   
+        
+        when 6
+          answer = Date.parse(a.text)
+          human_answer = Russian.strftime(answer, "%e %B %Y")
+        end 
+        
+        question[:human_answer] = human_answer
+        question[:answers].push(answer)
+          
+      end                           
+      
+      result_questions[q.id] = question
+    end    
+    
+    result_questions
   end
-  	
-  def places(user = current_or_guest_user)
-  	answers = self.answers(user, 4)
-
-  end
-  
-
 
   def current_step
     @current_step || steps.first

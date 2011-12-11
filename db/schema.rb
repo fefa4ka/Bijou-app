@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111201185516) do
+ActiveRecord::Schema.define(:version => 20111208210259) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20111201185516) do
   create_table "answers", :force => true do |t|
     t.integer  "question_id"
     t.string   "text"
+    t.text     "human_text"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -105,6 +106,21 @@ ActiveRecord::Schema.define(:version => 20111201185516) do
     t.datetime "updated_at"
   end
 
+  create_table "histories", :force => true do |t|
+    t.integer  "missing_id"
+    t.integer  "question_id"
+    t.integer  "user_id"
+    t.integer  "answer_id"
+    t.text     "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "histories", ["answer_id"], :name => "index_histories_on_answer_id"
+  add_index "histories", ["missing_id"], :name => "index_histories_on_missing_id"
+  add_index "histories", ["question_id"], :name => "index_histories_on_question_id"
+  add_index "histories", ["user_id"], :name => "index_histories_on_user_id"
+
   create_table "impressions", :force => true do |t|
     t.string   "impressionable_type"
     t.integer  "impressionable_id"
@@ -145,23 +161,14 @@ ActiveRecord::Schema.define(:version => 20111201185516) do
   add_index "messages", ["account_id"], :name => "index_messages_on_account_id"
 
   create_table "missings", :force => true do |t|
-    t.string   "name"           # Имя
-    t.boolean  "gender"         # Пол. 0 - женщина, 1 - мужчина
-    t.date     "birthday"       # День рождения. Если указан только возраст, устанавливает как 1 января
-    t.date     "date"           # Не помню
-    t.boolean  "published"      # Если стоит 0 - объявление не появляется в поиске 
-    t.integer  "user_id"        # Автор объявления    
+    t.string   "name"
+    t.boolean  "gender"
+    t.date     "birthday"
+    t.date     "date"
+    t.boolean  "published"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "missings_histories", :force => true do |t|
-    t.integer  "missing_id"
-    t.integer  "question_id"
     t.integer  "user_id"
-    t.text     "answer"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "photos", :force => true do |t|
@@ -183,8 +190,6 @@ ActiveRecord::Schema.define(:version => 20111201185516) do
     t.datetime "updated_at"
   end
 
-  add_index "places", ["missing_id"], :name => "index_places_on_missing_id"
-
   create_table "questionnaires", :force => true do |t|
     t.string  "name"
     t.integer "position"
@@ -192,6 +197,7 @@ ActiveRecord::Schema.define(:version => 20111201185516) do
 
   create_table "questions", :force => true do |t|
     t.text     "text"
+    t.string   "field_text"
     t.integer  "collection_id"
     t.integer  "questionnaire_id"
     t.integer  "answer_type"
@@ -217,6 +223,24 @@ ActiveRecord::Schema.define(:version => 20111201185516) do
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
+  create_table "user_answers", :id => false, :force => true do |t|
+    t.integer  "id",                  :default => 0, :null => false
+    t.integer  "missing_id"
+    t.integer  "question_id"
+    t.integer  "user_id"
+    t.integer  "answer_id"
+    t.text     "text"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "answer_type"
+    t.integer  "questionnaire_id"
+    t.text     "question_text"
+    t.string   "question_field_text"
+    t.text     "answer_human_text"
+    t.string   "asnwer_text"
+    t.text     "answer"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "name"
     t.string   "email",                                 :default => "",    :null => false
@@ -224,11 +248,7 @@ ActiveRecord::Schema.define(:version => 20111201185516) do
     t.string   "callback"
     t.boolean  "admin",                                 :default => false
     t.boolean  "detective",                             :default => false
-    t.boolean  "volunteer",                             :default => false        
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
+    t.boolean  "volunteer",                             :default => false
     t.string   "encrypted_password",     :limit => 128, :default => "",    :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -240,6 +260,10 @@ ActiveRecord::Schema.define(:version => 20111201185516) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

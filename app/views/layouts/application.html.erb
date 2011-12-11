@@ -37,8 +37,12 @@
 <!-- Check user auth, if user not logged in then show block below -->
 <% unless user_signed_in?  %>
 <div class="b-head-bg">
-  <div class="container_16">  
-	<div class="grid_16">    
+  <div class="container_16"> 
+	<div class="b-head__logo grid_3">
+		<%= link_to_unless_current image_tag('logo/' + rand(12).to_s() + '.png', :class => 'l-left'), '/' %>
+		</a>           
+	</div> 
+	<div class="grid_13">    
 		<input type="button" class="b-head__login maroon l-right" value="Войти на сайт" />  
 		
 		<div class="b-head__login_form p-main-dialog-a-service">
@@ -76,7 +80,7 @@
 <div class="b-head-bg__logged">
   <div class="container_16">
  	<div class="b-head__logo grid_3">
-		<%= link_to_unless_current image_tag('logo.png', :class => 'l-left'), '/' %>
+		<%= link_to_unless_current image_tag('logo/' + rand(12).to_s() + '.png', :class => 'l-left'), '/' %>
 		</a>           
 	</div>  
 	<div class="grid_11 b-head__menu">

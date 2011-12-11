@@ -1,17 +1,3 @@
-<% if @missing.photos.length > 1 %>
-<div class="b-list b-missing__photos">
-<% @missing.photos.drop(1).each do |photo| %>
-  <div class="b-list__element">
-	<div class="b-list__element_content">      
-		<%= link_to image_tag(photo.photo.url(:thumb), :size => "100x100", :class => "b-list__image"), photo.photo.url, :class => "b-missing__photo_link", :rel => "photos"  %>
-	</div>
-	<div class="b-list__element_min"></div>
-  </div>
-<% end %>
-
-</div>         
-<% end %>
-
 <div class="t-medium b-missing__history_header">История</div>
 <p>
 </p>

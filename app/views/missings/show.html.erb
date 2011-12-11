@@ -1,76 +1,7 @@
 <script>
 var questions = <%= @questions.to_json.html_safe %>; 
 </script>
-
-<% if flash[:hidden] == "new" %>                  
-
-<div class="container_16 b-questions">
-
-	<div class="grid_8">
-		<h2>Вы завершили главную часть!</h2>
-		<p>
-			Теперь наша система знает про пропавшего человека. Это очень хорошо, бла-бла-бла. Блин, очень нужны на самом деле тексты для таких штук. Хочется чтобы максимально приближенно к оригиналу все было. Не понятно сколько здесь может быть строк текста.
-		</p>
-
-		
-	</div>
-
-	<div class="grid_8">
-		<h2>Следующий необходимый шаг</h2>
-		<p>
-		Очень важно чтобы про пропажу стало известно за пределами нашего сервиса. Социальные сети имеют большую значимость в данном вопросе.	 
-		Для улучшения пищеварения, пожалуйста, поделитесь ссылкой на пропажу
-		в социалочках:
-		</p>
-
-	</div>
-</div>
-
-<div class="b-questions-sep">&nbsp;</div>
-
-<div class="container_16 b-questions">
-
-	<div class="grid_8">
-		<h3>На самом деле у нас еще много вопросов по вашему делу.</h3>
-		<p>Вы можете продолжить отвечать на вопросы.</p>
-	</div>
-
-	<div class="grid_8">
-		<div class="b-questions-social">
-		<ul>
-			<li>
-				<a href="#"> <span class="b-socimg-vk"></span> Вконтакте</a>
-			</li>
-			<li>
-				<a href="#"> <span class="b-socimg-fb"></span> Facebook</a>
-			</li>
-			<li>
-				<a href="#"> <span class="b-socimg-tw"></span> Twitter</a>
-			</li>
-			<li>
-				<a href="#"> <span class="b-socimg-od"></span> Одноклассники</a>
-			</li>
-			<li>
-				<a href="#"> <span class="b-socimg-gl"></span> Google</a>
-			</li>
-			<li>
-				<a href="#"> <span class="b-socimg-ml"></span> Mail.ru</a>
-			</li>
-		</ul>
-			
-			
-			
-			
-			
-			
-		</div>
-	</div>
-	
-</div>
-
-<div class="clear"></div>
-<% end %>
-     
+                         
 <div class="b-form__background b-form__questions_container show_page l-hidden">
 	<div class="container_16">
 		<div class="b-form__questions_infinity grid_16">    
@@ -117,7 +48,20 @@ var questions = <%= @questions.to_json.html_safe %>;
 		<% else %>
 			<%= link_to image_tag(@missing.photos.first.photo.url(:medium), :class => "b-missing__photo"), @missing.photos.first.photo.url, :class => "b-missing__photo_link", :rel => "photos" %>
 		<% end %>
-		</div>
+		</div>                
+		<% if @missing.photos.length > 1 %>
+		<div class="b-list b-missing__photos">
+		<% @missing.photos.drop(1).each do |photo| %>
+		  <div class="b-list__element">
+			<div class="b-list__element_content">      
+				<%= link_to image_tag(photo.photo.url(:thumb), :size => "100x100", :class => "b-list__image"), photo.photo.url, :class => "b-missing__photo_link", :rel => "photos"  %>
+			</div>
+			<div class="b-list__element_min"></div>
+		  </div>
+		<% end %>
+
+		</div>         
+		<% end %>
 		<%= tag :input, { :type => "button", :value => "Я видел этого человека", :class => "blue b-missing__i_saw t-medium" } %>
 	</div>
 	

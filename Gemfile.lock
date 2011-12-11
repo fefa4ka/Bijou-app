@@ -64,7 +64,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.1.2)
-    crack (0.1.8)
     devise (1.5.1)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
@@ -82,8 +81,6 @@ GEM
       actionpack (>= 2.3.7)
       activesupport (>= 2.3.7)
       i18n (~> 0.4)
-    gmaps4rails (1.1.2)
-      crack
     has_scope (0.5.1)
     hashie (1.2.0)
     hike (1.2.1)
@@ -189,6 +186,7 @@ GEM
       raindrops (~> 0.6)
     warden (1.1.0)
       rack (>= 1.0)
+    yaml_db (0.2.2)
 
 PLATFORMS
   ruby
@@ -200,7 +198,6 @@ DEPENDENCIES
   execjs!
   foreman
   geocoder!
-  gmaps4rails
   impressionist
   jquery-rails
   meta_search
@@ -216,3 +213,4 @@ DEPENDENCIES
   therubyracer
   uglifier
   unicorn
+  yaml_db

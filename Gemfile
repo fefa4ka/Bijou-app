@@ -1,8 +1,10 @@
 source 'http://rubygems.org'
-
+   
+# Service 
 gem 'rails', '3.1.0'
-gem 'unicorn'
-
+gem 'unicorn'         
+gem 'rake', '0.9.2'
+gem 'rack', '1.3.2'
 gem 'execjs', :git => "git://github.com/sstephenson/execjs.git"
 gem 'therubyracer'
                          
@@ -13,39 +15,39 @@ group :assets do
   gem 'sass-rails', "  ~> 3.1.0"
   gem 'coffee-rails', "~> 3.1.0"
   gem 'uglifier'
+end                         
+
+group :development do
+ gem 'capistrato-deploy'
 end
 
 gem 'jquery-rails'
                                 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+# Database
+gem 'mysql2'   
+gem 'yaml_db'
 
-# gem 'sqlite3', '1.3.4'
-gem 'mysql2'
-#gem 'sam-mysql-ruby'
 
-gem 'rake', '0.9.2'
-gem 'rack', '1.3.2'
-
+# Pretty
 gem 'russian'    
 #gem 'als_typograf'     
+     
 
+# Counter
 gem 'impressionist'
-                   
-gem 'paperclip'
+            
+# Upload files       
+gem 'paperclip' 
+
+# Remote form 
 gem 'remotipart'    
 
-gem 'gmaps4rails'
+# Geo
 gem 'geocoder', :git => "git://github.com/alexreisner/geocoder.git"
-
-#gem "opencv", :git => "http://github.com/pcting/ruby-opencv.git"
                    
 # auth  
 gem 'devise', '1.5.1'
 gem 'omniauth-facebook'       
-
-
-
 
 # Admin
 gem 'activeadmin'
