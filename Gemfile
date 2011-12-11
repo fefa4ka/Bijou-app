@@ -18,7 +18,7 @@ group :assets do
 end                         
 
 group :development do
- gem 'capistrato-deploy'
+ gem 'capistrano-deploy'
 end
 
 gem 'jquery-rails'
