@@ -1,1 +1,1 @@
-rvm use 1.9.3@yapropal_production --create
+rvm use 1.9.3@yapropal_development --create

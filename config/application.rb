@@ -51,7 +51,7 @@ module People
     
     # Enable the asset pipeline
     config.assets.enabled = true
-    config.assets.compile = true
+    config.assets.compile = false
     config.assets.digest = true
 
     # Version of your assets, change this if you want to expire all your assets
