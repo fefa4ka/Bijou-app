@@ -53,7 +53,8 @@ module People
     config.assets.enabled = true
     config.assets.digest = true
     config.assets.compile = false
-
+    config.assets.precompile += %w(*.gif *.js  *.png *.jpg *.css.erb *.css)
+     
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
