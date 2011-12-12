@@ -48,11 +48,16 @@ class Question < ActiveRecord::Base
      end
       
      # TODO: Пропущенные вопросы задавать через день
-     questions = Question.where("id IN (SELECT related_question_id FROM related_questions LEFT JOIN histories ON histories.question_id = related_questions.question_id AND (histories.text = related_questions.answer OR histories.answer_id = related_questions.answer) WHERE histories.missing_id = ? AND histories.user_id = ?) AND id NOT IN (SELECT question_id FROM histories WHERE missing_id = ? AND user_id = ?)", missing.id, user.id, missing.id, user.id).order(:position).limit(limit)     
+     query = "id IN (SELECT related_question_id FROM related_questions LEFT JOIN histories ON histories.question_id = related_questions.question_id AND (histories.text = related_questions.answer OR histories.answer_id = related_questions.answer) WHERE histories.missing_id = ? AND histories.user_id = ?) AND id NOT IN (SELECT question_id FROM histories WHERE missing_id = ? AND user_id = ?)"
+     questions = Question.where(query, missing.id, user.id, missing.id, user.id).order(:position).limit(limit) if limit.is_a? Integer
+     questions = Question.where(query, missing.id, user.id, missing.id, user.id).order(:position) if limit.is_a? Symbol 
+
      
-     #if limit == :all or questions.length == 0 or questions.length < limit
-       questions += Question.where("id NOT IN (SELECT question_id FROM histories WHERE missing_id = ? AND user_id = ?) AND collection_id = ?", missing.id, user.id, collection_id[collection]).order(:position).limit(limit)
-     #end
+     if limit == :all 
+      questions += Question.where("id NOT IN (SELECT question_id FROM histories WHERE missing_id = ? AND user_id = ?) AND collection_id = ?", missing.id, user.id, collection_id[collection]).order(:position)
+     elsif questions.size == 0 or questions.size < limit
+      questions += Question.where("id NOT IN (SELECT question_id FROM histories WHERE missing_id = ? AND user_id = ?) AND collection_id = ?", missing.id, user.id, collection_id[collection]).order(:position).limit(limit)
+     end
      
      # Подготавливаем данные
      result = []  
@@ -86,6 +91,7 @@ class Question < ActiveRecord::Base
   
   def self.answer(question_params, missing, user)  
     # question_params = {
+    #
     #   id,           
     #   action_type = yes/no/dont_know/skip/answer,
     #   answer = {
