@@ -3,8 +3,9 @@ source 'http://rubygems.org'
 # Service 
 gem 'rails', :git => "git://github.com/rails/rails.git", :branch => "3-1-stable" 
 gem 'unicorn'         
-gem 'rake', '0.9.2'
-gem 'rack', '1.3.2'
+gem 'rake'
+gem 'rack', '1.3.5'
+gem 'railties', '3.1.3'
 gem 'execjs', :git => "git://github.com/sstephenson/execjs.git"
 gem 'therubyracer'
                          
@@ -12,8 +13,8 @@ gem 'therubyracer'
 # Gems used only for assets and not required
 # in production environments by default.
 #group :assets do
-  gem 'sass-rails', "  ~> 3.1.0"
-  gem 'coffee-rails', "~> 3.1.0"
+  gem 'sass-rails'
+  gem 'coffee-rails'
   gem 'uglifier'
 #end                         
 
