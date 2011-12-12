@@ -12,3 +12,11 @@ set :repository, 'git@github.com:fefa4ka/Bijou-app.git'
 
 after 'deploy:update',  'bundle:install'
 after 'deploy:restart', 'unicorn:stop'
+after "deploy:update_code", "rvm:trust_rvmrc"
+
+namespace :rvm do
+  desc 'Trust rvmrc file'
+  task :trust_rvmrc do
+    run "rvm rvmrc trust #{current_release}"
+  end
+end     

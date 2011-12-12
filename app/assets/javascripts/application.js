@@ -8,11 +8,7 @@
 //= require_tree ./report
 //= require_tree ./user              
 //= require_tree ./questions
-//= require gmaps4rails/bing.js
-//= require gmaps4rails/googlemaps.js
-//= require gmaps4rails/mapquest.js
-//= require gmaps4rails/openlayers.js    
-//= require gmaps4rails/all_apis.js
+
 
 $(function()
 {
