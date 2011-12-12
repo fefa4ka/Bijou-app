@@ -1,5 +1,6 @@
 set :rvm_type, :user  # Copy the exact line. I really mean :user here
 
+
 set :default_environment, {
   'PATH' => "/usr/local/rvm/gems/ruby-1.9.3-p0@yapropal_production:/usr/local/rvm/gems/ruby-1.9.3-p0@global:$PATH",
   'RUBY_VERSION' => 'ruby 1.9.3',
@@ -7,6 +8,15 @@ set :default_environment, {
   'GEM_PATH'     => '/usr/local/rvm/gems/ruby-1.9.3-p0@yapropal_production',
   'BUNDLE_PATH'  => '/usr/local/rvm/gems/ruby-1.9.3-p0@yapropal_production'  # If you are using bundler.
 }                 
+
+namespace :deploy do
+  desc "Create asset packages for production"
+  task :after_update_code, :roles => [:web] do
+    run <<-EOF
+      cd #{release_path} && rake asset:packager:build_all
+    EOF
+  end
+end
 
 namespace :rvm do
   task :trust_rvmrc do
