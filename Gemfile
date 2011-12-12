@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
    
 # Service 
-gem 'rails', '3.1.0'
+gem 'rails', :git => "git://github.com/rails/rails.git", :branch => "3-1-stable" 
 gem 'unicorn'         
 gem 'rake', '0.9.2'
 gem 'rack', '1.3.2'
