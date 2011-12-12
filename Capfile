@@ -3,7 +3,9 @@ require "rvm/capistrano"                  # Load RVM's capistrano plugin.
 set :rvm_ruby_string, '1.9.3-p0@yapropal_production'        # Or whatever env you want it to run in.
 
 require 'capistrano-deploy'
-use_recipes :git, :rails, :bundle, :unicorn
+use_recipes :git, :rails, :bundle, :unicorn    
+
+load 'deploy/assets'
 
 server 'yapropal.ru', :web, :app, :db, :primary => true
 set :user, 'production'
