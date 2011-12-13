@@ -39,15 +39,29 @@ class Missing < ActiveRecord::Base
     @current_user.last_visit("Missing", self.id)
   end
      
+  def history(user_id=self.user_id)
+    ""
+  end
+  
+  def characteristics(user_id=self.user_id)
+    []
+  end
+
+  def places(user_id=self.user_id)
+    answers(4, user_id)
+  end
+
   def answers(answer_type=nil, user_id=self.user_id)
     # Загружаем пользовательские ответы для каждого вопроса    
-    result_questions = {}                                    
+    array_questions = [] 
+    hash_questions = {} 
     
     questions = self.questions.where("user_id = ? AND answer_type = ?", user_id, answer_type).select("DISTINCT question_id, questions.*") unless answer_type.nil?
     questions = self.questions.where("answer_type IS NOT NULL AND user_id = ?", user_id).select("DISTINCT question_id, questions.*") if answer_type.nil?
     
     questions.each do |q|        
-      question = result_questions[q.id] || nil
+      question = hash_questions[q.id] || nil
+    
       question = { 
         :questionnaire => q.questionnaire.name || "",
         :id => q.id, 
@@ -57,7 +71,9 @@ class Missing < ActiveRecord::Base
         :answers => [],
         :human_answer => nil 
       } if question.nil?    
-                   
+      array_questions.push(question) if hash_questions[q.id].nil?
+
+
       user_answers = History.where( :missing_id => self.id, :question_id => q.id, :user_id => user_id )
           
       user_answers.each do |a|  
@@ -89,10 +105,10 @@ class Missing < ActiveRecord::Base
           
       end                           
       
-      result_questions[q.id] = question
+      hash_questions[q.id] = question
     end    
     
-    result_questions
+    array_questions
   end
 
   def current_step
@@ -116,7 +132,7 @@ class Missing < ActiveRecord::Base
   end            
        
   private               
-    def steps
+   def steps
       %w[common history contacts]
     end
     

@@ -1,4 +1,4 @@
-# Load the rails application
+#or questions.length == 0 or questions.length < limit Load the rails application
 require File.expand_path('../application', __FILE__)
 
 # Initialize the rails application

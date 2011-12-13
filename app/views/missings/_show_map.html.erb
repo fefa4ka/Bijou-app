@@ -4,16 +4,17 @@
   </div>
 
   <div class="b-missing__places">
+    <% @missing.places.each do |p| %>
 	   <div class="b-form__field b-form__place l-left">
 		<div class="b-form__label b-missing__wide_label">
-			Работа
-				<%= tag :input, { :type => "button", :value => "Показать на карте", :class => "blue_action b-missing_hidden_action" } %>
-
+          <%= p[:label] %>
 		</div>        
 		<div class="b-form__place_inner">
-			<p>Описание</p>
-			<p class="t-small">улица Тар тарары</p>   
+          <% p[:answers].each do |a| %>
+            <p><%= a[:address] %></p>
+          <% end %>
 		</div>               
 	   </div>
+     <% end %>
 
    </div>

@@ -75,9 +75,13 @@ a:hover { color: red;}
 	font-size: 20px;
 }                  
 
-.t-big {
+.t-big, .t-big_fat {
 	font-size: 18px;
 }
+.t-big_fat {
+  font-weight: bold;
+  }
+
 
 .t-medium, .t-medium_fat {
 	font-size: 16px !important;

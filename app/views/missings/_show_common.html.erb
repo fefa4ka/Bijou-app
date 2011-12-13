@@ -1,3 +1,27 @@
-<div class="t-medium b-missing__history_header">История</div>
-<p>
-</p>
+<ul class="t-big b-missing__history_header">
+  <li class="b-missing__history_item selected l-left ui-corner-tl ui-corner-tr" answer_type="history">
+    История
+  </li>
+  <li class="b-missing__history_item l-left" answer_type="character">
+    Характеристики
+  </li>
+</ul>
+<div class="b-missing_history">
+  <div class="history">
+    <%= @missing.history %>
+  </div>
+  <div class="character l-hidden">
+    <table>
+    <% @missing.characteristics.each do |c| %>
+      <tr>
+        <td>
+          <%= c.label %>
+        </td>
+        <td>
+          <%= c.human_answer %>
+        </td>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+</div>

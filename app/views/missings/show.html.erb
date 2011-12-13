@@ -20,23 +20,10 @@ var questions = <%= @questions.to_json.html_safe %>;
 
 <div class="container_16 b-missing">
 	<div class="grid_11">
-		<div class="b-header">
+		<div class="t-big_fat">
 			Разыскивается <%= @missing.name %><% unless @missing.man_age.nil? %>, <%= @missing.man_age %> <%= Russian.p @missing.man_age, 'год', 'года', 'лет' %> <% end %>
 		</div>
-		<div class="l-left b-missing_header__description">
-			<span class="l-left b-missing__share">Ваши друзья могут знать что-нибудь о пропавшем, расскажите им:</span>
-			<!-- AddThis Button BEGIN -->
-			<div class="addthis_toolbox addthis_default_style l-left b-missing__share">
-			<a class="addthis_button_preferred_1"></a>
-			<a class="addthis_button_preferred_2"></a>
-			<a class="addthis_button_preferred_3"></a>
-			<a class="addthis_button_preferred_4"></a>
-			<a class="addthis_button_compact"></a>
-			<a class="addthis_counter addthis_bubble_style"></a>
-			</div>
-			<!-- AddThis Button END -->
-		</div>
-		<p id="notice"><%= notice %></p>
+	<p id="notice"><%= notice %></p>
 
 	
 	<div class="b-missing__information">
@@ -72,12 +59,24 @@ var questions = <%= @questions.to_json.html_safe %>;
 	</div>
 	
 	<div class="clear"></div>
-	<hr class="b-hr" />
-	
+	<div class="b-missing__sharies">
+		<span class="l-left b-missing__share">Ваши друзья могут знать что-нибудь о пропавшем, расскажите им:</span>
+		<!-- AddThis Button BEGIN -->
+		<div class="addthis_toolbox addthis_default_style l-left b-missing__share">
+		<a class="addthis_button_preferred_1"></a>
+		<a class="addthis_button_preferred_2"></a>
+		<a class="addthis_button_preferred_3"></a>
+		<a class="addthis_button_preferred_4"></a>
+		<a class="addthis_button_compact"></a>
+		<a class="addthis_counter addthis_bubble_style"></a>
+		</div>
+		<!-- AddThis Button END -->
+  </div>
+	<div class="clear"></div>
+
     <%= render :partial => 'show_map' %>
 
 	<div class="clear"></div>
-	<hr class="b-hr b-missing__hr_map_discussion" />
 	
 	<div class="b-header">Обсуждение</div>
 	<div class="clear"></div>
