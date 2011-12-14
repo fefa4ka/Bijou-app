@@ -1,20 +1,12 @@
-<div class="b-header">Места, где <% if @missing.gender == true %>бывал<% else %>бывала<% end %> <%= @missing.name %></div>
+<script>
+  var places = <%= @missing.places.to_json.html_safe %>
+</script>
+<div class="b-header">Места, где <% @missing.gender ? 'бывал' : 'бывала' %> <%= @missing.name %></div>
+<div class="b-missing__map_border ui-corner-all">
   <div class="b-missing__map">
                                                                     
   </div>
+</div>
 
-  <div class="b-missing__places">
-    <% @missing.places.each do |p| %>
-	   <div class="b-form__field b-form__place l-left">
-		<div class="b-form__label b-missing__wide_label">
-          <%= p[:label] %>
-		</div>        
-		<div class="b-form__place_inner">
-          <% p[:answers].each do |a| %>
-            <p><%= a[:address] %></p>
-          <% end %>
-		</div>               
-	   </div>
-     <% end %>
-
-   </div>
+  <ul class="b-missing__places">
+  </ul>

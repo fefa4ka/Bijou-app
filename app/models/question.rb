@@ -2,7 +2,8 @@
 
 class Question < ActiveRecord::Base           
   belongs_to :questionnaire    
-  
+  has_and_belongs_to_many :collections
+
   has_many :answers, :dependent => :destroy   
   
   has_many :histories                       
@@ -11,7 +12,7 @@ class Question < ActiveRecord::Base
   accepts_nested_attributes_for :answers 
   
   after_save :save_answers     
-  
+
   def self.for(missing, user, limit = 1)                
      # Для каждого человека новый набор вопросов
                          

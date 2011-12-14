@@ -14,26 +14,62 @@ $(function(){
        var map = new YMaps.Map($(".b-missing__map")),
        		zoomControl = new YMaps.SmallZoom(),
 			zoom = 10,
-			center;
+			center,
+            placemarkCollection = new YMaps.GeoObjectCollection();
 	 
+	    function add_placemarks() {
+            var placemark;
+
+			function set_balloon_content(content){
+				var template = $('<div/>');
+				$.tmpl('tmpl-missing__map_balloon', content).appendTo(template); 
+				
+				placemark.setBalloonContent(template.html());
+			}                              
+			
+            $.template('tmpl-missing__map_balloon', '<div class="t-strong">${name}</div><p>${address}</p>');
+	
+            if( places.length > 0) {
+                for(i in places) {
+                    var entity = places[i],
+                        place = entity.answers[0],
+                        point = new YMaps.GeoPoint(place.longitude, place.latitude),
+                        content = { name: entity.label, address: place.address },
+                        style = "default#buildingsIcon",
+                        element = $('<li class="b-missing__place"/>');
+
+                        element.append( $('<div class="t-medium"/>').text( entity.label ) )
+                               .append( $('<div class="b-missing__place_address"/>').text( place.address ).click(function() {
+                                   placemark.openBalloon();
+                                   })
+                               )
+                               .appendTo('.b-missing__places');
+
+                    placemark = new YMaps.Placemark(point, { style: style });
+                    set_balloon_content(content);
+                    placemarkCollection.add(placemark);
+                }
+                map.addOverlay(placemarkCollection);
+            }
+	    }
+
 		
-		$.template('tmpl-question__map_balloon', '<div class="b-question__map_balloon t-strong">${address}</div> \
-											      <input type="button" class="b-question__map_balloon_button b-question__map_balloon_button_${id} {{if saved}}red_action{{else}}blue_action{{/if}}" value="{{if saved}}Удалить место{{else}}Добавить место{{/if}}">');
-		
-       // Установка для карты ее центра и масштаба
+        // Установка для карты ее центра и масштаба
 		if (YMaps.location) {
 		    center = new YMaps.GeoPoint(YMaps.location.longitude, YMaps.location.latitude);
       	} else {
 			center = new YMaps.GeoPoint(37.64, 55.76);
 		}
-		
-		map.enableDblClickZoom();
+
+	    map.enableDblClickZoom();
 		map.addControl(zoomControl);
 		map.setCenter(center, zoom);
+
+        add_placemarks();
    }                                           	
    
    if( $(".b-missing__map").length > 0){
-   	generate_map();
+    	generate_map();
    }
 	
    // Фотографии загружаем в оверлеи 

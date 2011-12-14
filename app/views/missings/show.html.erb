@@ -21,8 +21,11 @@ var questions = <%= @questions.to_json.html_safe %>;
 <div class="container_16 b-missing">
 	<div class="grid_11">
 		<div class="t-big_fat">
-			Разыскивается <%= @missing.name %><% unless @missing.man_age.nil? %>, <%= @missing.man_age %> <%= Russian.p @missing.man_age, 'год', 'года', 'лет' %> <% end %>
+			Разыскивается <%= @missing.name %><% unless @missing.ages.nil? %>, <%= @missing.ages %> <%= Russian.p @missing.ages, 'год', 'года', 'лет' %> <% end %>
 		</div>
+        <div class="t-medium b-missing__date_location">
+          <%= @missing.gender ? 'Пропал' : 'Пропала' %> <%= Russian.strftime @missing.last_seen, "%d %B" %> в <%= YandexInflect.inflections(@missing.location_of_missing).last %>
+        </div>
 	<p id="notice"><%= notice %></p>
 
 	
@@ -78,7 +81,7 @@ var questions = <%= @questions.to_json.html_safe %>;
 
 	<div class="clear"></div>
 	
-	<div class="b-header">Обсуждение</div>
+	<div class="b-missing__comment_header b-header">Обсуждение</div>
 	<div class="clear"></div>
 	
 	<div class="b-missing__comments">

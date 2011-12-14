@@ -5,6 +5,7 @@ class History < ActiveRecord::Base
   
   belongs_to :missing
   
+  
   def as_json(options={})
     { :question => self.question.text, :answer => self.answer.nil? ? "" : self.answer.text }
   end       

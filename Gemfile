@@ -29,9 +29,9 @@ gem 'jquery-rails'
 gem 'mysql2'   
 gem 'yaml_db'
 
-
 # Pretty
 gem 'russian'    
+gem 'yandex_inflect'
 #gem 'als_typograf'     
      
 

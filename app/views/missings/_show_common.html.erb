@@ -1,27 +1,25 @@
-<ul class="t-big b-missing__history_header">
-  <li class="b-missing__history_item selected l-left ui-corner-tl ui-corner-tr" answer_type="history">
-    История
-  </li>
-  <li class="b-missing__history_item l-left" answer_type="character">
-    Характеристики
-  </li>
-</ul>
-<div class="b-missing_history">
-  <div class="history">
-    <%= @missing.history %>
+<% @missing.collection.each do |c| %>
+<div class="b-missing__history">
+  <div class="b-header t-medium">
+    <%= c[:name] %>
   </div>
-  <div class="character l-hidden">
-    <table>
-    <% @missing.characteristics.each do |c| %>
+    <table class="b-missing__history_table l-full_width">
+    <% c[:questions].each do |q| %>
       <tr>
-        <td>
-          <%= c.label %>
+        <% if q[:label] %>
+        <td class="b-missing__history_label l-half_width">
+          <%= q[:label] %>
         </td>
-        <td>
-          <%= c.human_answer %>
+        <td class="b-missing__history_value l-half_width"> 
+          <%= q[:human_answer] %>
         </td>
+        <% else q[:human_answer] %>
+        <td colspan="2"> 
+          <%= q[:human_answer] %>
+        </td>
+      <% end %>
       </tr>
     <% end %>
     </table>
-  </div>
 </div>
+<% end %>

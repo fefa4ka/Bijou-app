@@ -1,7 +1,8 @@
 $(function(){                      
-	function render_questions(questions) {                                            
+	function render_questions(questions) {                              
+        var questionnaire = questions[0].questionnaire != "" ? questions[0].questionnaire : "Пожалуйста, ответьте на некоторые вопросы";
 		// Устанавливаем тему первого вопроса                        
-		$('.b-form__questionnaire').text(questions[0].questionnaire);
+		$('.b-form__questionnaire').text(questionnaire);
 		$.tmpl('tmpl-question', questions).appendTo('.b-form__questions');
 	    $('input').customInput();                                       
 	
@@ -90,7 +91,7 @@ $(function(){
 				// Обработчик для контролов в балуне
 		        YMaps.Events.observe(placemark, placemark.Events.BalloonOpen, function (obj) {  
 					function save_placemark(){
-						var list = '.b-form__question_map_list';
+						var list = '.b-form__question.selected .b-form__question_map_list';
 						last_placemark = "";
 
 						$('<li class="b-form__question_map_item"/>').append( $('<p/>').text(address) )
@@ -307,7 +308,7 @@ $(function(){
 	var submit_action;
 	
 	$.template( 'tmpl-question',
-				'<div class="b-form__question l-left {{if answer_type == 4}}map{{/if}}"> \
+				'<div class="b-form__question l-left ui-lightbox {{if answer_type == 4}}map{{/if}}"> \
 					<form accept-charset="UTF-8" action="/add_missing/answer_the_question.json" data-remote="true" class="b-form__question_form answer_the_question" method="post"> \
 					<input type="hidden" name="question[id]" value="${id}"> \
 				 	<div class="b-form__label">${text}</div> \
@@ -380,21 +381,17 @@ $(function(){
 				 <input type="submit" value="Отложить вопрос" class="b-form__question__action_button next_question silver_action l-right" action="skip">' );
 				
 	$.template( 'tmpl-question__map', 
-				'<table class="b-form__question_map"> \
-				 <tr> \
-				 <td class="b-form__question_map_container"> \
-				 	<div class="b-form__question_search_container"> \
+				'<div class="b-form__question_search_container l-left"> \
 						<input type="text" class="b-form__question_map_search" placeholder="Адрес места"><input type="button" class="b-form__question_search_button" value="Найти"> \
-					</div> \
-				 	<div class="b-form__question_yandex_map"></div> \
-					<p class="b-form__field_description">Чтобы уточнить место, можно перетащить метку.</p> \
-				 </td> \
-				 <td> \
-					<p>Вы можете добавить несколько мест</p> \
-					<ul class="b-form__question_map_list"> \
-					</ul> \
-				 </td></tr> \
-				 </table>');
+					  <p class="b-form__field_description">Вы можете добавить несколько мест</p> \
+				 </div> \
+				 <div class="b-form__question_map_description l-left"> \
+					Чтобы уточнить место, можно перетащить метку \
+				 </div> \
+				 <div class="b-form__question_yandex_map"></div> \
+				 <ul class="b-form__question_map_list"> \
+				 </ul> \
+				 ');
 				
 	$.template( 'tmpl-question__date', 
 				'<div class="b-form__question_date"></div> \

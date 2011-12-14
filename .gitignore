@@ -2,7 +2,6 @@
 .bundle
 *.swp
 db/*.sqlite3
-db/migrate/*
 log/*.log
 tmp/
 public/photos/*

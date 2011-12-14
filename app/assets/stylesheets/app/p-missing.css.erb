@@ -1,13 +1,16 @@
-
 .b-missing {
-	margin-top: 26px;
-}                   
-
+  margin-top: 26px;
+  }
+  
 .b-missing .b-header {
   border-bottom: 2px solid #913a64;
   padding-bottom: 4px;
   }
  
+.b-missing__date_location {
+  margin: 1em 0;
+  }
+
 .b-missing__information {
 	clear: both;
 	width: 100%;
@@ -16,6 +19,8 @@
 .b-missing__sharies {
   margin: 2em 0;
   height: 1em;
+
+  font-size: 14px;
 }
 
 
@@ -46,6 +51,17 @@
     cursor: default;
     }
     
+.b-missing__history_table {
+  margin-bottom: 2em;
+  margin-left: .3em;
+}
+  .b-missing__history_label {
+    width: 20%;
+
+    line-height: 1.6em;
+    color: #999;
+  }
+
     
 .b-missing_header__description {
 	margin: .2em 0 10px;
@@ -152,15 +168,38 @@ div.b-missing__share {
 	margin-left: 3px;
 }
 
+.b-missing__map_border {
+  border: 1px solid rgba(0,0,0,.2);
+  background-clip: border-box;
+  background-image: url(<%= asset_path "map_bg.png" %>);
+  margin-bottom: 10px;
+}
 .b-missing__map {
 	height: 225px;
-	margin-bottom: 10px;
 }
 
 
 .b-missing__places {
-	
+  list-style: none;
+  margin: 0;
 }
+  .b-missing__place {
+    width: 24%;
+    margin-right: 1%;
+    margin-bottom: 1.2em;
+
+    float: left;
+  }
+
+  .b-missing__place_address {
+    color: #0065CC;
+    cursor: pointer;
+
+    margin-top: .3em;
+  }
+  .b-missing__place_address:hover {
+    color: red;
+  }
 
 .b-missing_hidden_action { 
 	display: none;          
@@ -181,10 +220,9 @@ div.b-missing__share {
 	width: 400px;
 }
 
-.b-missing__hr_map_discussion {
-	margin: 26px 0 6px 0;
+.b-missing__comment_header {
+  margin-top: 2em;
 }
-                     
 
 /* Comments */               
 .b-missing__comment {

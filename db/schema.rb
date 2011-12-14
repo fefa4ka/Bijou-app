@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111208210259) do
+ActiveRecord::Schema.define(:version => 20111214180549) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -74,6 +75,18 @@ ActiveRecord::Schema.define(:version => 20111208210259) do
 
   add_index "can_helps_places", ["can_help_id"], :name => "index_can_helps_places_on_can_help_id"
   add_index "can_helps_places", ["place_id"], :name => "index_can_helps_places_on_place_id"
+
+  create_table "collections", :force => true do |t|
+    t.string   "name"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "collections_questions", :force => true do |t|
+    t.integer "question_id"
+    t.integer "collection_id"
+  end
 
   create_table "discussions", :force => true do |t|
     t.text     "comment"
@@ -184,6 +197,10 @@ ActiveRecord::Schema.define(:version => 20111208210259) do
 
   create_table "places", :force => true do |t|
     t.string   "address"
+    t.string   "country"
+    t.string   "state"
+    t.string   "city"
+    t.string   "street"
     t.float    "latitude"
     t.float    "longitude"
     t.datetime "created_at"

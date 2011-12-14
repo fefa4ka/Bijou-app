@@ -16,8 +16,7 @@ class Missing < ActiveRecord::Base
   attr_writer :current_step  
 
   # Поля характеристик
-  attr_accessor :man_age,
-                :author_callback_phone, :author_callback_email, :private_history, :private_contacts, :photos_attributes, :author_name, :author_email, :author_phone, :author_callback_email, :author_callback_phone, :author_callback_hash, :missing_password
+  attr_accessor :author_callback_phone, :author_callback_email, :private_history, :private_contacts, :photos_attributes, :author_name, :author_email, :author_phone, :author_callback_email, :author_callback_phone, :author_callback_hash, :missing_password
   
   accepts_nested_attributes_for :user
   accepts_nested_attributes_for :photos
@@ -27,7 +26,6 @@ class Missing < ActiveRecord::Base
                             
   # typograf :decription, :use_p => true, :use_br => true, :encoding => "UTF-8"
   
-  after_find :prepare_data                                                                                
   
   default_scope :order => "updated_at DESC"
                              
@@ -35,6 +33,11 @@ class Missing < ActiveRecord::Base
     "#{id}-#{name.parameterize}/"
   end
                  
+  def ages 
+    now = Date.today
+    now.year - self.birthday.year if self.birthday && self.birthday.is_a?(Date) || nil
+  end
+  
   def last_visit
     @current_user.last_visit("Missing", self.id)
   end
@@ -48,23 +51,67 @@ class Missing < ActiveRecord::Base
   end
 
   def places(user_id=self.user_id)
-    answers(4, user_id)
+    answers({ :answer_type => 4 })
   end
 
-  def answers(answer_type=nil, user_id=self.user_id)
+  def last_seen(user_id=self.user_id)
+    answers({ :question_id => 35 }).first[:answers].first
+  end
+
+  def location_of_missing(user_id=self.user_id)
+    places(user_id).first[:answers].first[:city]
+  end
+
+  def collection(opts={ :collection_name => "public" })
+    default_opts={
+      :question_id => Collection.where({ :name => opts[:collection_name] }).first.questions.select(:question_id).collect(&:question_id),
+      :is_tree => true
+    }
+    opts = default_opts.merge(opts)
+
+    answers = answers(opts)
+    if opts[:is_tree]
+      collection = {}
+      answers.each do |a|
+        q_id = a[:questionnaire_id]
+        collection[q_id] ||= []
+        collection[q_id].push(a)
+      end
+     
+      answers = []
+      collection.each do |k,c|
+        answers.push( { :id => c.first[:questionnaire_id], :name => c.first[:questionnaire], :questions => c } )
+      end
+    end
+    
+    answers
+  end
+
+
+  def answers(opts={})
+    default_opts = {
+      :answer_type => nil,
+      :user_id => self.user_id
+    }
+    opts = default_opts.merge(opts)
+
     # Загружаем пользовательские ответы для каждого вопроса    
-    array_questions = [] 
-    hash_questions = {} 
+    array_questions = []
+    hash_questions = {}
+   
+    conditions = { :histories => { :user_id => opts[:user_id] } }
+    conditions[:answer_type] = opts[:answer_type] unless opts[:answer_type].nil?
+    conditions[:id] = opts[:question_id] unless opts[:question_id].nil?
     
-    questions = self.questions.where("user_id = ? AND answer_type = ?", user_id, answer_type).select("DISTINCT question_id, questions.*") unless answer_type.nil?
-    questions = self.questions.where("answer_type IS NOT NULL AND user_id = ?", user_id).select("DISTINCT question_id, questions.*") if answer_type.nil?
-    
+    questions = self.questions.where(conditions).select("DISTINCT question_id, questions.*")
+
     questions.each do |q|        
       question = hash_questions[q.id] || nil
     
       question = { 
         :questionnaire => q.questionnaire.name || "",
-        :id => q.id, 
+        :questionnaire_id => q.questionnaire.id || "", 
+        :question_id => q.id, 
         :text => q.text,
         :label => q.field_text,  
         :answer_type => q.answer_type,
@@ -75,7 +122,7 @@ class Missing < ActiveRecord::Base
 
 
       user_answers = History.where( :missing_id => self.id, :question_id => q.id, :user_id => user_id )
-          
+         
       user_answers.each do |a|  
         answer = human_answer = a.answer.nil? ? a.text : a.answer.human_text || a.text || a.answer.text
         
@@ -90,9 +137,13 @@ class Missing < ActiveRecord::Base
           
           human_answer = "" 
           answer = { 
-            :address => place.address,
+            :address  => place.address,
+            :country  => place.country,
+            :state    => place.state,
+            :city     => place.city,
+            :street   => place.street,
             :latitude => place.latitude,
-            :logitude => place.longitude 
+            :longitude => place.longitude 
           } unless place.nil?   
         
         when 6
@@ -135,9 +186,4 @@ class Missing < ActiveRecord::Base
    def steps
       %w[common history contacts]
     end
-    
-    def prepare_data
-      now = Date.today
-      self.man_age = now.year - self.birthday.year if self.birthday.is_a?(Date)       
-    end  
 end                                
