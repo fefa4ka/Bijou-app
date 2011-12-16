@@ -34,23 +34,19 @@ var questions = <%= @questions.to_json.html_safe %>;
 	<div class="b-missing__leftside">
 		<div class="b-missing__photo">
 		<% unless @missing.photos.first %>
-			<%= image_tag 'no_photo.jpg', :class => "b-missing__photo"  %>
+			<%= image_tag 'no_photo.jpg', :class => "b-missing__photo_image"  %>
 		<% else %>
-			<%= link_to image_tag(@missing.photos.first.photo.url(:medium), :class => "b-missing__photo"), @missing.photos.first.photo.url, :class => "b-missing__photo_link", :rel => "photos" %>
+			<%= link_to image_tag(@missing.photos.first.photo.url(:medium), :class => "b-missing__photo_image"), @missing.photos.first.photo.url, :class => "b-missing__photo_link", :rel => "photos" %>
 		<% end %>
 		</div>                
 		<% if @missing.photos.length > 1 %>
-		<div class="b-list b-missing__photos">
+		<ul class="b-missing__photos">
 		<% @missing.photos.drop(1).each do |photo| %>
-		  <div class="b-list__element">
-			<div class="b-list__element_content">      
-				<%= link_to image_tag(photo.photo.url(:thumb), :size => "100x100", :class => "b-list__image"), photo.photo.url, :class => "b-missing__photo_link", :rel => "photos"  %>
-			</div>
-			<div class="b-list__element_min"></div>
-		  </div>
+          <li class="b-missing__photos_photo l-left">
+            <%= link_to image_tag(photo.photo.url(:thumb), :size => "60x60"), photo.photo.url, :class => "b-missing__photo_link", :rel => "photos"  %>
+		  </li>
 		<% end %>
-
-		</div>         
+		</ul>         
 		<% end %>
 		<%= tag :input, { :type => "button", :value => "Я видел этого человека", :class => "blue b-missing__i_saw t-medium" } %>
 	</div>
@@ -81,7 +77,7 @@ var questions = <%= @questions.to_json.html_safe %>;
 
 	<div class="clear"></div>
 	
-	<div class="b-missing__comment_header b-header">Обсуждение</div>
+	<div class="b-missing__comments_header b-header">Обсуждение</div>
 	<div class="clear"></div>
 	
 	<div class="b-missing__comments">

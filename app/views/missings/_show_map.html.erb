@@ -1,7 +1,7 @@
 <script>
   var places = <%= @missing.places.to_json.html_safe %>
 </script>
-<div class="b-header">Места, где <% @missing.gender ? 'бывал' : 'бывала' %> <%= @missing.name %></div>
+<div class="b-header">Места, где <%= @missing.gender ? 'бывал' : 'бывала' %> <%= @missing.first_name %></div>
 <div class="b-missing__map_border ui-corner-all">
   <div class="b-missing__map">
                                                                     

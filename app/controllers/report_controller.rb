@@ -14,6 +14,7 @@ class ReportController < ApplicationController
     if current_user.missings.length > 0 
       @missing = current_user.missings.first
     end  
+    render 'index'
   end      
   
   def detective_report 

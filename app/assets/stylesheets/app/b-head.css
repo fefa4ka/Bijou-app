@@ -31,6 +31,7 @@
             
 	
 	.b-head__auth {
+        float: right !important;
 		margin-top: .5em;
 	}   
 	

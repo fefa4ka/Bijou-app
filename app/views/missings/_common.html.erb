@@ -31,11 +31,11 @@ $(function(){
 <!-- Входим див, после hr -->
 
   <div class="b-form__field">
-    <%= f.label :man_age, "Возраст", :class => "l-inline b-form__label" %><span class="t-medium b-form__ab_or"> или </span><%= f.label :birthday, "дата рождения", :class => "l-inline b-form__label" %>   
+    <%= f.label :ages, "Возраст", :class => "l-inline b-form__label" %><span class="t-medium b-form__ab_or"> или </span><%= f.label :birthday, "дата рождения", :class => "l-inline b-form__label" %>   
 	<div class="clear"></div>      
 	<div class="b-form__ab">
    	 <p class="b-form__ages">
-	    <%= f.text_field :man_age, :class => "b-form__text_age" %> <span class="man_age_sign"><%= Russian.p f.object.man_age.to_i, 'год', 'года', 'лет' %> </span>               
+	    <%= f.text_field :ages, :class => "b-form__text_age" %> <span class="man_age_sign"><%= Russian.p f.object.ages.to_i, 'год', 'года', 'лет' %> </span>               
 	    <p class="b-form__birthday"> 
 	    	<%= f.date_select :birthday, :order => [:day, :month, :year], :start_year => 1900, :end_year => Time.now.year, :prompt => { :day => "день", :month => "месяц", :year => "год" }  %>
 		</p>     

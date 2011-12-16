@@ -150,6 +150,7 @@ GEM
     net-ssh (2.2.1)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
+    oauth (0.4.5)
     oauth2 (0.5.1)
       faraday (~> 0.7.4)
       multi_json (~> 1.0.3)
@@ -158,9 +159,28 @@ GEM
       rack
     omniauth-facebook (1.0.0)
       omniauth-oauth2 (~> 1.0.0)
+    omniauth-oauth (1.0.0)
+      oauth
+      omniauth (~> 1.0)
     omniauth-oauth2 (1.0.0)
       oauth2 (~> 0.5.0)
       omniauth (~> 1.0)
+    omniauth-odnoklassniki (0.0.1)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.0)
+    omniauth-openid (1.0.1)
+      omniauth (~> 1.0)
+      rack-openid (~> 1.3.1)
+    omniauth-twitter (0.0.7)
+      omniauth-oauth (~> 1.0)
+    omniauth-vkontakte (1.0.5)
+      multi_json
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.0)
+    omniauth-yandex (0.0.1)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.0)
+      xml-simple
     orm_adapter (0.0.5)
     paperclip (2.4.4)
       activerecord (>= 2.3.0)
@@ -175,6 +195,9 @@ GEM
       rack (>= 0.4)
     rack-mount (0.8.3)
       rack (>= 1.0.0)
+    rack-openid (1.3.1)
+      rack (>= 1.1.0)
+      ruby-openid (>= 2.1.8)
     rack-ssl (1.3.2)
       rack
     rack-test (0.6.1)
@@ -185,6 +208,7 @@ GEM
       json (~> 1.4)
     remotipart (1.0)
     responders (0.6.4)
+    ruby-openid (2.1.8)
     russian (0.2.7)
     sass (3.1.7)
     sass-rails (3.1.0)
@@ -213,6 +237,7 @@ GEM
       raindrops (~> 0.6)
     warden (1.1.0)
       rack (>= 1.0)
+    xml-simple (1.1.1)
     yaml_db (0.2.2)
     yandex_inflect (0.1.2)
       httparty
@@ -234,6 +259,11 @@ DEPENDENCIES
   meta_search
   mysql2
   omniauth-facebook
+  omniauth-odnoklassniki
+  omniauth-openid
+  omniauth-twitter
+  omniauth-vkontakte
+  omniauth-yandex
   paperclip
   rack (= 1.3.5)
   rails!

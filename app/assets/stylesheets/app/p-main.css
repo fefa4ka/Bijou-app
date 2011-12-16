@@ -39,7 +39,7 @@
 
 .p-main-img-pointer{
 	position: relative;
-	top: 5px;
+	top: 4px;
 	left: 150px;
 	z-index: 2;
 }
@@ -62,7 +62,6 @@
 	}         
 	
 	.p-main-suggest-info {
-		display: none;
 	}
 	
 	.p-main-suggest h2{

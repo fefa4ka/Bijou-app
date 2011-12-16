@@ -29,7 +29,6 @@ class User < ActiveRecord::Base
     record.created_at
   end            
   
-  def last_visit=
-  end
-   
+
+  
 end

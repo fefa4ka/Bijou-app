@@ -33,6 +33,22 @@ class Missing < ActiveRecord::Base
     "#{id}-#{name.parameterize}/"
   end
                  
+  def first_name
+    name.split(" ")[0]
+  end
+  
+  def second_name
+    name.split(" ")[1]
+  end
+
+  def last_name
+    name.split(" ")[2]
+  end
+
+  def short_name
+    self.first_name + ' ' + self.last_name
+  end
+
   def ages 
     now = Date.today
     now.year - self.birthday.year if self.birthday && self.birthday.is_a?(Date) || nil

@@ -96,7 +96,7 @@ a:hover { color: red;}
 }
     
 
-.t-bold {
+.t-bold, .t-strong {
 	font-weight: bold;
 }              
 

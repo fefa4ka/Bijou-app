@@ -50,6 +50,11 @@ gem 'geocoder', :git => "git://github.com/alexreisner/geocoder.git"
 # auth  
 gem 'devise', '1.5.1'
 gem 'omniauth-facebook'       
+gem 'omniauth-odnoklassniki'
+gem 'omniauth-vkontakte'
+gem 'omniauth-twitter'
+gem 'omniauth-yandex'
+gem 'omniauth-openid' 
 
 # Admin
 gem 'activeadmin'

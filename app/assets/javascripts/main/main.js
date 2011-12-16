@@ -51,7 +51,6 @@ $(function(){
 	$('.p-main-register').click(function() { 
 		var role = $(this).attr('for');
 		$(this).parent().hide();
-		log('.p-main-register-box.' + role);
 		$('.p-main-register-box.' + role).show() 
 	});
 	
@@ -63,6 +62,8 @@ $(function(){
 	        icons: {
 	            primary: icon
 	        }
-	    });    
+	    }).click(function(){
+            document.location = $(this).attr('url');    
+        });
 	});
 });

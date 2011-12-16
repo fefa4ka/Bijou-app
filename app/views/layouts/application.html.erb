@@ -60,14 +60,17 @@
 				<div class="p-main-dialog-a-service-sep">&nbsp;</div>
 			
 			<h3>Или войдите по электронной почте</h3>
+            <%= form_for "user", :url => user_session_path, :remote => true, :tabindex => 1, :html => { :id => "login_form" } do |login_form| %>
+              <%= login_form.hidden_field :remember_me, :value => true %>
 			<ul>
-				<li><div>Почта:</div><input type="text" /></li>
-				<li><div>Пароль:</div><input type="text" /></li>
+              <li><div>Почта:</div><%= login_form.text_field :email, :tabindex => 2 %></li>
+              <li><div>Пароль:</div><%= login_form.text_field :password, :tabindex => 3 %></li>
 			</ul>
 			
-			<input class="p-main-dialog-a-service-submit_enter" type="submit" value="Войти" /> 
+            <%= login_form.submit "Войти", :tabindex => 5 %>
 			или 
 			<a class="p-main-dialog-a-service-submit_register" href="#">зарегистрироваться</a>
+          <% end %>
 		</div>
 	</div>
        

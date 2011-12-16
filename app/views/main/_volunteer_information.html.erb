@@ -9,7 +9,7 @@
 		<div class="p-main-suggest-images">
 			<% @missings.each do |missing| %>                                         
 			    <% if missing.photos.first %>
-				<%= image_tag missing.photos.first.photo.url(:thumb), { :size => "30x30", "data-url" => missing_path(missing), "data-name" => missing.name, "data-date" => Russian.strftime(missing.created_at, "%e %B %Y года") } %>   
+				<%= image_tag missing.photos.first.photo.url(:thumb), { :size => "30x30", "data-url" => missing_path(missing), "data-name" => missing.short_name, "data-date" => Russian.strftime(missing.created_at, "%e %B %Y года") } %>   
 				<% else %>
 				<%= image_tag 'no_photo.jpg', { :size => "30x30", "data-url" => url_for(missing), "data-name" => missing.name, "data-date" => missing.created_at }  %>
 				<% end %> 

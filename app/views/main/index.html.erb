@@ -39,11 +39,9 @@
 				<div class="b-sidebar p-main-register-box volunteer l-hidden">
 					<p class="t-medium">Войдите через</p>
 					<div class="p-main-socials">         
-						<button class="b-button_social" provider="ok">          
-						<button class="b-button_social" provider="vkontakte"> 
-						<button class="b-button_social" provider="facebook"> 
-						<button class="b-button_social" provider="yandex">
-						<button class="b-button_social" provider="twitter">  	
+                    <% omniauth_providers.each do |provider| %>
+                      <button class="b-button_social" provider="<%= provider %>" url="<%= user_omniauth_authorize_path(provider) %>">
+                    <% end %>
 					</div>
 					<p class="t-medium">или укажите электронную почту</p> 
 					<table class="b-report__search">

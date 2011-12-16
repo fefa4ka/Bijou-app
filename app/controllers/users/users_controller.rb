@@ -6,9 +6,13 @@ class UsersController < ApplicationController
   end
                
   def create               
+    convert_to_hash       
+    params[:user]["role"] = 1
+    
     @user = User.new(params[:user])
     
     if @user.save    
+      sign_in @user
       redirect_to root_url
     else
       render :new
@@ -44,7 +48,8 @@ class UsersController < ApplicationController
        }           
      end
   end   
-  
+
+      
   private 
     def convert_to_hash
     	data = params[:user]
