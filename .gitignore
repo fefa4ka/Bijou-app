@@ -7,3 +7,4 @@ tmp/
 public/photos/*
 public/system/*
 public/assets/*
+Gemfile.lock
