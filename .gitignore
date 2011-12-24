@@ -4,7 +4,6 @@
 db/*.sqlite3
 db/sphinx/*
 app/shared/*
-Gemfile.lock
 log/*.log
 tmp/
 public/photos/*
