@@ -234,45 +234,71 @@
 	color:#ffffff;                    
 	border:1px solid #700947;
 	
+	/*
  	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #a04b78), color-stop(1, #923b65) );
 	background:-moz-linear-gradient( center top, #a04b78 5%, #923b65 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#a04b78', endColorstr='#923b65');
 	background-color:#a04b78;
+	*/
+
+	background: #913a64;
 	
-	
-   	-moz-box-shadow:inset 0px 0px 0px 1px #a1527d;
-	-webkit-box-shadow:inset 0px 0px 0px 1px #a1527d;
-	box-shadow:inset 0px 0px 0px 1px #a1527d;     
+   	-moz-box-shadow:inset 		0px 0px 0px 1px #a04b78;
+	-webkit-box-shadow:inset 	0px 0px 0px 1px #a04b78;
+	box-shadow:inset 			0px 0px 0px 1px #a04b78;     
 	
 	
 }
 
 .ui-state-default.maroon a, .ui-state-default.maroon a:link, .ui-state-default.maroon a:visited { color: #1c94c4; text-decoration: none; }
 .ui-state-hover.maroon, .ui-widget-content.maroon .ui-state-hover, .ui-widget-header.maroon .ui-state-hover, .ui-widget-content.maroon .ui-state-focus, .ui-widget-header.maroon .ui-state-focus {
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #923b65), color-stop(1, #a04b78) );
-	background:-moz-linear-gradient( center top, #923b65 5%, #a04b78 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#923b65', endColorstr='#a04b78');
+
+
+	-moz-box-shadow:inset 		0px 0px 0px 1px #A35B84;
+	-webkit-box-shadow:inset 	0px 0px 0px 1px #A35B84;
+	box-shadow:inset 			0px 0px 0px 1px #A35B84;
 	
-	background-color:#923b65;
 }
 
 .ui-state-hover.maroon a, .ui-state-hover.maroon a:hover { color: #c77405; text-decoration: none; }
-.ui-state-active.maroon, .ui-widget-content.maroon .ui-state-active, .ui-widget-header.maroon .ui-state-active { 		
+.ui-state-active.maroon, .ui-widget-content.maroon .ui-state-active, .ui-widget-header.maroon .ui-state-active { 
+	-moz-box-shadow:inset 		0px 0px 1px 1px #7f2a57;
+	-webkit-box-shadow:inset 	0px 0px 1px 1px #7f2a57;
+	box-shadow:inset 			0px 0px 1px 1px #7f2a57;
   
 }     
 
 /* =============== */
 /* = Silver state = */
 /* =============== */   
-.ui-state-default.silver.blow, .ui-widget-content.silver.blow .ui-state-default, .ui-widget-header.silver.blow .ui-state-default {                    
+
+/* Maroon silver */
+
+.ui-state-default.silver.blow, .ui-widget-content.silver.blow .ui-state-default, .ui-widget-header.silver.blow .ui-state-default {
 	color: #924654;
 	border: 2px solid #cba6ad;
 	
-	-moz-box-shadow:inset 0px 0px 0px 1px #b27c87;
-	-webkit-box-shadow:inset 0px 0px 0px 1px #b27c87;
-	box-shadow:inset 0px 0px 0px 1px #b27c87;
+	-moz-box-shadow:inset 		0px 0px 0px 1px #b27c87;
+	-webkit-box-shadow:inset 	0px 0px 0px 1px #b27c87;
+	box-shadow:inset 			0px 0px 0px 1px #b27c87;
 	
 }   
+
+.ui-state-hover.silver.blow, .ui-widget-content.silver.blow .ui-state-hover, .ui-widget-header.silver.blow .ui-state-hover, .ui-widget-content.silver.blow .ui-state-focus, .ui-widget-header.silver.blow .ui-state-focus {
+	border: 2px solid #bb8c95;
+
+	-moz-box-shadow:inset 		0px 0px 0px 1px #a76a75;
+	-webkit-box-shadow:inset 	0px 0px 0px 1px #a76a75;
+	box-shadow:inset 			0px 0px 0px 1px #a76a75;
+}
+
+.ui-state-active.silver.blow, .ui-widget-content.silver.blow .ui-state-active, .ui-widget-header.silver.blow .ui-state-active{
+
+	background: none;
+	background-color: #f1f2f2;
+}
+
+/* Silver */
 
 .ui-state-default.silver, .ui-widget-content.silver .ui-state-default, .ui-widget-header.silver .ui-state-default
 { 
@@ -287,25 +313,39 @@
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f1f2f2');
 	
 	
-   	-moz-box-shadow:inset 0px 0px 0px 1px #c4c4c4;
-	-webkit-box-shadow:inset 0px 0px 0px 1px #c4c4c4;
-	box-shadow:inset 0px 0px 0px 1px #c4c4c4;    
+   	-moz-box-shadow:inset 		0px 0px 0px 1px #c4c4c4;
+	-webkit-box-shadow:inset 	0px 0px 0px 1px #c4c4c4;
+	box-shadow:inset 			0px 0px 0px 1px #c4c4c4;    
 	
 	
 }
 
 .ui-state-default.silver a, .ui-state-default.silver a:link, .ui-state-default.silver a:visited { color: #1c94c4; text-decoration: none; }
 .ui-state-hover.silver, .ui-widget-content.silver .ui-state-hover, .ui-widget-header.silver .ui-state-hover, .ui-widget-content.silver .ui-state-focus, .ui-widget-header.silver .ui-state-focus {
-	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #f1f2f2), color-stop(1, #ffffff) );
-	background:-moz-linear-gradient( center top, #f1f2f2 5%, #ffffff 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f1f2f2', endColorstr='#ffffff');
-	background-color:#dfdfdf;
+	border: 2px solid #D6D6D6;
 }
 
 .ui-state-hover.silver a, .ui-state-hover.silver a:hover { color: #c77405; text-decoration: none; }
-.ui-state-active.silver, .ui-widget-content.silver .ui-state-active, .ui-widget-header.silver .ui-state-active { 	   
- 
-  
+.ui-state-active.silver, .ui-widget-content.silver .ui-state-active, .ui-widget-header.silver .ui-state-active
+{ 
+		
+	background: none;
+	background-color: #f1f2f2;
+
+	-moz-box-shadow:inset 		0px 0px 1px 1px #b4b4b4;
+	-webkit-box-shadow:inset 	0px 0px 1px 1px #b4b4b4;
+	box-shadow:inset 			0px 0px 1px 1px #b4b4b4;    
+
+	/* Как правильно, но у бордера режется 1 пиксель */
+	/*
+	top: 2px; 				
+	margin-bottom: 4px;
+
+	border: 1px solid #c4c4c4;
+	-moz-box-shadow:inset 0px 0px 0px 1px #e6e7e7;
+	-webkit-box-shadow:inset 0px 0px 0px 1px #e6e7e7;
+	box-shadow:inset 0px 0px 0px 1px #e6e7e7, 0px 0px 0px 2px #d6d6d6;    
+	*/
 }
 
 /* =============== */
@@ -985,7 +1025,7 @@ input.ui-button.red_action, input.ui-button.red_action.ui-state-active {
 .ui-button.t-medium { padding: .35em .7em .2em; }   
 .ui-button.t-medium_fat { padding: .45em .7em .4em; }
 .ui-button.t-medium_fat.ui-state-active  { 
-	padding: .5em .7em .35em !important; 
+	padding: .5em .7em .35em !important;
 }
 .ui-button.t-medium.ui-state-active {
 	padding-top: .4em !important;
