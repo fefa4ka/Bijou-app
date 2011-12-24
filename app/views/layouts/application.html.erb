@@ -86,31 +86,25 @@
 		<%= link_to_unless_current image_tag('logo/' + rand(12).to_s() + '.png', :class => 'l-left'), '/' %>
 		</a>           
 	</div>  
-	<div class="grid_11 b-head__menu">
-	   <table class="b-head__menu_table">
-		<tr>
-			<td>
-				<div class="b-head__logined">Для вас есть новости, <%= current_user.name %>.<br/> 
-			</td>              
-		</tr>
-		</table>   	
-	</div>
-    <div class="b-head__auth grid_1">  
-		<%= button_to "Выйти", destroy_user_session_path, :method => :delete,  :class => "maroon" %>     
-		
-  
- 
+    <div class="b-head__auth grid_3">  
+		<button class="b-auth__button loggedin maroon l-right" provider="<%= current_user.provider %>"><%= current_user.name %></button>	
+		<ul class="b-auth__list b-select__list ui-corner-bottom l-hidden">
+			<li class="b-select__list_item">Настройки</li>
+			<li class="b-select__list_item">Помощь</li>
+			<li class="b-select__list_item">Выйти</li>
+		</ul>
 	</div>                 
 	<div class="clear"></div>
 	<div class="grid_10 b-missing__tabs">
 		<ul class="b-missing__tabs">      
-			<% if current_user.has_missing? %>			
+		<% if current_user.has_missing? %>			
 			<%= link_to_unless_current content_tag("li", "Объявление", :class => "b-missing__tab"), missing_path(current_user.missings.first), :class => "b-missing__tab_link"  %>    
-			<%= link_to_unless_current content_tag("li", "Сводка по объявлению", :class => "b-missing__tab"), '/report', :class => "b-missing__tab_link" %>     
-			<% else %>
-			<%= link_to_unless_current content_tag("li", "Обзор дел", :class => "b-missing__tab"), '/report', :class => "b-missing__tab_link" %>
-			<%= link_to_unless_current content_tag("li", content_tag("span", "Сообщения") + tag("input", :type => "button", :value => "3", :class => "orange b-missing__tab_message_count"), :escape => true, :class => "b-missing__tab"), '/inbox', :class => "b-missing__tab_link" %>
-			<% end %>
+			<%= link_to_unless_current content_tag("li", "Сводка по объявлению", :class => "b-missing__tab"), '/report', :class => "b-missing__tab_link" %> 
+			<%= link_to_unless_current content_tag("li", "Поиск объявлений", :class => "b-missing__tab"), '/missings', :class => "b-missing__tab_link" %>    
+		<% else %>
+			<%= link_to_unless_current content_tag("li", "Поиск объявлений", :class => "b-missing__tab"), '/missings', :class => "b-missing__tab_link" %>
+			<%= link_to_unless_current content_tag("li", "Разместить объявление", :class => "b-missing__tab"), '/add_missing', :class => "b-missing__tab_link" %>
+		<% end %>
 		</ul>
 	</div>	   
 	

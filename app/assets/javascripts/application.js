@@ -35,6 +35,7 @@ $(function()
 			document.location = data.redirect;
 			
 	});
+
 });
 
 function pluralForm(n, form1, form2, form5)

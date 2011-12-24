@@ -18,13 +18,13 @@ var questions = <%= @questions.to_json.html_safe %>;
 	<div class="clear"></div>
 </div>
 
-<div class="container_16 b-missing">
+<div class="container_16 b-content">
 	<div class="grid_11">
 		<div class="t-big_fat">
 			Разыскивается <%= @missing.name %><% unless @missing.ages.nil? %>, <%= @missing.ages %> <%= Russian.p @missing.ages, 'год', 'года', 'лет' %> <% end %>
 		</div>
         <div class="t-medium b-missing__date_location">
-          <%= @missing.gender ? 'Пропал' : 'Пропала' %> <%= Russian.strftime @missing.last_seen, "%d %B" %> в <%= YandexInflect.inflections(@missing.location_of_missing).last %>
+          <%= @missing.gender ? 'Пропал' : 'Пропала' %> <%= Russian.strftime @missing.last_seen, "%d %B" %> в <%= YandexInflect.inflections(@missing.city).last %>
         </div>
 	<p id="notice"><%= notice %></p>
 

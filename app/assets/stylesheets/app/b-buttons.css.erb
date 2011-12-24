@@ -15,9 +15,28 @@
 	top: 55%;
 }
 
-.b-button_social .ui-icon {
+.b-button_social .ui-icon, .b-auth__button .ui-icon {
   background-image: url(<%= asset_path 'socials.png' %>); 
-}              
+}
+
+.b-auth__button.loggedin {
+	background-image: url(/assets/arrow-d.png);
+	background-repeat: no-repeat;
+	background-position: 95% 60%;
+
+	font-weight: bold;
+}      
+
+.b-auth__button.loggedin.ui-state-active {
+	background-position: 95% 65%;
+} 
+.b-auth__button.loggedin.ui-state-active .ui-icon {
+	top: 55%;
+}         
+
+.b-auth__list {
+	position: absolute;
+}
                
 .ui-icon-odnoklassniki {    
 	background-position: -16px 0;

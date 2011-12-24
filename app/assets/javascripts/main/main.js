@@ -53,7 +53,25 @@ $(function(){
 		$(this).parent().hide();
 		$('.p-main-register-box.' + role).show() 
 	});
-	
+	$(".b-auth__button").each(function(){   
+		var button = $(this),
+			icon = "ui-icon-" + button.attr('provider'); 
+		
+		$(this).button({
+	        icons: {
+	            primary: icon
+	        }
+	    }).click(function(){
+	    	var list = $('.b-auth__list'),
+	    		button = $(this),
+	    		top = button.position().top + button.outerHeight() - 1,
+	    		left = button.position().left + 1,
+	    		width = button.outerWidth() - 2;
+
+	    	list.css('top', top).css('left', left).css('width', width).toggle();
+	    }); 
+	});
+
   	$(".b-button_social").each(function(){   
 		var button = $(this),
 			icon = "ui-icon-" + button.attr('provider');
@@ -63,7 +81,30 @@ $(function(){
 	            primary: icon
 	        }
 	    }).click(function(){
-            document.location = $(this).attr('url');    
+            var popup,
+                url = $(this).attr('url'),
+                width = $(this).attr('data-width'),
+                height = $(this).attr('data-height');
+
+            function open_popup(url, width, height) {
+                var screenX = typeof window.screenX != 'undefined' ? window.screenX : window.sceenLeft,
+                    screenY = typeof window.screenY != 'undefined' ? window.screenY : window.screenTop,
+                    outerWidth   = typeof window.outerWidth != 'undefined' ? window.outerWidth : document.body.clientWidth,
+                    outerHeight  = typeof window.outerHeight != 'undefined' ? window.outerHeight : (document.body.clientHeight - 22),
+                    left    = parseInt(screenX + ((outerWidth - width) / 2), 10),
+                    top     = parseInt(screenY + ((outerHeight - height) / 2.5), 10),
+                    params  = ('width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
+
+                popup = window.open(url, 'Login', params);
+
+                if(window.focus) {
+                    popup.focus();
+                }
+
+                return false
+            }
+            
+            open_popup(url, width, height);
         });
 	});
 });

@@ -12,8 +12,8 @@ People::Application.routes.draw do
   resources :sessions
   resources :missings 
                                   
-  match "missings_list" => "lost_list#index"
-  match "missings_list/:type" => "lost_list#index"
+  match "missings" => "lost_list#index"
+  match "missings/:type" => "lost_list#index"
   
   match "add_missing" => "missings#new"
   match "add_missing/save_step" => "missings#save_step"

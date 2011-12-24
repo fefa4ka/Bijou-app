@@ -198,7 +198,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'  
   require 'omniauth-facebook'  
-  config.omniauth :facebook, '300044736683238', '2d9d5b7514c62313319ce1cf77996397'
+  config.omniauth :facebook, '300044736683238', '2d9d5b7514c62313319ce1cf77996397', :display => "popup"
   
   require 'openid/store/filesystem'
   config.omniauth :open_id, :store => OpenID::Store::Filesystem.new('/tmp'), :name => 'google', :identifier => 'https://www.google.com/accounts/o8/id', :require => 'omniauth-openid'
