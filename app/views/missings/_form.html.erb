@@ -49,8 +49,9 @@
 			<div class="grid_8">
 				<div class="b-form__actions">
 					<%= f.submit "Предыдущий шаг", :class => "b-form__back_button", :tabindex => "-1" unless @missing.first_step? %>
-					<%= f.submit "Следующий шаг", :class => "b-form__next_button" unless @missing.last_step?  %>
-					<%= f.submit "Опубликовать объявление", :class => "b-form__save_button blue" if @missing.last_step?  %>
+                    <%= f.submit "Следующий шаг", :class => "b-form__next_button" unless @missing.last_step? || (current_user && @missing.current_step == "history") %>
+                    <%= f.submit "Опубликовать объявление", :class => "b-form__save_button blue" if @missing.last_step? || (current_user && @missing.current_step == "history") %>
+                    
 				</div>  
 			</div>
 		</div>

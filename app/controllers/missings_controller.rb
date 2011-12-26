@@ -5,17 +5,17 @@ require 'net/http'
 
 class MissingsController < ApplicationController
   # Каталог для фоток
-  PHOTO_STORE = File.join Rails.root, 'public', 'photos'
-  
-  impressionist :actions => [:show]           
+   impressionist :actions => [:show]           
   
   # GET /missings
   # GET /missings.xml
   def index                          
-    if defined? current_user.missings.first   
+    if current_user && current_user.has_missing?  
       redirect_to missing_path(current_user.missings.first)
     else
-      redirect_to root_url
+      @missings = Missing.where(:published => true) 
+      @request = request
+      @help_types = HelpType.all
     end      
   end
 
@@ -25,10 +25,10 @@ class MissingsController < ApplicationController
   	@missing = Missing.find(params[:id])                  
     @author = User.find(@missing.user_id)
 
-	@discussion = Discussion.new({ :missing_id => @missing.id })
-	@message = Message.new({ :user_id => @missing.user_id }) 
+	  @discussion = Discussion.new({ :missing_id => @missing.id })
+	  @message = Message.new({ :user_id => @missing.user_id }) 
 	  
-	@helpers = []
+	  @helpers = []
 
 	  # Вопросы 
 	  @questions = Question.for @missing, current_or_guest_user, :all   
@@ -137,7 +137,7 @@ class MissingsController < ApplicationController
     	@missing.update_attributes(params[:missing])    
     	@missing.save
     else
-		  @user = current_or_guest_user
+        @user = current_or_guest_user
 
     	@missing = Missing.new(params[:missing])
     	@missing.published = false;
@@ -145,18 +145,17 @@ class MissingsController < ApplicationController
     	@missing.save
     	
     	session[:missing_id] = @missing.id
-	  end         
+    end         
 	  
-	  if params["missing_upload_photo"]     
-	    data_type = "photos"
-	    data = []
-	    @missing.photos.each do |p|
-	      data.push({ :id => p.id, :image_name => p.photo.url(:small) })
+    if params["missing_upload_photo"]     
+      data_type = "photos"
+      data = []
+      @missing.photos.each do |p|
+        data.push({ :id => p.id, :image_name => p.photo.url(:small) })
       end
-	  end                  
+    end                  
 	
     respond_to do |format|
-
       if params[:save] == "1"
         
         @missing = Missing.find(session[:missing_id])

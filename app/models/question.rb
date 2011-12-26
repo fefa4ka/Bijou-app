@@ -115,7 +115,7 @@ class Question < ActiveRecord::Base
     unless (question = Question.find(question_params["id"])).nil?
     	answer = question_params["answer"] || {}
     	answer["text"] ||= ""
-    	                          
+    	answer["answers_ids"] ||= []
     	logger.debug(answer)
     	# Если нажали отложить вопрос
     	if question_params["action_type"] == "skip"

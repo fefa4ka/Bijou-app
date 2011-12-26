@@ -29,6 +29,9 @@ gem 'jquery-rails'
 gem 'mysql2'   
 gem 'yaml_db'
 
+# Search
+gem 'thinking-sphinx'
+
 # Pretty
 gem 'russian'    
 gem 'yandex_inflect'

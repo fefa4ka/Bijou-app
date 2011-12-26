@@ -70,7 +70,12 @@ a { color: #0065cc; }
 a:hover { color: red;}  
 #footer a:link { color: #0a3a83; }
 
-               
+      
+.b-content { 
+	margin-top: 28px;
+}
+
+         
 .t-biggest {
 	font-size: 20px;
 }                  

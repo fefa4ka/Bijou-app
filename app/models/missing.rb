@@ -1,4 +1,19 @@
 class Missing < ActiveRecord::Base         
+  # Search index preferences
+  define_index do 
+    indexes :name
+    indexes :history
+    indexes :city
+
+    has user_id, created_at, updated_at
+    has :last_seen, :type => :datetime
+    has :gender
+    has :ages, :type => :integer
+
+    set_property :latitude_attr => :langtitude,
+      :longituder_attr => :longitude
+  end
+
   is_impressionable
   
   belongs_to :user
@@ -7,7 +22,7 @@ class Missing < ActiveRecord::Base
   has_many :discussions, :dependent => :destroy   
   
   has_many :histories, :dependent => :destroy
-  has_many :questions, :through => :histories
+  has_many :questions, :through => :histories 
   
   has_many :user_answers
   
@@ -16,7 +31,7 @@ class Missing < ActiveRecord::Base
   attr_writer :current_step  
 
   # Поля характеристик
-  attr_accessor :author_callback_phone, :author_callback_email, :private_history, :private_contacts, :photos_attributes, :author_name, :author_email, :author_phone, :author_callback_email, :author_callback_phone, :author_callback_hash, :missing_password
+  attr_accessor :ages, :author_callback_phone, :author_callback_email, :private_history, :private_contacts, :photos_attributes, :author_name, :author_email, :author_phone, :author_callback_email, :author_callback_phone, :author_callback_hash, :missing_password
   
   accepts_nested_attributes_for :user
   accepts_nested_attributes_for :photos
@@ -33,50 +48,79 @@ class Missing < ActiveRecord::Base
     "#{id}-#{name.parameterize}/"
   end
                  
+  # Common info
+  # 
+  # Name
   def first_name
-    name.split(" ")[0]
+    name.split(" ")[0] || ""
   end
   
   def second_name
-    name.split(" ")[1]
+    name.split(" ")[1] || ""
   end
 
   def last_name
-    name.split(" ")[2]
+    n = name.split(" ")
+    return n[1] if n.size == 1
+    return n[2] if n.size == 2
+    return ""
   end
 
   def short_name
-    self.first_name + ' ' + self.last_name
   end
 
+  # Ages
   def ages 
     now = Date.today
     now.year - self.birthday.year if self.birthday && self.birthday.is_a?(Date) || nil
   end
   
-  def last_visit
-    @current_user.last_visit("Missing", self.id)
+  # Missing info
+  def last_seen(user_id=self.user_id)
+    if answer = answers({ :question_id => 35 })
+      answer.first[:answers].first
+    end
   end
-     
+
   def history(user_id=self.user_id)
     ""
   end
-  
+
   def characteristics(user_id=self.user_id)
     []
   end
 
+  # Location of missing
   def places(user_id=self.user_id)
     answers({ :answer_type => 4 })
   end
 
-  def last_seen(user_id=self.user_id)
-    answers({ :question_id => 35 }).first[:answers].first
+  def city(user_id=self.user_id)
+    if place = places(user_id)
+      place.first[:answers].first[:city]
+    end
   end
 
-  def location_of_missing(user_id=self.user_id)
-    places(user_id).first[:answers].first[:city]
+  def latitude(user_id=self.user_id)
+    place = places(user_id).first[:answers].first || nil
+    # Degree to radians
+    (place[:latitude] / 180) * Math::PI unless place.nil?
   end
+
+  def longitude(user_id=self.user_id)
+    place = places(user_id).first[:answers].first || nil
+    # Degree to radians
+    (place[:longitude] / 180) * Math::PI unless place.nil?
+  end
+    
+
+  # Service data
+  def last_visit
+    @current_user.last_visit("Missing", self.id)
+  end
+     
+
+
 
   def collection(opts={ :collection_name => "public" })
     default_opts={
@@ -102,7 +146,6 @@ class Missing < ActiveRecord::Base
     
     answers
   end
-
 
   def answers(opts={})
     default_opts = {
@@ -175,9 +218,10 @@ class Missing < ActiveRecord::Base
       hash_questions[q.id] = question
     end    
     
-    array_questions
+    array_questions.size > 0 ? array_questions : nil
   end
 
+  # Steps methods
   def current_step
     @current_step || steps.first
   end                                                                                                                                 

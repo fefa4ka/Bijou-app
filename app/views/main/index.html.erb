@@ -40,7 +40,7 @@
 					<p class="t-medium">Войдите через</p>
 					<div class="p-main-socials">         
                     <% omniauth_providers.each do |provider| %>
-                      <button class="b-button_social" provider="<%= provider %>" url="<%= user_omniauth_authorize_path(provider) %>">
+                      <button class="b-auth__button b-button_social" provider="<%= provider %>" url="<%= user_omniauth_authorize_path(provider) %>" data-width="600" data-height="400">
                     <% end %>
 					</div>
 					<p class="t-medium">или укажите электронную почту</p> 

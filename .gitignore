@@ -2,9 +2,10 @@
 .bundle
 *.swp
 db/*.sqlite3
+db/sphinx/*
+app/shared/*
 log/*.log
 tmp/
 public/photos/*
 public/system/*
 public/assets/*
-Gemfile.lock
