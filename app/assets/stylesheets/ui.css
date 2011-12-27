@@ -1225,4 +1225,76 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://jquery.org/license
  *
- * http://docs.j
+ * http://docs.j*/
+
+
+
+/**
+ *	jQuery autocomplete plugin
+ */
+
+ .ui-autocomplete-input{
+		background: #e0e0e0;
+
+		border: 1px solid #cecdcc;
+		border-radius: 2px;
+		outline: 0 none;
+
+		height: 23px;
+
+		width: 200px;
+		z-index: 3;
+		box-shadow:inset 0px 0px 0px 1px #edeceb;
+	}
+
+	.ui-autocomplete{
+		border: none;
+		padding: 0px;
+		box-shadow: 0px 1px 3px 1px #c0bfbf;
+		border-radius: 0px 0px 3px 3px;
+
+	}
+	
+	.ui-dropdown-button-input{
+		background: #e0e0e0;
+		background-image: url('/assets/ui-autocomplete-arrow.png');
+		background-repeat: no-repeat;
+		background-position: 12px, 20px;
+
+		border: none;
+
+		left: -33px;
+		top: 2px;
+		height: 23px;
+
+		color: #000;
+		font-size: 13px;
+
+	}
+
+	.ui-menu-item{
+		height: 23px;
+		border-bottom: 1px solid #e2e2e2;
+		color: #000;
+		font-size: 13px;
+
+
+
+	}
+		.ui-menu-item a{
+			color: #000;
+			padding-left: 10px;
+		}
+		
+
+		#ui-active-menuitem{
+			background: #ececec;
+
+			height: 23px;
+
+			border: none;
+			border-bottom: 1px solid #e2e2e2;
+			border-left: 1px solid #c0bfbf;
+			border-right: 1px solid #c0bfbf;
+			border-radius: 0px;
+		}
