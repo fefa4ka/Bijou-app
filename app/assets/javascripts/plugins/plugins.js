@@ -103,7 +103,7 @@ jQuery.fn.nl2br = function(){
  */
 
 
-jQuery.fn.ac_input = function(combobox_id){
+jQuery.fn.ac_input = function(){
 
 	(function( $ ) {
 		$.widget( "ui.combobox", {
@@ -207,5 +207,5 @@ jQuery.fn.ac_input = function(combobox_id){
 		});
 	})( jQuery );
 
-	$(combobox_id).combobox();
+	$(this).combobox();
 }
