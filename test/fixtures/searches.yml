@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  keywords: MyString
+  male: false
+  minimum_age: 1
+  maximum_age: 1
+  last_seen: 2011-12-26
+  region: MyString
+  region_type: 1
+  with_photo: 
+
+two:
+  keywords: MyString
+  male: false
+  minimum_age: 1
+  maximum_age: 1
+  last_seen: 2011-12-26
+  region: MyString
+  region_type: 1
+  with_photo: 

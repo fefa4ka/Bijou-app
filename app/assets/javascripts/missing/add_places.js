@@ -1,4 +1,6 @@
 $(function(){
+	if( $(".p-new-missing").length == 0 ) return;
+
 	function add_place(address)
 	{
 		$.getJSON( "/add_missing/address_data.json", { address: address }, function( data, status, xhr ) {

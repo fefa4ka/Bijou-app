@@ -37,7 +37,12 @@
 		width: 100%;
 		position: absolute;
 		left: 0;
-		margin: 0;
+		margin: 10px 0;
+	}
+
+
+	.b-sidebar__hr_margin {
+		margin: 20px 0;
 	}
 	
 	.b-sidebar__list {

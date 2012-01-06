@@ -1,4 +1,10 @@
 GIT
+  remote: git://github.com/alexreisner/geocoder.git
+  revision: e9cd55cb22066239a9f602ca7e3aad2fb43099ce
+  specs:
+    geocoder (1.1.0)
+
+GIT
   remote: git://github.com/rails/rails.git
   revision: 25ac7e4607b231d72b3667c438cdd7c7c65f96bd
   branch: 3-1-stable
@@ -103,7 +109,6 @@ GEM
       actionpack (>= 2.3.7)
       activesupport (>= 2.3.7)
       i18n (~> 0.4)
-    geocoder (1.1.0)
     has_scope (0.5.1)
     hashie (1.2.0)
     highline (1.6.8)
@@ -253,7 +258,7 @@ DEPENDENCIES
   devise (= 1.5.1)
   execjs!
   foreman
-  geocoder
+  geocoder!
   impressionist
   jquery-rails
   meta_search

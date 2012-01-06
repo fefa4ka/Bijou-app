@@ -1,4 +1,6 @@
 $(function (){
+	if( $(".p-missing").length == 0 ) return;
+
    	$('.new_message')
 		.live('ajax:beforeSend', function(e){
 			

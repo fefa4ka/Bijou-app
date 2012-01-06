@@ -37,7 +37,7 @@ p {
 }
                
 /* must be same height as the footer */
-#content { overflow: auto; padding-bottom: 65px; } 
+#content { overflow: auto; padding-top: 28px; padding-bottom: 35px; } 
 
 #footer {
     position: relative;
@@ -70,10 +70,6 @@ a { color: #0065cc; }
 a:hover { color: red;}  
 #footer a:link { color: #0a3a83; }
 
-      
-.b-content { 
-	margin-top: 28px;
-}
 
          
 .t-biggest {

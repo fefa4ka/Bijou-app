@@ -1,4 +1,6 @@
 $(function() {
+	if( $(".p-new-missing").length == 0 ) return;
+
 	function hide_familiar()
 	{
 		$(".b-form__add_familiar").hide();

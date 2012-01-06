@@ -1,4 +1,6 @@
 $(function (){
+	if( $(".p-missing").length == 0 ) return;
+
    	$('.new_discussion')
 		.live('ajax:beforeSend', function(e){
 			

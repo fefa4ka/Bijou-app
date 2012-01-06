@@ -2,6 +2,8 @@ $(function(){
 	var submit_action,
 		selected_step,
 		redirect_disallow;
+	
+	if( $(".p-new-missing").length == 0 ) return; 
 
 	$('#missing_user_attributes_phone').mask("+7 999 999-99-99");
 		

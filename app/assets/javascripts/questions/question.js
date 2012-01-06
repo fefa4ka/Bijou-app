@@ -1,4 +1,6 @@
 $(function(){                      
+	if( $(".p-new-missing").length == 0 && $(".p-missing").length == 0 ) return;
+	
 	function render_questions(questions) {                              
         var questionnaire = questions[0].questionnaire != "" ? questions[0].questionnaire : "Пожалуйста, ответьте на некоторые вопросы";
 		// Устанавливаем тему первого вопроса                        

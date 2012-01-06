@@ -13,7 +13,8 @@ class MissingsController < ApplicationController
     if current_user && current_user.has_missing?  
       redirect_to missing_path(current_user.missings.first)
     else
-      @missings = Missing.where(:published => true) 
+      @search = Search.new
+      @missings = @search.missings
       @request = request
       @help_types = HelpType.all
     end      

@@ -1,6 +1,8 @@
 $(function(){        
 	var last_image = 0;            
 	
+	if( $(".p-main").length == 0 ) return;
+
 	$('.p-main-suggest-info[type=volunteer]').hide();
 	
 	$('.p-main-info div').mouseenter(function(){ 
@@ -52,24 +54,6 @@ $(function(){
 		var role = $(this).attr('for');
 		$(this).parent().hide();
 		$('.p-main-register-box.' + role).show() 
-	});
-	$(".b-auth__button").each(function(){   
-		var button = $(this),
-			icon = "ui-icon-" + button.attr('provider'); 
-		
-		$(this).button({
-	        icons: {
-	            primary: icon
-	        }
-	    }).click(function(){
-	    	var list = $('.b-auth__list'),
-	    		button = $(this),
-	    		top = button.position().top + button.outerHeight() - 1,
-	    		left = button.position().left + 1,
-	    		width = button.outerWidth() - 2;
-
-	    	list.css('top', top).css('left', left).css('width', width).toggle();
-	    }); 
 	});
 
   	$(".b-button_social").each(function(){   

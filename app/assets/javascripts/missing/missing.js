@@ -1,4 +1,6 @@
-$(function(){     
+$(function(){    
+   if( $(".p-missing").length == 0 ) return; 
+
    function animate_i_can_help_window(height) {
 		var window = $('.b-missing__i_can_help_window');
 		

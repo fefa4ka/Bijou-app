@@ -1,0 +1,45 @@
+<%= form_for(@search) do |f| %>
+  <div class="p-search container_16">
+    <div class="b-search__big">
+      <%= f.label :keywords, "Поиск по объявлениям", :class => "b-search__big_label l-block t-big" %>
+      <%= f.text_field :keywords, :placeholder => "Имя, регион, тип пропажи", :class => "b-search__big_field t-medium" %>
+      <%= f.submit "Найти", :class => "t-medium silver" %>
+    </div>
+    <div class="b-search-filter ui-corner-all b-sidebar">
+      <ul class="b-search-filter-list">
+        <li class="b-search-filter-list__item">
+          <%= f.label :region, "Регион пропажи", :class => "b-form__label" %>
+          <%= f.text_field :region, :value => (request.location.city if @search.new_record? && request.location), :class => "b-search-filter-list__text_field" %>
+        </li>
+        <li class="b-search-filter-list__item">
+          <div class="b-form__label">Пол</div>
+          <%= f.radio_button :male, 'any'  %><%= f.label :male_any, "любой" %><br/>
+          <%= f.radio_button :male, true  %><%= f.label :male_true, "мужской" %><br/>
+          <%= f.radio_button :male, false  %><%= f.label :male_false, "женский" %><br/>
+        </li>
+        <li class="b-search-filter-list__item">
+          <div class="b-form__label">Возраст</div>
+          <%= radio_button_tag 'ages', 'any' %> <%= label_tag 'ages_any', 'любой' %><br/>
+          <%= radio_button_tag 'ages', 'children' %> <%= label_tag 'ages_children', 'ребенок' %><br/>
+          <%= radio_button_tag 'ages', 'adult' %> <%= label_tag 'ages_adult', 'взрослый' %><br/>
+          <%= radio_button_tag 'ages', 'eldery' %> <%= label_tag 'ages_eldery', 'пожилой' %><br/>
+          <div class="b-search-filter__ages_container">
+            <%= f.text_field :minimum_age, :class => "b-search-filter__ages" %> - <%= f.text_field :maximum_age, :class => "b-search-filter__ages" %><br/>
+          </div>
+        </li>
+        <li class="b-search-filter-list__item">
+          <div class="b-form__label">Регион пропажи</div>
+          <%= f.radio_button :region_type, 'any' %><%= f.label :region_type_any, "любой" %><br/>
+          <%= f.radio_button :region_type, 'city' %><%= f.label :region_type_city, "город"  %><br/>
+          <%= f.radio_button :region_type, 'forest' %><%= f.label :region_type_forest, "лес" %><br/>
+        </li>
+        <li class="b-search-filter-list__item">
+          <div class="b-form__label">Дата пропажи</div>
+          <%= f.text_field :last_seen, :class => "daterangepicker b-search-filter-list__text_field" %>
+        </li>
+      </ul>
+
+      <div class="clear"></div>
+    </div>
+  </div>
+<% end %>
