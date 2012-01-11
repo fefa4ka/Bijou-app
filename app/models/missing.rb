@@ -5,13 +5,7 @@ class Missing < ActiveRecord::Base
     indexes :history
     indexes :city
 
-    has user_id, created_at, updated_at
-    has :last_seen, :type => :datetime
-    has :gender
-    has :ages, :type => :integer
-
-    set_property :latitude_attr => :langtitude,
-      :longituder_attr => :longitude
+    has age, last_seen, latitude, longitude, user_id, created_at, updated_at
   end
 
   is_impressionable
@@ -35,14 +29,10 @@ class Missing < ActiveRecord::Base
   
   accepts_nested_attributes_for :user
   accepts_nested_attributes_for :photos
-
- 
-  
-                            
-  # typograf :decription, :use_p => true, :use_br => true, :encoding => "UTF-8"
-  
   
   default_scope :order => "updated_at DESC"
+  
+  before_save :assign_virtual_variables
                              
   def to_param                 
     "#{id}-#{name.parameterize}/"
@@ -70,7 +60,7 @@ class Missing < ActiveRecord::Base
   end
 
   # Ages
-  def ages 
+  def age 
     now = Date.today
     now.year - self.birthday.year if self.birthday && self.birthday.is_a?(Date) || nil
   end
@@ -92,7 +82,7 @@ class Missing < ActiveRecord::Base
 
   # Location of missing
   def places(user_id=self.user_id)
-    answers({ :answer_type => 4 })
+    answers({ :answer_type => 4 }) 
   end
 
   def city(user_id=self.user_id)
@@ -102,12 +92,16 @@ class Missing < ActiveRecord::Base
   end
 
   def latitude(user_id=self.user_id)
-    place = places(user_id).first[:answers].first || nil
+    return nil if places(user_id).nil?
+
+    place = places(user_id).first[:answers].first || nil 
     # Degree to radians
     (place[:latitude] / 180) * Math::PI unless place.nil?
   end
 
   def longitude(user_id=self.user_id)
+    return nil if places(user_id).nil?
+
     place = places(user_id).first[:answers].first || nil
     # Degree to radians
     (place[:longitude] / 180) * Math::PI unless place.nil?
@@ -246,4 +240,11 @@ class Missing < ActiveRecord::Base
    def steps
       %w[common history contacts]
     end
+
+  def assign_virtual_variables
+    self.age = age
+    self.last_seen = last_seen
+    self.latitude = latitude
+    self.longitude = longitude
+  end
 end                                

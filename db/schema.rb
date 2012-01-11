@@ -180,11 +180,30 @@ ActiveRecord::Schema.define(:version => 20111221211540) do
     t.date     "birthday"
     t.date     "date"
     t.boolean  "published"
+    t.integer  "age"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.date     "last_seen"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
   end
 
+  create_table "searches", :force => true do |t|
+    t.string   "keywords"
+    t.boolean  "male"
+    t.integer  "minimum_age"
+    t.integer  "maximum_age"
+    t.date     "last_seen"
+    t.string   "region"
+    t.integer  "region_type"
+    t.boolean  "with_photo"
+    t.date     "last_seen_start"
+    t.date     "last_seen_end"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+  
   create_table "photos", :force => true do |t|
     t.integer  "missing_id"
     t.datetime "created_at"

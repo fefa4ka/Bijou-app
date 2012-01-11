@@ -1,3 +1,3 @@
 $(function(){
-	$('#combobox').ac_input();
+//	$('#combobox').ac_input();
 });
