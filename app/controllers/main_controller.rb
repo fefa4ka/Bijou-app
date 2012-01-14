@@ -9,5 +9,6 @@ class MainController < ApplicationController
     end
 
     @missings = Missing.where(:published => 1)
+    @search = Search.new
   end
 end

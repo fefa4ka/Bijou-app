@@ -6,7 +6,6 @@
 /* Common elements */
 
 .b-main-info-margin {
-	margin-right: 3.8%;
 }        
 
 .p-main-info{
@@ -313,3 +312,14 @@
 		margin-right: 20px;
 		list-style: none;
 	}
+
+
+
+.p-main-search-container {
+  padding-top: 17px;
+}
+
+.p-main-search-field {
+  height: 25px !important;
+  width: 200px;
+}

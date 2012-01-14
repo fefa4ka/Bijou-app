@@ -1,11 +1,11 @@
 class Missing < ActiveRecord::Base         
   # Search index preferences
   define_index do 
-    indexes :name
-    indexes :history
-    indexes :city
+    indexes name
+    indexes history
+    indexes city
 
-    has age, last_seen, latitude, longitude, user_id, created_at, updated_at
+    has gender, age, last_seen, latitude, longitude, user_id, created_at, updated_at
   end
 
   is_impressionable
@@ -242,6 +242,8 @@ class Missing < ActiveRecord::Base
     end
 
   def assign_virtual_variables
+    self.city = city
+    self.history = history
     self.age = age
     self.last_seen = last_seen
     self.latitude = latitude

@@ -21,7 +21,7 @@ var questions = <%= @questions.to_json.html_safe %>;
 <div class="container_16 b-content">
 	<div class="grid_11">
 		<div class="t-big_fat b-missing__wanted_h">
-			Разыскивается <%= @missing.name %><% unless @missing.ages.nil? %>, <%= @missing.ages %> <%= Russian.p @missing.ages, 'год', 'года', 'лет' %> <% end %>
+			Разыскивается <%= @missing.name %><% unless @missing.age.nil? %>, <%= @missing.ages %> <%= Russian.p @missing.age, 'год', 'года', 'лет' %> <% end %>
 		</div>
 
 		<div class="b-missing__print_ad">

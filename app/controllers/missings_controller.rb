@@ -13,10 +13,10 @@ class MissingsController < ApplicationController
     if current_user && current_user.has_missing?  
       redirect_to missing_path(current_user.missings.first)
     else
-      @search = Search.new
+      params[:search] ||= {}
+      @search = Search.new(params[:search])
       @missings = @search.missings
       @request = request
-      @help_types = HelpType.all
     end      
   end
 
@@ -73,31 +73,6 @@ class MissingsController < ApplicationController
       }           
     end
   end
-  
-  # I can help method
-  def i_can_help
-  	unless user_signed_in?
-	  	render :nothing => true   
-	  	return
-	  end
-	          
-	  data = {
-  		:missing => Missing.find(params[:missing_id]),
-  		:user_id => current_user.id
-	  }
-	               
-    i_can_help = CanHelp.where(:user_id => current_user.id, :missing_id => params[:missing_id]).first || CanHelp.new
-    i_can_help.update_attributes(params[:can_help])
-    
- 	  i_can_help.save
- 	
- 	  respond_to do |format|
-   		format.json {
-   			render :json => { :ok => "true" }
-  		}
-  	end
-  end
-
   	
   # GET /missings/new
   # GET /missings/new.xml

@@ -11,7 +11,7 @@
 <!-- Info -->
 
 
-<div class="container_16 p-main-info">
+<div class="container_16 p-main p-main-info">
 	<div class="b-main-info-margin grid_5" type="missing">
 		<ul class="b-list p-main-info-list">
 			<li><%= image_tag "missing-ico.png" %></li>
@@ -25,6 +25,23 @@
 		</ul>	
 	</div>
 	
+    <div class="b-main-info-margin grid_5" type="missing">
+      <ul class="b-list p-main-info-list">
+        <li><%= image_tag "missing-ico.png" %></li>
+        <li><h3>Начните поиск объявлений</h3></li>
+        <li>
+          <p class="p-main-info-text">
+            Вы можете искать объявления в нашей базе по имени, возрасту, полу, региону пропажи и другим параметрам. 
+          </p>
+        </li>
+        <li class="p-main-search-container">
+          <%= form_for @search, :url => "/missings", :method => :get do |f| %>
+            <%= f.text_field :keywords, :placeholder => "Имя пропавшего", :class => "t-medium p-main-search-field" %>
+            <%= f.submit "Показать", :name => nil ,:class => "t-medium_fat silver" %>
+          <% end %>
+        </li>
+      </ul>	
+    </div>
 
 	<div class="b-main-info-margin grid_5" type="volunteer">
 		<ul class="b-list p-main-info-list">

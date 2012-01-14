@@ -23,7 +23,8 @@ class Search < ActiveRecord::Base
     if geo.nil?
       Missing.search keywords, :with => conditions
     else
-      Missing.search keywords, :with => conditions, :geo => geo 
+      geo_conditions = { "@geodist" => 0.0..20_000.0 }
+      Missing.search keywords, :with => geo_conditions.merge!(conditions), :geo => geo 
     end
 
   end
@@ -32,7 +33,7 @@ class Search < ActiveRecord::Base
     if region
       geo_result = Geocoder.search(region).first
 
-      [geo_result.latitude, geo_result.longitude] unless geo_result.nil?
+      [(geo_result.latitude / 180) * Math::PI, (geo_result.longitude / 180) * Math::PI] unless geo_result.nil?
     end
   end
 

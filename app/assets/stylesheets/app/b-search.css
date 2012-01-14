@@ -16,25 +16,26 @@
   position: relative;
 }
   
-.b-search-filter-list {
-	list-style: none;
+input.b-search-filter__name {
+  width: 385px;
+}
 
-	margin: 0; 
+.b-search-filter-list {
+  list-style: none;
+
+  margin: 0; 
   width: 706px;
 
 }
 	.b-search-filter-list__item {
-		float: left;
-    margin-right: 1.5em;
+  	  float: left;
+      margin-right: 50px;
 	}
 
-    .b-result-missing__photo {
-      margin-right: 1.5em;
-      border: 1px solid #ccc;
-    } 
+   
 
 	.b-search-filter-list__text_field {
-		width: 150px;
+      width: 150px;
 	}
 
     .b-search-filter__ages_container {
@@ -43,4 +44,22 @@
 
     .b-search-filter__ages {
       width: 24px;
+    }
+
+.b-search-result__item {
+  margin-bottom: 10px;
+}
+
+    .b-search-result__name {
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .b-search-result__field {
+      color: #666;
+    }
+
+    img.b-search-result__photo {
+      margin-right: 12px;
+      border: 1px solid #ccc;
     }
