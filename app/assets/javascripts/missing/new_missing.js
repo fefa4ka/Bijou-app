@@ -1,7 +1,20 @@
 $(function(){
 	var submit_action,
 		selected_step,
-		redirect_disallow;
+		redirect_disallow,
+        validate = {
+            debug: true,
+            errorClass: 'b-tooltip-error',
+            rules: {
+                "missing[name]": { required: true, minlenght: 3 },
+                "missing[gender]": { required: true },
+                "missing[birthday(1i)]": { required: true },
+                "missing[user_attributes][name]": { required: true },
+                "missing[user_attributes][email]": { required: true, email: true },
+                "missing[user_attributes][phone]": { required: true },
+                "missing[user_attributes][password]": { required: true }
+            }
+        };
 	
 	if( $(".p-new-missing").length == 0 ) return; 
 
@@ -95,15 +108,7 @@ $(function(){
 			}
 			
         })
-        .validate({
-            debug: true,
-            errorClass: 'b-tooltip-error',
-            rules: {
-                "missing[name]": { required: true, minlenght: 3 },
-                "missing[gender]": { required: true },
-                "missing[birthday(1i)]": { required: true }
-            }
-        });
+        .validate(validate);
 	
 	$('.missing_step').click( function() {
 		$("#new_missing").submit();
@@ -112,10 +117,12 @@ $(function(){
 		return false;
 	});
 	
-	$(".b-form__photos input[type=file]").change(function(){    
+	$(".b-form__photos input[type=file]").change(function(){   
+        var form = $("#new_missing");
 		submit_action = "upload_photo";
 		$("#upload_photo").val(1);
-		$("#new_missing").submit();
+        form.validate().cancelSubmit = true;        
+        form.submit();
 	});
 	
    

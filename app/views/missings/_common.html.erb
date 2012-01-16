@@ -27,7 +27,7 @@ $(function(){
   <hr class="b-hr form" />
   
 <div class="container_16">
-<div class="grid_8">
+<div class="grid_16">
 <!-- Входим див, после hr -->
 
   <div class="b-form__field">
@@ -53,10 +53,20 @@ $(function(){
     
   <div class="b-form__field">
     <%= f.label :man_birthday, "Фотографии", :class => "b-form__label" %>
-	<div class="b-form__button_corner l-left ui-corner-all">
-	   <input id="add_photo" type="button" value="Добавить" class="t-medium">
-	   <input id="upload_photo" name="missing_upload_photo" type="hidden" value=0>
-	</div>
+    <div class="l-left">
+        <div class="b-form__button_corner ui-corner-all">
+           <input id="add_photo" type="button" value="Добавить" class="t-medium">
+           <input id="upload_photo" name="missing_upload_photo" type="hidden" value=0>
+        </div>
+        <div class="b-missing__add_photo_description t-small">
+          Добавьте минимум две фотографии:
+           <ul>
+             <li>В полный рост</li>
+             <li>Где хорошо видно лицо</li>
+           </ul>
+          Лучше если будет несколько вариантов каждой.
+        </div>
+   </div>
 	
 
 	<ul class="b-form__photos">
