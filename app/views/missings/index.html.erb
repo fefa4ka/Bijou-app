@@ -1,4 +1,4 @@
-
+<% @title = "Поиск объявлений" %>
 <div class="p-search container_16">
 <%= form_for @search, :url => "/missings", :method => :get do |f| %>
     <div class="t-big">Поиск по объявлениям</div>
@@ -16,21 +16,15 @@
       <ul class="b-search-filter-list">
         <li class="b-search-filter-list__item">
           <div class="b-form__label">Пол</div>
-          <%= f.select :male, [ ["любой", nil], ["мужской", true], ["женский", false] ] %>
+          <%= f.select :male, [ ["любой", "any"], ["мужской", true], ["женский", false] ] %>
         </li>
         <li class="b-search-filter-list__item">
           <div class="b-form__label">Возраст</div>
-          <%= radio_button_tag 'ages', nil, f.object.maximum_age.nil? && f.object.minimum_age.nil? ? true : false %> <%= label_tag 'ages_', 'любой' %><br/>
-          <%= radio_button_tag 'ages', 'children', f.object.minimum_age == 1 && f.object.maximum_age == 18 ? true : false, :minimum_age => 1, :maximum_age => 18 %> <%= label_tag 'ages_children', 'ребенок' %><br/>
-          <%= radio_button_tag 'ages', 'adult', f.object.minimum_age == 18 && f.object.maximum_age == 50 ? true : false, :minimum_age => 18, :maximum_age => 50 %> <%= label_tag 'ages_adult', 'взрослый' %><br/>
-          <%= radio_button_tag 'ages', 'eldery', f.object.minimum_age == 50 && f.object.maximum_age.nil? ? true : false, :minimum_age => 50 %> <%= label_tag 'ages_eldery', 'пожилой' %><br/>
-          <div class="b-search-filter__ages_container">
-            <%= f.text_field :minimum_age, :class => "b-search-filter__ages" %> - <%= f.text_field :maximum_age, :class => "b-search-filter__ages" %><br/>
-          </div>
+          <%= f.select :ages, [ ["любой", "any"], ["Ребенок (до 18 лет)", "children"], ["Взрослый (19 - 50 лет)", "adult"], ["Пожилой (от 50 лет)", "eldery"] ] %>
         </li>
         <li class="b-search-filter-list__item">
           <div class="b-form__label">Дата пропажи</div>
-          <%= f.text_field :last_seen, :value => @search.last_seen_string, :class => "daterangepicker b-search-filter-list__text_field" %>
+          <%= f.select :last_seen, [ ["любая", "any" ], ["неделя назад", "week"], ["месяц назад", "month"], ["год назад", "year"] ] %>
         </li>
       </ul>
 

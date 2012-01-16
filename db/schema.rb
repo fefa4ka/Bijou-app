@@ -242,7 +242,7 @@ ActiveRecord::Schema.define(:version => 20120111181533) do
     t.boolean  "male"
     t.integer  "minimum_age"
     t.integer  "maximum_age"
-    t.date     "last_seen"
+    t.string   "last_seen"
     t.string   "region"
     t.integer  "region_type"
     t.boolean  "with_photo"

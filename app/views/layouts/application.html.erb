@@ -12,7 +12,7 @@
        Remove this if you use the .htaccess -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title>Я пропал &mdash; поиск пропавших без вести</title>
+  <title><%= @title %></title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -39,7 +39,7 @@
 <div class="b-head-bg">
   <div class="container_16"> 
 	<div class="b-head__logo grid_3">
-		<%= link_to_unless_current image_tag('logo/' + rand(12).to_s() + '.png', :class => 'l-left'), '/' %>
+		<%= link_to_unless_current image_tag('logo.png', :class => 'l-left'), '/' %>
 		</a>           
 	</div> 
 	<div class="grid_13">    

@@ -1,3 +1,5 @@
+<% @title = "Разыскивается #{@missing.name}" %>
+
 <script>
 var questions = <%= @questions.to_json.html_safe %>; 
 </script>
@@ -18,14 +20,14 @@ var questions = <%= @questions.to_json.html_safe %>;
 	<div class="clear"></div>
 </div>
 
-<div class="container_16 b-content">
+<div class="container_16 p-missing">
 	<div class="grid_11">
 		<div class="t-big_fat b-missing__wanted_h">
 			Разыскивается <%= @missing.name %><% unless @missing.age.nil? %>, <%= @missing.ages %> <%= Russian.p @missing.age, 'год', 'года', 'лет' %> <% end %>
 		</div>
 
 		<div class="b-missing__print_ad">
-			<img src=""> <a href="#">Печать объявления</a>
+          <%= image_tag "printer.png" %><a href="#">Печать объявления</a>
 		</div>
 
         <div class="t-medium b-missing__date_location">
@@ -41,7 +43,7 @@ var questions = <%= @questions.to_json.html_safe %>;
 		<% unless @missing.photos.first %>
 			<%= image_tag 'no_photo.jpg', :class => "b-missing__photo_image"  %>
 		<% else %>
-			<%= link_to image_tag(@missing.photos.first.photo.url(:medium), :class => "b-missing__photo_image"), @missing.photos.first.photo.url, :class => "b-missing__photo_link", :rel => "photos" %>
+			<%= link_to image_tag(@missing.photos.first.photo.url(:medium), :class => "b-missing__photo_image ui-corner-top"), @missing.photos.first.photo.url, :class => "b-missing__photo_link", :rel => "photos" %>
 		<% end %>
 		</div>                
 		<% if @missing.photos.length > 1 %>

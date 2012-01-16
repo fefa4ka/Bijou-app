@@ -1233,7 +1233,20 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
  *	jQuery autocomplete plugin
  */
 
- .ui-autocomplete-input{
+ .ui-autocomplete-input {
+   border: 1px solid #c4c4c4;
+   outline: 0 none;
+   height: 14px;
+   padding: 4px 4px;
+
+   z-index: 3;
+
+   -webkit-box-shadow: inset 0px 2px 0px 0px #e2e2e2;
+   -moz-box-shadow: inset 0px 2px 0px 0px #e2e2e2;
+   box-shadow: inset 0px 2px 0px 0px #e2e2e2;
+ }
+
+ .ui-autocomplete-input.fat {
 		background: #e0e0e0;
 
 		border: 1px solid #cecdcc;
@@ -1243,20 +1256,40 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
 		height: 23px;
         padding: 2px 8px 1px;
 
-		width: 200px;
 		z-index: 3;
 		box-shadow:inset 0px 0px 0px 1px #edeceb;
+  }
+
+  	.ui-dropdown-button-input, .ui-dropdown-button-input.ui-state-hover {
+		background-image: url('/assets/ui-autocomplete-arrow-w.png');
+		background-repeat: no-repeat;
+		background-position: 12px, 20px;
+
+		border: none !important;
+
+		left: -33px;
+		top: 2px;
+		height: 23px;
+
+		font-size: 13px;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
 	}
+
 
 	.ui-autocomplete{
 		border: 1px solid rgba(0,0,0,.2);
+        border-top: none;
 		padding: 0px;
-		box-shadow: 0px 1px 3px 1px #c0bfbf;
-		border-radius: 0px 0px 3px 3px;
+        -webkit-box-shadow: 0px 1px 3px 1px rgba(0,0,0,.1);
+        -moz-box-shadow: 0px 1px 3px 1px rgba(0,0,0,.1);
+        box-shadow: 0px 1px 3px 1px rgba(0,0,0,.1);
 
+		border-radius: 0px 0px 3px 3px;
 	}
 	
-	.ui-dropdown-button-input{
+	.ui-dropdown-button-input.fat {
 		background: #e0e0e0;
 		background-image: url('/assets/ui-autocomplete-arrow.png');
 		background-repeat: no-repeat;

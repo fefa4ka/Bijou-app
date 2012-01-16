@@ -94,7 +94,16 @@ $(function(){
 				update_photos(data.data);
 			}
 			
-	});
+        })
+        .validate({
+            debug: true,
+            errorClass: 'b-tooltip-error',
+            rules: {
+                "missing[name]": { required: true, minlenght: 3 },
+                "missing[gender]": { required: true },
+                "missing[birthday(1i)]": { required: true }
+            }
+        });
 	
 	$('.missing_step').click( function() {
 		$("#new_missing").submit();

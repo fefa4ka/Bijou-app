@@ -3,15 +3,20 @@
     var defaults = {
         content: 'Tooltip example',
         tooltipCl: 'b-tooltip',
+        tooltipThemeCl: 'silver',
         tooltipTailCl: 'b-tooltip__tail',
         tooltipContentCl: 'b-tooltip__content',
-        toggleOnClick: false
+        toggleOnClick: false,
+        forAttr: '',
+        idPrefix: ''
 
     },
         options = {},
         opts = $.extend(defaults, options),
         methods = {
             init: function(options) {
+                opts = $.extend(opts, options);
+                
                 return this.each(function(i) {
                     if ($(this).attr('tooltip')) {
                         return true;
@@ -26,6 +31,18 @@
                     var tooltip = $('#' + $(this).attr('tooltip'));
                     tooltip.toggle();
                     methods.positioning.apply(this, [tooltip]);
+                } else {
+                    methods.createTooltip.apply(this);
+                }
+            },
+            update: function(options){
+                opts = $.extend(opts, options);
+log(opts, options);
+                if ($(this).attr('tooltip')) {
+                    var tooltip = $('#' + $(this).attr('tooltip'));
+                    methods.positioning.apply(this, [tooltip]);
+
+                    tooltip.find('.' + opts['tooltipContentCl']).html(opts['content']);
                 } else {
                     methods.createTooltip.apply(this);
                 }
@@ -65,10 +82,10 @@
                 tooltip.removeClass('top left bottom right').addClass(tailPosition);
             },
             createTooltip: function() {
-                var id = new Date().getTime()
+                var id = opts['idPrefix'] + new Date().getTime(),
                 	tail = $('<i/>').addClass(opts['tooltipTailCl'] + '_border').append($('<b/>').addClass(opts['tooltipTailCl'])),
                     content = $('<div/>').addClass(opts['tooltipContentCl']).html(opts['content']),
-                    tooltip = $('<div/>').html('').addClass(opts['tooltipCl']).attr('id', id).append(tail).append(content),
+                    tooltip = $('<div/>').html('').addClass(opts['tooltipCl'] + ' ' + opts['tooltipThemeCl']).attr('id', id).attr('for', opts['forAttr']).append(tail).append(content),
                     tailPosition = opts['tailPosition'];
 
                 // Помечаем, что тултип уже создан для этого элемента
@@ -77,14 +94,17 @@
 
                 methods.positioning.apply(this, [tooltip]);
                 return tooltip;
+            },
+            destroy: function() {
+                if ($(this).attr('tooltip')) {
+                    var tooltip = $('#' + $(this).attr('tooltip'));
+                    tooltip.remove();
+                    $(this).removeAttr('tooltip');
+                }
             }
-
         }
 
         $.fn.tooltip = function(method) {
-            opts = $.extend(opts, options);
-
-
             if (methods[method]) {
                 return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
             } else if (typeof method === 'object' || !method) {

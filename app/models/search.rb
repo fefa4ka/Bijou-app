@@ -1,20 +1,49 @@
 class Search < ActiveRecord::Base
+  attr_accessor :ages
+
   def missings
     @missings ||= find_missings
   end
 
-  def last_seen_string
-    self.last_seen.strftime("%d.%m.%Y") if self.last_seen
-    self.last_seen_start.strftime("%d.%m.%Y") + ' - ' + self.last_seen_end.strftime("%d.%m.%Y") if self.last_seen.nil? && self.last_seen_start && self.last_seen_end
+  def ages
+    self[:ages]
   end
-   
+
+  def ages=(value)
+    case value
+    when "children"
+      self.minimum_age = 1
+      self.maximum_age = 18
+    when "adult" 
+      self.minimum_age = 19
+      self.maximum_age = 50
+    when "eldery"
+      self.minimum_age = 51
+      self.maximum_age = 150
+    end
+    
+    self[:ages] = value
+  end
+
   def last_seen=(value)
-    logger.debug(value)
-    dates = value.split(" - ")
-    dates.each_with_index { |date,index| dates[index] = Date.parse(date) }
-    self.last_seen_start, self.last_seen_end = dates if dates.size == 2
-    self.last_seen = dates.first if dates.size == 1
+    case value
+    when "week"
+      self.last_seen_start = 1.week.ago
+    when "month"
+      self.last_seen_start = 1.month.ago
+    when "year"
+      self.last_seen_start = 1.year.ago
+    end
+
+    self.last_seen_end = Time.now
+    
+    self[:last_seen] = value
   end
+  
+  def male=(value)
+    self[:male] = value unless value == "any"
+  end
+
 
   private
 
@@ -49,6 +78,7 @@ class Search < ActiveRecord::Base
   end
 
   def last_seen_conditions
+    { :last_seen => self.last_seen_start..self.last_seen_end } if self.last_seen_start && self.last_seen_end
   end
   
   def conditions 

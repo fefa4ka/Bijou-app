@@ -1,5 +1,5 @@
 
-
+<% @title = "Найду тебя &mdash; поиск пропавших без вести".html_safe %>
 <!-- Main page content -->
 
 <!-- Service popup -->
@@ -12,8 +12,8 @@
 
 
 <div class="container_16 p-main p-main-info">
-	<div class="b-main-info-margin grid_5" type="missing">
-		<ul class="b-list p-main-info-list">
+	<div class="grid_5" type="missing">
+		<ul class="p-main-info-list">
 			<li><%= image_tag "missing-ico.png" %></li>
 			<li><h3>Если пропал близкий вам человек</h3></li>
 			<li>
@@ -25,8 +25,8 @@
 		</ul>	
 	</div>
 	
-    <div class="b-main-info-margin grid_5" type="missing">
-      <ul class="b-list p-main-info-list">
+    <div class="grid_5" type="missing">
+      <ul class="p-main-info-list">
         <li><%= image_tag "missing-ico.png" %></li>
         <li><h3>Начните поиск объявлений</h3></li>
         <li>
@@ -36,15 +36,23 @@
         </li>
         <li class="p-main-search-container">
           <%= form_for @search, :url => "/missings", :method => :get do |f| %>
-            <%= f.text_field :keywords, :placeholder => "Имя пропавшего", :class => "t-medium p-main-search-field" %>
-            <%= f.submit "Показать", :name => nil ,:class => "t-medium_fat silver" %>
+            <table class="l-full_width">
+              <tr>
+                <td>
+                  <%= f.text_field :keywords, :placeholder => "Имя пропавшего", :class => "t-medium p-main-search-field" %>
+                </td>
+                <td class="p-main-search-button">
+                  <%= f.submit "Найти", :name => nil ,:class => "t-medium_fat silver" %>
+                </td>
+              </tr>
+            </table>
           <% end %>
         </li>
       </ul>	
     </div>
 
-	<div class="b-main-info-margin grid_5" type="volunteer">
-		<ul class="b-list p-main-info-list">
+	<div class="grid_5" type="volunteer">
+		<ul class="p-main-info-list">
 			<li><%= image_tag "volonter-ico.png" %></li>
 			<li><h3>Хотите помочь в поисках?</h3></li>
 			<li><p class="p-main-info-text">Если вы готовы уделить ваше время поиску про-<br/>павших без вести. Мы с радостью примем любую помощь от вас.</p></li>
