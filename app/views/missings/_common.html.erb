@@ -79,6 +79,7 @@ $(function(){
 	    <li class="b-form__photo">
 			<%= image_tag photo_form.object.photo.url(:small), :size => "100x100", :class => "b-form__photo" %>
 			<%= tag :input, { :type => "button", :value => "удалить", :class => "b-form__photo_delete red_action destroy" } %>
+            <%= photo_form.hidden_field :_destroy %>
 		</li>
       <% end %>
     <% end %>

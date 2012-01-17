@@ -1,3 +1,4 @@
+<% unless @missing.collection.nil? %>
 <% @missing.collection.each do |c| %>
 <div class="b-missing__history">
   <div class="b-header t-medium">
@@ -22,4 +23,5 @@
     <% end %>
     </table>
 </div>
+<% end %>
 <% end %>

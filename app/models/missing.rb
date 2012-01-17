@@ -124,7 +124,7 @@ class Missing < ActiveRecord::Base
     opts = default_opts.merge(opts)
 
     answers = answers(opts)
-    if opts[:is_tree]
+    if opts[:is_tree] && !answers.nil?
       collection = {}
       answers.each do |a|
         q_id = a[:questionnaire_id]

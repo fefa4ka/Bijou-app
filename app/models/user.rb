@@ -33,8 +33,7 @@ class User < ActiveRecord::Base
     record = Impression.where(:user_id => self.id, :impressionable_type => type, :impressionable_id => id).last
     record.created_at
   end          
-  
-
+ 
 private
   def image_url_provided?
     !self.image_url.blank?

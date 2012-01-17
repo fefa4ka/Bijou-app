@@ -1,7 +1,3 @@
-<div class="b-header__description">
-	<h2>Обратная связь</h2>
-  	<p>С вами будут связываться люди, которые могут помочь и вам будут приходить уведомления о новой информации связанной с поиском.</p>
-</div>
 
 <!-- Выходи из дива для hr -->
 </div>
@@ -15,10 +11,14 @@
 <div class="container_16">
 <div class="grid_16">
 <!-- Входим див, после hr -->
+ <p class="b-header__description">
+  С вами будут связываться люди, которые могут помочь и вам будут приходить уведомления о новой информации связанной с поиском.
+</p>
+
 
  <div class="b-form__field">
    <%= user.label :name, "Ваше имя", :class => "b-form__label" %>
-   <%= user.text_field :name %>
+   <%= user.text_field :name, :value => (user.object.name unless user.object.name == "guest") %>
  </div>
 
 <!-- Выходи из дива для hr -->
@@ -42,7 +42,7 @@
  
 <div class="b-form__field">
   <%= user.label :email, "Электронная почта", :class => "b-form__label" %>
-  <%= user.text_field :email %>
+  <%= user.text_field :email, :value => (user.object.email unless user.object.email =~ /guest/) %>
 </div>
 
 <!-- Выходи из дива для hr -->

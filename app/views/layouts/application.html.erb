@@ -40,7 +40,6 @@
   <div class="container_16"> 
 	<div class="b-head__logo grid_3">
 		<%= link_to_unless_current image_tag('logo.png', :class => 'l-left'), '/' %>
-		</a>           
 	</div> 
 	<div class="grid_13">    
 		<input type="button" class="b-head__login maroon l-right" value="Войти на сайт" />  
@@ -83,8 +82,7 @@
 <div class="b-head-bg__logged">
   <div class="container_16">
  	<div class="b-head__logo grid_3">
-		<%= link_to_unless_current image_tag('logo/' + rand(12).to_s() + '.png', :class => 'l-left'), '/' %>
-		</a>           
+		<%= link_to_unless_current image_tag('logo.png', :class => 'l-left'), '/' %>
 	</div>  
     <div class="b-head__auth grid_3">  
 		<button class="b-auth__button loggedin maroon l-right" provider="<%= current_user.provider %>"><%= current_user.name %></button>	
@@ -136,7 +134,7 @@
 			</ul>
 		</td>
 		<td class="b-footer__copyright">
-			<p>&copy; 2011 Bijou people &mdash; поиск пропавших безвести</p>
+          <p>&copy; <%= Time.now.year %> Найду тебя &mdash; поиск пропавших безвести</p>
 		</td>
 	  </table>
   </div>

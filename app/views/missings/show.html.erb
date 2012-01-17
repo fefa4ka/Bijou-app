@@ -31,7 +31,9 @@ var questions = <%= @questions.to_json.html_safe %>;
 		</div>
 
         <div class="t-medium b-missing__date_location">
-          <%= @missing.gender ? 'Пропал' : 'Пропала' %> <%= Russian.strftime @missing.last_seen, "%d %B" %> в <%= YandexInflect.inflections(@missing.city).last %>
+          <% if @missing.last_seen && @missing.city %>
+            <%= @missing.gender ? 'Пропал' : 'Пропала' %> <%= Russian.strftime @missing.last_seen, "%d %B" %> в <%= YandexInflect.inflections(@missing.city).last %>
+          <% end %>
         </div>
 	<p id="notice"><%= notice %></p>
 
