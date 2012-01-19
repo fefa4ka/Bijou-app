@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h3>Личное сообщение от <%= YandexInflect.inflections(@sender[:name]).second %> по поводу пропажи.</h3>
+    <p>
+      <%= @message.text %>
+    </p>
+    <h3>Контакты <%= YandexInflect.inflections(@sender[:name]).second %></h3>
+    <p>
+      Почта: <%= link_to @sender[:email], "mailto:" + @sender[:email] %><br/>
+      <% if @sender[:phone] %>Телефон: <%= @sender[:phone] %><% end %>
+    </p>
+    <p><%= link_to "Найду тебя", "http://naidutebya.ru" %> - поиск пропавших без вести</p>
+  </body>
+</html>
+   

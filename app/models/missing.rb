@@ -46,17 +46,20 @@ class Missing < ActiveRecord::Base
   end
   
   def second_name
-    name.split(" ")[1] || ""
+    n = name.split(" ")
+    return n[1] if name.size == 3
+    return "" if name.size == 2
   end
 
   def last_name
     n = name.split(" ")
-    return n[1] if n.size == 1
-    return n[2] if n.size == 2
+    return n[1] if n.size == 2
+    return n[2] if n.size == 3
     return ""
   end
 
   def short_name
+    first_name + ' ' + last_name
   end
 
   # Ages
@@ -74,6 +77,11 @@ class Missing < ActiveRecord::Base
 
   def history(user_id=self.user_id)
     ""
+  end
+
+  def users_who_answer
+    user_ids = History.select("DISTINCT user_id, user_id").collect(&:user_id)
+    User.find(user_ids)
   end
 
   def characteristics(user_id=self.user_id)
@@ -156,7 +164,7 @@ class Missing < ActiveRecord::Base
     conditions[:answer_type] = opts[:answer_type] unless opts[:answer_type].nil?
     conditions[:id] = opts[:question_id] unless opts[:question_id].nil?
     
-    questions = self.questions.where(conditions).select("DISTINCT question_id, questions.*")
+    questions = self.questions.where(conditions).where("histories.text <> 'skip' OR histories.text IS NULL").select("DISTINCT question_id, questions.*")
 
     questions.each do |q|        
       question = hash_questions[q.id] || nil

@@ -1,6 +1,46 @@
 $(function(){        
-	var last_image = 0;            
+	var last_image = 0,
+        animate_missing_block;            
 	
+    function show_missing(image) {
+		var img = image, 
+			popup =	$('.p-main-suggest-popup'),      
+            popupImage = $('.p-main-suggest-popup .photo'),
+            popupLink = $('.p-main-suggest-popup .link'),
+			popupName = $('.p-main-suggest-popup .name'),  
+			popupDate = $('.p-main-suggest-popup p'),
+			src = img.attr('src'),
+			name = img.attr('data-name'), 
+			url = img.attr('data-url'),
+			date = img.attr('data-date'),     
+            random = img.attr('data-random'),
+			box = img.parent(), 
+			boxTop = box.offset().top, 
+			boxLeft = box.offset().left, 
+			top = img.offset().top - boxTop + img.height() * 1.2, 
+			left = img.offset().left - boxLeft; 
+
+		if(last_image == random) return;
+			                              
+		popup.css('top', top).css('left', left);    
+	    popupImage.attr('src', src);
+        popupLink.each(function() {
+            $(this).attr('href', url);
+        });
+		popupName.text(name);
+		popupDate.text('' + date);       
+		popup.show();
+
+		last_image = random;
+    }   
+
+    function show_random_missing() {
+        var random = Math.floor( Math.random() * (45-1+1) + 1 ),
+            image = $('.p-main-suggest-images img:nth-child(' + random + ')');
+        log(image);
+        show_missing( image );
+    }
+
 	if( $(".p-main").length == 0 ) return;
 
 	$('.p-main-suggest-info[type=volunteer]').hide();
@@ -22,31 +62,19 @@ $(function(){
 		$('.p-main-suggest-info[type!=' + type + ']').fadeOut(300);          
 		suggest.fadeIn(500);                     
 		
+        if( $(this).attr('animate_missing') ) {
+            show_random_missing();
+            animate_missing_block = setInterval( show_random_missing, 2500 );
+            log('animate_missing');
+        } else {
+            clearInterval( animate_missing_block );
+        }
+
 	});
 	
-	$('.p-main-suggest-images img').mouseover(function(){ 
-		var img = $(this), 
-			popup =	$('.p-main-suggest-popup'),      
-			popupImage = $('.p-main-suggest-popup img'),
-			popupName = $('.p-main-suggest-popup a'),  
-			popupDate = $('.p-main-suggest-popup p'),
-			src = img.attr('src'),
-			name = img.attr('data-name'), 
-			url = img.attr('data-url'),
-			date = img.attr('data-date'),       
-			box = img.parent(), 
-			boxTop = box.offset().top, 
-			boxLeft = box.offset().left, 
-			top = img.offset().top - boxTop + img.height() * 1.2, 
-			left = img.offset().left - boxLeft; 
-		if(last_image == url) return;
-			                              
-		popup.css('top', top).css('left', left);    
-	    popupImage.attr('src', src);
-		popupName.html('<a href="' + url + '">' + name + '</a>');
-		popupDate.text('' + date);       
-		
-		last_image = url;
+	$('.p-main-suggest-images img').mouseover(function(){
+        clearInterval( animate_missing_block );
+        show_missing($(this));
 	});               
 	
 	

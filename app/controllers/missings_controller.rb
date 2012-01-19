@@ -138,6 +138,8 @@ class MissingsController < ApplicationController
         @missing.published = true  
         @missing.save  
 
+        UserMailer.new_missing_email(@missing, params[:missing]["user_attributes"]["password"]).deliver
+
         session[:missing_id] = nil
         
         sign_in @missing.user

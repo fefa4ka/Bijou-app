@@ -1,5 +1,5 @@
 <script>
-  var places = <%= @missing.places.to_json.html_safe %>
+  var places = <%= @missing.places.nil? ? "[]" : @missing.places.to_json.html_safe %>
 </script>
 <div class="b-header">Места, где <%= @missing.gender ? 'бывал' : 'бывала' %> <%= @missing.first_name %></div>
 <div class="b-missing__map_border ui-corner-all">

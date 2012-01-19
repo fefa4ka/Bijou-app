@@ -7,7 +7,6 @@ class Search < ActiveRecord::Base
 
   def ages
     self[:ages]
-    form.validate().cancelSubmit = true;        
   end
 
   def ages=(value)

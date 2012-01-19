@@ -66,3 +66,6 @@ gem 'meta_search'
 
 # Proc manager
 gem 'foreman'
+
+# Mailer
+gem 'tlsmail'

@@ -1,5 +1,14 @@
 $(function (){
-	if( $(".p-missing").length == 0 ) return;
+	if( $(".p-missing").length == 0 && $(".p-report").length == 0 ) return;
+    
+    var validate = {
+            errorClass: 'b-tooltip-error',
+            rules: {
+                "message[text]": { required: true, minlenght: 10 },
+                "message[name]": { required: true, minlenght: 3 },
+                "message[email]": { required: true, email: true }
+            }
+        };
 
    	$('.new_message')
 		.live('ajax:beforeSend', function(e){
@@ -31,7 +40,8 @@ $(function (){
 							
 			 
 			}          
-		});                            
+		})
+        .validate(validate);                            
 		
 	$('.b-report__message_answer').live('click', function(){
 		var message = $(this).parent().parent(),

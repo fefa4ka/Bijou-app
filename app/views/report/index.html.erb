@@ -1,27 +1,20 @@
-<div class="container_16 b-report b-content">
+<% @title = "Сводка по объявлению" %>
+<div class="container_16 p-report b-content">
 	<div class="grid_11">
-		<div class="b-sidebar">
-		    <div class="l-left">К сожалению, у анкеты мало посещений, попробуйте еще рассказать о случившемся в социальных сетях:</div>
-			<div class="addthis_toolbox addthis_default_style l-left b-missing__share">
-				<a class="addthis_button_preferred_1"></a>
-				<a class="addthis_button_preferred_2"></a>
-				<a class="addthis_button_preferred_3"></a>
-				<a class="addthis_button_preferred_4"></a>
-				<a class="addthis_button_compact"></a>
-				<a class="addthis_counter addthis_bubble_style"></a>   
-			</div>   
-		    <div class="clear"></div>
-		</div>         
-	    
-		<div class="clear"></div>  
-		
+
 		<div class="b-report__toolbar toolbar">
 			<%= check_box_tag "all", 1, true, :class => "b-form-custom-false" %><%= label_tag "all", "Все" %>
 			<%= check_box_tag "new_history", 1, false, :class => "b-form-custom-false" %><%= label_tag "new_history", "Новые обстоятельства" %>
 			<%= check_box_tag "new_people", 1, false, :class => "b-form-custom-false" %><%= label_tag "new_people", "Кто может помочь" %>
-			<%= check_box_tag "people", 1, false, :class => "b-form-custom-false" %><%= label_tag "people", "Участники поиска" %>   
-			<%= check_box_tag "similar", 1, false, :class => "b-form-custom-false" %><%= label_tag "similar", "Похожие пропажи" %>
-		</div>         
+			<%= check_box_tag "people", 1, false, :class => "b-form-custom-false" %><%= label_tag "people", "Сообщения" %>   
+          </div>    
+
+        <% if @inbox.size == 0 %>
+          <div class="b-sidebar b-report__empty t-medium">
+            Пока нет новых обстоятельств или сообщений, попробуйте рассказать о пропаже в социальных сетях.
+          </div>
+        <% end %>
+
 		
 		<div class="b-report__list">      
 
@@ -30,7 +23,7 @@
 			<div class="b-missing__comment" message_id="<%= message.id %>"> 
 				<div class="b-missing__comment_header">
 					<% if message.user.nil? %>
-						<%= link_to "Анонимный комментарий", "", :class => "t-medium b-missing__comment_author" %>    
+						<%= link_to message.name, "", :class => "t-medium b-missing__comment_author" %>    
 					<% else %>
 						<%= link_to message.user.name, "", :class => "t-medium b-missing__comment_author" %>    
 					<% end %>
@@ -49,7 +42,7 @@
 			<div class="b-missing__comment sub">
 				<div class="b-missing__comment_header l-left">    
 					<% if sub_message.user.nil? %>
-						<%= link_to "Анонимный комментарий", "", :class => "b-missing__comment_author" %>    
+						<%= link_to sub_message.name, "", :class => "b-missing__comment_author" %>    
 					<% else %>
 						<%= link_to sub_message.user.name, "", :class => "b-missing__comment_author" %>    
 					<% end %>			
@@ -77,36 +70,22 @@
 	   	<div class="b-sidebar b-report__statistic">
 			<p class="b-sidebar__header">Статистика просмотров</p>
 			<p>
-				Количество посещений: <span class="b-report__statistic_red"><%= @missing.impressionist_count %></span>
-			</p>
-			<p>
-				Детективы: <span class="b-report__statistic_green">35</span>
-			</p>
-			<p>
-				Остальные: <span class="b-report__statistic_red">65</span>
-			</p>
+              Количество посещений: <span class="b-report__statistic_red"><%= @missing.impressionist_count :filter => :ip_address %></span>
+            </p>
+
+            <br/>
+		    <div class="l-left">Расскажите о пропаже:</div>
+			<div class="addthis_toolbox addthis_default_style l-left b-missing__share">
+				<a class="addthis_button_preferred_1"></a>
+				<a class="addthis_button_preferred_2"></a>
+				<a class="addthis_button_preferred_3"></a>
+				<a class="addthis_button_preferred_4"></a>
+				<a class="addthis_button_compact"></a>
+				<a class="addthis_counter addthis_bubble_style"></a>   
+			</div>   
+		    <div class="clear"></div>	
 		</div>  
-		
-		<div class="b-sidebar b-report__detectives">
-			<p class="b-sidebar__header">Детективы</p>
-			<p class="b-report__detectives_list">
-				Количество посещений: <span class="b-report__statistic_red">100</span>
-			</p>
-			<div class="b-sidebar__hr_100"></div>
-			<p class="b-report__detectives_description">
-				Детективы оказывают платные услуги
-			</p>                                  
-			<%= button_to 'Попросить всех о помощи', '/request/detective_help',  :class => "green t-medium"  %>
-		</div> 
-		<div class="b-sidebar b-report__statistic">
-			<p class="b-sidebar__header">Платные услуги</p>
-		    <ul class="b-sidebar__list b-report__services">
-				<li class="b-sidebar__list_item"><%= link_to "Разместить объявление в газете", "#" %></li>
-				<li class="b-sidebar__list_item"><%= link_to "Подготовить заявления", "#" %></li>
-				<li class="b-sidebar__list_item"><%= link_to "Расклеить объявления", "#" %></li>
-			</ul>
-		</div>
- 
+		 
 	</div>
 </div>
 

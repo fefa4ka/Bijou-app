@@ -11,7 +11,7 @@
 			</a>
 		</div>
         <div class="b-search-result__description">
-          <a href="<%= missing_path(missing) %> /" class="b-search-result__name"><%= missing.name %></a>
+          <a href="<%= missing_path(missing) %>/" class="b-search-result__name"><%= missing.name %></a>
           <% unless missing.age.nil? %> <p class="b-search-result__field"><%= missing.age %> <%= Russian.p missing.age, 'год', 'года', 'лет' %> </p> <% end %>
           <% unless missing.last_seen.nil? %> <p class="b-search-result__field"><%= missing.gender ? 'Пропал' : 'Пропала' %> <%= Russian.strftime missing.last_seen, "%d %B" %> в <%= YandexInflect.inflections(missing.city).last %></p> <% end %>
         </div>

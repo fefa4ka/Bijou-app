@@ -17,24 +17,22 @@ class UsersController < ApplicationController
 
   
   def send_message                        
-     params[:message]["user_id"] = current_user.id
+     params[:message]["user_id"] = (current_user && current_user.id) || nil
      @message = Message.new(params[:message]) 
      @message.convert_from_answer      
      @message.save           
-     
+    
      if @message.user.nil?
-       @message.user = { :id => 0, :username => "Анонимный комментарий" }          
+        user = { :id => 0, :username => params[:message]["name"] } 
+     else
+        user = { :id => @message.user.id, :username => @message.user.name }
      end
-
 
      data = {
        :text => @message.text,    
        :message_id => @message.message_id,
        :date => Russian.strftime(@message.created_at, "%d %B"), 
-       :user => {
-         :id => @message.user.id,
-         :username => @message.user.name
-       }
+       :user => user 
      }                                                         
 
 

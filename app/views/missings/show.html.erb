@@ -1,29 +1,11 @@
 <% @title = "Разыскивается #{@missing.name}" %>
 
-<script>
-var questions = <%= @questions.to_json.html_safe %>; 
-</script>
-                         
-<div class="b-form__background b-form__questions_container show_page l-hidden">
-	<div class="container_16">
-		<div class="b-form__questions_infinity grid_16">    
-			<div class="b-form__questions_fade"></div>  
-			<div class="t-big b-form__questionnaire"></div>                  
-			<div class="b-form__questions">
-			</div>
-		</div>       
-		<div class="b-form__questions_finish l-hidden">
-			<div class="t-medium">Спасибо за ответы. У нас к вам есть еще вопросы, мы их зададим после размещения объявления.</div> 
-			<p><br>Переходите к следующему шагу</p>    
-		</div>
-	</div>
-	<div class="clear"></div>
-</div>
+<%= render 'show_questions' if current_user && @missing.user.id == current_user.id %>
 
 <div class="container_16 p-missing">
 	<div class="grid_11">
 		<div class="t-big_fat b-missing__wanted_h">
-			Разыскивается <%= @missing.name %><% unless @missing.age.nil? %>, <%= @missing.ages %> <%= Russian.p @missing.age, 'год', 'года', 'лет' %> <% end %>
+			Разыскивается <%= @missing.name %><% unless @missing.age.nil? %>, <%= @missing.age %> <%= Russian.p @missing.age, 'год', 'года', 'лет' %> <% end %>
 		</div>
 
 		<div class="b-missing__print_ad">
@@ -57,6 +39,7 @@ var questions = <%= @questions.to_json.html_safe %>;
 		<% end %>
 		</ul>         
 		<% end %>
+        <div class="clear"></div>
 		<%= tag :input, { :type => "button", :value => "Я видел этого человека", :class => "blue b-missing__i_saw t-medium" } %>
 	</div>
 	
@@ -79,13 +62,30 @@ var questions = <%= @questions.to_json.html_safe %>;
 		<a class="addthis_counter addthis_bubble_style"></a>
 		</div>
 		<!-- AddThis Button END -->
+    </div>
   </div>
+
+  <div class="grid_5 b-rightside">
+	<%= render :partial => 'show_right_sidebar' %>
+  </div>
+
+<div class="clear"></div>
+
+<% if !current_user || (current_user && @missing.user.id != current_user.id) %>
+<div class="p-missing">
+<%= render 'show_questions' %>
+</div>
+<% end %>
+
+<div class="container_16 p-missing">
+    <div class="grid_11">
+
 	<div class="clear"></div>
 
-    <%= render :partial => 'show_map' %>
+    <%= render :partial => 'show_map' if @missing.places %>
 
 	<div class="clear"></div>
-	
+    
 	<div class="b-missing__comments_header b-header">Обсуждение</div>
 	<div class="clear"></div>
 	
@@ -143,12 +143,7 @@ var questions = <%= @questions.to_json.html_safe %>;
 	
 	<!-- end center block -->
 	</div>
-	
-	
-	<div class="grid_5 b-rightside">
-			<%= render :partial => 'show_right_sidebar' %>
-	</div>
-	
+		
 </div>
 
 <div class="clear"></div>  

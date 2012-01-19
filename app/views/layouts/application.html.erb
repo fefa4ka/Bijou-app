@@ -27,7 +27,9 @@
   <%= javascript_include_tag "application" %>    
   <%= javascript_include_tag "http://api-maps.yandex.ru/1.1/index.xml?key=AHmGEU8BAAAAJIFvPQIAD1wXXrhoqnwsspxpPhtmLSqwEwgAAAAAAAAAAAAbOVs7mmCHXD2cPLCxn5CBw7VoPQ==" %>                      
   <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4e5c782a66f297f6"></script>
-
+  <script>
+    var logged_in = <%= current_user ? "true" : "false" %>;
+  </script>
 </head>
 
 <body>	

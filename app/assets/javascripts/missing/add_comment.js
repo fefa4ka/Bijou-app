@@ -1,9 +1,20 @@
 $(function (){
 	if( $(".p-missing").length == 0 ) return;
 
+   var validate = {
+            errorClass: 'b-tooltip-error',
+            debug: true,
+            rules: {
+                "discussion[comment]": { required: true }
+            }
+        };
    	$('.new_discussion')
 		.live('ajax:beforeSend', function(e){
-			
+		    if(!logged_in) {
+             show_auth_dialog( function (){ $('.new_discussion').submit(); log('submit comment'); } );
+             e.preventDefault();
+             return false;
+            }
 		})
 		.live('ajax:success', function(evt, data, status, xhr){    
 			// Если все ок, добавляем комментарий и очищаем заполненные поля
@@ -49,7 +60,8 @@ $(function (){
 				
 				$(this).children('textarea').val("");
 			}          
-		});                            
+		})
+        .validate(validate);                            
 		
 	$('.b-missing__comment_answer').live('click', function(){
 		var comment = $(this).parent().parent(),

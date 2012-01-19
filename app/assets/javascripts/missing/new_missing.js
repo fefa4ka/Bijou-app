@@ -3,7 +3,6 @@ $(function(){
 		selected_step,
 		redirect_disallow,
         validate = {
-            debug: true,
             errorClass: 'b-tooltip-error',
             rules: {
                 "missing[name]": { required: true, minlenght: 3 },
@@ -122,7 +121,7 @@ $(function(){
 		submit_action = "upload_photo";
 		$("#upload_photo").val(1);
         form.validate().cancelSubmit = true;        
-        form.submit();
+            form.submit();
 	});
 	
    

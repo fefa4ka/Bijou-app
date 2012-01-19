@@ -10,21 +10,29 @@
 //= require_tree ./questions
 //= require_tree ./search
 
+var auth_callback;
+
+function show_auth_dialog(callback) {
+    $('.b-head__login_form').dialog({
+        width: 500,
+        height: 325,
+        modal: true,
+        resizable: false,
+        draggable: false,
+        closeOnOverlayClick: true
+    });
+
+    auth_callback = callback;
+}
+
 $(function()
 {
 	$('input[class!=b-form-custom-false],button[class!=b-form-custom-false]').customInput();
 	$(".toolbar").buttonset();   
-	$('.b-head__login').click(function()
-	{
-		$('.b-head__login_form').dialog({
-			width: 500,
-			height: 325,
-			modal: true,
-			resizable: false,
-			draggable: false,
-			closeOnOverlayClick: true
-		});
+	$('.b-head__login').click(function() {
+        show_auth_dialog();
 	});     
+
 	
 	// auth
 	$("#login_form")
@@ -32,7 +40,15 @@ $(function()
 			$('.b-head__login_form').parent().effect('bounce', { direction: 'left', times: 3}, 200 );
 		})
 		.bind("ajax:success", function(evt, data, status, xhr){
-			document.location = data.redirect;
+			if(auth_callback) {
+                //change_header_to_auth();
+                log('auth_callback');
+                logged_in = true;
+                auth_callback();
+                $('.b-head__login_form').dialog('close');
+            } else {
+                document.location = data.redirect;
+            }
 			
 	});
 

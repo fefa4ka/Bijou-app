@@ -7,21 +7,22 @@
 	<div class="b-main-info-margin grid_5">
 		<h3>Большая база пропавших людей</h3>
 		<div class="p-main-suggest-images">
-			<% @missings.each do |missing| %>                                         
+		  	<% (45/@missings.length).times do |count|%>
+	        
+              <% @missings.each do |missing| %>                                         
 			    <% if missing.photos.first %>
-				<%= image_tag missing.photos.first.photo.url(:thumb), { :size => "30x30", "data-url" => missing_path(missing), "data-name" => missing.short_name, "data-date" => Russian.strftime(missing.created_at, "%e %B %Y года") } %>   
+                  <%= image_tag missing.photos.first.photo.url(:thumb), { :size => "30x30", "data-random" => count + rand(100), "data-url" => missing_path(missing), "data-name" => missing.short_name, "data-date" => Russian.strftime(missing.created_at, "%e %B %Y года") } %>   
 				<% else %>
 				<%= image_tag 'no_photo.jpg', { :size => "30x30", "data-url" => url_for(missing), "data-name" => missing.name, "data-date" => missing.created_at }  %>
 				<% end %> 
 			<% end %> 	
-			<% (45-@missings.length).times do |count|%>
-				<%= image_tag "small-photo-test.jpg" %>
-			<% end %>      
+
+            <% end %>      
 			
 		</div>
-		<div class="p-main-suggest-popup">
-			<%= image_tag "small-photo-test.jpg" %>
-			<a href="#">Бухал Бухалыч</a>
+		<div class="p-main-suggest-popup l-hidden">
+          <a href="#" class="link"><%= image_tag "small-photo-test.jpg", :class => "photo" %></a>
+			<a href="#" class="name link">Бухал Бухалыч</a>
 			<p>Пропал 20 мая 2009 года</p>
 		</div>
 	</div>

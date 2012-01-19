@@ -1,6 +1,7 @@
 $(function(){    
    if( $(".p-missing").length == 0 ) return; 
 
+
    function animate_i_can_help_window(height) {
 		var window = $('.b-missing__i_can_help_window');
 		
@@ -79,17 +80,24 @@ $(function(){
     
    // Реакция на кнопку «Я видел этого человека»
    $('.b-missing__i_saw').click(function(){
+       var change_button,
+           container = $(this).parent();
+
+       function show_block(){
+           container.append(
+             $('<div class="b-missing__i_saw_in"/>').append(
+                    $('<label for="i_saw_in" class="l-block"/>').html('Я видел этого человека в <span class="b-missing__i_saw_in_place">Москве</span>')
+                ).append(
+                    change_button = $('<button class="b-missing__i_saw_in_change silver"/>').text('Уточнить').button()
+                ).append(
+                    $('<input id="i_saw_in" class="b-missing__i_saw_in"/>').val('Москве').hide()
+                )
+           );
+        }
+
    	   $(this).hide();
-	   $(this).parent().append(
-		$('<div class="b-missing__i_saw_in"/>').append(
-			$('<label for="i_saw_in" class="l-block"/>').html('Я видел в <span class="b-missing__i_saw_in_place">Москве</span>')
-	    ) .append(
-		    $('<a href="#" class="b-missing__i_saw_in_change b-pseudo_link"/>').text('Уточнить')
-		).append(
-		    $('<input id="i_saw_in" class="b-missing__i_saw_in"/>').val('Москве').hide()
-		)
-	   );
-	});                                             
+	   show_block();
+    });                                             
 	        
 	// Реакции на отправку личного сообщения
 	$('#new_message')
@@ -194,4 +202,6 @@ $(function(){
 
 		animate_i_can_help_window(height);
 	});
+
+    $(".b-missing__select_version").combobox({ combobox_class: "fat", input_disabled: true });
 });
