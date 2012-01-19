@@ -1,9 +1,7 @@
 <div class="b-search-result">
   <% @missings.each do |missing| %>
-    <% logger.debug(missing.inspect) %>
 	  <div class="b-search-result__item">
 		<div class="b-search-result__photo l-left">
-			<a href="<%= missing_path(missing) %>/">
 			<% unless missing.photos.first %>
               <%= image_tag 'no_photo.jpg', :size => "65x65", :class => "b-search-result__photo" %>
 			<% else %>
