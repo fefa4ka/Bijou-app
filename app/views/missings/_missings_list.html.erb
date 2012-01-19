@@ -1,5 +1,6 @@
 <div class="b-search-result">
-	<% @missings.each do |missing| %>
+  <% @missings.each do |missing| %>
+    <% logger.debug(missing.inspect) %>
 	  <div class="b-search-result__item">
 		<div class="b-search-result__photo l-left">
 			<a href="<%= missing_path(missing) %>/">

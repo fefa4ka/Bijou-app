@@ -10,14 +10,10 @@ class MissingsController < ApplicationController
   # GET /missings
   # GET /missings.xml
   def index                          
-    if current_user && current_user.has_missing?  
-      redirect_to missing_path(current_user.missings.first)
-    else
       params[:search] ||= {}
       @search = Search.new(params[:search])
       @missings = @search.missings
       @request = request
-    end      
   end
 
   # GET /missings/1

@@ -3,7 +3,6 @@ $(function (){
 
    var validate = {
             errorClass: 'b-tooltip-error',
-            debug: true,
             rules: {
                 "discussion[comment]": { required: true }
             }
