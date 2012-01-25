@@ -9,7 +9,7 @@
 }        
 
 .p-main-info{
-	margin-top: 10px;
+	margin-top: -.5em;
 }              
 
 
@@ -22,17 +22,22 @@
 	margin-bottom: 13px;
 }
 	.p-main-info-list li h3{
+        height: 38px; 
+        
 		font-size: 16px;
 		color: #000000;
 		font-weight: normal;
 	}
 
 	.p-main-info-text {
-		height: 85px;
+		height: 108px;
 		line-height: 1.5;
 		color: #666666;
-
 	}
+
+    .p-main-info-text-list li {
+      margin-bottom: 3px;
+    }
 
 
 .p-main-splitter{
@@ -103,7 +108,7 @@
 
 	.p-main-suggest-images{
 		position: relative;
-		margin-top: 20px;	
+		margin-top: 10px;	
 		width: 270px;
 	}
 		.p-main-suggest-images img{

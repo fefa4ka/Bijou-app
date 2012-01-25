@@ -15,11 +15,15 @@
 	<div class="grid_5" type="missing">
 		<ul class="p-main-info-list">
 			<li><%= image_tag "missing-ico.png" %></li>
-			<li><h3>Если пропал близкий вам человек</h3></li>
+			<li><h3>Если пропал близкий вам человек, мы поможем</h3></li>
 			<li>
-				<p class="p-main-info-text">
-				Мы поможем вам связаться с профессиональными следователями, волонтерами и просто полезными людьми, готовыми заняться поиском пропавшего.
-				</p>
+              <div class="p-main-info-text">
+              <ul class="p-main-info-text-list">
+                <li>найти добровольцев, готовых заняться поиском</li>
+                <li>связаться с людьми, способными оказать вам существенную помощь в поиске</li>
+                <li>собрать информации о пропаже</li>
+              </ul>
+			  </div>
 			</li>
             <li><%= button_to "Создать объявление", "/add_missing/", :method => :get, :class => "t-medium_fat silver blow l-full_width"%></li>
 		</ul>	
@@ -31,7 +35,7 @@
         <li><h3>Начните поиск объявлений</h3></li>
         <li>
           <p class="p-main-info-text">
-            Вы можете искать объявления в нашей базе по имени, возрасту, полу, региону пропажи и другим параметрам. 
+            Вы с легкостью найдете любое объявление из нашей базы – достаточно воспользоваться удобными для вас параметрами поиска: именем, полом, возрастом, регионом пропажи или другими критериями. 
           </p>
         </li>
         <li class="p-main-search-container">
@@ -55,7 +59,7 @@
 		<ul class="p-main-info-list">
 			<li><%= image_tag "volonter-ico.png" %></li>
 			<li><h3>Хотите помочь в поисках?</h3></li>
-			<li><p class="p-main-info-text">Если вы готовы уделить ваше время поиску про-<br/>павших без вести. Мы с радостью примем любую помощь от вас.</p></li>
+			<li><p class="p-main-info-text">Ежедневно в нашей стране пропадают сотни людей – вы можете помочь нам найти каждого из них. </p></li>
 			<li><%= tag :input, { :type => "button", :value => "Хочу принять участие", :class => "p-main-register t-medium_fat silver l-full_width", :for => "volunteer" } %></li>
 			<li>
 
@@ -69,10 +73,10 @@
                     <% end %>
 					</div>
 					<p class="t-medium">или укажите электронную почту</p> 
-					<table class="b-report__search">
-						<tr><td class="b-report__search_field">
-							<%= text_field_tag "place_search", nil, :placeholder => "your@mail.ru", :class => "b-report__search_field"  %> 
-						</td><td class="b-report__search_button">
+					<table class="l-full_width">
+						<tr><td class="b-login__field">
+							<%= text_field_tag "place_search", nil, :placeholder => "your@mail.ru", :class => "b-login__field"  %> 
+						</td><td class="b-login__button">
 							<%= tag :input, { :type => :button, :value => "Продолжить" } %>
 						</td></tr>
 					</table>

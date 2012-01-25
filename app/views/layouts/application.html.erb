@@ -89,8 +89,6 @@
     <div class="b-head__auth grid_3">  
 		<button class="b-auth__button loggedin maroon l-right" provider="<%= current_user.provider %>"><%= current_user.name %></button>	
 		<div class="b-auth__list b-select__list ui-corner-bottom l-hidden">
-			<a class="b-select__list_item">Настройки</a>
-			<a class="b-select__list_item">Помощь</a>
             <%= link_to "Выйти", destroy_user_session_path, :method => :delete, :class => "b-select__list_item" %>
 		</div>
 	</div>                 
@@ -127,12 +125,12 @@
 	  <table class="b-footer">
 	  <tr>
 		<td class="b-footer__statistic">
-			<p>Мы помогли найти 1042 человек. Сейчас в розыске 14 132 человек, <a href="#">помогите их найти</a></p>
+          <p>Сейчас в розыске <%= Missing.all.size %> человек, <a href="/missings">помогите их найти</a></p>
 		</td>
 		<td class="b-footer__nav">
 			<ul class="b-footer__nav_list">
-				<li class="b-footer__nav_element"><a href="#">Что это такое?</a></li>
-				<li class="b-footer__nav_element"><a href="#">Обратная связь</a></li>
+				<li class="b-footer__nav_element"><a href="/info">Что это такое?</a></li>
+				<li class="b-footer__nav_element"><a href="/feedback">Обратная связь</a></li>
 			</ul>
 		</td>
 		<td class="b-footer__copyright">
