@@ -1,19 +1,12 @@
 class Message < ActiveRecord::Base
-  belongs_to :user     
-  belongs_to :message
+
   has_many :messages
+
+  is_private_message
   
-  attr_accessor :answer_to
+  # The :to accessor is used by the scaffolding,
+  # uncomment it if using it or you can remove it if not
+  #attr_accessor :to
+  attr_accessor :from, :to, :to_message, :name, :email, :phone
   
-  def convert_from_answer   
-  	if self.answer_to
-	    parent = Message.find(self.answer_to)
-	    unless parent.nil?
-	      self.message_id = parent.id
-	      self.destination_user_id = parent.user_id
-	    end
-	  end
-  end
-  
-  # typograf :message, :use_p => true, :use_br => true, :encoding => "UTF-8"
 end

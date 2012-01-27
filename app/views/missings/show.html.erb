@@ -13,8 +13,8 @@
 		</div>
 
         <div class="t-medium b-missing__date_location">
-          <% if @missing.last_seen && @missing.city %>
-            <%= @missing.gender ? 'Пропал' : 'Пропала' %> <%= Russian.strftime @missing.last_seen, "%d %B" %> в <%= YandexInflect.inflections(@missing.city).last %>
+          <% if @missing.last_seen || @missing.city %>
+            <%= @missing.gender ? 'Пропал' : 'Пропала' %> <%= Russian.strftime @missing.last_seen, "%d %B" %> <% if @missing.city %> в <%= YandexInflect.inflections(@missing.city).last %> <% end %>
           <% end %>
         </div>
 	<p id="notice"><%= notice %></p>
@@ -41,6 +41,10 @@
 		<% end %>
         <div class="clear"></div>
 		<%= tag :input, { :type => "button", :value => "Я видел этого человека", :class => "blue b-missing__i_saw t-medium" } %>
+        <script>
+          var user_location = "<%= @location.city %>",
+              user_location_inflect = "<%= YandexInflect.inflections(@location.city)[2] %>";
+        </script>
 	</div>
 	
 	<div class="b-missing__center">

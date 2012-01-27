@@ -1,5 +1,6 @@
 $(function(){
-	var submit_action,
+	var form = $("#new_missing"),
+        submit_action,
 		selected_step,
 		redirect_disallow,
         validate = {
@@ -58,19 +59,24 @@ $(function(){
 		submit_action = "next_step";
 	});
 		
-	$(".b-form__back_button").click(function(){
+	$(".b-form__back_button").click(function(e){
+        e.preventDefault();
+
 		submit_action = "previous_step";
+
+        form.validate().cancelSubmit = true;        
+        form.submit();
 	});
 	
 	$(".b-form__save_button").click(function(){
 		$("#save").val(1);
 		submit_action = "save_step";
 		
-		$("#new_missing").submit();
+		form.submit();
 		return false;
 	});
 	
-	$("#new_missing")
+	form
 		.bind("ajax:beforeSend", function(e, xhr, settings){      
 			if ( submit_action == "upload_photo")
 			{      
@@ -110,18 +116,18 @@ $(function(){
         .validate(validate);
 	
 	$('.missing_step').click( function() {
-		$("#new_missing").submit();
+        form.validate().cancelSubmit = true;                
+		form.submit();
 		selected_step = $(this).attr("href");
 		
 		return false;
 	});
 	
 	$(".b-form__photos input[type=file]").change(function(){   
-        var form = $("#new_missing");
 		submit_action = "upload_photo";
 		$("#upload_photo").val(1);
         form.validate().cancelSubmit = true;        
-            form.submit();
+        form.submit();
 	});
 	
    
@@ -156,7 +162,7 @@ $(function(){
 	        e.preventDefault();         // Prevent character input
 	    } else {
 	        var n = e.keyCode;
-	        if (!((n == 8)              // backspace
+	        if (!((n == 8)              // backspae
 			|| (n == 9)					// tab
 	        || (n == 46)                // delete
 	        || (n >= 35 && n <= 40)     // arrow keys/home/end

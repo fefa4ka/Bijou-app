@@ -48,7 +48,7 @@ $(function (){
 			message_id = message.attr('message_id');
 		
 		$('#new_message').clone().attr('id', "").append( 
-			$('<input type="hidden" name="message[answer_to]"/>').val( message_id )
+			$('<input type="hidden" name="message[to_message]"/>').val( message_id )
 		).appendTo( message ).show();      
 		
 		$(this).hide();

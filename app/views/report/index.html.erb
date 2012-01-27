@@ -1,39 +1,35 @@
 <% @title = "Сводка по объявлению" %>
 <div class="container_16 p-report b-content">
 	<div class="grid_11">
-
+<!--
 		<div class="b-report__toolbar toolbar">
 			<%= check_box_tag "all", 1, true, :class => "b-form-custom-false" %><%= label_tag "all", "Все" %>
 			<%= check_box_tag "new_history", 1, false, :class => "b-form-custom-false" %><%= label_tag "new_history", "Новые обстоятельства" %>
 			<%= check_box_tag "new_people", 1, false, :class => "b-form-custom-false" %><%= label_tag "new_people", "Кто может помочь" %>
 			<%= check_box_tag "people", 1, false, :class => "b-form-custom-false" %><%= label_tag "people", "Сообщения" %>   
           </div>    
-
+          -->
         <% if @inbox.size == 0 %>
           <div class="b-sidebar b-report__empty t-medium">
             Пока нет новых обстоятельств или сообщений, попробуйте рассказать о пропаже в социальных сетях.
           </div>
+        <% else %>
+          <div class="b-header">Сообщения</div>
         <% end %>
 
 		
 		<div class="b-report__list">      
-
-			         
 			<% @inbox.each do |message| %>        
 			<div class="b-missing__comment" message_id="<%= message.id %>"> 
 				<div class="b-missing__comment_header">
-					<% if message.user.nil? %>
-						<%= link_to message.name, "", :class => "t-medium b-missing__comment_author" %>    
-					<% else %>
-						<%= link_to message.user.name, "", :class => "t-medium b-missing__comment_author" %>    
-					<% end %>
+					<%= link_to message.sender.name, "", :class => "t-medium b-missing__comment_author" %>    
 					<span class="b-missing__comment_date t-small"><%= Russian.strftime message.created_at, "%d %B" %></span>   
 					<%= tag :input, { :type => "button", :value => "Ответить", :class => "b-report__message_answer silver_action l-right" } %>
 				</div>
 				<div class="b-missing__comment_text comment b-tooltip top silver">
 					<i class="b-tooltip__tail_border"><b class="b-tooltip__tail"></b></i>
 					<div class="b-tooltip__content">
-						<%= message.text %>
+						<%= message.body %>
 					</div>
 				</div>
 			</div>     
@@ -41,15 +37,11 @@
 			<% message.messages.each do |sub_message| %>
 			<div class="b-missing__comment sub">
 				<div class="b-missing__comment_header l-left">    
-					<% if sub_message.user.nil? %>
-						<%= link_to sub_message.name, "", :class => "b-missing__comment_author" %>    
-					<% else %>
-						<%= link_to sub_message.user.name, "", :class => "b-missing__comment_author" %>    
-					<% end %>			
+					<%= link_to sub_message.sender.name, "", :class => "b-missing__comment_author" %>    
 					<span class="b-missing__comment_date t-small l-right"><%= Russian.strftime sub_message.created_at, "%d %B" %></span>   
 				</div>
 				<div class="b-missing__comment_text">
-					<%= sub_message.text %>
+					<%= sub_message.body %>
 				</div>
 			</div>	
 			<% end %>
@@ -58,8 +50,8 @@
 			
 		</div>
 		<div class="b-report__new_message">
-		<%= form_for @message, :url => '/send_message.json', :remote => true, :class => "b-report__send_message" do |message| %>
-			<%= message.text_area :text, :rows => 4, :class => "b-missing__add_comment", :placeholder => "Текст сообщения" %>   
+		<%= form_for @message, :url => '/users/send_message.json', :remote => true, :class => "b-report__send_message" do |message| %>
+			<%= message.text_area :body, :rows => 4, :class => "b-missing__add_comment", :placeholder => "Текст сообщения" %>   
 			<%= message.submit "Отправить", :class=> "b-missing__send_message_button" %>     
 			<div class="clear"></div>           
 		<% end %> 

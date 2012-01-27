@@ -36,4 +36,5 @@ class ApplicationController < ActionController::Base
     u.save()
     u
   end
-end
+
+ end

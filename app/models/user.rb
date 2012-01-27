@@ -17,10 +17,11 @@ class User < ActiveRecord::Base
   attr_accessor :image_url
 
   has_attached_file :avatar, :url => '/users/:style/:id', :styles => { :thumb => "100x100#", :small => "160x160#", :medium => "300x300>", :large => "700x700>" } 
+
+  has_private_messages
   
   has_many :missings, :dependent => :destroy
   has_many :discussions, :dependent => :destroy
-  has_many :messages
   has_many :can_helps, :dependent => :destroy 
                        
   before_validation :download_remote_image, :if => :image_url_provided?

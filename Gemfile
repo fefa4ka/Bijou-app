@@ -69,3 +69,6 @@ gem 'foreman'
 
 # Mailer
 gem 'tlsmail'
+
+# Private messages
+gem 'simple-private-messages', '0.0.0', :git => "git://github.com/jongilbraith/simple-private-messages.git"

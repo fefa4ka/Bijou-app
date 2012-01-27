@@ -1,68 +1,71 @@
-# encoding: utf-8
-
 class UsersController < ApplicationController
-  def new          
+  # GET /users
+  # GET /users.json
+  def index
+    @users = User.all
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @users }
+    end
+  end
+
+  # GET /users/1
+  # GET /users/1.json
+  def show
+    @user = User.find(params[:id])
+
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @user }
+    end
+  end
+
+  # GET /users/new
+  # GET /users/new.json
+  def new
     @user = User.new
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.json { render json: @user }
+    end
   end
-               
-  def create               
-    convert_to_hash       
-    params[:user]["role"] = 1
-    
+
+  # GET /users/1/edit
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  # POST /users
+  # POST /users.json
+  def create
     @user = User.new(params[:user])
-    
-    if @user.save    
-      sign_in @user
-      redirect_to root_url
-    else
-      render :new
+
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.json { render json: @user, status: :created, location: @user }
+      else
+        format.html { render action: "new" }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
   end
 
-  
-  def send_message                        
-     params[:message]["user_id"] = current_user.id
-     @message = Message.new(params[:message]) 
-     @message.convert_from_answer      
-     @message.save           
-     
-     if @message.user.nil?
-       @message.user = { :id => 0, :username => "Анонимный комментарий" }          
-     end
+  # PUT /users/1
+  # PUT /users/1.json
+  def update
+    @user = User.find(params[:id])
 
-
-     data = {
-       :text => @message.text,    
-       :message_id => @message.message_id,
-       :date => Russian.strftime(@message.created_at, "%d %B"), 
-       :user => {
-         :id => @message.user.id,
-         :username => @message.user.name
-       }
-     }                                                         
-
-
-     respond_to do |format| 
-       format.json {
-         render :json => { :ok => "true", :message => data } 
-       }           
-     end
-  end   
-
-      
-  private 
-    def convert_to_hash
-    	data = params[:user]
-    	specialization = {
-    		:specialization_1 => data["specialization_1"],
-    		:specialization_2 => data["specialization_2"],
-    		:specialization_3 => data["specialization_3"],
-    		:specialization_additional => data["specialization_additional"]
-    	}                                                                
-
-    	callback_hash = data["callback_phone"].to_s + data["callback_email"].to_s
-
-    	params[:user]["specialization"] = specialization
-    	params[:user]["callback"] = callback_hash
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.json { head :ok }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
     end
+  end
 end

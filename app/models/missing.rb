@@ -41,21 +41,16 @@ class Missing < ActiveRecord::Base
   # Common info
   # 
   # Name
-  def first_name
+  def last_name
     name.split(" ")[0] || ""
   end
   
   def second_name
-    n = name.split(" ")
-    return n[1] if name.size == 3
-    return "" if name.size == 2
+    name.split(" ")[2] || ""
   end
 
-  def last_name
-    n = name.split(" ")
-    return n[1] if n.size == 2
-    return n[2] if n.size == 3
-    return ""
+  def first_name
+    name.split(" ")[1] || ""
   end
 
   def short_name

@@ -80,18 +80,22 @@ $(function(){
     
    // Реакция на кнопку «Я видел этого человека»
    $('.b-missing__i_saw').click(function(){
-       var change_button,
-           container = $(this).parent();
+       var container = $(this).parent(),
+           location = user_location;
 
        function show_block(){
            container.append(
-             $('<div class="b-missing__i_saw_in"/>').append(
-                    $('<label for="i_saw_in" class="l-block"/>').html('Я видел этого человека в <span class="b-missing__i_saw_in_place">Москве</span>')
+                $('<div class="b-missing__i_saw_in"/>').append(
+                    $('<label for="i_saw_in" class="l-block"/>').html('Я видел этого человека в <span class="b-missing__i_saw_in_place">' + location + '</span>')
                 ).append(
-                    change_button = $('<button class="b-missing__i_saw_in_change silver"/>').text('Уточнить').button()
-                ).append(
-                    $('<input id="i_saw_in" class="b-missing__i_saw_in"/>').val('Москве').hide()
+                    $('<button class="b-missing__i_saw_in_change silver"/>').text('Уточнить').button()
                 )
+           ).append(
+                $('<div class="b-missing__i_saw_in_change_container"/>').append(
+                    $('<input id="i_saw_in" class="b-missing__i_saw_in_change_field"/>').val(location)
+                ).append(
+                    $('<button class="b-missing__i_saw_in_save silver"/>').text('Сохранить').button()
+                ).hide()
            );
         }
 
@@ -99,6 +103,20 @@ $(function(){
 	   show_block();
     });                                             
 	        
+    $(".b-missing__i_saw_in_change").live('click', function() {
+        $(".b-missing__i_saw_in").hide();
+        $(".b-missing__i_saw_in_change_container").show();
+        log('change');
+
+    });
+
+     $(".b-missing__i_saw_in_save").live('click', function() {
+        $(".b-missing__i_saw_in").show();
+        $(".b-missing__i_saw_in_change_container").hide();
+        log('save');
+    });
+
+
 	// Реакции на отправку личного сообщения
 	$('#new_message')
 		.bind('ajax:beforeSend', function(e){

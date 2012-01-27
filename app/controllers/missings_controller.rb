@@ -23,13 +23,15 @@ class MissingsController < ApplicationController
     @author = User.find(@missing.user_id)
 
 	  @discussion = Discussion.new({ :missing_id => @missing.id })
-	  @message = Message.new({ :user_id => @missing.user_id }) 
+	  @message = Message.new 
 	  
 	  @helpers = []
 
 	  # Вопросы 
 	  @questions = Question.for @missing, current_or_guest_user, :all   
-	  
+    
+	@location = get_user_location 
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @missing }
@@ -243,5 +245,20 @@ class MissingsController < ApplicationController
       format.html { redirect_to(missings_url) }
       format.xml  { head :ok }
     end
+  end
+
+  private
+   def get_user_location
+    logger.debug("get location #{request.location.inspect}");
+    if session[:location]
+      location = session[:location]
+    else
+      location = request.location
+      location = Geocoder.search("#{location.latitude},#{location.longitude}").first
+      session[:location] = location
+    end
+
+    return location
+    
   end
 end

@@ -5,6 +5,12 @@ GIT
     geocoder (1.1.0)
 
 GIT
+  remote: git://github.com/jongilbraith/simple-private-messages.git
+  revision: 7461f5a05fc94d4ff6f85e9a3943956a2b45fe2f
+  specs:
+    simple-private-messages (0.0.0)
+
+GIT
   remote: git://github.com/rails/rails.git
   revision: 25ac7e4607b231d72b3667c438cdd7c7c65f96bd
   branch: 3-1-stable
@@ -278,6 +284,7 @@ DEPENDENCIES
   remotipart
   russian
   sass-rails
+  simple-private-messages (= 0.0.0)!
   therubyracer
   thinking-sphinx
   tlsmail

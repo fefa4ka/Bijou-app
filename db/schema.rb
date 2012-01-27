@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120111181533) do
+ActiveRecord::Schema.define(:version => 20120126193424) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.integer  "resource_id",   :null => false
@@ -160,19 +160,17 @@ ActiveRecord::Schema.define(:version => 20120111181533) do
   add_index "impressions", ["user_id"], :name => "index_impressions_on_user_id"
 
   create_table "messages", :force => true do |t|
-    t.string   "name"
-    t.string   "email"
-    t.string   "phone"
-    t.integer  "account_id"
+    t.integer  "sender_id"
+    t.integer  "recipient_id"
+    t.boolean  "sender_deleted",    :default => false
+    t.boolean  "recipient_deleted", :default => false
+    t.string   "subject"
+    t.text     "body"
+    t.datetime "read_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
-    t.integer  "destination_user_id"
     t.integer  "message_id"
-    t.text     "text"
   end
-
-  add_index "messages", ["account_id"], :name => "index_messages_on_account_id"
 
   create_table "missings", :force => true do |t|
     t.string   "name"
@@ -252,6 +250,16 @@ ActiveRecord::Schema.define(:version => 20120111181533) do
     t.date     "last_seen_end"
   end
 
+  create_table "seen_the_missings", :force => true do |t|
+    t.integer  "missing_id"
+    t.integer  "user_id"
+    t.string   "address"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
@@ -297,13 +305,15 @@ ActiveRecord::Schema.define(:version => 20120111181533) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "avatar_file_name"
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string   "provider"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "confirmed"
+    t.boolean  "virtual"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

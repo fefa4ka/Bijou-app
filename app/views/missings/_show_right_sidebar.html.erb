@@ -24,9 +24,7 @@
 					<% end %>
 				</table>
 				<div class="t-center">        
-					<% if current_user && @author.id == current_user.id %>
-					<%= tag :input, { :type => "button", :value => "Отредактировать объявление", :class => "b-missing__toggle_send_message" } %>                                                         
-					<% else %>
+					<% unless current_user && @author.id == current_user.id %>
 					<%= tag :input, { :type => "button", :value => "Написать личное сообщение", :class => "b-missing__toggle_send_message" } %>                                                                               
 					<% end %>
 				</div>                              
@@ -38,9 +36,9 @@
 
 				<div class="b-missing__send_message">
 				<div class="t-medium">Личное сообщение автору</div>
-				<%= form_for @message, :url => '/send_message.json', :remote => true do |message| %>
-			        <%= message.hidden_field :destination_user_id, :value => @missing.user_id %>
-					<%= message.text_area :text, :rows => 4, :class => "b-missing__add_comment", :placeholder => "Текст сообщения" %>  
+				<%= form_for @message, :url => '/users/send_message.json', :remote => true do |message| %>
+			        <%= message.hidden_field :to, :value => @missing.user_id %>
+					<%= message.text_area :body, :rows => 4, :class => "b-missing__add_comment", :placeholder => "Текст сообщения" %>  
 					<% unless user_signed_in? %> 
 					<p class="b-missing__send_message_field">
 					<%= message.label :name, "Ваше имя" %><br/>

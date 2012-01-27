@@ -9,8 +9,8 @@ class ReportController < ApplicationController
       return
     end
     
-    @inbox = Message.where("destination_user_id = ?", current_user.id).reverse         
-    @message = Message.new({ :user_id => current_user.id })        
+    @inbox = current_user.received_messages        
+    @message = Message.new        
     if current_user.missings.length > 0 
       @missing = current_user.missings.first
     end  
