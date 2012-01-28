@@ -41,9 +41,18 @@
 		<% end %>
         <div class="clear"></div>
 		<%= tag :input, { :type => "button", :value => "Я видел этого человека", :class => "blue b-missing__i_saw t-medium" } %>
+
+        <div class="b-missing__i_saw_in l-hidden">
+          <label for="i_saw_in" class="l-block">Я видел этого человека в <span class="b-missing__i_saw_in_place"><%= YandexInflect.inflections(@location.city)[2] unless @location.nil?%></span></label>
+          <button class="b-missing__i_saw_in_change silver">Уточнить</button>    
+        </div>
+
+        <div class="b-missing__i_saw_in_change_container l-hidden">
+          <input id="i_saw_in" class="b-missing__i_saw_in_change_field" value="<%= @location.city unless @location.nil? %>"/>
+          <button class="b-missing__i_saw_in_save silver">Сохранить</button>
+        </div>
         <script>
-          var user_location = "<%= @location.city %>",
-              user_location_inflect = "<%= YandexInflect.inflections(@location.city)[2] %>";
+          var user_location = "<%= @location.city unless @location.nil? %>";
         </script>
 	</div>
 	
