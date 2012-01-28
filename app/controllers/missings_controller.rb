@@ -254,8 +254,10 @@ class MissingsController < ApplicationController
       location = session[:location]
     else
       location = request.location
-      location = Geocoder.search("#{location.latitude},#{location.longitude}").first
-      session[:location] = location
+      unless request.location.nil?
+        location = Geocoder.search("#{location.latitude},#{location.longitude}").first
+        session[:location] = location
+      end
     end
 
     return location
