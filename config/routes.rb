@@ -24,8 +24,8 @@ People::Application.routes.draw do
   match "add_missing/:step" => "missings#new"              
                                                                        
   match "missing/add_comment" => "missings#add_comment"      
-  match "missings/:missing_id/i_can_help" => "missings#i_can_help"    
-  
+  match "seen_the_missing" => "missings#i_seen_the_missing"
+
   match "report" => "report#report"
  
   match "users/send_message" => "messages#create"

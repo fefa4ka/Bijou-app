@@ -94,6 +94,8 @@ $(function(){
      $(".b-missing__i_saw_in_save").live('click', function() {
         $(".b-missing__i_saw_in").show();
         $(".b-missing__i_saw_in_change_container").hide();
+        $(".b-missing__i_saw_in_place").text( $(".b-missing__i_saw_in_change_field").val() );
+
         log('save');
     });
 

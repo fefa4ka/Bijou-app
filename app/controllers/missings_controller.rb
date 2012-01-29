@@ -24,14 +24,17 @@ class MissingsController < ApplicationController
 
 	  @discussion = Discussion.new({ :missing_id => @missing.id })
 	  @message = Message.new 
-	  
+
+      @location = get_user_location 
+      @seen = SeenTheMissing.where( { :missing_id => @missing.id, :user_id => current_or_guest_user } ).first
+      @seen = SeenTheMissing.new( { :missing_id => @missing.id, :address => @location.nil? ? "" : @location.city }) if @seen.nil?
+
 	  @helpers = []
 
 	  # Вопросы 
 	  @questions = Question.for @missing, current_or_guest_user, :all   
     
-	@location = get_user_location 
-    
+	    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @missing }
@@ -244,6 +247,28 @@ class MissingsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(missings_url) }
       format.xml  { head :ok }
+    end
+  end
+
+
+  def i_seen_the_missing
+    seen_params = params[:seen_the_missing]
+    seen = SeenTheMissing.where({ :missing_id => seen_params[:missing_id], :user_id => current_or_guest_user })
+    
+    if seen.size == 0
+      seen = SeenTheMissing.new seen_params
+      seen.user = current_or_guest_user
+    else
+      seen = seen.first
+      seen.update_attributes seen_params
+    end
+
+    if seen.save
+      respond_to do |format|
+        format.json { 
+          render :json => { :ok => true } 
+        }
+      end
     end
   end
 

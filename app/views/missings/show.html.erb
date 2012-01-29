@@ -40,20 +40,21 @@
 		</ul>         
 		<% end %>
         <div class="clear"></div>
-		<%= tag :input, { :type => "button", :value => "Я видел этого человека", :class => "blue b-missing__i_saw t-medium" } %>
+		<%= tag( :input, { :type => "button", :value => "Я видел этого человека", :class => "blue b-missing__i_saw t-medium" } ) if @seen.new_record? %>
 
-        <div class="b-missing__i_saw_in l-hidden">
-          <label for="i_saw_in" class="l-block">Я видел этого человека в <span class="b-missing__i_saw_in_place"><%= YandexInflect.inflections(@location.city)[2] unless @location.nil?%></span></label>
+        <%= form_for @seen, :url => "/seen_the_missing.json", :remote => true do |seen| %>
+          <div class="b-missing__i_saw_in <%= "l-hidden" if @seen.new_record? %>">
+          <label for="i_saw_in" class="l-block">Я видел этого человека в <span class="b-missing__i_saw_in_place"><%= YandexInflect.inflections(seen.object.address)[5] unless @location.nil?%></span></label>
           <button class="b-missing__i_saw_in_change silver">Уточнить</button>    
         </div>
 
         <div class="b-missing__i_saw_in_change_container l-hidden">
-          <input id="i_saw_in" class="b-missing__i_saw_in_change_field" value="<%= @location.city unless @location.nil? %>"/>
-          <button class="b-missing__i_saw_in_save silver">Сохранить</button>
+            <%= seen.hidden_field :missing_id %>
+            <%= seen.text_field :address, :class => "b-missing__i_saw_in_change_field" %>
+            <%= seen.submit "Сохранить", :class => "b-missing__i_saw_in_save silver" %>
         </div>
-        <script>
-          var user_location = "<%= @location.city unless @location.nil? %>";
-        </script>
+        <% end %>
+
 	</div>
 	
 	<div class="b-missing__center">
@@ -110,7 +111,7 @@
 			<% if comment.user.nil? %>
 				<%= link_to "Анонимный комментарий", "", :class => "t-medium b-missing__comment_author" %>    
 			<% else %>
-				<%= link_to comment.user.name, "", :class => "t-medium b-missing__comment_author" %>    
+                <div class="t-medium b-missing__comment_author"><%= comment.user.name %></div> 
 			<% end %>
 			<span class="b-missing__comment_date t-small"><%= comment.discussion_id %> <%= Russian.strftime comment.created_at, "%d %B" %></span>   
 			<%= tag :input, { :type => "button", :value => "Ответить", :class => "b-missing__comment_answer silver_action l-right" } %>
@@ -129,7 +130,7 @@
 			<% if sub_comment.user.nil? %>
 				<%= link_to "Анонимный комментарий", "", :class => "b-missing__comment_author" %>    
 			<% else %>
-				<%= link_to sub_comment.user.name, "", :class => "b-missing__comment_author" %>    
+                <div class="b-missing__comment_author"><%= sub_comment.user.name %></div> 
 			<% end %>			
 			<span class="b-missing__comment_date t-small l-right"><%= Russian.strftime sub_comment.created_at, "%d %B" %></span>   
 		</div>
