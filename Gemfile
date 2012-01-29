@@ -31,6 +31,7 @@ gem 'yaml_db'
 
 # Search
 gem 'thinking-sphinx'
+gem 'ts-delayed-delta'
 
 # Pretty
 gem 'russian'    
@@ -72,3 +73,8 @@ gem 'tlsmail'
 
 # Private messages
 gem 'simple-private-messages', '0.0.0', :git => "git://github.com/jongilbraith/simple-private-messages.git"
+
+# Shedule
+gem 'daemon_generator', '0.0.0', :git => "git://github.com/dougal/daemon_generator.git"
+gem 'whenever'
+

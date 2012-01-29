@@ -23,3 +23,8 @@ namespace :rvm do
     run \"rvm rvmrc trust \#\{release_path\}\"
   end
 end
+
+deploy.task :restart, :roles => :app do
+  run "export RAILS_ENV=production && cd #{deploy_to}/current && /usr/bin/rake ts:rebuild"  
+  run "export RAILS_ENV=production && cd #{current_path} && /usr/bin/ruby script/delayed_delta start"
+end
