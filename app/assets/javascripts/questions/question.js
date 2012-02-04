@@ -13,6 +13,11 @@ $(function(){
 		                                                   
 		prepare_question(questions[0]);            
 		
+        $(".b-form__question__other_answer").live('focus', function(){
+            var checkbox = $(this).attr('data-checkbox'); 
+            $( "#" + checkbox ).attr('checked', 'checked').trigger('updateState');
+        });
+
 		$('.b-form__question__action_button').live('click', function(){ 
 			log('set submit action', $(this).attr('action'));
 			submit_action = $(this).attr('action');
@@ -30,11 +35,7 @@ $(function(){
 		}
 	}             
 	function generate_datepicker(){
-		$(".b-form__question.selected .b-form__question_date").datepicker({
-			onSelect: function(dateText, inst){
-				$('.b-form__question_date_input').val($(this).datepicker('getDate').toUTCString());
-			}
-		});
+		$(".b-form__question.selected .b-form__question_date_input").mask('99.99.9999');
 	}   
 	
 	function generate_map() {
@@ -340,7 +341,7 @@ $(function(){
 					 {{if other}} \
 					 <li class="b-form__question_answers_list__item {{if answers.length > 4}}half{{/if}}"> \
 					 	<input id="question_answer_id_other_${id}" name="question[answer][id]" type="radio" value="other" /> <label for="question_answer_id_other_${id}">другое</label><br> \
-					 	<input type="text" name="question[answer][text]"> \
+					 	<input class="b-form__question__other_answer" data-checkbox="question_answer_id_other_${id}" type="text" name="question[answer][text]"> \
 					 </li> \
 					 {{/if}} \
 				 {{else answer_type == 2}} \
@@ -395,7 +396,7 @@ $(function(){
 				
 	$.template( 'tmpl-question__date', 
 				'<div class="b-form__question_date"></div> \
-				 <input class="b-form__question_date_input" type="hidden" name="question[answer][date]">');
+				 <input class="b-form__question_date_input" type="text" name="question[answer][date]"> дд/мм/гггг');
 				 
 				 
 	// Отправка ответа
