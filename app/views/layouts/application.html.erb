@@ -129,7 +129,7 @@
 		<td class="b-footer__nav">
 			<ul class="b-footer__nav_list">
 				<li class="b-footer__nav_element"><a href="/info">Что это такое?</a></li>
-				<li class="b-footer__nav_element"><a href="/feedback">Обратная связь</a></li>
+				<li class="b-footer__nav_element"><a href="http://naidutebya.reformal.ru" onclick="Reformal.widgetOpen();return false;" onmouseover="Reformal.widgetPreload();">Обратная связь</a></li>
 			</ul>
 		</td>
 		<td class="b-footer__copyright">
@@ -150,5 +150,19 @@
   </script>
 
   <%= yield :scripts %>
+  <script type="text/javascript">
+    var reformalOptions = {
+        project_id: 54648,
+        project_host: "naidutebya.reformal.ru",
+        force_new_window: false
+    };
+    
+    (function() {
+        var script = document.createElement('script');
+        script.type = 'text/javascript'; script.async = true;
+        script.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'media.reformal.ru/widgets/v1/reformal.js?1';
+        document.getElementsByTagName('head')[0].appendChild(script);
+    })();
+  </script>
 </body>
 </html>

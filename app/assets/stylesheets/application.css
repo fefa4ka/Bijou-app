@@ -166,3 +166,13 @@ a:hover { color: red;}
 textarea { 
   resize: none;
 }
+
+
+.content p { 
+  margin: 0 0 .5em;
+}
+
+.content h2 { 
+  font-size: 16px;
+  margin: 1em 0 .5em;
+}

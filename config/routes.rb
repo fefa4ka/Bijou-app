@@ -15,6 +15,7 @@ People::Application.routes.draw do
   resources :missings 
   resources :searches
                                   
+  match ":action" => "static#:action"
   match "add_missing" => "missings#new"
   match "add_missing/save_step" => "missings#save_step"
   match "add_missing/places" => "missings#places"
