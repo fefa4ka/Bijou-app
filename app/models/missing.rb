@@ -237,12 +237,13 @@ class Missing < ActiveRecord::Base
   
   def last_step?
     current_step == steps.last
-  end            
-       
+  end   
+           
+  def steps
+    %w[common history contacts]
+  end     
   private               
-   def steps
-      %w[common history contacts]
-    end
+   
 
   def assign_virtual_variables
     self.city = city

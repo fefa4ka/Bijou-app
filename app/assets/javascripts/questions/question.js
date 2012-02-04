@@ -20,10 +20,8 @@ $(function(){
 	}                   
 	
 	function prepare_question(question){   
-		log('prepare');
 		switch(question.answer_type) {
 			case 4:                    
-			log('mao');
 				generate_map();        
 				break;
 			case 6:      
@@ -412,8 +410,7 @@ $(function(){
 			}         
 			
 			function callback_construct(){
-				// TODO: fade in ответов плавный                        
-				log('construct');                      
+				// TODO: fade in ответов плавный                                        
                 $(this).addClass('selected').removeAttr('style'); 
 				prepare_question(respond_question);
 			}      
@@ -472,6 +469,7 @@ $(function(){
 		
 		if(typeof questions != "undefined" && questions.length > 0) {
 			render_questions(questions);   
+			log('render_questions');
 	    }
 });
 

@@ -1,8 +1,5 @@
 <script>                     
 var questions = <%= @questions.to_json.html_safe %>;
-$(function(){
-   $('.b-form__background.form').hide(); 
-}); 
 </script>                                  
                                      
 <% if @questions.empty? %>

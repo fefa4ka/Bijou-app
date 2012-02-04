@@ -81,6 +81,8 @@ class MissingsController < ApplicationController
     session[:missing_id] ||= 0              
 
     @missing = session[:missing_id] > 0 ? Missing.find(session[:missing_id]) : Missing.new
+    @missing.user = current_or_guest_user if @missing.new_record?
+
     @missing.valid?
     
     @missing.current_step = params[:step]
@@ -111,14 +113,19 @@ class MissingsController < ApplicationController
     # или создаем в базе копию          
     if session[:missing_id] > 0
     	@missing = Missing.find(session[:missing_id])
+
+      if params[:missing]["user_attributes"] && params[:missing]["user_attributes"]["email"].empty?
+        params[:missing]["user_attributes"].delete("email")
+      end
+
     	@missing.update_attributes(params[:missing])    
     	@missing.save
     else
-        @user = current_or_guest_user
+        params[:missing].delete("user_attributes")
 
-    	@missing = Missing.new(params[:missing])
+        @missing = Missing.new(params[:missing])
+        @missing.user = current_or_guest_user
     	@missing.published = false;
-    	@missing.user = @user
     	@missing.save
     	
     	session[:missing_id] = @missing.id

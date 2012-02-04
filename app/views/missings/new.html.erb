@@ -1,4 +1,8 @@
 <% @title = "Размещение объявления" %>
+<script>
+	var current_step = '<%= @missing.current_step %>';
+</script>
+
 <div class="p-new-missing container_16 b-content">
 	
 <div class="grid_10">
@@ -28,14 +32,14 @@
 <div class="grid_16">
 	
 <ul class="b-form__nav_list">
-	<li class="b-form__nav_element b-form__nav_first_element <%- if @missing.current_step == "common" -%> b-form__nav_current_element <%- end -%>">
-	  <%= link_to_unless_current "Заполнение основной информации", "/add_missing", { :class => "missing_step" } %>
+	<li class="b-form__nav_element b-form__nav_first_element <%- if @missing.current_step == "common" -%> b-form__nav_current_element <%- end -%>" data-step="common">
+      <%= link_to_unless_current "Заполнение основной информации", "/add_missing/common", { :class => "missing_step" } %>
 	</li>
-	<li class="b-form__nav_element<%- if @missing.current_step == "history" -%> b-form__nav_current_element <%- end -%>">
-	  <%= link_to_unless_current "Обстоятельства пропажи", "/add_missing/history", { :class => "missing_step" } %>
+	<li class="b-form__nav_element<%- if @missing.current_step == "history" -%> b-form__nav_current_element <%- end -%>" data-step="history">
+      <%= link_to_unless_current "Обстоятельства пропажи", "/add_missing/history", { :class => "missing_step" } %>
 	</li>
     <% unless current_user %>
-	<li class="b-form__nav_element<%- if @missing.current_step == "contacts" -%> b-form__nav_current_element <%- end -%>">
+	<li class="b-form__nav_element<%- if @missing.current_step == "contacts" -%> b-form__nav_current_element <%- end -%>" data-step="contacts">
 	  <%= link_to_unless_current "Обратная связь", "/add_missing/contacts", { :class => "missing_step" } %>
 	</li>
   <% end %>

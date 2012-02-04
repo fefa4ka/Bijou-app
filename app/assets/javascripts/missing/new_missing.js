@@ -5,8 +5,9 @@ $(function(){
 		redirect_disallow,
         validate = {
             errorClass: 'b-tooltip-error',
+            debug: true,
             rules: {
-                "missing[name]": { required: true, minlenght: 3 },
+                "missing[name]": { required: true },
                 "missing[gender]": { required: true },
                 "missing[birthday(1i)]": { required: true },
                 "missing[user_attributes][name]": { required: true },
@@ -17,6 +18,104 @@ $(function(){
         };
 	
 	if( $(".p-new-missing").length == 0 ) return; 
+
+    $('.b-new-missing-form[data-step!=' + current_step + ']').hide(); 
+
+    function change_step(next_step) {
+        function show_buttons(step) {
+            for(var i = 0; i < steps.length; i++) {
+                if( step == steps[i] ) break;
+            }
+            log('step i:', step, i);
+
+            if( i == 0 ) {
+                $('.b-form__back_button').hide();	    
+                $('.b-form__next_button').show();	
+                $('.b-form__save_button').hide();	
+            } else if( i > 0 && i < steps.length - 1 ) {
+                $('.b-form__back_button').show();	    
+                $('.b-form__next_button').show();	
+                $('.b-form__save_button').hide();	
+            } else if( i == steps.length - 1 ) {
+                $('.b-form__back_button').show();	    
+                $('.b-form__next_button').hide();	
+                $('.b-form__save_button').show();	
+            }
+
+        }
+
+    	var steps = ["common", "history", "contacts"],
+    		current_step_container = $('.b-new-missing-form[data-step=' + current_step + ']'),
+    		next_step_container,
+    		direction,
+    		position = current_step_container.offset(),
+            step_container = $('.b-new-missing-form-container');
+    	
+    	position.left = current_step_container.width();
+    	
+    	for(var i = 0; i < steps.length; i++) {
+    		if( next_step == steps[i] ) {
+    			direction = "left";
+
+    			break;
+    		}
+    		if( current_step == steps[i] ) {
+    			next_step = next_step ? next_step : steps[i+1];
+                
+                direction = next_step == -1 ? "left" : "right";
+
+				next_step = next_step == -1 ? steps[i-1] : next_step;
+    			
+    			break;
+    		}
+    	}	    	
+
+        if( direction == "left" ) {
+            form.validate().cancelSubmit = true;        
+            form.submit();
+
+	    	position.left = position.left * -1;
+	    } else {
+            if( !form.valid() ){
+                return;
+            }
+        }
+
+        show_buttons(next_step);
+        $('.b-form__nav_element').removeClass('b-form__nav_current_element');
+        $('.b-form__nav_element[data-step=' + next_step + ']').addClass('b-form__nav_current_element');
+
+
+	    next_step_container = $('.b-new-missing-form[data-step=' + next_step + ']');
+
+	    next_step_container.css('position', 'relative')
+            .css('top', 0)
+	    	.css('left', position.left)
+            .css('width', 0);
+	    
+	    current_step_container
+	 		.hide();
+	 	
+	 	next_step_container.css('width', 0).show()
+	    	.animate({ left: 0, width: $(window).width() }, { queue: false, duration: 500 }, 'linear', function(){ log(form); form.validate().resetForm() } ); 
+
+        $(window).scrollTop( $('.p-new-missing__header').offset().top );
+	    current_step = next_step;
+        
+
+        log(form, form.validate());
+        form.validate().resetForm();
+    }
+
+    function next_step() {
+        form.submit();
+
+    	change_step();
+    }
+
+    function prev_step() {
+    	change_step(-1);
+    }
 
 	$('#missing_user_attributes_phone').mask("+7 999 999-99-99");
 		
@@ -56,16 +155,15 @@ $(function(){
 	}         
 	
 	$(".b-form__next_button").click(function(){
-		submit_action = "next_step";
+        e.preventDefault();
+
+		next_step();
 	});
 		
 	$(".b-form__back_button").click(function(e){
         e.preventDefault();
 
-		submit_action = "previous_step";
-
-        form.validate().cancelSubmit = true;        
-        form.submit();
+        prev_step();
 	});
 	
 	$(".b-form__save_button").click(function(){
@@ -101,10 +199,6 @@ $(function(){
 		    
 			if ( submit_action == "save_step" ){
 				document.location = data.missing_url;
-			} else if ( submit_action && submit_action != "upload_photo") {
-				document.location = $(this).attr(submit_action);
-			} else if ( selected_step ) {
-				document.location = selected_step;
 			}
 			
 			// Обновляем фотки
@@ -115,11 +209,14 @@ $(function(){
         })
         .validate(validate);
 	
-	$('.missing_step').click( function() {
+	$('.missing_step').click( function(e) {
+        e.preventDefault();
         form.validate().cancelSubmit = true;                
 		form.submit();
-		selected_step = $(this).attr("href");
-		
+
+		selected_step = $(this).parent().attr("data-step");
+
+		change_step(selected_step);
 		return false;
 	});
 	
