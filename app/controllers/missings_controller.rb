@@ -40,6 +40,14 @@ class MissingsController < ApplicationController
       format.xml  { render :xml => @missing }
     end
   end
+
+  def print
+    @missing = Missing.find(params[:id])
+    
+    respond_to do |format|
+      format.html { render :layout => false }
+    end
+  end
                       
   # Add comment
   def add_comment                                             
