@@ -95,7 +95,8 @@
     <div class="grid_11">
 
 	<div class="clear"></div>
-
+                                                         
+<%= @missing.places.inspect%>
     <%= render :partial => 'show_map' if @missing.places %>
 
 	<div class="clear"></div>
@@ -111,7 +112,7 @@
 			<% if comment.user.nil? %>
 				<%= link_to "Анонимный комментарий", "", :class => "t-medium b-missing__comment_author" %>    
 			<% else %>
-                <div class="t-medium b-missing__comment_author"><бз%= comment.user.name %></div> 
+                <div class="t-medium b-missing__comment_author"><%= comment.user.name %></div> 
 			<% end %>
 			<span class="b-missing__comment_date t-small"><%= comment.discussion_id %> <%= Russian.strftime comment.created_at, "%d %B" %></span>   
 			<%= tag :input, { :type => "button", :value => "Ответить", :class => "b-missing__comment_answer silver_action l-right" } %>

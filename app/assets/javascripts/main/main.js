@@ -17,8 +17,8 @@ $(function(){
 			box = img.parent(), 
 			boxTop = box.offset().top, 
 			boxLeft = box.offset().left, 
-			top = img.offset().top - boxTop + img.height() * 1.2, 
-			left = img.offset().left - boxLeft; 
+			top = img.offset().top - boxTop + img.height() - 5, 
+			left = img.offset().left - boxLeft - 5; 
 
 		if(last_image == random) return;
 			                              

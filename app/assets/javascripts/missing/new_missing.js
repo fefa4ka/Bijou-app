@@ -78,7 +78,9 @@ $(function(){
 	    } else {
             if( !form.valid() ){
                 return;
-            }
+            } else {
+		        form.submit();
+			}
         }
 
         show_buttons(next_step);
@@ -108,8 +110,6 @@ $(function(){
     }
 
     function next_step() {
-        form.submit();
-
     	change_step();
     }
 
@@ -152,9 +152,40 @@ $(function(){
 						
 			);
 		}
-	}         
+	}               
 	
-	$(".b-form__next_button").click(function(){
+	$(".b-form__photos input[type=file]").change(function(){   
+		submit_action = "upload_photo";
+		$("#upload_photo").val(1);
+        form.validate().cancelSubmit = true;        
+        form.submit();
+	});               
+	
+	// Удаляем фотографию 
+	$(".b-form__photo .destroy").live('click', function(){
+
+		$(this).toggle(function(){	
+			$(this)
+				.val('восстановить')
+				.removeClass('red_action').addClass('silver_action')
+			.parent()
+				.removeClass('active').addClass('deleted')
+			.children('input[name$="[_destroy]"]')
+				.val(1);
+		},
+		function(){
+			$(this)
+				.val('удалить')
+				.removeClass('silver_action').addClass('red_action')
+			.parent()
+				.removeClass('deleted').addClass('active')
+			.children('input[name$="[_destroy]"]')
+				.val(0);
+		}).trigger('click');
+	});
+	
+	
+	$(".b-form__next_button").click(function(e){
         e.preventDefault();
 
 		next_step();
@@ -164,6 +195,15 @@ $(function(){
         e.preventDefault();
 
         prev_step();
+	});          
+	
+	$('.missing_step').click( function(e) {
+        e.preventDefault();
+
+		selected_step = $(this).parent().attr("data-step");
+		change_step(selected_step);     
+		
+		return false;
 	});
 	
 	$(".b-form__save_button").click(function(){
@@ -209,48 +249,11 @@ $(function(){
         })
         .validate(validate);
 	
-	$('.missing_step').click( function(e) {
-        e.preventDefault();
-        form.validate().cancelSubmit = true;                
-		form.submit();
-
-		selected_step = $(this).parent().attr("data-step");
-
-		change_step(selected_step);
-		return false;
-	});
-	
-	$(".b-form__photos input[type=file]").change(function(){   
-		submit_action = "upload_photo";
-		$("#upload_photo").val(1);
-        form.validate().cancelSubmit = true;        
-        form.submit();
-	});
+ 
 	
    
  
-	// Удаляем фотографию 
-	$(".b-form__photo .destroy").live('click', function(){
-
-		$(this).toggle(function(){	
-			$(this)
-				.val('восстановить')
-				.removeClass('red_action').addClass('silver_action')
-			.parent()
-				.removeClass('active').addClass('deleted')
-			.children('input[name$="[_destroy]"]')
-				.val(1);
-		},
-		function(){
-			$(this)
-				.val('удалить')
-				.removeClass('silver_action').addClass('red_action')
-			.parent()
-				.removeClass('deleted').addClass('active')
-			.children('input[name$="[_destroy]"]')
-				.val(0);
-		}).trigger('click');
-	});
+ 
 	                            
 	
 	// Только числа, там где только числа

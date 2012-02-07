@@ -53,8 +53,9 @@ $(function()
 	});
 
 	$(".b-auth__button").each(function(){   
-		var button = $(this),
-			icon = "ui-icon-" + button.attr('provider'); 
+		var button = $(this),     
+			provider = button.attr('provider'),
+			icon = provider != "" ? "ui-icon-" + provider : ""; 
 		
 		$(this).button({
 	        icons: {

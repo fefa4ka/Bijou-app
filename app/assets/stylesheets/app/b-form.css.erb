@@ -552,8 +552,10 @@ input[type="text"] {
 }               
 
 .b-form__question_map_container, .b-form__question_yandex_map {
-	width: 100%;
-	height: 225px;
+	width: 400px;
+	height: 300px; 
+	
+	float: left;
 }
 
 	.b-question__map_balloon {
@@ -562,21 +564,25 @@ input[type="text"] {
 	
 	.b-question__map_balloon_button {
 		margin-top: 10px;
-	}                       
+	}                      
+	
+	p.b-question__map_balloon {
+		margin-top: .5em;
+	} 
 	
 .b-form__question_map_list {
-	list-style: url(<%= asset_path 'question_map_bullet.png' %>);   
-	margin: 1em 0 0 1.3em ;
+	list-style: url(<%= asset_path 'question_map_bullet.png' %>);    
+	
+	margin: 0 0 0 2em;
+	width: 170px;
+	
+	float: left;
 }
 
 .b-form__question_map_item {
 	color: #0065cc;         
 	
 	cursor: pointer;
-	
-	float: left;
-	width: 24%;
-	margin-right: 1%;
 } 	
 
 .b-form__question_map_item:hover {

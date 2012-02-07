@@ -19,5 +19,5 @@
 
 # Learn more: http://github.com/javan/whenever
 every 5.minutes do
-  command "export RAILS_ENV=production && cd /home/production/app && /usr/bin/rake ts:index && /usr/bin/ruby script/delayed_delta start"
+  command "export RAILS_ENV=production && cd /home/production/app && rake ts:index"
 end

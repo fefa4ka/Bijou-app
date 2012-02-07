@@ -48,7 +48,8 @@ $(function(){
 			zoom = 10,
 			center,
 			last_placemark,
-			saved_placemarks = [];
+			saved_placemarks = [];     
+			
 		function geocode(value, callback){
 			// Запуск процесса геокодирования
             var geocoder = new YMaps.Geocoder(value, {results: 1, boundedBy: map.getBounds()}),
@@ -75,20 +76,21 @@ $(function(){
             
 		}
 		
-		function add_placemark(request) { 
+		function add_placemark(request) {      
+		   	log('add_placemark', request);
 			function create_placemark(geoPoint){ 
-
 				var overlay = new YMaps.Placemark(geoPoint, {
 			        	draggable: true,
 			        	style: "default#buildingsIcon" 
 			        });
-				map.addOverlay(overlay);   
+				map.addOverlay(overlay);    
+				log('create_pm', map, overlay);
 				return overlay;
 			}        
 		    
 			function add_events(){
 				// Установка слушателей событий для метки            
-				                            
+				log('add_events');                           
 				// Обработчик для контролов в балуне
 		        YMaps.Events.observe(placemark, placemark.Events.BalloonOpen, function (obj) {  
 					function save_placemark(){
@@ -109,28 +111,32 @@ $(function(){
 						$(this).removeClass('blue_action')
 							   .addClass('red_action')
 							   .val('Удалить место')
-							   .click(remove_placemark);
+							   .click(remove_placemark);      
+						log('save_pm', placemark, last_placemark);
 					}                                   
 					
 					function remove_placemark(){
 						$('.b-form__question_map_item[item_id=' + placemark_id + ']').remove();
-				   		map.removeOverlay(placemark);
+				   		map.removeOverlay(placemark);   
+						log('remove_pm', map, placemark);
 					}       
 					
 					if(!attached_events) {  
 				        $(".b-question__map_balloon_button_" + placemark_id).click(saved ? remove_placemark : save_placemark).customInput();              
-						log(placemark_id, attached_events, saved);
+						log('!attached_events', placemark_id, attached_events, saved);
 						attached_events = true;          
 						saved = true;
 					}
 		        });
 
 		        YMaps.Events.observe(placemark, placemark.Events.DragStart, function (obj) {
-		            prev = obj.getGeoPoint().copy();
+		            prev = obj.getGeoPoint().copy();  
+					log('drag_start', obj, prev);
 		        });
 
 		        YMaps.Events.observe(placemark, placemark.Events.Drag, function (obj) {
-		            var current = obj.getGeoPoint().copy();
+		            var current = obj.getGeoPoint().copy();   
+					log('drag', obj, current);
 
 		            // // Увеличиваем пройденное расстояние
 		            // distance += current.distance(prev);
@@ -140,7 +146,8 @@ $(function(){
 		        });
 
 		        YMaps.Events.observe(placemark, placemark.Events.DragEnd, function (obj) {
-		            obj.update();   
+		            obj.update();         
+					log('drag end', obj);
 		
 					geocode(obj.getGeoPoint(), function(geoResult){      
 						var content = { id: placemark_id, address: geoResult.text, saved: saved };
@@ -190,12 +197,16 @@ $(function(){
 				
 				map.setBounds(geoResult.getBounds());
 				
-				$(".b-form__question.selected .b-form__question_map_search").val("");
+				$(".b-form__question.selected .b-form__question_map_search").val("");    
+				
+				map.removeOverlay(last_placemark);    
+				log('remove last_pm', last_placemark);
+				log('new placemark', placemark);
+				last_placemark = placemark;
 			});  
 			  
 			       
-			map.removeOverlay(last_placemark);
-			last_placemark = placemark;
+
 			
 			
 	        // // Общее расстояние и предыдущая точка
@@ -204,11 +215,6 @@ $(function(){
 	        
 		}
 		
-		function add_place_from_address(address) {
-			// Удаляем прошлый результат
-            add_placemark(address);
-             
-		}
 		
 		$.template('tmpl-question__map_balloon', '<div class="b-question__map_balloon t-strong">${address}</div> \
 											      <input type="button" class="b-question__map_balloon_button b-question__map_balloon_button_${id} {{if saved}}red_action{{else}}blue_action{{/if}}" value="{{if saved}}Удалить место{{else}}Добавить место{{/if}}">');
@@ -234,9 +240,10 @@ $(function(){
 
 		if( $(".b-form__question.selected .b-form__question_map_search").length != 0 ) 
 		{                           
-			$(".b-form__question_search_button").click(function(){
+			$(".b-form__question.selected .b-form__question_search_button").click(function(){
 				var request = $(".b-form__question.selected .b-form__question_map_search").val();
-				add_place_from_address( request );
+				add_placemark( request );           
+				log(this, $(this));
 			});
 			
 			$(".b-form__question.selected .b-form__question_map_search").autocomplete({
@@ -387,7 +394,7 @@ $(function(){
 					  <p class="b-form__field_description">Вы можете добавить несколько мест</p> \
 				 </div> \
 				 <div class="b-form__question_map_description l-left"> \
-					Чтобы уточнить место, можно перетащить метку \
+					Чтобы уточнить месторасположение, добавьте место и перетащите метку. \
 				 </div> \
 				 <div class="b-form__question_yandex_map"></div> \
 				 <ul class="b-form__question_map_list"> \
