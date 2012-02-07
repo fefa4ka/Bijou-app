@@ -290,9 +290,7 @@ class MissingsController < ApplicationController
   private
    def get_user_location
     logger.debug("get location #{request.location.inspect}");
-    if session[:location]
-      location = session[:location]
-    else
+    unless session[:location]
       location = request.location
       unless request.location.nil?
         location = Geocoder.search("#{location.latitude},#{location.longitude}").first
@@ -300,7 +298,7 @@ class MissingsController < ApplicationController
       end
     end
 
-    return location
+    return session[:location]
     
   end
 end
