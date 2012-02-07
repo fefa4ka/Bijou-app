@@ -27,7 +27,7 @@ class MissingsController < ApplicationController
 
       @location = get_user_location 
       @seen = SeenTheMissing.where( { :missing_id => @missing.id, :user_id => current_or_guest_user } ).first
-      @seen = SeenTheMissing.new( { :missing_id => @missing.id, :address => @location.nil? ? "" : @location.city }) if @seen.nil?
+      @seen = SeenTheMissing.new( { :missing_id => @missing.id, :address => @location.nil? ? "" : @location }) if @seen.nil?
 
 	  @helpers = []
 
@@ -296,7 +296,7 @@ class MissingsController < ApplicationController
       location = request.location
       unless request.location.nil?
         location = Geocoder.search("#{location.latitude},#{location.longitude}").first
-        session[:location] = location
+        session[:location] = location.city
       end
     end
 
