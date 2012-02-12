@@ -58,7 +58,8 @@ gem 'omniauth-odnoklassniki'
 gem 'omniauth-vkontakte'
 gem 'omniauth-twitter'
 gem 'omniauth-yandex'
-gem 'omniauth-openid' 
+gem 'omniauth-openid'  
+gem 'omniauth-mailru'
 
 # Admin
 gem 'activeadmin'

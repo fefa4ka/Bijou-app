@@ -4,7 +4,7 @@ Devise.setup do |config|
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
   # note that it will be overwritten if you use your own mailer class with default "from" parameter.
-  config.mailer_sender = "info@yapropal.ru"
+  config.mailer_sender = "info@naidutebya.ru"
 
   # Configure the class responsible to send e-mails.
   # config.mailer = "Devise::Mailer"
@@ -201,7 +201,22 @@ Devise.setup do |config|
   config.omniauth :facebook, '300044736683238', '2d9d5b7514c62313319ce1cf77996397', :display => "popup"
   
   require 'openid/store/filesystem'
-  config.omniauth :open_id, :store => OpenID::Store::Filesystem.new('/tmp'), :name => 'google', :identifier => 'https://www.google.com/accounts/o8/id', :require => 'omniauth-openid'
+  config.omniauth :open_id, :store => OpenID::Store::Filesystem.new('/tmp'), :name => 'google', :identifier => 'https://www.google.com/accounts/o8/id', :require => 'omniauth-openid'   
+       
+  require 'omniauth-vkontakte'
+  config.omniauth :vkontakte, '2800962', 'lcXm2muxYO20HILJbFyw', :display => "popup"
+  
+  require 'omniauth-twitter'
+  config.omniauth :twitter, 'iyEbW42uikEt979NNdcXEg', 'O1JVa5thyiwcW1t3UFOHiClLnjqqClBHNatFM3IQo'               
+  
+  require 'omniauth-yandex'
+  config.omniauth :yandex, 'a76e72e570724da5a449d4f748941b40', '1615226c6e884822afd15ca045ad80d8'
+  
+  require 'omniauth-odnoklassniki'
+  
+  require 'omniauth-mailru'
+  config.omniauth :mailru, '663688', 'fa3bfe2c0279caaff8eb69052e5eb44c'
+ 
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
