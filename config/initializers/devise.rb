@@ -210,7 +210,7 @@ Devise.setup do |config|
   config.omniauth :twitter, 'iyEbW42uikEt979NNdcXEg', 'O1JVa5thyiwcW1t3UFOHiClLnjqqClBHNatFM3IQo'               
   
   require 'omniauth-yandex'
-  config.omniauth :yandex, 'a76e72e570724da5a449d4f748941b40', '1615226c6e884822afd15ca045ad80d8'
+  config.omniauth :yandex, 'f2cb790e847a46baa5c73746581e890c', '95f5e718177048b9a2a0113eac9c1015'
   
   require 'omniauth-odnoklassniki'
   

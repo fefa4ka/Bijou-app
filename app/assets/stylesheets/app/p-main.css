@@ -235,6 +235,11 @@
 /* Register box */
 .p-main-register-box .t-medium {
 	margin-bottom: 5px;
+}                  
+
+.p-main-register-box label.error {    
+	display: inline-block;
+	padding-top: 7px;
 }
 
 .p-main-socials {
@@ -264,6 +269,8 @@
 	.p-main-dialog-a-service ul div{
 		float: left;
 		width: 65px; 
+		
+		padding-top: 4px;
 	}
 	
 	.p-main-dialog-a-service-soc{
@@ -285,8 +292,13 @@
 		position: relative;
 		clear: both;
 		margin-bottom: 10px;
-	}
-
+	}                        
+                              
+	.p-main-dialog-a-service-registration_text {
+		padding: 4px 0 0 6px;              
+		display: inline-block;
+	}                   
+	
 	.p-main-dialog-a-service-submit_enter{
 		margin-right: 10px;
 	}
@@ -297,12 +309,15 @@
 
 
 .p-main-dialog-a-afterlogin{
-	width: 760px;
-	margin-left: -380px;
-	padding-right: 15px;
+	background: #fff !important;    
+	
+	padding: 1.5em 0em 0.5em 0.6em !important;
+	display: none;
+}                                   
 
-	height: 110px;
-}
+	.p-main-dialog-a-afterlogin .button {
+		width: 230px;
+	}
 	.p-main-dialog-a-afterlogin h3{
 		font-size: 16px;
 		font-weight: normal;
@@ -319,8 +334,30 @@
 
 	.p-main-dialog-a-afterlogin li{
 		float: left;
-		margin-right: 20px;
+		margin-left: 20px;
 		list-style: none;
+	}          
+	
+	.p-main-register-box__registration {
+		width: 300px;
+	}                                   
+
+	.p-main-register-box__registration .p-main-register-box {
+		margin: -14px 0;
+	}    
+	
+	.p-main-register-box__registration .p-main-register-box .t-medium {
+		margin-bottom: 3px;
+	}
+
+	.p-main-register-box__registration .p-main-socials {
+		margin-bottom: 2px;
+	}         
+	
+	                            
+	
+	.p-main-register-box__registration .b-sidebar {
+		padding: 8px 12px 6px 12px;
 	}
 
 

@@ -9,12 +9,15 @@ People::Application.routes.draw do
   root :to => "main#index"
 
   resources :users do
-     resources :messages
-  end
+     resources :messages    
+  end              
+  
   resources :sessions
   resources :missings 
   resources :searches
-                                  
+  
+  match "users/check_email" => "users#check_email"
+  
   match "add_missing" => "missings#new"
   match "add_missing/save_step" => "missings#save_step"
   match "add_missing/places" => "missings#places"

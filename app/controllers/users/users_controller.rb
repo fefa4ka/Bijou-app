@@ -36,14 +36,15 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
   end
-
+  
   # POST /users
   # POST /users.json
-  def create
-    @user = User.new(params[:user])
+  def create                    
+    @user = User.where(:email => params[:user][:email]) || User.new(params[:user])
 
     respond_to do |format|
-      if @user.save
+      if @user.new_record?
+        @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
         format.json { render json: @user, status: :created, location: @user }
       else

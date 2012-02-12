@@ -37,7 +37,7 @@ $(function(){
     function show_random_missing() {
         var random = Math.floor( Math.random() * (45-1+1) + 1 ),
             image = $('.p-main-suggest-images img:nth-child(' + random + ')');
-        log(image);
+        
         show_missing( image );
     }
 
@@ -56,7 +56,6 @@ $(function(){
 			return;
 		}          
 		
-		log('enter', '.p-main-suggest-info[type=' + type + ']', suggest); 
 		
 		pointer.animate({'left': left}, 500); 
 		$('.p-main-suggest-info[type!=' + type + ']').fadeOut(300);          
@@ -65,7 +64,7 @@ $(function(){
         if( $(this).attr('animate_missing') ) {
             show_random_missing();
             animate_missing_block = setInterval( show_random_missing, 2500 );
-            log('animate_missing');
+
         } else {
             clearInterval( animate_missing_block );
         }
@@ -79,9 +78,12 @@ $(function(){
 	
 	
 	$('.p-main-register').click(function() { 
-		var role = $(this).attr('for');
-		$(this).parent().hide();
-		$('.p-main-register-box.' + role).show() 
+		var role = $(this).attr('for'),
+			parent = $(this).parent();
+			
+		
+		parent.hide();
+		parent.parent().find('.p-main-register-box.' + role).show() 
 	});
 
   	$(".b-button_social").each(function(){   
@@ -92,31 +94,8 @@ $(function(){
 	        icons: {
 	            primary: icon
 	        }
-	    }).click(function(){
-            var popup,
-                url = $(this).attr('url'),
-                width = $(this).attr('data-width'),
-                height = $(this).attr('data-height');
-
-            function open_popup(url, width, height) {
-                var screenX = typeof window.screenX != 'undefined' ? window.screenX : window.sceenLeft,
-                    screenY = typeof window.screenY != 'undefined' ? window.screenY : window.screenTop,
-                    outerWidth   = typeof window.outerWidth != 'undefined' ? window.outerWidth : document.body.clientWidth,
-                    outerHeight  = typeof window.outerHeight != 'undefined' ? window.outerHeight : (document.body.clientHeight - 22),
-                    left    = parseInt(screenX + ((outerWidth - width) / 2), 10),
-                    top     = parseInt(screenY + ((outerHeight - height) / 2.5), 10),
-                    params  = ('width=' + width + ',height=' + height + ',left=' + left + ',top=' + top);
-
-                popup = window.open(url, 'Login', params);
-
-                if(window.focus) {
-                    popup.focus();
-                }
-
-                return false
-            }
-            
-            open_popup(url, width, height);
-        });
-	});
+	    });
+	});    
+	
+	$('.p-main-dialog-a-service-submit_register').click(show_registration_dialog);
 });

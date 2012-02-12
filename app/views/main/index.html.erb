@@ -69,17 +69,20 @@
 					<p class="t-medium">Войдите через</p>
 					<div class="p-main-socials">         
                     <% omniauth_providers.each do |provider| %>
-                      <button class="b-auth__button b-button_social" provider="<%= provider %>" url="<%= user_omniauth_authorize_path(provider) %>" data-width="600" data-height="400">
+                      <button class="b-auth__button b-auth__action b-button_social" provider="<%= provider %>" url="<%= user_omniauth_authorize_path(provider) %>" data-width="600" data-height="400">
                     <% end %>
 					</div>
 					<p class="t-medium">или укажите электронную почту</p> 
+					<%= form_for User.new, :remote => true, :url => "/users.json" do |f| %>
 					<table class="l-full_width">
 						<tr><td class="b-login__field">
-							<%= text_field_tag "place_search", nil, :placeholder => "your@mail.ru", :class => "b-login__field"  %> 
+							<%= f.text_field :email, :placeholder => "адрес электронной почты", :class => "b-login__field"  %>  
+							<label class="error allready l-hidden"></label>
 						</td><td class="b-login__button">
-							<%= tag :input, { :type => :button, :value => "Продолжить" } %>
+							<%= f.submit "Продолжить"  %>
 						</td></tr>
-					</table>
+					</table>           
+					<% end %>
 				</div> 
 
 				<%#= render :partial => 'socialenter_form' %>
