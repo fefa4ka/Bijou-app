@@ -1,5 +1,7 @@
 <% @title = "Разыскивается #{@missing.name}" %>
-
+<script>
+	var missing_path = "<%= missing_path(@missing) %>";
+</script>
 <%= render 'show_questions' if current_user && @missing.user.id == current_user.id %>
 
 <div class="container_16 p-missing">

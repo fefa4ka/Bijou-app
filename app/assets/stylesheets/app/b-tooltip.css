@@ -149,7 +149,7 @@ label.b-tooltip-error {
   border: 1px solid #ef9797;
   background: #fedbdb;
 
-  height: 15px;
+  min-height: 15px;
   padding: 8px 14px;
   margin: 4px;
 

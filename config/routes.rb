@@ -16,23 +16,24 @@ People::Application.routes.draw do
   resources :missings 
   resources :searches
   
-  match "users/check_email" => "users#check_email"
   
   match "add_missing" => "missings#new"
   match "add_missing/save_step" => "missings#save_step"
   match "add_missing/places" => "missings#places"
   match "add_missing/address_suggest" => "missings#address_suggest"
   match "add_missing/address_data" => "missings#address_data"
-  match "add_missing/answer_the_question" => "missings#answer_the_question"
   match "add_missing/:step" => "missings#new"              
                                                                        
   match "missing/add_comment" => "missings#add_comment"      
   match "missings/:id/print" => "missings#print"
+  match "missings/:id/questions" => "missings#questions"   
+  match "missings/:id/answer_the_question" => "missings#answer_the_question"
   match "seen_the_missing" => "missings#i_seen_the_missing"
 
   match "report" => "report#report"
  
   match "users/send_message" => "messages#create"
+  match "users/check_email" => "users#check_email"
   
   match ":action" => "static#:action"
    

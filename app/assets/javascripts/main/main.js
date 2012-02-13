@@ -77,25 +77,5 @@ $(function(){
 	});               
 	
 	
-	$('.p-main-register').click(function() { 
-		var role = $(this).attr('for'),
-			parent = $(this).parent();
-			
-		
-		parent.hide();
-		parent.parent().find('.p-main-register-box.' + role).show() 
-	});
-
-  	$(".b-button_social").each(function(){   
-		var button = $(this),
-			icon = "ui-icon-" + button.attr('provider');
-			
-		$(this).button({
-	        icons: {
-	            primary: icon
-	        }
-	    });
-	});    
 	
-	$('.p-main-dialog-a-service-submit_register').click(show_registration_dialog);
 });

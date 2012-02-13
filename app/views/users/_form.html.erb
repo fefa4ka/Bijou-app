@@ -1,17 +1,78 @@
-<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<%= form_for(@user) do |user| %>
+<div class="container_16">
+  <div class="grid_16">
+    <p class="b-header__description">
+      С вами будут связываться люди, которые могут помочь и вам будут приходить уведомления о новой информации связанной с поиском.
+    </p>
 
-      <ul>
-      <% @user.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+
+    <div class="b-form__field">
+       <%= user.label :name, "Ваше имя", :class => "b-form__label" %>
+       <%= user.text_field :name, :value => (user.object.name unless user.object.name == "guest") %>
     </div>
-  <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
+<!-- Выходи из дива для hr -->
   </div>
+</div>
+<!-- End grid_8 and container from new.html.erb -->
+
+<div class="clear"></div>
+<hr class="b-hr form" />
+
+<div class="container_16">
+  <div class="grid_16">
+    <!-- Входим див, после hr -->
+
+    <div class="b-form__field">
+     <%= user.label :phone, "Телефон", :class => "b-form__label" %>
+     <%= user.text_field :phone %>
+    </div>
+
+    <br/>
+   
+    <div class="b-form__field">
+      <%= user.label :email, "Электронная почта", :class => "b-form__label" %>
+      <%= user.text_field :email, :value => (user.object.email unless user.object.email =~ /guest/) %>
+    </div>
+
+  <!-- Выходи из дива для hr -->
+  </div>
+</div>
+<!-- End grid_8 and container from new.html.erb -->
+
+<div class="clear"></div>
+<hr class="b-hr form" />
+
+<div class="container_16">
+  <div class="grid_16">
+  <!-- Входим див, после hr -->
+    <%= tag :input, { :type => "button", :value => "Изменить пароль", :class => "p-user__change_password silver_action" } %>
+    <div class="p-edit-user__change_password_container l-hidden">
+      <div class="b-form__field">
+        <%= user.label :old_password, "Старый пароль", :class => "b-form__label" %>
+        <%= user.password_field :old_password %>
+      </div>
+      <br/>
+      <div class="b-form__field">
+        <%= user.label :password, "Новый пароль", :class => "b-form__label" %>
+        <%= user.text_field :password %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="clear"></div>
+
+<!-- End grid_16 and container -->
+<div class="b-form__action_panel">    
+  <div class="container_16">
+    <div class="grid_16">
+      <div class="b-form__actions">
+        <%= user.submit "Сохранить", :class => "b-form__save_button blue" %>
+      </div>  
+    </div>
+  </div>
+</div>
+
 <% end %>
+

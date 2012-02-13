@@ -63,6 +63,8 @@ class Question < ActiveRecord::Base
      # Подготавливаем данные
      result = []  
      questions.each do |q| 
+       # Пропускаем вопрос регистрации, если пользователь авторизирован
+       next if !(user.email =~ /guest/) and q.answer_type == 7
        answers = []      
 
        q.answers.each do |a| 

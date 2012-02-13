@@ -40,18 +40,20 @@
 			        <%= message.hidden_field :to, :value => @missing.user_id %>
 					<%= message.text_area :body, :rows => 4, :class => "b-missing__add_comment", :placeholder => "Текст сообщения" %>  
 					<% unless user_signed_in? %> 
-					<p class="b-missing__send_message_field">
-					<%= message.label :name, "Ваше имя" %><br/>
-					<%= message.text_field :name %>  
-					</p>                              
-					<p class="b-missing__send_message_field">
-					<%= message.label :email, "Электронная почта" %><br/>
-					<%= message.text_field :email %>       
-					</p>
-					<p class="b-missing__send_message_field">
-					<%= message.label :phone, "Телефон" %><br/>
-					<%= message.text_field :phone %>       
-					</p> 
+					<div class="b-missing__send_message_user">
+						<p class="b-missing__send_message_field">
+						<%= message.label :name, "Ваше имя" %><br/>
+						<%= message.text_field :name %>  
+						</p>                              
+						<p class="b-missing__send_message_field">
+						<%= message.label :email, "Электронная почта" %><br/>
+						<%= message.text_field :email %>       
+						</p>
+						<p class="b-missing__send_message_field">
+						<%= message.label :phone, "Телефон" %><br/>
+						<%= message.text_field :phone %>       
+						</p> 
+					</div>
 					<% end %> 
 					<%= message.submit "Отправить", :class=> "b-missing__send_message_button" %>     
 					<div class="clear"></div>           

@@ -220,9 +220,20 @@ class MissingsController < ApplicationController
     
   end      
   
+  def questions
+    @missing = Missing.find(params[:id])
+    @questions = Question.for @missing, current_or_guest_user, :all  
+    
+    respond_to do |format|
+      format.json { 
+        render :json => @questions
+      }
+    end
+  end 
+
   def answer_the_question
     question_params = params["question"]
-    missing = Missing.find(session[:missing_id])
+    missing = Missing.find(params[:id])
     user = current_or_guest_user
     
     next_question = Question.answer question_params, missing, user
@@ -293,8 +304,13 @@ class MissingsController < ApplicationController
     unless session[:location]
       location = request.location
       unless request.location.nil?
+        logger.debug(location.inspect)
         location = Geocoder.search("#{location.latitude},#{location.longitude}").first
-        session[:location] = location.city
+        begin
+          session[:location] = location.city
+        rescue Exception => e
+          session[:location] = location.country
+        end
       end
     end
 

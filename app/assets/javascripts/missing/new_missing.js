@@ -5,7 +5,6 @@ $(function(){
 		redirect_disallow,
         validate = {
             errorClass: 'b-tooltip-error',
-            debug: true,
             rules: {
                 "missing[name]": { required: true },
                 "missing[gender]": { required: true },

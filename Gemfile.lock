@@ -11,8 +11,8 @@ GIT
     daemon_generator (0.0.0)
 
 GIT
-  remote: git://github.com/jongilbraith/simple-private-messages.git
-  revision: 7461f5a05fc94d4ff6f85e9a3943956a2b45fe2f
+  remote: git://github.com/fefa4ka/simple-private-messages.git
+  revision: 57a1f505866bdc26433032194c80cf472c36ffab
   specs:
     simple-private-messages (0.0.0)
 

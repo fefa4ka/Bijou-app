@@ -5,6 +5,8 @@ $(function(){
         var questionnaire = questions[0].questionnaire != "" ? questions[0].questionnaire : "Пожалуйста, ответьте на некоторые вопросы";
 		// Устанавливаем тему первого вопроса                        
 		$('.b-form__questionnaire').text(questionnaire);
+
+		$('.b-form__questions').html("");
 		$.tmpl('tmpl-question', questions).appendTo('.b-form__questions');
 	    $('input').customInput();                                       
 	
@@ -32,11 +34,65 @@ $(function(){
 			case 6:      
 				generate_datepicker();
 				break;
+			case 7:
+				generate_registration();
+				break;
 		}
-	}             
+	} 
+	            
 	function generate_datepicker(){
-		$(".b-form__question.selected .b-form__question_date_input").mask('99.99.9999');
-	}   
+		$(".b-form__question.selected .b-form__question_date_input").mask('99.99.9999'); 
+		$(".b-form__question.selected .b-form__question_form").validate({ 
+			errorClass: 'b-tooltip-error',
+			rules: {
+				"question[answer][date]": {
+					required: true,
+					date: true
+				}
+			}
+		});
+	}    
+	
+	function generate_registration(){
+		$(".b-form__question.selected .b-form__phone").mask('+7 999 999-99-99'); 
+		$(".b-form__question_login").live('click', function() {
+			var email = $('.b-form__question.selected [name="question[answer][email]"]').val();
+
+			show_auth_dialog(function() {
+				$.get( missing_path + '/questions', function(data) {
+					render_questions(data);	
+				}, "json");
+				
+			}, email);
+		});
+		
+		$(".b-form__question.selected .b-form__question_form").validate({
+			errorClass: 'b-tooltip-error', 
+			messages: {
+				"question[answer][email]": {
+					remote: "Такой адрес зарегистрирован, <a href='#' class='b-form__question_login'>войдите с паролем</a>."
+				}
+			},
+			rules: {    
+				"question[answer][name]": {
+					required: true
+				},
+				"question[answer][email]": {
+					required: true,
+					email: true,
+					remote: {
+						type: "post",
+						url: "/users/check_email.json",
+						data: {
+							email: function() {
+								return $('.b-form__question.selected [name="question[answer][email]"]').val()
+							}
+						}
+					}
+				}
+			}
+		});
+	}
 	
 	function generate_map() {
 		// Создание обработчика для события window.onLoad
@@ -317,7 +373,7 @@ $(function(){
 	
 	$.template( 'tmpl-question',
 				'<div class="b-form__question l-left ui-lightbox {{if answer_type == 4}}map{{/if}}"> \
-					<form accept-charset="UTF-8" action="/add_missing/answer_the_question.json" data-remote="true" class="b-form__question_form answer_the_question" method="post"> \
+					<form accept-charset="UTF-8" action="' + missing_path + '/answer_the_question.json" data-remote="true" class="b-form__question_form answer_the_question" method="post"> \
 					<input type="hidden" name="question[id]" value="${id}"> \
 				 	<div class="b-form__label">${text}</div> \
 					<div class="b-form__question_answer"> \
@@ -331,6 +387,8 @@ $(function(){
 							{{tmpl "tmpl-question__map"}} \
 						{{else answer_type == 6}} \
 							{{tmpl "tmpl-question__date"}} \
+						{{else answer_type == 7}} \
+							{{tmpl "tmpl-question__registration"}} \
 						 {{/if}} \
 						 {{if answer_type != 0}} \
 							<div class="clear"></div> \
@@ -374,13 +432,23 @@ $(function(){
 				 {{/each}}' );			 
 	// Textarea answer
 	$.template( 'tmpl-question__free',
-			    '<textarea name="question[answer][text]" class="b-form__question_answer_free"></textarea>' );         
+			    '<textarea name="question[answer][text]" class="b-form__question_answer_free"></textarea>' ); 
+			
+	$.template( 'tmpl-question__registration',
+		    	'<label for="question_answer_name" class="b-form__label">Ваше имя</label> \
+				<input type="text" name="question[answer][name]" id="question_answer_name"/> \
+				<label for="question_answer_email" class="b-form__label">Электронная почта</label> \
+				<input type="email" name="question[answer][email]" id="question_answer_email"/> \
+				<label for="question_answer_phone" class="b-form__label">Телефон</label> \
+				<input type="text" name="question[answer][phone]" id="question_answer_phone" class="b-form__phone"/>');
 			
 	$.template( 'tmpl-question__actions', 
 				'<div class="clear"></div> \
 				 <div class="b-form__question__actions"> \
 				 <input type="submit" value="Ответить" class="b-form__question__action_button" action="answer"> \
+				 {{if answer_type != 7}} \
 				 <input type="submit" value="Отложить вопрос" class="b-form__question__action_button next_question silver_action l-right"  action="skip"> \
+				 {{/if}} \
 				 </div>' );         
 				
 	$.template( 'tmpl-question__yes-no-dontknow', 

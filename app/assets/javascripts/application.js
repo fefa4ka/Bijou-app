@@ -11,9 +11,9 @@
 //= require_tree ./search
 
 var auth_callback;
-
-function show_auth_dialog(callback) {
+function show_auth_dialog(callback, email) {
 	$('.b-head__registration_dialog').dialog('close');
+
     $('.b-head__login_form').dialog({
         width: 500,
         height: 325,
@@ -23,7 +23,25 @@ function show_auth_dialog(callback) {
         closeOnOverlayClick: true
     });
 
+    if(email) {
+		$("#login_form [name='user[email]']").val(email);
+		$("#login_form [name='user[password]']").focus();
+	}
+
     auth_callback = callback;
+}
+
+function after_auth() {
+	if(auth_callback) {
+       //change_header_to_auth();
+		logged_in = true;
+		auth_callback();
+		$('.b-head__login_form').dialog('close');
+		auth_callback = false;
+	} else {       
+		document.location.reload();
+		
+	}
 }
            
 function show_registration_dialog(callback) {    
@@ -56,14 +74,7 @@ $(function()
 			$('.b-head__login_form').parent().effect('bounce', { direction: 'left', times: 3}, 200 );
 		})
 		.bind("ajax:success", function(evt, data, status, xhr){
-			if(auth_callback) {
-                //change_header_to_auth();
-                logged_in = true;
-                auth_callback();
-                $('.b-head__login_form').dialog('close');
-            } else {
-                document.location = data.redirect;
-            }
+			after_auth(data);
 			
 	});
 
@@ -144,7 +155,30 @@ $(function()
 		})
 		.bind("ajax:success", function(evt, data, status, xhr){
 		   document.location = "/missings/"
+	});      
+	
+	
+	$('.p-main-register').click(function() { 
+		var role = $(this).attr('for'),
+			parent = $(this).parent();
+			
+		
+		parent.hide();
+		parent.parent().find('.p-main-register-box.' + role).show() 
 	});
+
+  	$(".b-button_social").each(function(){   
+		var button = $(this),
+			icon = "ui-icon-" + button.attr('provider');
+			
+		$(this).button({
+	        icons: {
+	            primary: icon
+	        }
+	    });
+	});    
+	
+	$('.p-main-dialog-a-service-submit_register').click(show_registration_dialog);
 
 });
 

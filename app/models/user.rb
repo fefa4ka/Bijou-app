@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
          :omniauthable
  
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :name, :email, :phone, :callback, :password, :password_confirmation, :remember_me,
+  attr_accessible :name, :email, :phone, :callback, :old_password, :password, :password_confirmation, :remember_me,
                   :admin, :detective, :volunteer,
                   :last_visit
 
@@ -22,10 +22,11 @@ class User < ActiveRecord::Base
   
   has_many :missings, :dependent => :destroy
   has_many :discussions, :dependent => :destroy
-  has_many :can_helps, :dependent => :destroy 
+  has_many :can_helps, :dependent => :destroy          
+  has_many :histories, :dependent => :destroy
+  has_many :seen_the_missings, :dependent => :destroy
+  
                        
-  before_validation :download_remote_image, :if => :image_url_provided?
-
   def has_missing?
      self.missings.where(:published => true).size > 0 ? true : false
   end                                  
@@ -39,20 +40,5 @@ class User < ActiveRecord::Base
     self.avatar = open(url)
   end
  
-private
-  def image_url_provided?
-    !self.image_url.blank?
-  end
-
-  def download_remote_image
-    self.avatar = do_download_remote_image
-  end
-
-  def do_download_remote_image
-    io = open(URI.parse(image_url))
-    def io.original_filename; base_uri.path.split('/').last; end
-    io.original_filename.blank? ? nil : io
-  rescue # catch url errors
-  end
   
 end

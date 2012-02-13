@@ -101,6 +101,15 @@ $(function(){
 
 
 	// Реакции на отправку личного сообщения
+
+	$('.b-missing__sent_message_auth').live('click', function(){
+		var email = $('#new_message [name="message[email]"]').val();
+		
+		show_auth_dialog(function() {
+			$('.b-missing__send_message_user').hide();
+		}, email);	
+	});
+
 	$('#new_message')
 		.bind('ajax:beforeSend', function(e){
 			
@@ -114,6 +123,32 @@ $(function(){
 			} else {
 				$('.b-missing__send_message_status').text('Не удалось отправить сообщение, это наша проблема, попробуйте позже');
 			}       
+		})
+		.validate({
+			errorClass: 'b-tooltip-error', 
+			messages: {
+				"message[email]": {
+					remote: "Такой адрес зарегистрирован, <a href='#' class='b-missing__sent_message_auth'>войдите с паролем</a>."
+				}
+			},
+			rules: {
+				"message[name]": {
+					required: true
+				},
+				"message[email]": {
+					required: true,
+					email: true,
+					remote: {
+						type: "post",
+						url: "/users/check_email.json",
+						data: {
+							email: function() {
+								return $('#new_message [name="message[email]"]').val()
+							}
+						}
+					}
+				}
+			}
 		});                            
 	
 	// При нажатии на кнопку отправить сообщение раскрывается форма и убирается кнопка	                                  

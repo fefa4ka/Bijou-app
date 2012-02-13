@@ -73,7 +73,7 @@ gem 'foreman'
 gem 'tlsmail'
 
 # Private messages
-gem 'simple-private-messages', '0.0.0', :git => "git://github.com/jongilbraith/simple-private-messages.git"
+gem 'simple-private-messages', '0.0.0', :git => "git://github.com/fefa4ka/simple-private-messages.git"
 
 # Shedule
 gem 'daemon_generator', '0.0.0', :git => "git://github.com/dougal/daemon_generator.git"
