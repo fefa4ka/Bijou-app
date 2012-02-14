@@ -27,7 +27,6 @@ class ApplicationController < ActionController::Base
     User.find(session[:guest_user_id].nil? ? session[:guest_user_id] = create_guest_user.id : session[:guest_user_id])
   end                                 
  
-
   # called (once) when the user logs in, insert any code your application needs
   # to hand off from guest_user to current_user.            
   def logging_in                
@@ -59,7 +58,9 @@ class ApplicationController < ActionController::Base
       guest_user.destroy             
       session[:guest_user_id] = nil
     end
-  end                  
+  end        
+  
+  
   
   private
   def create_guest_user

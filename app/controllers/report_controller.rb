@@ -4,16 +4,6 @@ class ReportController < ApplicationController
   impressionist :action => [:index, :inbox]
                        
   def report  
-    if current_user.detective?
-      detective_report  
-      return
-    end
-    
-    @inbox = current_user.received_messages        
-    @message = Message.new        
-    if current_user.missings.length > 0 
-      @missing = current_user.missings.first
-    end  
     render 'index'
   end      
   

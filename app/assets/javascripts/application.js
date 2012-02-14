@@ -10,7 +10,9 @@
 //= require_tree ./questions
 //= require_tree ./search
 
-var auth_callback;
+var auth_callback,
+	missing_url;
+	
 function show_auth_dialog(callback, email) {
 	$('.b-head__registration_dialog').dialog('close');
 
@@ -58,7 +60,14 @@ function show_registration_dialog(callback) {
 
     auth_callback = callback;
 }
-
+         
+function missing_path(url) {
+	if(url) {
+		missing_url = url;
+		$('.b-form__question_form').attr('action', missing_path() + '/answer_the_question.json');
+	}                                                                                          
+	return missing_url;
+}
 $(function()
 {
 	$('input[class!=b-form-custom-false],button[class!=b-form-custom-false]').customInput();

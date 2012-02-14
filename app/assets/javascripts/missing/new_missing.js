@@ -243,7 +243,9 @@ $(function(){
 			// Обновляем фотки
 			if (data.data_type == "photos") {
 				update_photos(data.data);
-			}
+			}             
+			        
+			missing_path(data.missing_url);
 			
         })
         .validate(validate);

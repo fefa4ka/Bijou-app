@@ -35,14 +35,19 @@
 <body>	
 <div id="wrapper"> 
 
-<!-- Check user auth, if user not logged in then show block below -->
-<% unless user_signed_in?  %>
-<div class="b-head-bg">
+<div class="<%= user_signed_in? ? "b-head-bg__logged" : "b-head-bg" %>">
   <div class="container_16"> 
 	<div class="b-head__logo grid_3">
 		<%= link_to_unless_current image_tag('logo.png', :class => 'l-left'), '/' %>
-	</div> 
-	<div class="grid_13">    
+	</div>               
+	<div class="b-head__auth grid_3" style="<%= user_signed_in? ? "" : "display: none" %>">  
+		<button class="b-auth__button loggedin maroon l-right" provider="<%= current_user && current_user.provider %>"><%= current_user && (current_user.name || current_user.email) %></button>	
+		<div class="b-auth__list b-select__list ui-corner-bottom l-hidden">
+            <%= link_to "Выйти", destroy_user_session_path, :method => :delete, :class => "b-select__list_item" %>
+		</div>
+	</div>                 	   
+    
+	<div class="grid_13" style="<%= user_signed_in? ? "display: none" : "" %>">    
 		<input type="button" class="b-head__login maroon l-right" value="Войти на сайт" />  
 		
 		<div class="b-head__login_form p-main-dialog-a-service">
@@ -74,8 +79,7 @@
           <% end %>
 		</div>     
 		
-		<div class="b-head__registration_dialog p-main-dialog-a-afterlogin">
-
+		<div class="b-head__registration_dialog p-main-dialog-a-afterlogin" style="<%= user_signed_in? ? "display: none" : "" %>">
 			<ul>
 				<li>
 					<%= image_tag "missing-ico.png" %>
@@ -115,49 +119,27 @@
 					<%= tag :input, { :type => "button", :value => "Войдите по паролю", :class => "button b-head__login t-medium_fat silver l-full_width" } %> 	
 				</li>
 			</ul>
-
-
 		</div>
-		
+	</div>    
+	
+	
+	<div class="clear"></div>
+	<div class="grid_10 b-missing__tabs" style="<%= !current_page?("/add_missing") && user_signed_in? ? "" : "display: none" %>">
+		<div class="b-missing__tabs">      
+			<div class="b-missing__tab" style="<% current_user && current_user.has_missing? ? "" : "display: none" %>"><%= link_to_unless_current content_tag("span", content_tag("span", "Сводка по объявлению") + tag(:input, { :value => current_user && current_user_timeline_fresh.size, :type => "button", :class => "orange b-missing__tab_message_count", :style =>  !current_user || current_user_timeline_fresh.size == 0 ? "display: none" : "" }), :class => "tab"), '/report', :class => "b-missing__tab b-missing__tab_link" %></div> 			
+			<div class="b-missing__tab" style="<% current_user && current_user.has_missing? ? "" : "display: none" %>"><%= link_to_unless_current content_tag("span", "Объявление", :class => "tab"), (current_user && missing_path(current_user.missings.first)) || "", :class => "b-missing__tab b-missing__tab_link" %></div>  
+			<div class="b-missing__tab"><%= link_to_unless_current content_tag("span", "Поиск объявлений", :class => "tab"), '/missings', :class => "b-missing__tab b-missing__tab_link" %></div>   
+			<div class="b-missing__tab"><%= link_to_unless_current content_tag("span", "Разместить объявление", :class => "tab"), '/add_missing', :class => "b-missing__tab b-missing__tab_link" %></div> 
+		</div>
 	</div>
        
     
   </div>      
 </div>  
-
-<!-- User already logged in, show this block -->
-<% else %> 
-<div class="b-head-bg__logged">
-  <div class="container_16">
- 	<div class="b-head__logo grid_3">
-		<%= link_to_unless_current image_tag('logo.png', :class => 'l-left'), '/' %>
-	</div>  
-    <div class="b-head__auth grid_3">  
-		<button class="b-auth__button loggedin maroon l-right" provider="<%= current_user.provider %>"><%= current_user.name || current_user.email %></button>	
-		<div class="b-auth__list b-select__list ui-corner-bottom l-hidden">
-            <%= link_to "Выйти", destroy_user_session_path, :method => :delete, :class => "b-select__list_item" %>
-		</div>
-	</div>                 
-	<div class="clear"></div>
-	<div class="grid_10 b-missing__tabs">
-		<ul class="b-missing__tabs">      
-		<% if current_user.has_missing? %>			
-			<%= link_to_unless_current content_tag("li", "Объявление", :class => "b-missing__tab"), missing_path(current_user.missings.first), :class => "b-missing__tab_link"  %>    
-			<%= link_to_unless_current content_tag("li", "Сводка по объявлению", :class => "b-missing__tab"), '/report', :class => "b-missing__tab_link" %> 
-			<%= link_to_unless_current content_tag("li", "Поиск объявлений", :class => "b-missing__tab"), '/missings', :class => "b-missing__tab_link" %>    
-		<% else %>
-			<%= link_to_unless_current content_tag("li", "Поиск объявлений", :class => "b-missing__tab"), '/missings', :class => "b-missing__tab_link" %>
-			<%= link_to_unless_current content_tag("li", "Разместить объявление", :class => "b-missing__tab"), '/add_missing', :class => "b-missing__tab_link" %>
-		<% end %>
-		</ul>
-	</div>	   
-	
-  </div>      
- </div>
-<% end %>    
+    
 
   <div class="clear"></div>
-  <div id="content">
+  <div id="content">                  
   <%= yield %> <!--! end of #container -->
   </div>
   <div class="clear"></div>

@@ -1,51 +1,69 @@
 <% @title = "Сводка по объявлению" %>
 <div class="container_16 p-report b-content">
 	<div class="grid_11">
-<!--
 		<div class="b-report__toolbar toolbar">
-			<%= check_box_tag "all", 1, true, :class => "b-form-custom-false" %><%= label_tag "all", "Все" %>
-			<%= check_box_tag "new_history", 1, false, :class => "b-form-custom-false" %><%= label_tag "new_history", "Новые обстоятельства" %>
-			<%= check_box_tag "new_people", 1, false, :class => "b-form-custom-false" %><%= label_tag "new_people", "Кто может помочь" %>
-			<%= check_box_tag "people", 1, false, :class => "b-form-custom-false" %><%= label_tag "people", "Сообщения" %>   
+			<%= radio_button_tag "report_type", "all", true, :class => "b-form-custom-false" %><%= label_tag "report_type_all", "Все" %>
+			<%= radio_button_tag "report_type", "history", false, :class => "b-form-custom-false" %><%= label_tag "report_type_history", "Новые обстоятельства" %>
+			<%= radio_button_tag "report_type", "people", false, :class => "b-form-custom-false" %><%= label_tag "report_type_people", "Кто может помочь" %>
+			<%= radio_button_tag "report_type", "seen", false, :class => "b-form-custom-false" %><%= label_tag "report_type_seen", "Видели пропавшего" %>  
+			<%= radio_button_tag "report_type", "messages", false, :class => "b-form-custom-false" %><%= label_tag "report_type_messages", "Сообщения" %> 
+			<%= radio_button_tag "report_type", "sent", false, :class => "b-form-custom-false" %><%= label_tag "report_type_sent", "Отправленные" %>                                   
+			
           </div>    
-          -->
-        <% if @inbox.size == 0 %>
+        <% if current_user_timeline.size == 0 %>
           <div class="b-sidebar b-report__empty t-medium">
             Пока нет новых обстоятельств или сообщений, попробуйте рассказать о пропаже в социальных сетях.
           </div>
-        <% else %>
-          <div class="b-header">Сообщения</div>
         <% end %>
 
 		
-		<div class="b-report__list">      
-			<% @inbox.each do |message| %>        
-			<div class="b-missing__comment" message_id="<%= message.id %>"> 
-				<div class="b-missing__comment_header">
-					<%= link_to message.sender.name, "", :class => "t-medium b-missing__comment_author" %>    
-					<span class="b-missing__comment_date t-small"><%= Russian.strftime message.created_at, "%d %B" %></span>   
-					<%= tag :input, { :type => "button", :value => "Ответить", :class => "b-report__message_answer silver_action l-right" } %>
-				</div>
-				<div class="b-missing__comment_text comment b-tooltip top silver">
-					<i class="b-tooltip__tail_border"><b class="b-tooltip__tail"></b></i>
-					<div class="b-tooltip__content">
-						<%= message.body %>
+		<div class="b-report__list">       
+		<% current_user_timeline.each do |record| %>  
+			<% if record.class.to_s == "Message" %>        
+				<div class="b-missing__comment element <%= record.class.to_s %> <%= record.sender_id == current_user.id ? "sent" : "received" %>" message_id="<%= record.id %>" user_id="<%= record.sender_id == current_user.id ? record.recipient_id : record.sender_id %>"> 
+					<div class="b-missing__comment_header">
+						<%= link_to (record.sender_id == current_user.id ? YandexInflect.inflections(record.recipient.name)[2] : record.sender.name), "", :class => "t-medium b-missing__comment_author" %>  
+						<span class="b-report__element_date t-small"><%= Russian.strftime record.created_at, "%d %B" %></span>
+						<% if record.created_at.to_time.to_i > current_user.last_sign_in_at.to_time.to_i %>
+							<span class="t-small b-report__element_new">новое сообщение</span>
+						<% end %>
+						  
+						<%= tag :input, { :type => "button", :value => "Ответить", :class => "b-report__message_answer silver_action l-right" } %>
 					</div>
+					<div class="b-missing__comment_text comment b-tooltip top silver">
+						<i class="b-tooltip__tail_border"><b class="b-tooltip__tail"></b></i>
+						<div class="b-tooltip__content">
+							<%= record.body %>
+						</div>
+					</div>     
+				</div>     
+			<% elsif record.class.to_s == "SeenTheMissing" %>
+				<div class="b-missing__comment element <%= record.class.to_s %>" user_id="<%= record.user.id %>" seen_the_missing_id="<%= record.id %>"> 
+					<div class="b-missing__comment_header">
+						<%= link_to record.user.name, "", :class => "t-medium b-missing__comment_author" %>  
+						<span class="b-report__seen t-medium">видел <a href="<%= missing_path(record.missing) %>"><%= YandexInflect.inflections(record.missing.name).second %></a> в <%= YandexInflect.inflections(record.address).last %></span>
+						  
+						<span class="b-report__element_date t-small"><%= Russian.strftime record.created_at, "%d %B" %></span>    
+						<% if record.created_at.to_time.to_i < current_user.last_sign_in_at.to_time.to_i %>
+							<span class="t-small b-report__element_new">новое</span>
+						<% end %>
+						<%= tag :input, { :type => "button", :value => "Написать", :class => "b-report__message_answer silver_action l-right" } %>
+					</div>
+
 				</div>
-			</div>     
-			
-			<% message.messages.each do |sub_message| %>
-			<div class="b-missing__comment sub">
-				<div class="b-missing__comment_header l-left">    
-					<%= link_to sub_message.sender.name, "", :class => "b-missing__comment_author" %>    
-					<span class="b-missing__comment_date t-small l-right"><%= Russian.strftime sub_message.created_at, "%d %B" %></span>   
-				</div>
-				<div class="b-missing__comment_text">
-					<%= sub_message.body %>
-				</div>
-			</div>	
+			<% end %>   
+			<% record.messages.each do |sub_message| %>
+		   	   <div class="b-missing__comment sub element <%= record.class.to_s %> <%= record.class.to_s == "Message" && (record.sender_id == current_user.id) ? "sent" : "received" %>">
+					<div class="b-missing__comment_header l-left">    
+						<%= link_to sub_message.sender.name, "", :class => "b-missing__comment_author" %>    
+						<span class="b-missing__comment_date t-small l-right"><%= Russian.strftime sub_message.created_at, "%d %B" %></span>   
+					</div>
+					<div class="b-missing__comment_text">
+						<%= sub_message.body %>
+					</div>
+				</div>	
 			<% end %>
-			<% end %>  
+		<% end%> 
 			
 			
 		</div>
@@ -62,7 +80,7 @@
 	   	<div class="b-sidebar b-report__statistic">
 			<p class="b-sidebar__header">Статистика просмотров</p>
 			<p>
-              Количество посещений: <span class="b-report__statistic_red"><%= @missing.impressionist_count :filter => :ip_address %></span>
+              Количество посещений: <span class="b-report__statistic_red"><%= @missings[0].impressionist_count :filter => :ip_address %></span>
             </p>
 
             <br/>

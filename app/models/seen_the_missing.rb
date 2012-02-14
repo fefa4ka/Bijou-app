@@ -1,8 +1,10 @@
 class SeenTheMissing < ActiveRecord::Base
   belongs_to :missing
-  belongs_to :user
-
-  before_save :geocoding
+  belongs_to :user   
+  
+  has_many :messages
+                     
+  before_save :geocoding   
 
   private
 

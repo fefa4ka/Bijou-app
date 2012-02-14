@@ -109,7 +109,8 @@ $(function(){
 			$('.b-missing__send_message_user').hide();
 		}, email);	
 	});
-
+                     
+log('new_message');
 	$('#new_message')
 		.bind('ajax:beforeSend', function(e){
 			
@@ -125,7 +126,7 @@ $(function(){
 			}       
 		})
 		.validate({
-			errorClass: 'b-tooltip-error', 
+			errorClass: 'b-tooltip-error-block', 
 			messages: {
 				"message[email]": {
 					remote: "Такой адрес зарегистрирован, <a href='#' class='b-missing__sent_message_auth'>войдите с паролем</a>."

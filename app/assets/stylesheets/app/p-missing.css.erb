@@ -341,20 +341,10 @@ div.b-missing__share {
 }                
 
 /* Tabs */   
-div.b-missing__tabs {
-	position: absolute;
-	top: 49px;      
-	min-width: 600px;
-}
-.b-missing__tabs {
-	list-style: none;  
-	
-	margin: 0;
-
-    min-width: 500px;
-}                    	
-	
-	.b-missing__tab { 
+div.b-missing__tabs {   
+	min-width: 800px;
+}  
+	.b-missing__tab a, .b-missing__tab span.tab { 
 		margin: 0 5px 0 0;
 		   
 		float: left; 
@@ -372,9 +362,11 @@ div.b-missing__tabs {
 		-moz-user-select: -moz-none;
 		-o-user-select: none;
 		user-select: none;
-	}                 
+	}         
 	
-	.b-missing__tab, .b-missing__tab:active, .b-missing__tab:hover {
+    
+	
+	.b-missing__tab span.tab, .b-missing__tab:active span.tab, .b-missing__tab:hover span.tab {
 		font-size: 16px;
 		color: #0b3a83;     
 	    background: #f8f8f8;
@@ -392,7 +384,7 @@ div.b-missing__tabs {
 		text-decoration: none;
 	} 
 	
-	a .b-missing__tab, a .b-missing__tab:hover, a .b-missing__tab:active  {    
+	a.b-missing__tab span.tab, a.b-missing__tab:hover span.tab, a.b-missing__tab:active span.tab {    
 		font-size: 13px;
 		text-decoration: none;
 		background: #eee;
@@ -408,10 +400,10 @@ div.b-missing__tabs {
 		
 	}
 	
-	a .b-missing__tab:hover {
+	a.b-missing__tab:hover span.tab{
 		color: #cc0000;
 	}           
-	a .b-missing__tab:active {    
+	a.b-missing__tab:active span.tab{    
 		color: #de1800;
 		
 		padding: 5px 14px 3px 16px;
@@ -422,7 +414,14 @@ div.b-missing__tabs {
 	}            
 	
 	.b-missing__tab_message_count {
-		margin: -1px -10px -1px 7px !important;
+		margin: -1px -10px -1px 7px !important;   
+		
+		position: relative;
+		top: 2px;
+	} 
+	
+	a .b-missing__tab_message_count {
+		top: 1px;
 	}
 	        
 	

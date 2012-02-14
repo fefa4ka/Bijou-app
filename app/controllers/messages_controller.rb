@@ -29,19 +29,21 @@ class MessagesController < ApplicationController
   
   def create
     @message = Message.new(params[:message])
-    @message.sender = @user
+    @message.sender = @user                    
+    @message.recipient = User.find(params[:message][:to])
 
-    if params[:message][:to_message]
-      @message.recipient = Message.find(params[:message][:to_message]).sender    
+    if !params[:message][:to_message].empty?
       @message.message_id = params[:message][:to_message]
-    else
-      @message.recipient = User.find(params[:message][:to])
+    elsif !params[:message][:to_seen_the_missing].empty?
+      @message.recipient = SeenTheMissing.find(params[:message][:to_seen_the_missing]).user
+      @message.seen_the_missing_id = params[:message][:to_seen_the_missing]
     end
 
     if @message.save
       data =  {
         :text => @message.body,
-        :message_id => @message.message_id,
+        :message_id => @message.message_id, 
+        :seen_the_missing_id => @message.seen_the_missing_id,
         :date => Russian.strftime(@message.created_at, "%d %B"),
         :user => {
           :id => @user.id,

@@ -20,7 +20,7 @@ class Missing < ActiveRecord::Base
   
   has_many :user_answers
   
-  has_many :can_helps 
+  has_many :seen_the_missings
 
   attr_writer :current_step  
 
@@ -110,6 +110,11 @@ class Missing < ActiveRecord::Base
     (place[:longitude] / 180) * Math::PI unless place.nil?
   end
     
+  # Who can help
+  def can_helps   
+    users = self.histories.where({ :question_id => 53 }).where("histories.text <> 'skip' OR histories.text IS NULL").select("DISTINCT user_id").select(:user_id).collect(&:user_id) 
+    users.each.collect {|user| answers({ :user_id => user, :question_id => 53 }).first }
+  end
 
   # Service data
   def last_visit
@@ -154,8 +159,9 @@ class Missing < ActiveRecord::Base
     # Загружаем пользовательские ответы для каждого вопроса    
     array_questions = []
     hash_questions = {}
-   
-    conditions = { :histories => { :user_id => opts[:user_id] } }
+                 
+    conditions = {} 
+    conditions = { :histories => { :user_id => opts[:user_id] } } unless opts[:user_id].nil?
     conditions[:answer_type] = opts[:answer_type] unless opts[:answer_type].nil?
     conditions[:id] = opts[:question_id] unless opts[:question_id].nil?
     
@@ -165,19 +171,22 @@ class Missing < ActiveRecord::Base
       question = hash_questions[q.id] || nil
     
       question = { 
-        :questionnaire => q.questionnaire.name || "",
-        :questionnaire_id => q.questionnaire.id || "", 
+        :questionnaire => (q.questionnaire && q.questionnaire.name) || "",
+        :questionnaire_id => (q.questionnaire && q.questionnaire.id)  || "", 
         :question_id => q.id, 
         :text => q.text,
         :label => q.field_text,  
         :answer_type => q.answer_type,
         :answers => [],
-        :human_answer => nil 
+        :human_answer => nil,
+        :user_id => opts[:user_id],
+        :created_at => q.histories.last.created_at
       } if question.nil?    
       array_questions.push(question) if hash_questions[q.id].nil?
 
-
-      user_answers = History.where( :missing_id => self.id, :question_id => q.id, :user_id => user_id )
+      conditions = { :missing_id => self.id, :question_id => q.id }
+      conditions[:user_id] = opts[:user_id] unless opts[:user_id].nil?
+      user_answers = History.where(conditions).where("histories.text <> 'skip' OR histories.text IS NULL").group(:answer_id)
          
       user_answers.each do |a|  
         answer = human_answer = a.answer.nil? ? a.text : a.answer.human_text || a.text || a.answer.text

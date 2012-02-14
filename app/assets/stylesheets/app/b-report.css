@@ -198,4 +198,18 @@ input.b-report__search_field {
 
 .b-report__search.contacts {
 		margin: 10px 0 16px;
+}          
+
+.b-report__seen a {
+	text-decoration: none;
+}            
+      
+.b-report__element_date {
+	margin-left: 14px;
+
+	color: #999;
+}
+.b-report__element_new {
+	color: #F6B066;
+	margin: 0 4px 0 14px;
 }

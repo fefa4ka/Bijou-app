@@ -43,7 +43,7 @@ $(function(){
 	function generate_datepicker(){
 		$(".b-form__question.selected .b-form__question_date_input").mask('99.99.9999'); 
 		$(".b-form__question.selected .b-form__question_form").validate({ 
-			errorClass: 'b-tooltip-error',
+			errorClass: 'b-tooltip-error-block',
 			rules: {
 				"question[answer][date]": {
 					required: true,
@@ -67,7 +67,7 @@ $(function(){
 		});
 		
 		$(".b-form__question.selected .b-form__question_form").validate({
-			errorClass: 'b-tooltip-error', 
+			errorClass: 'b-tooltip-error-block', 
 			messages: {
 				"question[answer][email]": {
 					remote: "Такой адрес зарегистрирован, <a href='#' class='b-form__question_login'>войдите с паролем</a>."
@@ -373,7 +373,7 @@ $(function(){
 	
 	$.template( 'tmpl-question',
 				'<div class="b-form__question l-left ui-lightbox {{if answer_type == 4}}map{{/if}}"> \
-					<form accept-charset="UTF-8" action="' + missing_path + '/answer_the_question.json" data-remote="true" class="b-form__question_form answer_the_question" method="post"> \
+					<form accept-charset="UTF-8" action="' + missing_url + '/answer_the_question.json" data-remote="true" class="b-form__question_form answer_the_question" method="post"> \
 					<input type="hidden" name="question[id]" value="${id}"> \
 				 	<div class="b-form__label">${text}</div> \
 					<div class="b-form__question_answer"> \

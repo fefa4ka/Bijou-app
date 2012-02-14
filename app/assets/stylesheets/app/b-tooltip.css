@@ -144,7 +144,7 @@
 .b-tooltip.error.bottom .b-tooltip__tail_border { border-top-color: #ef9797; }
 .b-tooltip.error.bottom .b-tooltip__tail { border-top-color: #fedbdb; }
 
-label.b-tooltip-error {
+label.b-tooltip-error, label.b-tooltip-error-block {
   color: #b21b1b;
   border: 1px solid #ef9797;
   background: #fedbdb;
@@ -154,4 +154,8 @@ label.b-tooltip-error {
   margin: 4px;
 
   display: inline-block;
+}             
+
+label.b-tooltip-error-block {
+	margin: 4px 0;
 }
