@@ -1,9 +1,8 @@
-<%= form_for(@user) do |user| %>
+<%= form_for(@user, :url => user_path(@user, :format => "json"), :remote => true) do |user| %>
 <div class="container_16">
   <div class="grid_16">
-    <p class="b-header__description">
-      С вами будут связываться люди, которые могут помочь и вам будут приходить уведомления о новой информации связанной с поиском.
-    </p>
+    <div class="b-header">Персональная информация</div>
+    
 
 
     <div class="b-form__field">
@@ -46,17 +45,25 @@
 <div class="container_16">
   <div class="grid_16">
   <!-- Входим див, после hr -->
-    <%= tag :input, { :type => "button", :value => "Изменить пароль", :class => "p-user__change_password silver_action" } %>
-    <div class="p-edit-user__change_password_container l-hidden">
-      <div class="b-form__field">
+    <%= tag :input, { :type => "button", :value => user.object.encrypted_password.empty? && user.object.provider ? "Установить пароль" : "Изменить пароль", :class => "p-user__change_password silver_action", :style => (user.object.encrypted_password.empty? && user.object.provider) || !user.object.encrypted_password.empty? ? "" : "display: none" } %>
+    <div class="p-edit-user__change_password_container <%= "l-hidden" if !user.object.encrypted_password.empty? || user.object.provider %>">
+      <div class="b-form__field <%= "l-hidden" if user.object.encrypted_password.empty? %>">
         <%= user.label :old_password, "Старый пароль", :class => "b-form__label" %>
         <%= user.password_field :old_password %>
       </div>
-      <br/>
       <div class="b-form__field">
         <%= user.label :password, "Новый пароль", :class => "b-form__label" %>
-        <%= user.text_field :password %>
+        <%= user.password_field :password %>
       </div>
+      <div class="b-form__field">
+        <%= user.label :password_confirmation, "Подтверждение пароля", :class => "b-form__label" %>
+        <%= user.password_field :password_confirmation %>
+      </div>
+    </div>
+    <div class="b-form__save_complete_notification l-hidden">
+      <label class="b-tooltip notification block">
+        Данные сохранены
+      </label>
     </div>
   </div>
 </div>
@@ -66,7 +73,7 @@
 <!-- End grid_16 and container -->
 <div class="b-form__action_panel">    
   <div class="container_16">
-    <div class="grid_16">
+  <div class="grid_16">
       <div class="b-form__actions">
         <%= user.submit "Сохранить", :class => "b-form__save_button blue" %>
       </div>  

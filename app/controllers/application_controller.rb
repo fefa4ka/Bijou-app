@@ -5,7 +5,7 @@ require 'net/http'
 class ApplicationController < ActionController::Base
   protect_from_forgery                         
   
-  before_filter :copy_data_from_guest
+  before_filter :copy_data_from_guest, :mailer_set_url_options
 
   # if user is logged in, return current_user, else return guest_user
   def current_or_guest_user
@@ -33,17 +33,24 @@ class ApplicationController < ActionController::Base
     copy_data_from_guest(current_user)
   end
   
-  def copy_data_from_guest      
-    logger.debug(session[:guest_user_id])
-    
-    if session[:guest_user_id] && current_user      
-      logger.debug('copy guest data')
+  private
+  def create_guest_user
+    u = User.create(:name => "guest", :email => "guest_#{Time.now.to_i}#{rand(99)}@guest_email_address.com")
+    u.save()
+    u
+  end
+
+  def mailer_set_url_options
+    ActionMailer::Base.default_url_options[:host] = request.host_with_port
+  end
+  
+  def copy_data_from_guest     
+    if session[:guest_user_id] && current_user    
+        logger.debug('copy from guest')     
+
       associations = User.reflect_on_all_associations(:has_many).collect {|a| a.name }   
-      logger.debug(associations.inspect)
       associations.each do |a|    
-        logger.debug(guest_user.method(a).call)         
         guest_user.method(a).call.each do |record|    
-          logger.debug(record)        
           if a == :sent_messages
             record.sender_id = current_user.id
           elsif a == :received_messages          
@@ -55,18 +62,9 @@ class ApplicationController < ActionController::Base
         end        
       end
                 
-      guest_user.destroy             
+      guest_user.destroy unless session[:guest_user_id] == current_user.id            
       session[:guest_user_id] = nil
     end
-  end        
-  
-  
-  
-  private
-  def create_guest_user
-    u = User.create(:name => "guest", :email => "guest_#{Time.now.to_i}#{rand(99)}@guest_email_address.com")
-    u.save()
-    u
-  end
+  end  
 
  end

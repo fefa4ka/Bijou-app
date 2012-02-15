@@ -5,12 +5,29 @@ $(function(){
 		redirect_disallow,
         validate = {
             errorClass: 'b-tooltip-error',
+            messages: {
+				"missing[user_attributes][email]": {
+					remote: "Такой адрес зарегистрирован, <a href='#' class='b-form__question_login'>войдите с паролем</a>."
+				}
+			},
             rules: {
-                "missing[name]": { required: true },
+                "missing[name]": { required: true, minlength: 3 },
                 "missing[gender]": { required: true },
                 "missing[birthday(1i)]": { required: true },
-                "missing[user_attributes][name]": { required: true },
-                "missing[user_attributes][email]": { required: true, email: true },
+                "missing[user_attributes][name]": { required: true, minlength: 3 },
+                "missing[user_attributes][email]": { 
+	                required: true, 
+	                email: true,
+	                remote: {
+						type: "post",
+						url: "/users/check_email.json",
+						data: {
+							email: function() {
+								return $('input[name="missing[user_attributes][email]"]').val()
+							}
+						}
+					}
+				},
                 "missing[user_attributes][phone]": { required: true },
                 "missing[user_attributes][password]": { required: true }
             }

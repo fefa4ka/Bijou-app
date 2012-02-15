@@ -163,7 +163,7 @@ $(function()
 			})
 		})
 		.bind("ajax:success", function(evt, data, status, xhr){
-		   document.location = "/missings/"
+		   document.location = "/users/settings/"
 	});      
 	
 	
@@ -189,6 +189,15 @@ $(function()
 	
 	$('.p-main-dialog-a-service-submit_register').click(show_registration_dialog);
 
+
+	// Form submit handler
+   	$('form')
+		.live('ajax:beforeSend', function(e){
+			$(this).find('input[type=submit]').attr('disabled', 'disabled');
+		})
+		.live('ajax:complete', function(evt, data, status, xhr){    
+     		$(this).find('input[type=submit]').removeAttr('disabled');
+		})
 });
 
 function pluralForm(n, form1, form2, form5)

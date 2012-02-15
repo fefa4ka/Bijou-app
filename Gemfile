@@ -70,7 +70,7 @@ gem 'meta_search'
 gem 'foreman'
 
 # Mailer
-gem 'tlsmail'
+# gem 'tlsmail'
 
 # Private messages
 gem 'simple-private-messages', '0.0.0', :git => "git://github.com/fefa4ka/simple-private-messages.git"

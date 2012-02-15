@@ -5,8 +5,6 @@ require File.expand_path('../application', __FILE__)
 People::Application.initialize!
 
 # Mailer initialize
-require 'tlsmail'    
-Net::SMTP.enable_tls(OpenSSL::SSL::VERIFY_NONE)
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.raise_delivery_errors = true

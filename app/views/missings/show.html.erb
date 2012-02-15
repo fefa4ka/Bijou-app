@@ -41,21 +41,21 @@
 		<% end %>
 		</ul>         
 		<% end %>
-        <div class="clear"></div>
-		<%= tag( :input, { :type => "button", :value => "Я видел этого человека", :class => "blue b-missing__i_saw t-medium" } ) if @seen.new_record? %>
+        <div class="clear"></div>                   
+			<%= tag( :input, { :type => "button", :value => "Я видел этого человека", :class => "blue b-missing__i_saw t-medium" } ) if @seen.new_record? %>
 
-        <%= form_for @seen, :url => "/seen_the_missing.json", :remote => true do |seen| %>
-          <div class="b-missing__i_saw_in <%= "l-hidden" if @seen.new_record? %>">
-          <label for="i_saw_in" class="l-block">Я видел этого человека в <span class="b-missing__i_saw_in_place"><%= YandexInflect.inflections(seen.object.address)[5] unless @location.nil?%></span></label>
-          <button class="b-missing__i_saw_in_change silver">Уточнить</button>    
-        </div>
+		    <%= form_for @seen, :url => "/seen_the_missing.json", :remote => true do |seen| %>
+		      <div class="b-missing__i_saw_in <%= "l-hidden" if @seen.new_record? %>">
+		      <label for="i_saw_in" class="l-block">Я видел этого человека в <span class="b-missing__i_saw_in_place"><%= YandexInflect.inflections(seen.object.address)[5] unless @location.nil?%></span></label>
+		      <button class="b-missing__i_saw_in_change silver">Уточнить</button>    
+		    </div>
 
-        <div class="b-missing__i_saw_in_change_container l-hidden">
-            <%= seen.hidden_field :missing_id %>
-            <%= seen.text_field :address, :class => "b-missing__i_saw_in_change_field" %>
-            <%= seen.submit "Сохранить", :class => "b-missing__i_saw_in_save silver" %>
-        </div>
-        <% end %>
+		    <div class="b-missing__i_saw_in_change_container l-hidden">
+		        <%= seen.hidden_field :missing_id %>
+		        <%= seen.text_field :address, :class => "b-missing__i_saw_in_change_field" %>
+		        <%= seen.submit "Сохранить", :class => "b-missing__i_saw_in_save silver" %>
+		    </div>
+		    <% end %>  
 
 	</div>
 	

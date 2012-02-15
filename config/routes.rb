@@ -1,16 +1,20 @@
 People::Application.routes.draw do             
   ActiveAdmin.routes(self)
 
+  root :to => "main#index"
+
   devise_for :admin_users, ActiveAdmin::Devise.config
 
   # Систему аутентификации обрабатываем своим контроллером
-  devise_for :users, :controllers => {:sessions => 'sessions', :omniauth_callbacks => "users/omniauth_callbacks" }  
-  
-  root :to => "main#index"
+  devise_for :users, :controllers => { :sessions => 'users/sessions', 
+    :registrations => "users/registrations",
+    :confirmations => "users/confirmations",
+    :omniauth_callbacks => "users/omniauth_callbacks" }
 
-  resources :users do
-     resources :messages    
-  end              
+  devise_scope :user do
+    match "sessions/new" => "sessions#new"
+  end
+
   
   resources :sessions
   resources :missings 
@@ -32,8 +36,12 @@ People::Application.routes.draw do
 
   match "report" => "report#report"
  
+  match "users/settings" => "users#edit"
   match "users/send_message" => "messages#create"
   match "users/check_email" => "users#check_email"
+  resources :users do
+     resources :messages    
+  end 
   
   match ":action" => "static#:action"
    

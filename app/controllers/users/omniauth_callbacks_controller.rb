@@ -37,7 +37,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
      sign_in_and_close_popup @user
   end
-  
+
+  private
+    
   def find_for_facebook_oauth(access_token)
     data = access_token.extra.raw_info
     find_or_create(data.email, data.name, :facebook)
@@ -67,29 +69,24 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     data = access_token.info
     find_or_create(data["email"], data["name"], :mailru, data.image)
   end
-   
+
   def find_or_create(email, name="", provider="", photo="")     
     if user = User.where(:email => email).first
       user
-    elsif session[:guest_user_id]
-      user.email = email
-      user.name = name
-      user.save
-      user
     else
-      user = User.create!(:email => email, :name => name, :password => Devise.friendly_token[0,20])
+      user = User.create!(:email => email, :name => name)
     end                        
     user.avatar_from_url(photo) unless photo == "" or photo.nil?
     user.provider = provider
+
+    user.skip_confirmation! 
     user.save
     user
   end
 
-  private
-
-  def sign_in_and_close_popup(user)  
+  def sign_in_and_close_popup(user)
+    logger.debug(user)
     sign_in user
-    
     render :inline => "<script>if(window.opener) { window.opener.after_auth(); window.close(); }</script>"
   end
 end

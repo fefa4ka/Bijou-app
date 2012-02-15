@@ -7,7 +7,7 @@ class UserMailer < ActionMailer::Base
     @user = missing.user
     @password = password
     @missing = missing
-    @url = "http://naidutebya.ru" + missing_path(missing)
+    @url = missing_url(missing)
 
     mail(:to => @user.email, :subject => "Объявление о пропаже #{YandexInflect.inflections(missing.name).second} размещено")
   end

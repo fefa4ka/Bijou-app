@@ -43,6 +43,7 @@
 	<div class="b-head__auth grid_3" style="<%= user_signed_in? ? "" : "display: none" %>">  
 		<button class="b-auth__button loggedin maroon l-right" provider="<%= current_user && current_user.provider %>"><%= current_user && (current_user.name || current_user.email) %></button>	
 		<div class="b-auth__list b-select__list ui-corner-bottom l-hidden">
+			<%= link_to "Настройки", '/users/settings/', :class => "b-select__list_item" %>
             <%= link_to "Выйти", destroy_user_session_path, :method => :delete, :class => "b-select__list_item" %>
 		</div>
 	</div>                 	   
@@ -68,7 +69,7 @@
               <%= login_form.hidden_field :remember_me, :value => true %>
 			<ul>
               <li><div>Почта:</div><%= login_form.text_field :email, :tabindex => 2 %></li>
-              <li><div>Пароль:</div><%= login_form.text_field :password, :tabindex => 3 %></li>
+              <li><div>Пароль:</div><%= login_form.password_field :password, :tabindex => 3 %></li>
 			</ul>
 			
             <%= login_form.submit "Войти", :tabindex => 5 %>    
@@ -125,9 +126,11 @@
 	
 	<div class="clear"></div>
 	<div class="grid_10 b-missing__tabs" style="<%= !current_page?("/add_missing") && user_signed_in? ? "" : "display: none" %>">
-		<div class="b-missing__tabs">      
-			<div class="b-missing__tab" style="<% current_user && current_user.has_missing? ? "" : "display: none" %>"><%= link_to_unless_current content_tag("span", content_tag("span", "Сводка по объявлению") + tag(:input, { :value => current_user && current_user_timeline_fresh.size, :type => "button", :class => "orange b-missing__tab_message_count", :style =>  !current_user || current_user_timeline_fresh.size == 0 ? "display: none" : "" }), :class => "tab"), '/report', :class => "b-missing__tab b-missing__tab_link" %></div> 			
-			<div class="b-missing__tab" style="<% current_user && current_user.has_missing? ? "" : "display: none" %>"><%= link_to_unless_current content_tag("span", "Объявление", :class => "tab"), (current_user && missing_path(current_user.missings.first)) || "", :class => "b-missing__tab b-missing__tab_link" %></div>  
+		<div class="b-missing__tabs">     
+			<% if current_user && current_user.missings.size > 0 %>
+			<div class="b-missing__tab" style="<% current_user && current_user.has_missing? ? "" : "display: none" %>"><%= link_to_unless_current content_tag("span", content_tag("span", "Сводка по объявлению") + tag(:input, { :value => current_user && current_user_timeline_fresh.size, :type => "button", :class => "orange b-missing__tab_message_count", :style =>  !current_user || current_user_timeline_fresh.size == 0 ? "display: none" : "" }), :class => "tab"), '/report', :class => "b-missing__tab b-missing__tab_link" %></div> 		
+			<div class="b-missing__tab" style="<% current_user && current_user.has_missing? ? "" : "display: none" %>"><%= link_to_unless_current content_tag("span", "Объявление", :class => "tab"), (current_user && current_user.missings.first && missing_path(current_user.missings.first)) || "", :class => "b-missing__tab b-missing__tab_link" %></div>  
+			<% end %>
 			<div class="b-missing__tab"><%= link_to_unless_current content_tag("span", "Поиск объявлений", :class => "tab"), '/missings', :class => "b-missing__tab b-missing__tab_link" %></div>   
 			<div class="b-missing__tab"><%= link_to_unless_current content_tag("span", "Разместить объявление", :class => "tab"), '/add_missing', :class => "b-missing__tab b-missing__tab_link" %></div> 
 		</div>
@@ -186,12 +189,4 @@
         force_new_window: false
     };
     
-    (function() {
-        var script = document.createElement('script');
-        script.type = 'text/javascript'; script.async = true;
-        script.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'media.reformal.ru/widgets/v1/reformal.js?1';
-        document.getElementsByTagName('head')[0].appendChild(script);
-    })();
-  </script>
-</body>
-</html>
+    (function()

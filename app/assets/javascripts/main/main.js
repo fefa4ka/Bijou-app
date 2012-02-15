@@ -61,12 +61,13 @@ $(function(){
 		$('.p-main-suggest-info[type!=' + type + ']').fadeOut(300);          
 		suggest.fadeIn(500);                     
 		
-        if( $(this).attr('animate_missing') ) {
+        if( $(this).attr('animate_missing') && !animate_missing_block ) {
             show_random_missing();
             animate_missing_block = setInterval( show_random_missing, 2500 );
 
         } else {
             clearInterval( animate_missing_block );
+            animate_missing_block = false;
         }
 
 	});

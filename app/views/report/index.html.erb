@@ -6,8 +6,7 @@
 			<%= radio_button_tag "report_type", "history", false, :class => "b-form-custom-false" %><%= label_tag "report_type_history", "Новые обстоятельства" %>
 			<%= radio_button_tag "report_type", "people", false, :class => "b-form-custom-false" %><%= label_tag "report_type_people", "Кто может помочь" %>
 			<%= radio_button_tag "report_type", "seen", false, :class => "b-form-custom-false" %><%= label_tag "report_type_seen", "Видели пропавшего" %>  
-			<%= radio_button_tag "report_type", "messages", false, :class => "b-form-custom-false" %><%= label_tag "report_type_messages", "Сообщения" %> 
-			<%= radio_button_tag "report_type", "sent", false, :class => "b-form-custom-false" %><%= label_tag "report_type_sent", "Отправленные" %>                                   
+			<%= radio_button_tag "report_type", "messages", false, :class => "b-form-custom-false" %><%= label_tag "report_type_messages", "Сообщения" %>                              
 			
           </div>    
         <% if current_user_timeline.size == 0 %>
