@@ -1,8 +1,6 @@
-<script>                     
-var questions = <%= @questions.to_json.html_safe %>;
-</script>                                  
-                                     
-<% if @questions.empty? %>
-	<div class="t-medium ">Спасибо за ответы. У нас к вам есть еще вопросы, мы их зададим после размещения объявления.</div> 
-	<p><br>Переходите к следующему шагу</p>                              
-<% end %>
+<div class="t-medium ">Спасибо за ответы. У нас к вам есть еще вопросы, мы их зададим после размещения объявления.</div> 
+<p><br>Переходите к следующему шагу</p>                              
+
+<script>
+	$('.b-form__questions_container').remove();
+</script>

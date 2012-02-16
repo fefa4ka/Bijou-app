@@ -39,11 +39,9 @@
 	<li class="b-form__nav_element<%- if @missing.current_step == "history" -%> b-form__nav_current_element <%- end -%>" data-step="history">
       <%= link_to_unless_current "Обстоятельства пропажи", "/add_missing/history", { :class => "missing_step" } %>
 	</li>
-    <% unless current_user %>
 	<li class="b-form__nav_element<%- if @missing.current_step == "contacts" -%> b-form__nav_current_element <%- end -%>" data-step="contacts">
 	  <%= link_to_unless_current "Обратная связь", "/add_missing/contacts", { :class => "missing_step" } %>
 	</li>
-  <% end %>
 </ul>
 
 </div>

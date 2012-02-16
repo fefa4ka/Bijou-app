@@ -20,21 +20,19 @@ class MissingsController < ApplicationController
   # GET /missings/1.xml
   def show               
   	@missing = Missing.find(params[:id])                  
-    @author = User.find(@missing.user_id)
+    @author = @missing.author || @missing.user
 
 	  @discussion = Discussion.new({ :missing_id => @missing.id })
 	  @message = Message.new 
 
-      @location = get_user_location 
-      @seen = SeenTheMissing.where( { :missing_id => @missing.id, :user_id => current_or_guest_user } ).first
-      @seen = SeenTheMissing.new( { :missing_id => @missing.id, :address => @location.nil? ? "" : @location }) if @seen.nil?
+    @location = get_user_location 
+    @seen = SeenTheMissing.where( { :missing_id => @missing.id, :user_id => current_or_guest_user } ).first || SeenTheMissing.new( { :missing_id => @missing.id, :address => @location.nil? ? "" : @location })
 
 	  @helpers = []
 
 	  # Вопросы 
 	  @questions = Question.for @missing, current_or_guest_user, :all   
-    
-	    
+    	    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @missing }
@@ -90,6 +88,7 @@ class MissingsController < ApplicationController
 
     @missing = session[:missing_id] > 0 ? Missing.find(session[:missing_id]) : Missing.new
     @missing.user = current_or_guest_user if @missing.new_record?
+    @missing.author ||= Author.new({ :name => @missing.user.name, :phone => @missing.user.phone })
 
     @missing.valid?
     
@@ -129,32 +128,33 @@ class MissingsController < ApplicationController
     	@missing.update_attributes(params[:missing])    
     	@missing.save
     else
-        params[:missing].delete("user_attributes")
+      params[:missing].delete("user_attributes")
 
-        @missing = Missing.new(params[:missing])
-        @missing.user = current_or_guest_user
+      @missing = Missing.new(params[:missing])
+      @missing.user = current_or_guest_user
     	@missing.published = false;
     	@missing.save
     	
     	session[:missing_id] = @missing.id
     end         
 	  
-    if params["missing_upload_photo"]     
+    logger.debug(params[:missing]["photo_attributes"])
+   # if (params[:missing]["photo_attributes"].find_all {|r| r["photo"] }).size > 0
       data_type = "photos"
       data = []
       @missing.photos.each do |p|
         data.push({ :id => p.id, :image_name => p.photo.url(:small) })
       end
-    end                  
+  #  end                  
 	
     respond_to do |format|
       if params[:save] == "1"
-        
         @missing = Missing.find(session[:missing_id])
         @missing.published = true  
         @missing.save  
-
-        UserMailer.new_missing_email(@missing, params[:missing]["user_attributes"]["password"]).deliver
+        
+        password = params[:missing]["user_attributes"] ? params[:missing]["user_attributes"]["password"] : ""
+        UserMailer.new_missing_email(@missing, password).deliver
 
         session[:missing_id] = nil
         
@@ -236,12 +236,19 @@ class MissingsController < ApplicationController
     missing = Missing.find(params[:id])
     user = current_or_guest_user
     
-    next_question = Question.answer question_params, missing, user
+    answers = Question.answer question_params, missing, user
+    # Логиним, если вопрос "Как с вами связаться?"
+    if answers.size == 1 && answers.first.question.answer_type == 7
+      user = User.find(answers.first.text)
+      sign_in user
+    end
+    next_question = Question.for(missing, user).first
     
     respond_to do |format|
       format.json {
         render :json => {
           :ok => true,
+          :logged_in => user_signed_in?,
           :question => next_question
         }
       } 

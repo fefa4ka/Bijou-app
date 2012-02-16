@@ -118,11 +118,13 @@ class Question < ActiveRecord::Base
     	answer = question_params["answer"] || {}
     	answer["text"] ||= ""
     	answer["answers_ids"] ||= []
-    	logger.debug(answer)
-    	# Если нажали отложить вопрос
+    
+        answers = []
+
+        # Если нажали отложить вопрос
     	if question_params["action_type"] == "skip"
     		# Сохраняем запись с пометкой пропущен
-    		History.create({ :missing => missing, 
+    		answers.push History.create({ :missing => missing, 
     								 :question => question,
     								 :user => user,
     								 :text => "skip" 
@@ -131,7 +133,7 @@ class Question < ActiveRecord::Base
 	    	case question.answer_type  
         # Ответ да-нет
     		when 0 
-    			History.create({ :missing => missing, 
+    			answers.push History.create({ :missing => missing, 
     								 :question => question,
     								 :user => user,                         
     								 :answer_id => question.answers.where(:text => question_params["action_type"]).first.id,
@@ -140,13 +142,13 @@ class Question < ActiveRecord::Base
 			   
          # Один вариант ответа
 		    when 1
-		    	History.create({ :missing => missing, 
+		    	answers.push History.create({ :missing => missing, 
     								 :question => question,
     								 :user => user,
     								 :text => answer["text"]
 			   }) if answer["id"] == "other" and !answer["text"].empty?    
 			   
-			   History.create({ :missing => missing, 
+			   answers.push History.create({ :missing => missing, 
      								 :question => question,
      								 :user => user,
      								 :answer_id => answer["id"]
@@ -154,14 +156,14 @@ class Question < ActiveRecord::Base
          # Несколько вариантов ответа
 		    when 2
 		    	answer["answers_ids"].each do |a|
-		    	   History.create({ :missing => missing, 
+		    	   answers.push History.create({ :missing => missing, 
 	    								 :question => question,
 	    								 :user => user,
 	    								 :answer_id => a.first
 				   })
 			   end
 
-			   History.create({ :missing => missing, 
+			   answers.push History.create({ :missing => missing, 
     								 :question => question,
     								 :user => user,
     								 :text => answer["text"]
@@ -169,7 +171,7 @@ class Question < ActiveRecord::Base
 			   
          # Свободное поле
 		   when 3
-		   	   History.create({ :missing => missing, 
+		   	   answers.push History.create({ :missing => missing, 
     								 :question => question,
     								 :user => user,
     								 :text => answer["text"]
@@ -184,7 +186,7 @@ class Question < ActiveRecord::Base
                           :longitude => geoPoint[0]
            })
             
-           History.create({ :missing => missing, 
+           answers.push History.create({ :missing => missing, 
      								 :question => question,
      								 :user => user,
      								 :text => place.id
@@ -192,17 +194,31 @@ class Question < ActiveRecord::Base
  			   end
 		   # Дата
 	     when 6
-  	     History.create({ :missing => missing, 
+  	     answers.push History.create({ :missing => missing, 
    								 :question => question,
    								 :user => user,
    								 :text => answer["date"]
   		   }) unless answer["date"].empty?         
-		   end
-		   
+
+         # Регистрация
+         when 7
+           unless answer["name"].empty? || answer["email"].empty?
+             new_user = User.create!({ :name => answer["name"],
+                            :email => answer["email"],
+                            :phone => answer["phone"]
+             })           
+             answers.push History.create({ :missing => missing,
+                             :question => question,
+                             :user => user,
+                             :text => new_user.id
+             }) unless new_user.nil?
+              
+           end
+         end
+
 	   end
-		
-	    # Получаем следующий вопрос
-	    Question.for(missing, user).first
+	  return answers	
+	    
     end
   end 
   

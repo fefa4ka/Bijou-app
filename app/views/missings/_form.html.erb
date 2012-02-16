@@ -1,5 +1,18 @@
+<script>                     
+var questions = <%= @questions.to_json.html_safe %>;
+</script>                    
+
 <div class="b-form__background b-form__questions_container l-hidden b-new-missing-form" data-step="history">
 	<div class="container_16">
+		<div class="grid_8 b-form__questions_description">
+			<p class="b-header__description">
+				Ответы на вопросы помогут вам структурировать важную информацию и создать максимально полную картину пропажи.
+			</p>
+			<p class="b-header__description">
+				Если вы не знаете ответ на вопрос, вы сможете вернуться к нему после публикации объявления и добавить нужные данные в любой момент. 
+			</p>
+		</div>
+
 		<div class="b-form__questions_infinity grid_16">    
 			<div class="b-form__questions_fade"></div>  
 			<div class="t-big b-form__questionnaire"></div>                  
@@ -23,6 +36,7 @@
 	:id => "new_missing" } do |f| %>       
     <div class="b-new-missing-form-container">
     <% @missing.steps.each do |step| %>
+   	  <% if step != "history" || (step == "history" && @questions.empty?) %>
       <div class="b-form__background form b-new-missing-form" data-step="<%= step %>">	
           <div class="container_16">
               <div class="grid_16">
@@ -31,6 +45,7 @@
           </div>          
           <div class="clear"></div>
       </div>
+      <% end %>
     <% end %>
     </div>
 

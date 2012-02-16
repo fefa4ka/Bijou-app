@@ -19,9 +19,9 @@ ActiveRecord::Schema.define(:version => 20120214113926) do
     t.integer  "author_id"
     t.string   "author_type"
     t.text     "body"
+    t.string   "namespace"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "namespace"
   end
 
   add_index "active_admin_comments", ["author_type", "author_id"], :name => "index_active_admin_comments_on_author_type_and_author_id"
@@ -54,34 +54,12 @@ ActiveRecord::Schema.define(:version => 20120214113926) do
     t.datetime "updated_at"
   end
 
-  create_table "can_helps", :force => true do |t|
-    t.integer  "missing_id"
-    t.integer  "user_id"
-    t.text     "missing_information"
-    t.text     "information"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "can_helps_help_types", :id => false, :force => true do |t|
-    t.integer "can_help_id"
-    t.integer "help_type_id"
-  end
-
-  create_table "can_helps_places", :id => false, :force => true do |t|
-    t.integer "place_id"
-    t.integer "can_help_id"
-  end
-
-  add_index "can_helps_places", ["can_help_id"], :name => "index_can_helps_places_on_can_help_id"
-  add_index "can_helps_places", ["place_id"], :name => "index_can_helps_places_on_place_id"
-
   create_table "collections", :force => true do |t|
     t.string   "name"
     t.string   "title"
+    t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "position"
   end
 
   create_table "collections_questions", :id => false, :force => true do |t|
@@ -92,10 +70,10 @@ ActiveRecord::Schema.define(:version => 20120214113926) do
   create_table "discussions", :force => true do |t|
     t.text     "comment"
     t.integer  "discussion_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "missing_id"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "discussions", ["discussion_id"], :name => "index_discussions_on_discussion_id"
@@ -162,6 +140,8 @@ ActiveRecord::Schema.define(:version => 20120214113926) do
   create_table "messages", :force => true do |t|
     t.integer  "sender_id"
     t.integer  "recipient_id"
+    t.integer  "message_id"
+    t.integer  "seen_the_missing_id"
     t.boolean  "sender_deleted",      :default => false
     t.boolean  "recipient_deleted",   :default => false
     t.string   "subject"
@@ -169,8 +149,6 @@ ActiveRecord::Schema.define(:version => 20120214113926) do
     t.datetime "read_at"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "message_id"
-    t.integer  "seen_the_missing_id"
   end
 
   create_table "missings", :force => true do |t|
@@ -179,8 +157,6 @@ ActiveRecord::Schema.define(:version => 20120214113926) do
     t.date     "birthday"
     t.date     "date"
     t.boolean  "published"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "age"
     t.date     "last_seen"
@@ -188,15 +164,17 @@ ActiveRecord::Schema.define(:version => 20120214113926) do
     t.float    "longitude"
     t.string   "city"
     t.text     "history"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "photos", :force => true do |t|
     t.integer  "missing_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "photo_file_name"
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "photos", ["missing_id"], :name => "index_photos_on_missing_id"
@@ -278,8 +256,6 @@ ActiveRecord::Schema.define(:version => 20120214113926) do
     t.integer  "user_id"
     t.integer  "answer_id"
     t.text     "text"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "answer_type"
     t.integer  "questionnaire_id"
     t.text     "question_text"
@@ -287,6 +263,8 @@ ActiveRecord::Schema.define(:version => 20120214113926) do
     t.text     "answer_human_text"
     t.string   "asnwer_text"
     t.text     "answer"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
@@ -311,14 +289,14 @@ ActiveRecord::Schema.define(:version => 20120214113926) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string   "provider"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.boolean  "confirmed"
     t.boolean  "virtual"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "users", ["confirmation_token"], :name => "index_users_on_confirmation_token", :unique => true

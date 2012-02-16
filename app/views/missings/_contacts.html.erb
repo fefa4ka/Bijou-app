@@ -1,9 +1,13 @@
-
-<%= f.fields_for :user do |user| %>  
-<!-- Входим див, после hr -->
+</div>
+<div class="grid_8">
  <p class="b-header__description">
-  С вами будут связываться люди, которые могут помочь и вам будут приходить уведомления о новой информации связанной с поиском.
+  С вами начнут связываться люди, которые могут помочь в поиска и будут приходить уведомления о новой информации связанной с пропавшим и поисками.
 </p>
+</div>
+
+<div class="grid_16">
+<%= f.fields_for(current_user ? :author : :user) do |user| %>  
+<!-- Входим див, после hr -->
 
 
  <div class="b-form__field">
@@ -25,16 +29,15 @@
 
  <div class="b-form__field">
    <%= user.label :phone, "Телефон", :class => "b-form__label" %>
-   <%= user.text_field :phone %>
+   <%= user.text_field :phone, :class => "b-form__phone" %>
  </div>
 
+<% unless current_user %>
 <br>
- 
 <div class="b-form__field">
   <%= user.label :email, "Электронная почта", :class => "b-form__label" %>
   <%= user.text_field :email, :value => (user.object.email unless user.object.email =~ /guest/) %>
 </div>
-
 <!-- Выходи из дива для hr -->
 </div>
 </div>
@@ -52,6 +55,6 @@
 	  <%= user.text_field :password %>
 	</div>
 
-  <%= hidden_field_tag "save" %>        
-
 <% end %>
+<% end %>
+  <%= hidden_field_tag "save" %>        

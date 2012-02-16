@@ -20,37 +20,40 @@ $(function(){
 			center,
             placemarkCollection = new YMaps.GeoObjectCollection();
 	 
-	    function add_placemarks() {
-            var placemark;
+	    function add_placemarks() {	    	
+	    	function create_placemark(entity, place) {
+				function set_balloon_content(content){
+					var template = $('<div/>');
+					$.tmpl('tmpl-missing__map_balloon', content).appendTo(template); 
+					
+					placemark.setBalloonContent(template.html());
+				}    
+	    		var placemark,
+                	entity = places[i],
+                    point = new YMaps.GeoPoint(place.longitude, place.latitude),
+                    content = { name: entity.label, address: place.address },
+                    style = "default#buildingsIcon",
+                    element = $('<li class="b-missing__place"/>');
 
-			function set_balloon_content(content){
-				var template = $('<div/>');
-				$.tmpl('tmpl-missing__map_balloon', content).appendTo(template); 
-				
-				placemark.setBalloonContent(template.html());
-			}                              
-			
+                    element.append( $('<div class="t-medium"/>').text( entity.label ) )
+                           .append( $('<div class="b-missing__place_address"/>').text( place.address ).click(function() {
+                               placemark.openBalloon();
+                               })
+                           )
+                           .appendTo('.b-missing__places');
+
+                placemark = new YMaps.Placemark(point, { style: style });
+                set_balloon_content(content);
+                placemarkCollection.add(placemark);
+	    	}
+
             $.template('tmpl-missing__map_balloon', '<div class="t-strong">${name}</div><p>${address}</p>');
 	
             if( places.length > 0) {
                 for(i in places) {
-                    var entity = places[i],
-                        place = entity.answers[0],
-                        point = new YMaps.GeoPoint(place.longitude, place.latitude),
-                        content = { name: entity.label, address: place.address },
-                        style = "default#buildingsIcon",
-                        element = $('<li class="b-missing__place"/>');
-
-                        element.append( $('<div class="t-medium"/>').text( entity.label ) )
-                               .append( $('<div class="b-missing__place_address"/>').text( place.address ).click(function() {
-                                   placemark.openBalloon();
-                                   })
-                               )
-                               .appendTo('.b-missing__places');
-
-                    placemark = new YMaps.Placemark(point, { style: style });
-                    set_balloon_content(content);
-                    placemarkCollection.add(placemark);
+                	for(j in places[i].answers) {
+	                    create_placemark(places[i], places[i].answers[j]);
+                	}
                 }
                 map.addOverlay(placemarkCollection);
             }
@@ -87,7 +90,6 @@ $(function(){
     $(".b-missing__i_saw_in_change").live('click', function() {
         $(".b-missing__i_saw_in").hide();
         $(".b-missing__i_saw_in_change_container").show();
-        log('change');
 
     });
 
@@ -95,8 +97,6 @@ $(function(){
         $(".b-missing__i_saw_in").show();
         $(".b-missing__i_saw_in_change_container").hide();
         $(".b-missing__i_saw_in_place").text( $(".b-missing__i_saw_in_change_field").val() );
-
-        log('save');
     });
 
 

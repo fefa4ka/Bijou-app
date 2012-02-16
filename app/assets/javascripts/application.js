@@ -12,7 +12,7 @@
 
 var auth_callback,
 	missing_url;
-	
+
 function show_auth_dialog(callback, email) {
 	$('.b-head__registration_dialog').dialog('close');
 
@@ -31,6 +31,8 @@ function show_auth_dialog(callback, email) {
 	}
 
     auth_callback = callback;
+
+    return false;
 }
 
 function after_auth() {
@@ -59,6 +61,8 @@ function show_registration_dialog(callback) {
     });
 
     auth_callback = callback;
+
+    return false;
 }
          
 function missing_path(url) {
@@ -68,10 +72,17 @@ function missing_path(url) {
 	}                                                                                          
 	return missing_url;
 }
+
+function custom_input() {
+    $('input[class!=b-form-custom-false],button[class!=b-form-custom-false]').customInput();
+	$(".toolbar").buttonset(); 
+
+    $('.b-form__phone').mask('+7 999 999-99-99');
+}
+
 $(function()
 {
-	$('input[class!=b-form-custom-false],button[class!=b-form-custom-false]').customInput();
-	$(".toolbar").buttonset();   
+	custom_input();  
 	$('.b-head__login').click(function() {
         show_auth_dialog();
 	});     

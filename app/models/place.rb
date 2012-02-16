@@ -13,7 +13,7 @@ class Place < ActiveRecord::Base
 
     self.country = geo_result.country
     self.state = geo_result.state
-    self.city = geo_result || geo_result.city
+    self.city = geo_result.city rescue nil
     
     self.address = geo_result.address if self.address.nil?
     geo_result

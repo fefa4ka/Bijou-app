@@ -41,13 +41,23 @@ $(function(){
 	} 
 	            
 	function generate_datepicker(){
+		jQuery.validator.addMethod("russianDate", function(value, element) { 
+		    date = Date.parseExact(value, "dd.MM.yyyy");
+		    return date && new Date().getTime() > date.getTime() ? true : false;
+		});
+
 		$(".b-form__question.selected .b-form__question_date_input").mask('99.99.9999'); 
 		$(".b-form__question.selected .b-form__question_form").validate({ 
 			errorClass: 'b-tooltip-error-block',
+			messages: {
+				"question[answer][date]": {
+					russianDate: "Введите корректную дату."
+				}
+			},
 			rules: {
 				"question[answer][date]": {
 					required: true,
-					date: true
+					russianDate: true
 				}
 			}
 		});
@@ -66,7 +76,13 @@ $(function(){
 			}, email);
 		});
 		
-		$(".b-form__question.selected .b-form__question_form").validate({
+		$(".b-form__question.selected .b-form__question_form").
+            bind('ajax:success', function(evt, data, status, xhr){
+                if(data.logged_in) {
+                    after_auth();
+                }
+        })
+        .validate({
 			errorClass: 'b-tooltip-error-block', 
 			messages: {
 				"question[answer][email]": {
@@ -507,6 +523,7 @@ $(function(){
 			// Если следующий вопрос, такой же как ожидали
 			if(respond_question == null){     
 				$('.b-form__questions_infinity').remove();
+				$('.b-form__questions_description').remove();
 				$('.b-form__questions_finish').removeClass('l-hidden'); 
 				question.effect('drop', { queue: false }, 500, callback_destroy);  
 				

@@ -68,7 +68,7 @@ $(function(){
    </div>
 	
 
-	<ul class="b-form__photos">
+	<ul class="b-form__photos grid_13">
 	<%= f.fields_for :photos do |photo_form| %> 
 	  <% if photo_form.object.new_record? %>
 		<li class="b-form__photo_field">
@@ -78,10 +78,14 @@ $(function(){
 	    <li class="b-form__photo">
 			<%= image_tag photo_form.object.photo.url(:small), :size => "100x100", :class => "b-form__photo" %>
 			<%= tag :input, { :type => "button", :value => "удалить", :class => "b-form__photo_delete red_action destroy" } %>
-            <%= photo_form.hidden_field :_destroy %>
-		</li>
-      <% end %>
+      <%= photo_form.hidden_field :id %>
+      <%= photo_form.hidden_field :_destroy %>
+      <%= photo_form.text_field :photo_file_name %>
+		  </li>
     <% end %>
+          
+
+  <% end %>
 	</ul>
 	
 	

@@ -35,6 +35,10 @@ class User < ActiveRecord::Base
   def avatar_from_url(url) 
     self.avatar = open(url)
   end
- 
-  
+
+  def last_visit(type, id)
+    record = Impression.where(:user_id => self.id, :impressionable_type => type, :impressionable_id => id).last
+    record.created_at rescue nil
+  end            
+
 end

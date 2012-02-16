@@ -15,6 +15,7 @@ $(function(){
                 "missing[gender]": { required: true },
                 "missing[birthday(1i)]": { required: true },
                 "missing[user_attributes][name]": { required: true, minlength: 3 },
+                "missing[author_attributes][name]": { required: true, minlength: 3 },
                 "missing[user_attributes][email]": { 
 	                required: true, 
 	                email: true,
@@ -35,6 +36,13 @@ $(function(){
 	
 	if( $(".p-new-missing").length == 0 ) return; 
 
+	$.address.change(function(event) {  
+	    // do something depending on the event.value property, e.g.  
+	    // $('#content').load(event.value + '.xml'); 
+	 	if(event.pathNames[0]) { 
+		    change_step(event.pathNames[0]);
+		}
+	});  
     $('.b-new-missing-form[data-step!=' + current_step + ']').hide(); 
 
     function change_step(next_step) {
@@ -66,7 +74,17 @@ $(function(){
     		direction,
     		position = current_step_container.offset(),
             step_container = $('.b-new-missing-form-container');
-    	
+
+        if( !(next_step == "common" || next_step == "history" || next_step =="concats") && typeof next_step != "undefined" ) {
+        	next_step = 'common';
+        	$.address.value('/' + next_step);  
+        }
+
+      	if( current_step == next_step ) {
+      		return false;
+      	}
+
+  
     	position.left = current_step_container.width();
     	
     	for(var i = 0; i < steps.length; i++) {
@@ -86,6 +104,8 @@ $(function(){
     		}
     	}	    	
 
+    	current_step = next_step;
+		
         if( direction == "left" ) {
             form.validate().cancelSubmit = true;        
             form.submit();
@@ -98,6 +118,8 @@ $(function(){
 		        form.submit();
 			}
         }
+
+        $.address.value('/' + current_step);  
 
         show_buttons(next_step);
         $('.b-form__nav_element').removeClass('b-form__nav_current_element');
@@ -118,10 +140,7 @@ $(function(){
 	    	.animate({ left: 0, width: $(window).width() }, { queue: false, duration: 500 }, 'linear', function(){ log(form); form.validate().resetForm() } ); 
 
         $(window).scrollTop( $('.p-new-missing__header').offset().top );
-	    current_step = next_step;
-        
-
-        log(form, form.validate());
+	    
         form.validate().resetForm();
     }
 
@@ -147,8 +166,8 @@ $(function(){
 		
 		for(id in data) {
 			var element = data[id],
-				name = 'missing[photos_attributes][' + element.id + ']';
-			
+				name = 'missing[photos_attributes][' + id + ']';
+			log(data,element);
 			$('.b-form__photos')
 				.append( 
 					$('<li/>')
@@ -157,6 +176,19 @@ $(function(){
 							$('<img/>')
 								.attr('src', element.image_name)
 								.addClass('b-form__photo')
+						)
+						.append(
+							$('<input/>')
+								.attr('type', 'hidden')
+								.attr('name', name + '[_destroy]')
+								.button()
+						)
+						.append(
+							$('<input/>')
+								.attr('type', 'hidden')
+								.attr('name', name + '[id]')
+								.val(element.id)
+								.button()
 						)
 						.append(
 							$('<input/>')

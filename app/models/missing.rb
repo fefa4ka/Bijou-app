@@ -11,6 +11,7 @@ class Missing < ActiveRecord::Base
   is_impressionable
   
   belongs_to :user
+  belongs_to :author
   
   has_many :photos, :dependent => :destroy
   has_many :discussions, :dependent => :destroy   
@@ -25,10 +26,11 @@ class Missing < ActiveRecord::Base
   attr_writer :current_step  
 
   # Поля характеристик
-  attr_accessor :ages, :author_callback_phone, :author_callback_email, :private_history, :private_contacts, :photos_attributes, :author_name, :author_email, :author_phone, :author_callback_email, :author_callback_phone, :author_callback_hash, :missing_password
+  attr_accessor :ages
   
   accepts_nested_attributes_for :user
-  accepts_nested_attributes_for :photos
+  accepts_nested_attributes_for :author
+  accepts_nested_attributes_for :photos, :allow_destroy => true
   
   default_scope :order => "updated_at DESC"
   
@@ -186,7 +188,8 @@ class Missing < ActiveRecord::Base
 
       conditions = { :missing_id => self.id, :question_id => q.id }
       conditions[:user_id] = opts[:user_id] unless opts[:user_id].nil?
-      user_answers = History.where(conditions).where("histories.text <> 'skip' OR histories.text IS NULL").group(:answer_id)
+      #user_answers = q.answer_type != 4 ? History.where(conditions).where("histories.text <> 'skip' OR histories.text IS NULL").group(:answer_id) : History.where(conditions).where("histories.text <> 'skip' OR histories.text IS NULL")
+      user_answers = History.where(conditions).where("histories.text <> 'skip' OR histories.text IS NULL")
          
       user_answers.each do |a|  
         answer = human_answer = a.answer.nil? ? a.text : a.answer.human_text || a.text || a.answer.text
@@ -205,7 +208,7 @@ class Missing < ActiveRecord::Base
             :address  => place.address,
             :country  => place.country,
             :state    => place.state,
-            :city     => place.city,
+            :city     => (place.city rescue nil),
             :street   => place.street,
             :latitude => place.latitude,
             :longitude => place.longitude 

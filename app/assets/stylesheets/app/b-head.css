@@ -51,6 +51,10 @@
 		
 		padding: 30px 0 0 40px !important;
 	}
+
+		.b-head__login_form a {
+			text-decoration: none;
+		}	
 	
 	.b-head__block {
 		margin: 9px 0;
