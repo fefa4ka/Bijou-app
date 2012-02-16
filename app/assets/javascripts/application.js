@@ -1,9 +1,9 @@
 //= require jquery
 //= require jquery_ujs             
+//= require fancybox
 //= require_self          
 //= require_tree ./main
 //= require_tree ./plugins 
-//= require_tree ./fancybox    
 //= require_tree ./missing
 //= require_tree ./report
 //= require_tree ./user              

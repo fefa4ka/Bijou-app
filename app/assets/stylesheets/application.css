@@ -1,8 +1,8 @@
 /*
 *= require_self      
 *= require ui   
+*= require fancybox
 *= require_tree ./app
-*= require_tree ./fancybox
 */
 
 

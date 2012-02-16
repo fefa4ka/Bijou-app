@@ -24,6 +24,7 @@ group :development do
 end
 
 gem 'jquery-rails'
+gem 'fancybox-rails'
                                 
 # Database
 gem 'mysql2'   
