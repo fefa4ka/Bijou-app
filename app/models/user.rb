@@ -23,7 +23,6 @@ class User < ActiveRecord::Base
   
   has_many :missings, :dependent => :destroy
   has_many :discussions, :dependent => :destroy
-  has_many :can_helps, :dependent => :destroy          
   has_many :histories, :dependent => :destroy
   has_many :seen_the_missings, :dependent => :destroy
   

@@ -3,8 +3,9 @@
 	missing_path("<%= missing_path(@missing) %>");
 </script>
 
+<%= render 'question' if current_user && current_user.id == @missing.user.id && @missing.impressionist_count(:user_id => current_user.id) < 2 %>
 <%= render 'show_questions' if current_user && @missing.user.id == current_user.id %>
-<%= render 'question' if current_user && current_user.id = @missing.user.id && @missing.impressionist_count(:user_id => current_user.id) < 2 %>
+
 <div class="container_16 p-missing">
 	<div class="grid_11">
 		<div class="t-big_fat b-missing__wanted_h">
@@ -43,9 +44,9 @@
 		</ul>         
 		<% end %>
         <div class="clear"></div>                   
-			<%= tag( :input, { :type => "button", :value => "Я видел этого человека", :class => "blue b-missing__i_saw t-medium" } ) if @seen.new_record? %>
+			<%= tag(:input, { :type => "button", :value => "Я видел этого человека", :class => "blue b-missing__i_saw t-medium" }) if @seen.new_record? && !(current_user && current_user.id == @missing.user.id) %>
 
-		    <%= form_for @seen, :url => "/seen_the_missing.json", :remote => true do |seen| %>
+            <%= form_for(@seen, :url => "/seen_the_missing.json", :remote => true, :html => { :class => "b-missing__i_saw_form" }) do |seen| %>
 		      <div class="b-missing__i_saw_in <%= "l-hidden" if @seen.new_record? %>">
 		      <label for="i_saw_in" class="l-block">Я видел этого человека в <span class="b-missing__i_saw_in_place"><%= YandexInflect.inflections(seen.object.address)[5] unless @location.nil?%></span></label>
 		      <input type="button" class="b-missing__i_saw_in_change silver" value="Уточнить" />    
@@ -69,17 +70,9 @@
 	<div class="clear"></div>
 	<div class="b-missing__sharies">
 		<span class="l-left b-missing__share">Ваши друзья могут знать что-нибудь о пропавшем, расскажите им:</span>
-		<!-- AddThis Button BEGIN -->
-		<div class="addthis_toolbox addthis_default_style l-left b-missing__share">
-		<a class="addthis_button_preferred_1"></a>
-		<a class="addthis_button_preferred_2"></a>
-		<a class="addthis_button_preferred_3"></a>
-		<a class="addthis_button_preferred_4"></a>
-		<a class="addthis_button_compact"></a>
-		<a class="addthis_counter addthis_bubble_style"></a>
+        <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,lj,twitter,odnoklassniki,yaru,moimir,friendfeed"></div> 
+
 		</div>
-		<!-- AddThis Button END -->
-    </div>
   </div>
 
   <div class="grid_5 b-rightside">

@@ -50,7 +50,6 @@ $(function(){
             for(var i = 0; i < steps.length; i++) {
                 if( step == steps[i] ) break;
             }
-            log('step i:', step, i);
 
             if( i == 0 ) {
                 $('.b-form__back_button').hide();	    
@@ -74,8 +73,7 @@ $(function(){
     		direction,
     		position = current_step_container.offset(),
             step_container = $('.b-new-missing-form-container');
-
-        if( !(next_step == "common" || next_step == "history" || next_step =="concats") && typeof next_step != "undefined" ) {
+        if( !(next_step == "common" || next_step == "history" || next_step =="contacts" || typeof next_step == "undefined" || next_step == -1) ) {
         	next_step = 'common';
         	$.address.value('/' + next_step);  
         }
@@ -87,7 +85,7 @@ $(function(){
   
     	position.left = current_step_container.width();
     	
-    	for(var i = 0; i < steps.length; i++) {
+    	for(var i = 0; steps.length; i++) {
     		if( next_step == steps[i] ) {
     			direction = "left";
 
@@ -104,7 +102,6 @@ $(function(){
     		}
     	}	    	
 
-    	current_step = next_step;
 		
         if( direction == "left" ) {
             form.validate().cancelSubmit = true;        
@@ -119,9 +116,12 @@ $(function(){
 			}
         }
 
-        $.address.value('/' + current_step);  
 
         show_buttons(next_step);
+
+        current_step = next_step;
+        $.address.value('/' + current_step);  
+
         $('.b-form__nav_element').removeClass('b-form__nav_current_element');
         $('.b-form__nav_element[data-step=' + next_step + ']').addClass('b-form__nav_current_element');
 
@@ -137,7 +137,7 @@ $(function(){
 	 		.hide();
 	 	
 	 	next_step_container.css('width', 0).show()
-	    	.animate({ left: 0, width: $(window).width() }, { queue: false, duration: 500 }, 'linear', function(){ log(form); form.validate().resetForm() } ); 
+	    	.animate({ left: 0, width: $(window).width() }, { queue: false, duration: 500 }, 'linear', function(){ form.validate().resetForm() } ); 
 
         $(window).scrollTop( $('.p-new-missing__header').offset().top );
 	    
@@ -152,8 +152,6 @@ $(function(){
     	change_step(-1);
     }
 
-	$('#missing_user_attributes_phone').mask("+7 999 999-99-99");
-		
 	function update_photos(data){
 		var filefield = $('input[name$="[photo]"]'),
 			new_id = new Date().getTime();
@@ -167,7 +165,6 @@ $(function(){
 		for(id in data) {
 			var element = data[id],
 				name = 'missing[photos_attributes][' + id + ']';
-			log(data,element);
 			$('.b-form__photos')
 				.append( 
 					$('<li/>')

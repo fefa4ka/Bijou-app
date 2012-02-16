@@ -47,10 +47,11 @@ class UsersController < ApplicationController
     
   def check_email                    
     @user = User.where(:email => params[:email]).first 
-    logger.debug(@user)
     respond_to do |format|
-      format.json { 
-        render :json => !@user 
+
+      format.json {
+        # При размещении объявления, пользователь создается в базе сразу, а на финальном шаге идет проверка на зарегистрированность в базе.
+        render :json => !(@user && !(current_or_guest_user && current_or_guest_user.id == @user.id)) 
       }
      end
    end

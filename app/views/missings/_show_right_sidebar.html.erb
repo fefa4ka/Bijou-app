@@ -24,7 +24,8 @@
 					<% end %>
 				</table>
 				<div class="t-center">        
-					<% unless current_user && @author.id == current_user.id %>
+
+					<% unless current_user && @missing.user.id == current_user.id %>
 					<%= tag :input, { :type => "button", :value => "Написать личное сообщение", :class => "b-missing__toggle_send_message" } %>                                                                               
 					<% end %>
 				</div>                              

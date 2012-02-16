@@ -10,7 +10,9 @@ $(function(){
 		$.tmpl('tmpl-question', questions).appendTo('.b-form__questions');
 	    $('input').customInput();                                       
 	
-		$('.b-form__questions_container').removeClass('l-hidden');
+        if(typeof questions_disabled == "undefined") {
+	    	$('.b-form__questions_container').removeClass('l-hidden');
+        }
 		$('.b-form__questions div:first').addClass('selected ui-corner-all');
 		                                                   
 		prepare_question(questions[0]);            
@@ -21,9 +23,10 @@ $(function(){
         });
 
 		$('.b-form__question__action_button').live('click', function(){ 
-			log('set submit action', $(this).attr('action'));
 			submit_action = $(this).attr('action');
 		});
+
+
 	}                   
 	
 	function prepare_question(question){   
@@ -69,7 +72,7 @@ $(function(){
 			var email = $('.b-form__question.selected [name="question[answer][email]"]').val();
 
 			show_auth_dialog(function() {
-				$.get( missing_path + '/questions', function(data) {
+				$.get( missing_path() + '/questions', function(data) {
 					render_questions(data);	
 				}, "json");
 				
@@ -113,7 +116,6 @@ $(function(){
 	function generate_map() {
 		// Создание обработчика для события window.onLoad
         // Создание экземпляра карты и его привязка к созданному контейнеру               
-		log('generate map', $(".b-form__question.selected .b-form__question_yandex_map"));
 
         var map = new YMaps.Map($(".b-form__question.selected .b-form__question_yandex_map")),
         	zoomControl = new YMaps.SmallZoom(),
@@ -149,20 +151,17 @@ $(function(){
 		}
 		
 		function add_placemark(request) {      
-		   	log('add_placemark', request);
 			function create_placemark(geoPoint){ 
 				var overlay = new YMaps.Placemark(geoPoint, {
 			        	draggable: true,
 			        	style: "default#buildingsIcon" 
 			        });
 				map.addOverlay(overlay);    
-				log('create_pm', map, overlay);
 				return overlay;
 			}        
 		    
 			function add_events(){
 				// Установка слушателей событий для метки            
-				log('add_events');                           
 				// Обработчик для контролов в балуне
 		        YMaps.Events.observe(placemark, placemark.Events.BalloonOpen, function (obj) {  
 					function save_placemark(){
@@ -184,18 +183,15 @@ $(function(){
 							   .addClass('red_action')
 							   .val('Удалить место')
 							   .click(remove_placemark);      
-						log('save_pm', placemark, last_placemark);
 					}                                   
 					
 					function remove_placemark(){
 						$('.b-form__question_map_item[item_id=' + placemark_id + ']').remove();
 				   		map.removeOverlay(placemark);   
-						log('remove_pm', map, placemark);
 					}       
 					
 					if(!attached_events) {  
 				        $(".b-question__map_balloon_button_" + placemark_id).click(saved ? remove_placemark : save_placemark).customInput();              
-						log('!attached_events', placemark_id, attached_events, saved);
 						attached_events = true;          
 						saved = true;
 					}
@@ -203,12 +199,10 @@ $(function(){
 
 		        YMaps.Events.observe(placemark, placemark.Events.DragStart, function (obj) {
 		            prev = obj.getGeoPoint().copy();  
-					log('drag_start', obj, prev);
 		        });
 
 		        YMaps.Events.observe(placemark, placemark.Events.Drag, function (obj) {
 		            var current = obj.getGeoPoint().copy();   
-					log('drag', obj, current);
 
 		            // // Увеличиваем пройденное расстояние
 		            // distance += current.distance(prev);
@@ -219,7 +213,6 @@ $(function(){
 
 		        YMaps.Events.observe(placemark, placemark.Events.DragEnd, function (obj) {
 		            obj.update();         
-					log('drag end', obj);
 		
 					geocode(obj.getGeoPoint(), function(geoResult){      
 						var content = { id: placemark_id, address: geoResult.text, saved: saved };
@@ -272,8 +265,6 @@ $(function(){
 				$(".b-form__question.selected .b-form__question_map_search").val("");    
 				
 				map.removeOverlay(last_placemark);    
-				log('remove last_pm', last_placemark);
-				log('new placemark', placemark);
 				last_placemark = placemark;
 			});  
 			  
@@ -315,7 +306,6 @@ $(function(){
 			$(".b-form__question.selected .b-form__question_search_button").click(function(){
 				var request = $(".b-form__question.selected .b-form__question_map_search").val();
 				add_placemark( request );           
-				log(this, $(this));
 			});
 			
 			$(".b-form__question.selected .b-form__question_map_search").autocomplete({
@@ -389,7 +379,7 @@ $(function(){
 	
 	$.template( 'tmpl-question',
 				'<div class="b-form__question l-left ui-lightbox {{if answer_type == 4}}map{{/if}}"> \
-					<form accept-charset="UTF-8" action="' + missing_url + '/answer_the_question.json" data-remote="true" class="b-form__question_form answer_the_question" method="post"> \
+					<form accept-charset="UTF-8" action="' + missing_path() + '/answer_the_question.json" data-remote="true" class="b-form__question_form answer_the_question" method="post"> \
 					<input type="hidden" name="question[id]" value="${id}"> \
 				 	<div class="b-form__label">${text}</div> \
 					<div class="b-form__question_answer"> \
@@ -560,9 +550,8 @@ $(function(){
 			
 		});
 		
-		if(typeof questions != "undefined" && questions.length > 0) {
+		if(typeof questions != "undefined" && questions.length > 0)  {
 			render_questions(questions);   
-			log('render_questions');
 	    }
 });
 

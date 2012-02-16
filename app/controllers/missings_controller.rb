@@ -22,8 +22,8 @@ class MissingsController < ApplicationController
   	@missing = Missing.find(params[:id])                  
     @author = @missing.author || @missing.user
 
-	  @discussion = Discussion.new({ :missing_id => @missing.id })
-	  @message = Message.new 
+    @discussion = Discussion.new({ :missing_id => @missing.id })
+    @message = Message.new 
 
     @location = get_user_location 
     @seen = SeenTheMissing.where( { :missing_id => @missing.id, :user_id => current_or_guest_user } ).first || SeenTheMissing.new( { :missing_id => @missing.id, :address => @location.nil? ? "" : @location })
@@ -88,16 +88,18 @@ class MissingsController < ApplicationController
 
     @missing = session[:missing_id] > 0 ? Missing.find(session[:missing_id]) : Missing.new
     @missing.user = current_or_guest_user if @missing.new_record?
-    @missing.author ||= Author.new({ :name => @missing.user.name, :phone => @missing.user.phone })
 
+    @missing.published = false;
     @missing.valid?
-    
+    @missing.save
+    session[:missing_id] = @missing.id
+
     @missing.current_step = params[:step]
   	
     # Поля для мест и людей
     # Строятся только один раз
     @missing.photos.build
-      
+
     @questions = Question.for(@missing, current_or_guest_user, :all)
     respond_to do |format|
       format.html # new.html.erb

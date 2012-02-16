@@ -2,7 +2,6 @@ $(function(){
 	if( $(".p-edit-user").length == 0 ) return;
     var validate = {
             errorClass: 'b-tooltip-error',
-            debug: true,
             rules: {
                 "user[name]": { required: true, minlength: 3 },
                 "user[email]": { required: true, email: true },
@@ -16,7 +15,7 @@ $(function(){
 		.live('ajax:beforeSend', function(e){
 			
 		})
-		.live('ajax:success', function(evt, data, status, xhr){    
+		.live('ajax:complete', function(evt, data, status, xhr){    
      		$('.b-form__save_complete_notification label').show('highlight', {}, 500);
 		})
         .validate(validate);

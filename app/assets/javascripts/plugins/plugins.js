@@ -142,8 +142,10 @@ $(function() {
                         self._trigger( "selected", event, {
                             item: ui.item.option
                         });
+                        log('select');
                     },
                     change: function( event, ui ) {
+                        log('change');
                         if ( !ui.item ) {
                             var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( $(this).val() ) + "$", "i" ),
                                 valid = false;
@@ -169,6 +171,7 @@ $(function() {
                     // close if already visible
                     if ( input.autocomplete( "widget" ).is( ":visible" ) ) {
                         input.autocomplete( "close" );
+                        log('close');
                         return;
                     }
 
@@ -178,6 +181,7 @@ $(function() {
                     // pass empty string as value to search for, displaying all results
                     input.autocomplete( "search", "" );
                     input.focus();
+                    log('create');
                 };
 
             input.data( "autocomplete" )._renderItem = function( ul, item ) {
@@ -191,18 +195,16 @@ $(function() {
                 .attr( "tabIndex", -1 )
                 .attr( "title", "Show All Items" )
                 .insertAfter( input )
-                .button({
-                    icons: {
-                        primary: "ui-icon-triangle-1-s"
-                    },
-                    text: false
-                })
+                .button()
                 .removeClass( "ui-corner-all" )
                 .addClass( "ui-button-icon ui-dropdown-button-input " + this.options.combobox_class )
                 .click(showOptions);
+
             if( this.options.input_disabled ) {
+                this.button.unbind('click');
                 input.attr('readonly','readonly')
                      .css('cursor', 'pointer')
+                     .parent()
                      .click(showOptions);
             }
 

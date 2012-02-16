@@ -37,7 +37,7 @@ class Missing < ActiveRecord::Base
   before_save :assign_virtual_variables
                              
   def to_param                 
-    "#{id}-#{name.parameterize}/"
+    "#{id}-#{name && name.parameterize}/"
   end
                  
   # Common info

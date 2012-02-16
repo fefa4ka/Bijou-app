@@ -1,3 +1,7 @@
 .p-edit-user__change_password_container,.p-user__change_password  {
 	margin-bottom: 1em;
 }
+
+.p-edit-user__change_password_container .b-form__field {
+  margin-bottom: 1em;
+}

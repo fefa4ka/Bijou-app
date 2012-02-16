@@ -12,7 +12,7 @@
 
 var auth_callback,
 	missing_url;
-
+	
 function show_auth_dialog(callback, email) {
 	$('.b-head__registration_dialog').dialog('close');
 

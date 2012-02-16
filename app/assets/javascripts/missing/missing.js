@@ -77,7 +77,12 @@ $(function(){
    if( $(".b-missing__map").length > 0){
     	generate_map();
    }
-	
+   
+   $(".b-question__toggle").click(function() { 
+       $('.b-form__questions_container').toggle('blind', {}, 500);  
+       return false;
+   });
+
    // Фотографии загружаем в оверлеи 
    $(".b-missing__photo_link").fancybox();
     
@@ -85,6 +90,7 @@ $(function(){
    $('.b-missing__i_saw').click(function(){
    	   $(this).hide();
        $(".b-missing__i_saw_in").show();
+       $('.b-missing__i_saw_form').submit();
     });                                             
 	        
     $(".b-missing__i_saw_in_change").live('click', function() {
