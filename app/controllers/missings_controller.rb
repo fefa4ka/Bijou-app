@@ -88,7 +88,7 @@ class MissingsController < ApplicationController
 
     @missing = session[:missing_id] > 0 ? Missing.find(session[:missing_id]) : Missing.new
     @missing.user = current_or_guest_user if @missing.new_record?
-
+    @missing.author = Author.new({ :name => current_user.name, :phone => current_user.phone }) if @missing.new_record? && current_user
     @missing.published = false;
     @missing.valid?
     @missing.save
