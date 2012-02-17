@@ -6,7 +6,7 @@
 	<div class="b-main-info-margin grid_5">
 		<h3>Большая база пропавших людей</h3>
 		<div class="p-main-suggest-images">
-          <% 45/(@missings.length > 0 ? @missings.length : 1).times do |count|%>
+          <% (45/(@missings.size)).times do |count|%>
 	        
               <% @missings.each do |missing| %>                                         
 			    <% if missing.photos.first %>

@@ -5,7 +5,7 @@
 
 # Example:
 #
-# set :output, "/path/to/my/cron_log.log"
+set :output, "/home/dev/yapropal/log/cron_log.log"
 #
 # every 2.hours do
 #   command "/usr/bin/some_great_command"
@@ -20,4 +20,8 @@
 # Learn more: http://github.com/javan/whenever
 every 5.minutes do
   command "export RAILS_ENV=production && cd /home/production/app && rake ts:index"
+end
+
+every 1.days do
+
 end
