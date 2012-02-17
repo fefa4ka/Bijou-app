@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
-
-one:
-  can_help_id: 1
-  help_type_id: 1
-
-two:
-  can_help_id: 1
-  help_type_id: 1

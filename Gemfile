@@ -1,7 +1,7 @@
 source 'http://rubygems.org'
-   
+#test
 # Service 
-gem 'rails', :git => "git://github.com/rails/rails.git", :branch => "3-1-stable" 
+gem 'rails', '3.2.0'
 gem 'unicorn'         
 gem 'rake'
 gem 'rack', '1.3.5'
@@ -12,11 +12,11 @@ gem 'therubyracer'
 
 # Gems used only for assets and not required
 # in production environments by default.
-#group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
-#end                         
+group :assets do
+  gem 'sass-rails', '~> 3.2.3'
+  gem 'coffee-rails', '~> 3.2.1'
+  gem 'uglifier', '>= 1.0.3'
+end                         
 
 group :development do
  gem 'capistrano'
