@@ -6280,7 +6280,7 @@ $.widget("ui.dialog", {
 			});
 			
 			if (options.closeOnOverlayClick) {
-				self.overlay.$el.click(function()
+				self.overlay.$el.click(function(event)
 				{
 					self.close(event);
 				});

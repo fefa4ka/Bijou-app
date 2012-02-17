@@ -32,9 +32,9 @@ class MessagesController < ApplicationController
     @message.sender = @user                    
     @message.recipient = User.find(params[:message][:to])
 
-    if !params[:message][:to_message].empty?
+    if !params[:message][:to_message].nil?
       @message.message_id = params[:message][:to_message]
-    elsif !params[:message][:to_seen_the_missing].empty?
+    elsif !params[:message][:to_seen_the_missing].nil?
       @message.recipient = SeenTheMissing.find(params[:message][:to_seen_the_missing]).user
       @message.seen_the_missing_id = params[:message][:to_seen_the_missing]
     end

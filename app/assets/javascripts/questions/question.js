@@ -77,6 +77,8 @@ $(function(){
 				}, "json");
 				
 			}, email);
+
+			return false;
 		});
 		
 		$(".b-form__question.selected .b-form__question_form").
