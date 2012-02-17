@@ -177,7 +177,8 @@
         send: function(headers, completeCallback) {
           iframe = $("<iframe src='javascript:false;' name='iframe-" + $.now()
             + "' style='display:none'></iframe>");
-          
+
+   
           // The first load event gets fired after the iframe has been injected
           // into the DOM, and is used to prepare the actual submission.
           iframe.bind("load", function() {
@@ -187,7 +188,6 @@
             // actual payload is embedded in a `<textarea>` element, and
             // prepares the required conversions to be made in that case.
             iframe.unbind("load").bind("load", function() {
-              
               var doc = this.contentWindow ? this.contentWindow.document :
                 (this.contentDocument ? this.contentDocument : this.document),
                 root = doc.documentElement ? doc.documentElement : doc.body,
@@ -200,9 +200,8 @@
                 headers = "Content-Type: " + (type || "text/html")
 
               completeCallback(status, statusText, responses, headers);
-			  form.trigger('ajax:success', [$.parseJSON(responses.text), status ]);  
-			  log(status, statusText, $.parseJSON(responses.text), headers);
-			
+			        form.trigger('ajax:success', [$.parseJSON(responses.text), status ]);  
+			   log(status, statusText, $.parseJSON(responses.text), headers);
               setTimeout(cleanUp, 50);
             });
             

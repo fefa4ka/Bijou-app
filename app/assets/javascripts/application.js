@@ -103,6 +103,7 @@ $(function()
 			provider = button.attr('provider'),
 			icon = provider != "" ? "ui-icon-" + provider : ""; 
 		
+		log(icon);
 		$(this).button({
 	        icons: {
 	            primary: icon
