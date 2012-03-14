@@ -24,6 +24,10 @@ $(function(){
 					case 'seen':
 						$('.b-report__list .element.SeenTheMissing').show(); 
 						break;
+                    
+                    case 'can_help':
+                        $('.b-report__list .element.CanHelp').show(); 
+                        break;
 				}  
 			}
 		});    

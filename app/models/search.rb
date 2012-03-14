@@ -1,13 +1,27 @@
 class Search < ActiveRecord::Base
-  attr_accessor :ages
+  attr_accessor :ages, :page   
 
   def missings
     @missings ||= find_missings
+  end                
+  
+  def count
+    if geo.nil?
+      Missing.search_count keywords, :with => conditions
+    else
+      geo_conditions = { "@geodist" => 0.0..20_000.0 }
+      Missing.search_count keywords, :with => geo_conditions.merge!(conditions), :geo => geo
+    end
   end
-
+  
+            
+  def page
+    @page || 1
+  end
+  
   def ages
-    self[:ages]
-  end
+    @ages
+  end    
 
   def ages=(value)
     case value
@@ -21,8 +35,7 @@ class Search < ActiveRecord::Base
       self.minimum_age = 51
       self.maximum_age = 150
     end
-    
-    self[:ages] = value
+    @ages = value
   end
 
   def last_seen=(value)
@@ -48,14 +61,12 @@ class Search < ActiveRecord::Base
   private
 
   def find_missings
-    logger.debug("#{conditions.inspect} #{geo}")
     if geo.nil?
-      Missing.search keywords, :with => conditions
+      Missing.search keywords, :with => conditions, :page => @page, :per_page => 4
     else
       geo_conditions = { "@geodist" => 0.0..20_000.0 }
-      Missing.search keywords, :with => geo_conditions.merge!(conditions), :geo => geo 
+      Missing.search keywords, :with => geo_conditions.merge!(conditions), :geo => geo, :page => @page, :per_page => 4 
     end
-
   end
 
   def geo
@@ -83,7 +94,6 @@ class Search < ActiveRecord::Base
   
   def conditions 
     conditions = {}
-    logger.debug(conditions_parts)
     conditions_parts.each { |part| conditions.merge!(part) }
     
     conditions

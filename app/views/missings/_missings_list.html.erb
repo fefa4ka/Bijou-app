@@ -1,23 +1,30 @@
-<div class="b-search-result">
-  <% @missings.each do |missing| %>
-	  <div class="b-search-result__item">
-		<div class="b-search-result__photo l-left">
-			<a href="<%= missing_path(missing) %>/">
-			<% unless missing.photos.first %>
-              <%= image_tag 'no_photo.jpg', :size => "65x65", :class => "b-search-result__photo" %>
-			<% else %>
-              <%= image_tag missing.photos.first.photo.url(:small), :size => "65x65", :class => "b-search-result__photo" %>
+<% @missings.each_with_geodist do |missing, distance| %>
+<div class="b-search-result__item">
+	<div class="b-search-result__photo l-left">
+		<% unless missing.photos.first %>
+	            <%= image_tag 'no_photo.jpg', :size => "100x100" %>
+		<% else %>
+	            <%= image_tag missing.photos.first.photo.url(:small), :size => "100x100" %>
+		<% end %>
+		<a href="<%= missing_path(missing) %>/"></a>
+	</div>   
+	<div class="b-search-result__description">
+		<a href="<%= missing_path(missing) %>/" class="b-search-result__name"><%= missing.name %></a>
+		<% unless missing.age.nil? %> <p class="b-search-result__field"><%= missing.age %> <%= Russian.p missing.age, 'год', 'года', 'лет' %> </p> <% end %>
+		<% unless missing.last_seen.nil? %>
+		<p class="b-search-result__field">
+			<%= missing.gender ? 'Пропал' : 'Пропала' %> <%= Russian.strftime missing.last_seen, "%d %B" %>
+			<% if missing.city %>
+				в <%= YandexInflect.inflections(missing.city).last %>
+				<% unless distance.nil? %>
+				(<%= (distance/1000).round %> км от места поиска)
+				<% end %>
 			<% end %>
-			</a>
-		</div>
-        <div class="b-search-result__description">
-          <a href="<%= missing_path(missing) %>/" class="b-search-result__name"><%= missing.name %></a>
-          <% unless missing.age.nil? %> <p class="b-search-result__field"><%= missing.age %> <%= Russian.p missing.age, 'год', 'года', 'лет' %> </p> <% end %>
-          <% unless missing.last_seen.nil? %> <p class="b-search-result__field"><%= missing.gender ? 'Пропал' : 'Пропала' %> <%= Russian.strftime missing.last_seen, "%d %B" %><% if missing.city %> в <%= YandexInflect.inflections(missing.city).last %><% end %></p> <% end %>
-        </div>
-      </div>
-      <div class="clear"></div>
-      <hr>
-	<% end %>
+		</p>
+		<% end %>                     
+	</div>     
 </div>
-
+<div class="clear"></div>
+<hr>
+<% end %>
+        

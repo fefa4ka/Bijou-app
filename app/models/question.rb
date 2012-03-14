@@ -65,6 +65,7 @@ class Question < ActiveRecord::Base
      questions.each do |q| 
        # Пропускаем вопрос регистрации, если пользователь авторизирован
        next if !(user.email =~ /guest/) and q.answer_type == 7
+
        answers = []      
 
        q.answers.each do |a| 
@@ -87,7 +88,6 @@ class Question < ActiveRecord::Base
                   
        result.push(question)
      end                   
-     
      result
   end      
 

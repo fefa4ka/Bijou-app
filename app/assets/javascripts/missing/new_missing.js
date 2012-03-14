@@ -320,7 +320,39 @@ $(function(){
 	        }
 	    }
 	});
-	     
+	                    
+	// Проверка есть ли такой же пользователь
+	function search_for_similar() {                     
+		var name = $('#missing_name').val(),
+			age = $('#missing_age').val(),
+			gender = $('input[name="missing[gender]"]:checked').val();
+		
+		if(name == "" || age == "") {
+			return false;
+		}          
+		
+		$('.p-new-missing__similars').html("");
+			
+		$.getJSON('/add_missing/search_for_similar.json', { name: name, gender: gender, age: age},  function(data) {
+            var items = [];
+
+			$.each(data, function(key, val) {
+				items.push('<a href="' + val.url + '" target="blank"><img src="' + val.photo + '">' + val.name + ', ' + val.age + ' ' + pluralForm(val.age, 'год', 'года', 'лет') + '</a>');
+			});
+            
+			if(items.length > 0) {
+				$('.p-new-missing__allready_missing').show();
+			} else {
+				$('.p-new-missing__allready_missing').hide();
+			}          
+			
+			$('<div/>', {
+				'class': 'p-new-missing__similars',
+				html: items.join('')
+			}).appendTo('.p-new-missing__allready_missing');
+
+		});
+	}
 	// Обрабатываем изменение возраста
 	$('.b-form__text_age').keyup(function (e) {
 		var year = new Date().getFullYear(),
@@ -329,14 +361,18 @@ $(function(){
 			sign = 'год';
 			
 		$("#missing_birthday_1i").val(value);
-		$(".man_age_sign").text(pluralForm(age, 'год', 'года', 'лет'));
+		$(".man_age_sign").text(pluralForm(age, 'год', 'года', 'лет'));  
+		
+		search_for_similar();
 	});  
 	
 	$('#missing_birthday_1i').change(function() { 
 		var value = $(this).val() * 1,
 			year = new Date().getFullYear(); 
 		
-		if (value > 0) $('.b-form__text_age').val(year - value); 
+		if (value > 0) $('.b-form__text_age').val(year - value);
+		
+		search_for_similar(); 
 	});
 
 });

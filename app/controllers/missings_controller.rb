@@ -10,8 +10,8 @@ class MissingsController < ApplicationController
   # GET /missings
   # GET /missings.xml
   def index                          
-      params[:search] ||= {}
-      @search = Search.new(params[:search])
+      params[:search] ||= { :region => get_user_location }  
+      @search = Search.new(params[:search])        
       @missings = @search.missings
       @request = request
   end
@@ -244,7 +244,8 @@ class MissingsController < ApplicationController
       user = User.find(answers.first.text)
       sign_in user
     end
-    next_question = Question.for(missing, user).first
+    next_question = Question.for(missing, user, 3).first
+    logger.debug(next_question)
     
     respond_to do |format|
       format.json {
@@ -306,7 +307,32 @@ class MissingsController < ApplicationController
       end
     end
   end
-
+  
+  def search_for_similar      
+    @search = Search.new({ 
+      :keywords => params["name"], 
+      :minimum_age => params["age"].to_i - 1,
+      :maximum_age => params["age"].to_i + 1,
+      :male => params["gender"] })  
+    
+    missings = []  
+    @search.missings.each do |missing|
+      item = { 
+        :name => missing.name,
+        :age => missing.age,
+        :photo => missing.photos.first.photo.url(:small),
+        :url => missing_path(missing)
+      }
+      missings.push(item)
+    end               
+    
+    respond_to do |format|
+      format.json {
+        render :json => missings
+      }      
+    end
+  end
+  
   private
    def get_user_location
     logger.debug("get location #{request.location.inspect}");

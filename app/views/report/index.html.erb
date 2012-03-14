@@ -4,7 +4,7 @@
 		<div class="b-report__toolbar toolbar">
 			<%= radio_button_tag "report_type", "all", true, :class => "b-form-custom-false" %><%= label_tag "report_type_all", "Все" %>
 			<%= radio_button_tag "report_type", "history", false, :class => "b-form-custom-false" %><%= label_tag "report_type_history", "Новые обстоятельства" %>
-			<%= radio_button_tag "report_type", "people", false, :class => "b-form-custom-false" %><%= label_tag "report_type_people", "Кто может помочь" %>
+			<%= radio_button_tag "report_type", "can_help", false, :class => "b-form-custom-false" %><%= label_tag "report_type_can_help", "Кто может помочь" %>
 			<%= radio_button_tag "report_type", "seen", false, :class => "b-form-custom-false" %><%= label_tag "report_type_seen", "Видели пропавшего" %>  
 			<%= radio_button_tag "report_type", "messages", false, :class => "b-form-custom-false" %><%= label_tag "report_type_messages", "Сообщения" %>                              
 			
@@ -43,15 +43,29 @@
 						<span class="b-report__seen t-medium">видел <a href="<%= missing_path(record.missing) %>"><%= YandexInflect.inflections(record.missing.name).second %></a> в <%= YandexInflect.inflections(record.address).last %></span>
 						  
 						<span class="b-report__element_date t-small"><%= Russian.strftime record.created_at, "%d %B" %></span>    
-						<% if record.created_at.to_time.to_i < current_user.last_sign_in_at.to_time.to_i %>
+						<% if record.created_at.to_time.to_i > current_user.last_sign_in_at.to_time.to_i %>
 							<span class="t-small b-report__element_new">новое</span>
 						<% end %>
 						<%= tag :input, { :type => "button", :value => "Написать", :class => "b-report__message_answer silver_action l-right" } %>
 					</div>
 
 				</div>
-			<% end %>   
-			<% record.messages.each do |sub_message| %>
+			<% elsif record.class.to_s == "Hashie::Mash" %>
+				<div class="b-missing__comment element CanHelp" user_id="<%= record.user.id %>" can_helps_id="<%= record.id %>"> 
+					<div class="b-missing__comment_header">
+						<%= link_to record.user.name, "", :class => "t-medium b-missing__comment_author" %>  
+						<span class="b-report__seen t-medium">может помочь в поисках <a href="<%= missing_path(record.missing) %>"><%= YandexInflect.inflections(record.missing.name).second %></a></span>
+						  
+						<span class="b-report__element_date t-small"><%= Russian.strftime record.created_at, "%d %B" %></span>    
+						<% if record.created_at.to_time.to_i > current_user.last_sign_in_at.to_time.to_i %>
+							<span class="t-small b-report__element_new">новое</span>
+						<% end %>
+						<%= tag :input, { :type => "button", :value => "Написать", :class => "b-report__message_answer silver_action l-right" } %>
+					</div>
+
+				</div>
+			<% end %>    
+			<% record.messages && record.messages.each do |sub_message| %>
 		   	   <div class="b-missing__comment sub element <%= record.class.to_s %> <%= record.class.to_s == "Message" && (record.sender_id == current_user.id) ? "sent" : "received" %>">
 					<div class="b-missing__comment_header l-left">    
 						<%= link_to sub_message.sender.name, "", :class => "b-missing__comment_author" %>    

@@ -37,7 +37,8 @@ class Missing < ActiveRecord::Base
   before_save :assign_virtual_variables
                              
   def to_param                 
-    "#{id}-#{name && name.parameterize}/"
+    name_parameterized = (name && Russian::transliterate(name).gsub(/[^a-z0-9]+/i, '-').downcase) || ""
+    "#{id}-#{name_parameterized}/"
   end
                  
   # Common info
@@ -115,7 +116,13 @@ class Missing < ActiveRecord::Base
   # Who can help
   def can_helps   
     users = self.histories.where({ :question_id => 53 }).where("histories.text <> 'skip' OR histories.text IS NULL").select("DISTINCT user_id").select(:user_id).collect(&:user_id) 
-    users.each.collect {|user| answers({ :user_id => user, :question_id => 53 }).first }
+    users.each.collect do |user| 
+      record = Hashie::Mash.new(answers({ :user_id => user, :question_id => 53 }).first) 
+      record.user = User.find(user)
+      record.missing = self
+      record.id = "#{record.user_id}#{record.missing_id}#{record.question_id}"
+      record
+    end
   end
 
   # Service data

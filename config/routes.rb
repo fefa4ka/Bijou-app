@@ -21,7 +21,8 @@ People::Application.routes.draw do
   resources :searches
   
   
-  match "add_missing" => "missings#new"
+  match "add_missing" => "missings#new"                   
+  match "add_missing/search_for_similar" => "missings#search_for_similar"
   match "add_missing/save_step" => "missings#save_step"
   match "add_missing/places" => "missings#places"
   match "add_missing/address_suggest" => "missings#address_suggest"
@@ -34,7 +35,7 @@ People::Application.routes.draw do
   match "missings/:id/answer_the_question" => "missings#answer_the_question"
   match "seen_the_missing" => "missings#i_seen_the_missing"
 
-  match "report" => "report#report"
+  match "report" => "report#index"
  
   match "users/settings" => "users#edit"
   match "users/send_message" => "messages#create"

@@ -12,7 +12,6 @@ ActionMailer::Base.smtp_settings = {
    :enable_starttls_auto => true, 
    :address => "smtp.gmail.com",
    :port => 587,
-   :tls => true,
    :domain => "naidutebya.ru",
    :authentication => :plain,
    :user_name => "info@naidutebya.ru",

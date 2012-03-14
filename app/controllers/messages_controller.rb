@@ -77,7 +77,7 @@ class MessagesController < ApplicationController
         @user = current_user || User.find_by_email(params[:message]["email"])
         @user = User.new({ :name => params[:message]["name"],
                            :email => params[:message]["email"],
-                           :photo => params[:message]["photo"]
+                           :phone => params[:message]["phone"]
         }) if @user.nil?
       end
     end

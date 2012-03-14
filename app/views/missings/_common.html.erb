@@ -4,8 +4,13 @@ $(function(){
 	  $(".b-form__photos input[type=file]").click();
 	});
 });	
-</script>
-  <div class="b-form__field">
+</script>         
+
+  <div class="b-form__field">               
+    <div class="b-sidebar p-new-missing__allready_missing l-hidden">
+		<div class="b-form__label">Возможно, уже разместили объявление про этого человека</div>
+		
+    </div>
     <%= f.label :name, "Кто пропал", :class => "b-form__label" %>
     <%= f.text_field :name, :class => "b-form__text_name", :placeholder => "фамилия имя отчество" %>
   <ul class="b-form__gender_list">

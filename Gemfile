@@ -1,11 +1,8 @@
 source 'http://rubygems.org'
-#test
+
 # Service 
 gem 'rails', '3.2.0'
 gem 'unicorn'         
-gem 'rake'
-gem 'rack', '1.3.5'
-gem 'railties', '3.1.3'
 gem 'execjs', :git => "git://github.com/sstephenson/execjs.git"
 gem 'therubyracer'
                          
@@ -80,3 +77,8 @@ gem 'simple-private-messages', '0.0.0', :git => "git://github.com/fefa4ka/simple
 gem 'daemon_generator', '0.0.0', :git => "git://github.com/dougal/daemon_generator.git"
 gem 'whenever'
 
+# Etc
+gem 'hashie'
+
+# For database dump
+gem 'yaml_db'
