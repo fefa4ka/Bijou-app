@@ -93,18 +93,6 @@ div.b-search-filter__search_field {
 		float: left;
 	}
 
-	.b-search-result__photo img + a {
-		box-shadow:inset 0px 0px 1px rgba(0,0,0,.9);
-		-webkit-box-shadow:inset 0px 0px 1px rgba(0,0,0,.9);
-		-moz-box-shadow:inset 0px 0px 1px rgba(0,0,0,.9);
-		position: absolute; 
-
-		width: 100px;
-		height: 100px;
-
-		top: 0;
-		left: 0; 
-	}​   
 
 
 
