@@ -65,21 +65,9 @@
 
 		<div class="clear"></div>             	
 
-        <% if current_user && @missing.user.id == current_user.id %>
+        <% if current_user && @missing.user.id == current_user.id && @helpers.length > 0 %>
         <div class="b-sidebar b-missing__rightside">
 
-            <div class="ui-widget">
-                <div class="b-sidebar__header">Версии</div>
-                  <select class="b-missing__select_version">
-                    <% @missing.users_who_answer.each do |u| %>
-                      <option value="<%= u.id %>"><%= @missing.user.id == u.id ? "Ваша версия" : YandexInflect.inflections(u.name).second %></option>
-                    <% end %>
-                  </select>
-                </div>
-            
-
-            </div>
-            <% end %>
 
 				<% if @helpers.length > 0 %>
 				<div class="b-sidebar__hr_100"></div>
@@ -108,3 +96,4 @@
 				
 				
 			</div>
+            <% end %>

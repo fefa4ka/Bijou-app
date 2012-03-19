@@ -118,6 +118,10 @@ class MissingsController < ApplicationController
     params[:missing] ||= {}
   	data_type = data = ""
        
+    # Костыль
+    # Если, не указан день рождения, ставим 1 января
+    params[:missing]["birthday(3i)"] = params[:missing]["birthday(2i)"] = "1" if params[:missing]["birthday(3i)"] == "" or params[:missing]["birthday(2i)"] == ""
+
     # Если объявление уже создано, сохраняем в базу изменения
     # или создаем в базе копию          
     if session[:missing_id] > 0
@@ -127,7 +131,8 @@ class MissingsController < ApplicationController
         params[:missing]["user_attributes"].delete("email")
       end
 
-    	@missing.update_attributes(params[:missing])    
+    	@missing.update_attributes(params[:missing]) 
+      logger.debug("!!! Save #{@missing.inspect}")   
     	@missing.save
     else
       params[:missing].delete("user_attributes")

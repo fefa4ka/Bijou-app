@@ -49,7 +49,7 @@ class Question < ActiveRecord::Base
      end
       
      # TODO: Пропущенные вопросы задавать через день
-     query = "id IN (SELECT related_question_id FROM related_questions LEFT JOIN histories ON histories.question_id = related_questions.question_id AND (histories.text = related_questions.answer OR histories.answer_id = related_questions.answer) WHERE histories.missing_id = ? AND histories.user_id = ?) AND id NOT IN (SELECT question_id FROM histories WHERE missing_id = ? AND user_id = ?)"
+     query = "id IN (SELECT related_question_id FROM related_questions LEFT JOIN histories ON histories.question_id = related_questions.question_id AND (histories.answer_id = related_questions.answer OR histories.text = related_questions.answer OR  (IF(related_questions.answer IS NULL, histories.answer_ID IS NULL, FALSE))) WHERE histories.missing_id = ? AND histories.user_id = ?) AND id NOT IN (SELECT question_id FROM histories WHERE missing_id = ? AND user_id = ?)"
      questions = Question.where(query, missing.id, user.id, missing.id, user.id).order(:position).limit(limit) if limit.is_a? Integer
      questions = Question.where(query, missing.id, user.id, missing.id, user.id).order(:position) if limit.is_a? Symbol 
 
@@ -231,11 +231,11 @@ class Question < ActiveRecord::Base
   private 
   
   def save_answers
-    if self.answer_type = 0
-      ["yes","no"].each do |answer| 
-         Answer.create({ :question_id => self.id, :text => answer }) if self.answers.where({ :text => answer }).empty?
-      end                                                     
-    end
+    # if self.answer_type = 0
+    #   ["yes","no"].each do |answer| 
+    #      Answer.create({ :question_id => self.id, :text => answer }) if self.answers.where({ :text => answer }).empty?
+    #   end                                                     
+    # end
   end
   
       
