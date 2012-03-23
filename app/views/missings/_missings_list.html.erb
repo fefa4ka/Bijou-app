@@ -1,10 +1,11 @@
 <% @missings.each_with_geodist do |missing, distance| %>
+<% unless missing.nil? %>
 <div class="b-search-result__item">
 	<div class="b-search-result__photo l-left">
-		<% unless missing.photos.first %>
-	            <%= image_tag 'no_photo.jpg', :size => "100x100" %>
+		<% if missing.photos && missing.photos.first %>
+			<%= image_tag missing.photos.first.photo.url(:small), :size => "100x100" %>
 		<% else %>
-	            <%= image_tag missing.photos.first.photo.url(:small), :size => "100x100" %>
+            <%= image_tag 'no_photo.jpg', :size => "100x100" %>                    
 		<% end %>
 		<a href="<%= missing_path(missing) %>/"></a>
 	</div>   
@@ -25,6 +26,7 @@
 	</div>     
 </div>
 <div class="clear"></div>
-<hr>
+<hr>          
+<% end %>
 <% end %>
         
