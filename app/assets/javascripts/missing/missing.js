@@ -64,7 +64,7 @@ $(function(){
 		if (YMaps.location) {
 		    center = new YMaps.GeoPoint(YMaps.location.longitude, YMaps.location.latitude);
       	} else {
-			center = new YMaps.GeoPoint(37.64, 55.76);
+			center = new YMaps.GeoPoint(places[0].longitude, palces[0].latitude);
 		}
 
 	    map.enableDblClickZoom();
