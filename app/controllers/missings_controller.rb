@@ -325,7 +325,7 @@ class MissingsController < ApplicationController
       item = { 
         :name => missing.name,
         :age => missing.age,
-        :photo => missing.photos.first.photo.url(:small),
+        :photo => (missing.photos && missing.photos.first.photo.url(:small)) || "",
         :url => missing_path(missing)
       }
       missings.push(item)
