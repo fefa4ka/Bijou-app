@@ -18,6 +18,7 @@ $(function(){
        		zoomControl = new YMaps.SmallZoom(),
 			zoom = 10,
 			center,
+			place,
             placemarkCollection = new YMaps.GeoObjectCollection();
 	 
 	    function add_placemarks() {	    	
@@ -61,11 +62,10 @@ $(function(){
 
 		
         // Установка для карты ее центра и масштаба
-		if (YMaps.location) {
-		    center = new YMaps.GeoPoint(YMaps.location.longitude, YMaps.location.latitude);
-      	} else {
-			center = new YMaps.GeoPoint(places[0].longitude, palces[0].latitude);
-		}
+		place = places[0]["answers"][0];
+		center = new YMaps.GeoPoint(place.longitude, place.latitude);
+
+		log(center);
 
 	    map.enableDblClickZoom();
 		map.addControl(zoomControl);
