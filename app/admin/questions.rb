@@ -18,7 +18,12 @@ ActiveAdmin.register Question do
       f.input :answer_type, :as => :select, :collection => { "Да-Нет" => 0, "Один вариант" => 1, "Несколько вариантов" => 2, "Свободное поле" => 3, "Карта" => 4, "Описание человека" => 5, "Дата и время" => 6, "Регистрация" => 7 }
       f.input :other, :as => :radio, :label => "С другим вариантом"
       f.has_many :answers do |a|
-        a.input :text    
+        a.input :text 
+        a.has_many :nested_questions do |q|    
+          q.input :answer, :as => :hidden, :value => a.object.id
+          q.input :related_question, :as => :select, :label_method => :text
+          q.input :question_id, :as => :hidden, :value => f.object.id
+        end
       end
     end
     f.buttons

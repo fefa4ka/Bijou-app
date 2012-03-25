@@ -2,7 +2,8 @@
 
 class Question < ActiveRecord::Base           
   belongs_to :questionnaire    
-  has_and_belongs_to_many :collections
+  has_and_belongs_to_many :collections   
+
 
   has_many :answers, :dependent => :destroy   
   
