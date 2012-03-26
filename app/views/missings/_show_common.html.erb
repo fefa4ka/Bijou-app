@@ -7,16 +7,20 @@
     <table class="b-missing__history_table l-full_width">
     <% c[:questions].each do |q| %>
       <tr>
-        <% if q[:label] %>
+        <% if q[:label] && q[:human_text].nil? %>
         <td class="b-missing__history_label l-half_width">
           <%= q[:label] %>
         </td>
         <td class="b-missing__history_value l-half_width"> 
           <%= q[:human_answer] %>
+        </td>  
+		<% elsif q[:human_text] %>
+		<td colspan="2">     
+          <%= q[:human_text]  %>.
         </td>
         <% else q[:human_answer] %>
-        <td colspan="2"> 
-          <%= q[:human_answer] %>
+        <td colspan="2">         
+          <%= q[:human_answer] %>.
         </td>
       <% end %>
       </tr>

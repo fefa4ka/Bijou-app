@@ -56,9 +56,9 @@ class Question < ActiveRecord::Base
 
      
      if limit == :all 
-      questions += Question.where("id NOT IN (SELECT question_id FROM histories WHERE missing_id = ? AND user_id = ?) AND collection_id IN (?)", missing.id, user.id, collection_id[collection]).order(:position)
+      questions += Question.where("id NOT IN (SELECT question_id FROM histories WHERE missing_id = ? AND user_id = ?) AND (collection_id IN (?))", missing.id, user.id, collection_id[collection]).order(:position)
      elsif questions.size == 0 or questions.size < limit
-      questions += Question.where("id NOT IN (SELECT question_id FROM histories WHERE missing_id = ? AND user_id = ?) AND collection_id IN (?)", missing.id, user.id, collection_id[collection]).order(:position).limit(limit)
+      questions += Question.where("id NOT IN (SELECT question_id FROM histories WHERE missing_id = ? AND user_id = ?) AND (collection_id IN (?))", missing.id, user.id, collection_id[collection]).order(:position).limit(limit)
      end
      
      # Подготавливаем данные

@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class UserMailer < ActionMailer::Base
-  default from: "info@naidutebya.ru"
+  default from: "Найду тебя <info@naidutebya.ru>"
 
   def new_missing_email(missing, password=nil)
     @user = missing.user
@@ -9,7 +9,7 @@ class UserMailer < ActionMailer::Base
     @missing = missing
     @url = missing_url(missing)
 
-    mail(:to => @user.email, :subject => "Объявление о пропаже #{YandexInflect.inflections(missing.name).second} размещено")
+    mail(:to => @user.email, :subject => "missing.name теперь в розыске")
   end
 
   def new_message_email(message)

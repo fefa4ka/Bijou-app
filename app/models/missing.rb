@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 class Missing < ActiveRecord::Base         
   # Search index preferences
   define_index do 
@@ -187,7 +189,8 @@ class Missing < ActiveRecord::Base
         :label => q.field_text,  
         :answer_type => q.answer_type,
         :answers => [],
-        :human_answer => nil,
+        :human_answer => nil,        
+        :human_text =>q.human_text,
         :user_id => opts[:user_id],
         :created_at => q.histories.last.created_at
       } if question.nil?    
@@ -204,13 +207,11 @@ class Missing < ActiveRecord::Base
         case q.answer_type
           # Несколько вариантов ответа
         when 2             
-          human_answer = question[:human_answer].to_s + ", #{human_answer}" if question[:answers].size > 0
-        
+          human_answer = question[:human_answer].to_s + ", #{human_answer}" if question[:answers].size > 0           
         # Карты
         when 4
           place = Place.find(answer.to_i)
           
-          human_answer = "" 
           answer = { 
             :address  => place.address,
             :country  => place.country,
@@ -220,16 +221,19 @@ class Missing < ActiveRecord::Base
             :latitude => place.latitude,
             :longitude => place.longitude 
           } unless place.nil?   
+          
+          question[:human_text] = (question[:human_text] || "").mb_chars.capitalize.to_s
+          question[:human_text] = question[:human_text].gsub("#city", YandexInflect.inflections(answer[:city] || answer[:address] || answer[:country]).last).gsub("#address", YandexInflect.inflections(answer[:street] || "").second)
         
         when 6
           answer = Date.parse(a.text)
-          human_answer = Russian.strftime(answer, "%e %B %Y")
+          human_answer = Russian.strftime(answer, "%e %B %Y")   
         end 
         
-        question[:human_answer] = human_answer
+        question[:human_answer] = human_answer.mb_chars.capitalize.to_s
         question[:answers].push(answer)
           
-      end                           
+      end    
       
       hash_questions[q.id] = question
     end    
