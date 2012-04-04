@@ -23,8 +23,8 @@ missings_count = <%= @search.count %>;
 		<div class="b-search-result">   
 		<%= render 'missings_list' %> 
 		</div>                        
-		
-		<% unless @missings.nil? %>   
+		                   
+		<% unless @missings.nil? and @missings.size < @search.count %>   
 			<input type="button" class="b-search-result__more_button t-medium silver" value="Показать еще"/>
 		<% end %>
 

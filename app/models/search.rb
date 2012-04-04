@@ -9,7 +9,7 @@ class Search < ActiveRecord::Base
     if geo.nil?
       Missing.search_count keywords, :with => conditions
     else
-      geo_conditions = { "@geodist" => 0.0..20_000.0 }
+      geo_conditions = { "@geodist" => 0.0..30_000.0 }
       Missing.search_count keywords, :with => geo_conditions.merge!(conditions), :geo => geo
     end
   end
@@ -62,10 +62,10 @@ class Search < ActiveRecord::Base
 
   def find_missings
     if geo.nil?
-      Missing.search keywords, :with => conditions, :page => @page, :per_page => 4
+      Missing.search keywords, :with => conditions, :page => @page, :per_page => 10
     else
       geo_conditions = { "@geodist" => 0.0..20_000.0 }
-      Missing.search keywords, :with => geo_conditions.merge!(conditions), :geo => geo, :page => @page, :per_page => 4 
+      Missing.search keywords, :with => geo_conditions.merge!(conditions), :geo => geo, :page => @page, :per_page => 10 
     end
   end
 
