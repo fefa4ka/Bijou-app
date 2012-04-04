@@ -25,3 +25,31 @@ namespace :rvm do
     run "rvm rvmrc trust #{current_release}"
   end
 end     
+
+after 'deploy:restart', 'deploy:pipeline_precompile'
+after 'deploy:pipeline_precompile', 'deploy:update_crontab'
+
+namespace :deploy do
+  desc 'Update the crontab file'
+  task :update_crontab, :roles => :db do
+    run "cd #{current_path} && bundle exec whenever --update-crontab #{application}"
+  end
+end
+
+namespace :deploy do
+  task :pipeline_precompile do
+    run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
+  end
+  desc "Create asset packages for production"
+  task :after_update_code, :roles => [:web] do
+    run <<-EOF
+      cd #{release_path} && rake asset:packager:build_all
+    EOF
+  end
+end
+
+namespace :rvm do
+  task :trust_rvmrc do
+    run "rvm rvmrc trust #{release_path}"
+  end
+end
