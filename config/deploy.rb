@@ -8,14 +8,17 @@ set :default_environment, {
   'BUNDLE_PATH'  => '/home/missings/.rvm/gems/ruby-1.9.3-p125@production'  # If you are using bundler.
 }                 
 
-after 'deploy:restart', 'thinking_sphinx:stop'
-after 'deploy:restart', 'deploy:after_update_code'
-after 'deploy:restart', 'deploy:update_crontab'
+after 'unicorn:stop', 'thinking_sphinx:stop'
+after 'thinking_sphinx:stop', 'deploy:pipeline_precompile'
+after 'deploy:pipeline_precompile', 'deploy:update_crontab'
 
 namespace :deploy do
   desc 'Update the crontab file'
   task :update_crontab, :roles => :db do
     run "cd #{current_path} && bundle exec whenever --update-crontab #{application}"
+  end
+  task :pipeline_precompile do
+    run "cd #{release_path}; RAILS_ENV=production bundle exec rake assets:precompile"
   end
 end
 
