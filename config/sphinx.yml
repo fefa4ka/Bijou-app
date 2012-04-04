@@ -1,8 +1,8 @@
 production:
   searchd_file_path: "/home/missings/application/shared/sphinx"
-  # searchd_log_file: "RAILS_ROOT/log/searchd.log"
-  # query_log_file: "RAILS_ROOT/log/searchd.query.log"
-  morphology: stem_ru
+  searchd_log_file: "RAILS_ROOT/log/searchd.log"
+  query_log_file: "RAILS_ROOT/log/searchd.query.log"
+  morphology: stem_ru``
 development:
   searchd_file_path: "/home/dev/yapropal/app/shared/sphinx"
   # searchd_log_file: "RAILS_ROOT/log/searchd.log"
