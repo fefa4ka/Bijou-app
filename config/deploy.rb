@@ -9,7 +9,8 @@ set :default_environment, {
 }                 
 
 after 'deploy:restart', 'thinking_sphinx:stop'
-after 'deploy:symlink', 'deploy:update_crontab'
+after 'deploy:restart', 'deploy:after_update_code'
+after 'deploy:restart', 'deploy:update_crontab'
 
 namespace :deploy do
   desc 'Update the crontab file'
