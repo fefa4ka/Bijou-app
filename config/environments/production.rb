@@ -52,8 +52,17 @@ People::Application.configure do
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
+
+  # Needed for the ActiveAdmin's manifest assets.
+  config.assets.precompile += ['active_admin.css', 'active_admin.js']
+
+  # This one effectively turns every js/css file, which starts with
+  # a letter or a number, into an includeable asset manifest (similar to
+  # what application.js and application.css already are).
+  # You may want to omit this line for your application.
+  config.assets.precompile += [/^[a-z0-9]\w+\.(css|js)$/]
+
   config.assets.precompile += %w(*.gif *.js  *.png *.jpg *.css.erb *.css)
-  config.assets.precompile += %w( active_admin.css active_admin/print.css active_admin.js )
 
   # Generate digests for assets URLs
   config.assets.digest = true
