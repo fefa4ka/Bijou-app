@@ -4,7 +4,7 @@ class MainController < ApplicationController
   caches_page :index
   
   def index                             
-    @missings = Missing.where(:published => 1)
+    @missings = Missing.where(:published => 1).limit(50)
     @search = Search.new
   end
 end
