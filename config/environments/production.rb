@@ -54,7 +54,7 @@ People::Application.configure do
   config.assets.compile = false
 
   # Needed for the ActiveAdmin's manifest assets.
-  config.assets.precompile += %w( active_admin.css active_admin/print.css active_admin.js )
+  config.assets.precompile += %w[active_admin.css active_admin.js]
 
   # This one effectively turns every js/css file, which starts with
   # a letter or a number, into an includeable asset manifest (similar to
