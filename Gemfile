@@ -20,10 +20,10 @@ group :development do
  gem 'capistrano-deploy'
 end
 
-group :test do
-	gem 'ruby-prof', :git => "git://github.com/rdp/ruby-prof.git"
-end
-
+# group :test do
+# 	gem 'ruby-prof', :git => "git://github.com/rdp/ruby-prof.git"
+# end
+  
 gem 'jquery-rails'
 gem 'fancybox-rails'
                                 
@@ -51,7 +51,8 @@ gem 'paperclip'
 gem 'remotipart'    
 
 # Geo
-gem 'geocoder', :git => "git://github.com/alexreisner/geocoder.git"
+gem 'geocoder', :git => "git://github.com/alexreisner/geocoder.git"       
+gem 'geoip-rails'
                    
 # auth  
 gem 'devise', '1.5.1'

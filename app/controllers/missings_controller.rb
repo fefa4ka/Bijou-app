@@ -5,7 +5,7 @@ require 'net/http'
 
 class MissingsController < ApplicationController
   # Каталог для фоток
-   impressionist :actions => [:show]           
+  impressionist :actions => [:show]           
   
   # GET /missings
   # GET /missings.xml

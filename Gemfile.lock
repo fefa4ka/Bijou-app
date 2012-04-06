@@ -117,6 +117,7 @@ GEM
       thor (>= 0.13.6)
     formtastic (2.1.1)
       actionpack (~> 3.0)
+    geoip-rails (0.1.2)
     has_scope (0.5.1)
     hashie (1.2.0)
     highline (1.6.11)
@@ -296,6 +297,7 @@ DEPENDENCIES
   fancybox-rails
   foreman
   geocoder!
+  geoip-rails
   hashie
   impressionist
   jquery-rails
