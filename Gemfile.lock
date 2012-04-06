@@ -1,6 +1,12 @@
 GIT
-  remote: git://github.com/ConsultingMD/active_admin
-  revision: fb515af69a36d4942e941cbd2e27ee98423f8154
+  remote: git://github.com/alexreisner/geocoder.git
+  revision: 2642ddb2b8530a43f20dad1ee7e996598ef477e0
+  specs:
+    geocoder (1.1.1)
+
+GIT
+  remote: git://github.com/andrewroth/active_admin
+  revision: 015c22a71184405be0aeff01028dcff569cd9bcf
   specs:
     activeadmin (0.3.4)
       bourbon (>= 1.0.0)
@@ -13,12 +19,6 @@ GIT
       meta_search (>= 0.9.2)
       rails (>= 3.0.0)
       sass (>= 3.1.0)
-
-GIT
-  remote: git://github.com/alexreisner/geocoder.git
-  revision: 2642ddb2b8530a43f20dad1ee7e996598ef477e0
-  specs:
-    geocoder (1.1.1)
 
 GIT
   remote: git://github.com/dougal/daemon_generator.git
