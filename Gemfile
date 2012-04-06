@@ -64,7 +64,7 @@ gem 'omniauth-openid'
 gem 'omniauth-mailru'
 
 # Admin
-gem 'activeadmin', :git => "git://github.com/andrewroth/active_admin"
+gem 'activeadmin', :git => "git://github.com/gregbell/active_admin"
 gem 'meta_search' 
 
 
