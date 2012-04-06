@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(:version => 20120214113926) do
   add_index "histories", ["question_id"], :name => "index_histories_on_question_id"
   add_index "histories", ["user_id"], :name => "index_histories_on_user_id"
 
-  create_table "impressions", :force => true do |t|
+  create_table "impressions", :force => true, :options => 'ENGINE=InnoDB DEFAULT CHARSET=cp1251' do |t|
     t.string   "impressionable_type"
     t.integer  "impressionable_id"
     t.integer  "user_id"

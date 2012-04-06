@@ -33,6 +33,12 @@ GIT
       sass (>= 3.1.0)
 
 GIT
+  remote: git://github.com/rdp/ruby-prof.git
+  revision: db23651fbf5df7898a3612ff9fc1b982358731cb
+  specs:
+    ruby-prof (0.11.0.rc3)
+
+GIT
   remote: git://github.com/sstephenson/execjs.git
   revision: 6eb82936e208a1eac33a9751e956dec9c93a27d7
   specs:
@@ -155,6 +161,7 @@ GEM
     net-ssh (2.3.0)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
+    newrelic_rpm (3.3.3)
     oauth (0.4.5)
     oauth2 (0.5.2)
       faraday (~> 0.7)
@@ -294,6 +301,7 @@ DEPENDENCIES
   jquery-rails
   meta_search
   mysql2
+  newrelic_rpm
   omniauth-facebook
   omniauth-mailru
   omniauth-odnoklassniki
@@ -304,6 +312,7 @@ DEPENDENCIES
   paperclip
   rails (= 3.2.0)
   remotipart
+  ruby-prof!
   russian
   sass-rails (~> 3.2.3)
   simple-private-messages (= 0.0.0)!

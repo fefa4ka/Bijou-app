@@ -20,6 +20,10 @@ group :development do
  gem 'capistrano-deploy'
 end
 
+group :test do
+	gem 'ruby-prof', :git => "git://github.com/rdp/ruby-prof.git"
+end
+
 gem 'jquery-rails'
 gem 'fancybox-rails'
                                 
@@ -82,3 +86,6 @@ gem 'hashie'
 
 # For database dump
 gem 'yaml_db'
+
+# Monitoring
+gem 'newrelic_rpm'
