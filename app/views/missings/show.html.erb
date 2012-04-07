@@ -1,12 +1,12 @@
 <% @title = "Разыскивается #{@missing.name}" %>
-<script>
-	missing_path("<%= missing_path(@missing) %>");
+<script>        
+		missing_url = "<%= missing_path(@missing) %>";   
 </script>
 
 <%= render 'question' if current_user && current_user.id == @missing.user.id && @missing.impressionist_count(:user_id => current_user.id) < 2 %>
 <%= render 'show_questions' if current_user && @missing.user.id == current_user.id %>
                                     
-<% cache('missing_info') do %>
+<% cache "missing_info_#{@missing.id}_#{@missing.updated_at}" do %>
 <div class="container_16 p-missing">
 	<div class="grid_11">
 		<div class="t-big_fat b-missing__wanted_h">
@@ -62,7 +62,7 @@
 
 	</div>
 
-<% cache('missing_description') do %>	
+<% cache "missing_description_#{@missing.id}_#{@missing.updated_at}" do %>	
 	<div class="b-missing__center">
 		<%= render 'show_common' %>
 	</div>
@@ -90,7 +90,7 @@
 </div>
 <% end %>
    
-<% cache('missing_map') do %>
+<% cache "missing_map_#{@missing.id}_#{@missing.updated_at}" do %>
 <div class="container_16 p-missing">
     <div class="grid_11">
 
@@ -102,8 +102,9 @@
     
 	<div class="b-missing__comments_header b-header">Обсуждение</div>
 	<div class="clear"></div>
-<% end %>
-<% cache ('missing_comments') do %>    
+<% end %>        
+                           
+<% cache "missing_comments_#{@missing.id}" do %>    
 	<div class="b-missing__comments">
 	<% @missing.discussions.each do |comment| %>        
     <% if comment.discussion_id == nil %>

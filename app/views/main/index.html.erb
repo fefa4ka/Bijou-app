@@ -1,4 +1,4 @@
-
+<% cache 'mainpage' do %>
 <% @title = "Найду тебя &mdash; поиск пропавших без вести".html_safe %>
 <!-- Main page content -->
 
@@ -109,8 +109,8 @@
 
     <%= render :partial => 'missing_information' %>
     <%= render :partial => 'volunteer_information' %>
-
-
 </div>
-</div>
+</div>                                               
+
+<% end %>
 
