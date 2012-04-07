@@ -5,7 +5,8 @@
 
 <%= render 'question' if current_user && current_user.id == @missing.user.id && @missing.impressionist_count(:user_id => current_user.id) < 2 %>
 <%= render 'show_questions' if current_user && @missing.user.id == current_user.id %>
-
+                                    
+<% cache('missing_info') do %>
 <div class="container_16 p-missing">
 	<div class="grid_11">
 		<div class="t-big_fat b-missing__wanted_h">
@@ -20,10 +21,8 @@
           <% if @missing.last_seen || @missing.city %>
             <%= @missing.gender ? 'Пропал' : 'Пропала' %> <%= Russian.strftime @missing.last_seen, "%d %B" %> <% if @missing.city %> в <%= YandexInflect.inflections(@missing.city).last %> <% end %>
           <% end %>
-        </div>
-	<p id="notice"><%= notice %></p>
+        </div>        
 
-	
 	<div class="b-missing__information">
 
 	<div class="b-missing__leftside">
@@ -42,7 +41,9 @@
 		  </li>
 		<% end %>
 		</ul>         
-		<% end %>
+		<% end %>            
+<% end %>		                         
+
         <div class="clear"></div>                   
 			<%= tag(:input, { :type => "button", :value => "Я видел этого человека", :class => "blue b-missing__i_saw t-medium" }) if @seen.new_record? && !(current_user && current_user.id == @missing.user.id) %>
 
@@ -60,7 +61,8 @@
 		    <% end %>  
 
 	</div>
-	
+
+<% cache('missing_description') do %>	
 	<div class="b-missing__center">
 		<%= render 'show_common' %>
 	</div>
@@ -74,6 +76,7 @@
 
 		</div>
   </div>
+<% end %>
 
   <div class="grid_5 b-rightside">
 	<%= render :partial => 'show_right_sidebar' %>
@@ -86,7 +89,8 @@
 <%= render 'show_questions' %>
 </div>
 <% end %>
-
+   
+<% cache('missing_map') do %>
 <div class="container_16 p-missing">
     <div class="grid_11">
 
@@ -98,7 +102,8 @@
     
 	<div class="b-missing__comments_header b-header">Обсуждение</div>
 	<div class="clear"></div>
-	
+<% end %>
+<% cache ('missing_comments') do %>    
 	<div class="b-missing__comments">
 	<% @missing.discussions.each do |comment| %>        
     <% if comment.discussion_id == nil %>
@@ -157,4 +162,4 @@
 </div>
 
 <div class="clear"></div>  
-                                
+<% end %>                           

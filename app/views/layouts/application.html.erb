@@ -22,8 +22,7 @@
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
  
   <!-- jQuery & jQuery UI -->
-  <%= stylesheet_link_tag "application" %>
-  <%= javascript_include_tag "application" %>    
+  <%= stylesheet_link_tag "application" %>   
 
   <script>
     var logged_in = <%= current_user ? "true" : "false" %>;
@@ -174,7 +173,8 @@
   <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
   <script>
   </script>
-
+                        
+  <%= javascript_include_tag "application" %> 
   <%= yield :scripts %>
   <script type="text/javascript">
     var _gaq=[['_setAccount','UA-26145427-1'],['_trackPageview'],['_trackPageLoadTime'],['_setDomainName', '.yapropal.ru']];

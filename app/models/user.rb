@@ -38,6 +38,15 @@ class User < ActiveRecord::Base
   def last_visit(type, id)
     record = Impression.where(:user_id => self.id, :impressionable_type => type, :impressionable_id => id).last
     record.created_at rescue nil
-  end            
+  end       
+  
+  def self.destroy_unless
+    User.all.each do |u|
+      if u.missings.size == 0 && u.discussions.size == 0 && u.histories.size == 0 && u.seen_the_missings.size == 0 && (u.name == "guest" || (u.confirmation_sent_at + 2.days > DateTime.now))
+        u.destroy
+      end
+    end
+  end
+    
 
 end

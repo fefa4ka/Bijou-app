@@ -35,7 +35,8 @@ class ApplicationController < ActionController::Base
   
   private
   def create_guest_user
-    u = User.create(:name => "guest", :email => "guest_#{Time.now.to_i}#{rand(99)}@guest_email_address.com")
+    u = User.new(:name => "guest", :email => "guest_#{Time.now.to_i}#{rand(99)}@guest_email_address.com")
+    u.confirmed_at = DateTime.new
     u.save()
     u
   end
@@ -46,8 +47,6 @@ class ApplicationController < ActionController::Base
   
   def copy_data_from_guest     
     if session[:guest_user_id] && current_user    
-        logger.debug('copy from guest')     
-
       associations = User.reflect_on_all_associations(:has_many).collect {|a| a.name }   
       associations.each do |a|    
         guest_user.method(a).call.each do |record|    

@@ -23,5 +23,5 @@ every 5.minutes do
 end
 
 every 1.days do
-
+  runner "User.destroy_unless"
 end

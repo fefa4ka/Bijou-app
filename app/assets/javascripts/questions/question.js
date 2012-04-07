@@ -24,9 +24,7 @@ $(function(){
 
 		$('.b-form__question__action_button').live('click', function(){ 
 			submit_action = $(this).attr('action');
-		});
-
-
+		});     
 	}                   
 	
 	function prepare_question(question){   
@@ -553,7 +551,12 @@ $(function(){
 		});
 		
 		if(typeof questions != "undefined" && questions.length > 0)  {
-			render_questions(questions);   
+			render_questions(questions);      
+			
+			// Даём возможность обновлять блок вопросов, деаляю trigger('update')
+			$('.b-form__questions').bind('update', function () {
+				render_questions(questions);
+			});
 	    }
 });
 

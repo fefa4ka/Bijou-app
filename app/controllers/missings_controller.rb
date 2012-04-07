@@ -12,7 +12,7 @@ class MissingsController < ApplicationController
   def index                          
       params[:search] ||= { :region => get_user_location }  
       @search = Search.new(params[:search])        
-      @missings = @search.missings
+      @missings = @search.missings                                      
       @request = request
   end
 
@@ -54,6 +54,8 @@ class MissingsController < ApplicationController
     @missing = Missing.find(params[:discussion]["missing_id"])
     @comment = Discussion.new(params[:discussion])       
     @comment.save           
+     
+    expire_fragment(:controller => 'missings', :action => 'show', :action_suffix => 'missing_comments', :id => @missing.id)
     
     if @comment.user.nil?
       @comment.user = {
@@ -250,7 +252,10 @@ class MissingsController < ApplicationController
       sign_in user
     end
     next_question = Question.for(missing, user, 3).first
-    logger.debug(next_question)
+    
+    if next_question.nil?
+      History.where({ :missing_id => missing.id, :user_id => user.id, :text => "skip" }).each { |h| h.destroy }
+    end
     
     respond_to do |format|
       format.json {
@@ -340,14 +345,12 @@ class MissingsController < ApplicationController
   
   private
    def get_user_location
-    logger.debug("get location #{request.location.inspect}");
     unless session[:location]
-      location = request.location
-      unless request.location.nil?
-        logger.debug(location.inspect)
+      location = Geoip::Location.find_by_ip(request.remote_ip)
+      unless location.nil?
         location = Geocoder.search("#{location.latitude},#{location.longitude}").first
         begin
-          session[:location] = location.city
+          session[:location] = location.city          
         rescue Exception => e
           session[:location] = location.country
         end

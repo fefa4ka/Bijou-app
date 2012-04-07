@@ -9,7 +9,7 @@ class UserMailer < ActionMailer::Base
     @missing = missing
     @url = missing_url(missing)
 
-    mail(:to => @user.email, :subject => "missing.name теперь в розыске")
+    mail(:to => @user.email, :subject => "#{missing.name} теперь в розыске")
   end
 
   def new_message_email(message)
@@ -24,7 +24,7 @@ class UserMailer < ActionMailer::Base
     @destination = { :email => (destination_user && destination_user.email) || parent_message.email,
                      :user => (destination_user && destination_user.name) || parent_message.name,
                      :phone => (destination_user && destination_user.phone) || parent_message.phone }
-
+                                                                                                        
     mail(:to => @destination[:email], :subject => "Личное сообщение от #{YandexInflect.inflections(@sender[:email])}")
   end
 end

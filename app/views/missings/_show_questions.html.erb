@@ -11,8 +11,8 @@ var questions = <%= @questions.to_json.html_safe %>;
 			</div>
 		</div>       
 		<div class="b-form__questions_finish l-hidden">
-			<div class="t-medium">Спасибо за ответы. У нас к вам есть еще вопросы, мы их зададим после размещения объявления.</div> 
-			<p><br>Переходите к следующему шагу</p>    
+			<div class="t-medium">Спасибо за ответы.</div> 
+			<p class="b-form__questions_skip_questions">Вы отложили некоторые вопросы, <a href="#" class="b-form__questions_show_skip_questions">ответьте на них</a>.</p>    
 		</div>
 	</div>
 	<div class="clear"></div>
