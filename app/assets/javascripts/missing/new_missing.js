@@ -300,7 +300,9 @@ $(function(){
  
 	
    
- 
+	$("#add_photo").click(function() {                                              
+		$(".b-form__photos input[type=file]").click();
+	});
  
 	                            
 	

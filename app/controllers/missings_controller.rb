@@ -11,7 +11,7 @@ class MissingsController < ApplicationController
   # GET /missings
   # GET /missings.xml
   def index                          
-      params[:search] ||= { :region => get_user_location }  
+      params[:search] ||= {}  
       @search = Search.new(params[:search])        
       @missings = @search.missings                                      
       @request = request
