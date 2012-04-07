@@ -1,8 +1,6 @@
 # encoding: utf-8
 
-class MainController < ApplicationController            
-  caches_action :index
-  
+class MainController < ApplicationController              
   def index                             
     @missings = Missing.where(:published => 1).limit(50)
     @search = Search.new

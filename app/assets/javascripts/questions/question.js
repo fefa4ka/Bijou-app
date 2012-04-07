@@ -12,10 +12,15 @@ $(function(){
 	
         if(typeof questions_disabled == "undefined") {
 	    	$('.b-form__questions_container').removeClass('l-hidden');
-        }
+        }                             
+		$('.b-form__questions_container').height('auto');
 		$('.b-form__questions div:first').addClass('selected ui-corner-all');
 		                                                   
-		prepare_question(questions[0]);            
+		prepare_question(questions[0]); 
+		
+		$('.b-form__questions_infinity').show();
+		$('.b-form__questions_description').show();
+		$('.b-form__questions_finish').addClass('l-hidden');           
 		
         $(".b-form__question__other_answer").live('focus', function(){
             var checkbox = $(this).attr('data-checkbox'); 
@@ -25,7 +30,13 @@ $(function(){
 		$('.b-form__question__action_button').live('click', function(){ 
 			submit_action = $(this).attr('action');
 		});     
-	}                   
+	}   
+	   
+	function load_questions(){
+		$.get( missing_path() + '/questions', function(data) {
+			render_questions(data);	
+		}, "json");
+	}             
 	
 	function prepare_question(question){   
 		switch(question.answer_type) {
@@ -70,9 +81,7 @@ $(function(){
 			var email = $('.b-form__question.selected [name="question[answer][email]"]').val();
 
 			show_auth_dialog(function() {
-				$.get( missing_path() + '/questions', function(data) {
-					render_questions(data);	
-				}, "json");
+				load_questions();
 				
 			}, email);
 
@@ -498,10 +507,12 @@ $(function(){
 			}      
 		   
 					
-			var question = $(this).parents('div.b-form__question'),
+			var question = $(this).parents('div.b-form__question'),   
+				question_container = $('.b-form__questions_container'),
 			 	next_question = question.next(),
 			 	next_question_id = next_question.find('input[name="question[id]"]').val(),
-			 	respond_question = data.question,
+			 	respond_question = data.question,      
+				questions_count = data.questions_count,
 			 	respond_question_el = 0,
 				width = question.outerWidth() * -1 - 50,
 				questionTop = 0;
@@ -509,14 +520,21 @@ $(function(){
 			// Если осталось меньше 3х вопросов, пытаемся подгрузить еше
 			// Если вопросов больше нет, показываем заглушку, что вопросы еще есть, но наних нужно будет ответить после размещения объявления
 			        
+                                         
 
 			// Если следующий вопрос, такой же как ожидали
 			if(respond_question == null){     
-				$('.b-form__questions_infinity').remove();
-				$('.b-form__questions_description').remove();
+				$('.b-form__questions_infinity').hide();
+				$('.b-form__questions_description').hide();
 				$('.b-form__questions_finish').removeClass('l-hidden'); 
-				question.effect('drop', { queue: false }, 500, callback_destroy);  
+				question.effect('drop', { queue: false }, 500, callback_destroy);
+				question_container.animate({ height: $('.b-form__questions_finish').height() }, 500, 'linear');    
 				
+				if(questions_count > 0) {
+					$('.b-form__questions_skip_questions').show();
+				} else {
+					$('.b-form__questions_skip_questions').hide();
+				}
 				return;  
 			} else if (respond_question.id == next_question_id){
 				question.effect('drop', { queue: false }, 500, callback_destroy);  
@@ -542,6 +560,9 @@ $(function(){
 				$('input').customInput();    
 			 
 			}
+			                                         
+                      
+			
 			
 			// Устанавливаем тему вопроса 
 			$('.b-form__questionnaire').text(respond_question.questionnaire);
@@ -555,7 +576,7 @@ $(function(){
 			
 			// Даём возможность обновлять блок вопросов, деаляю trigger('update')
 			$('.b-form__questions').bind('update', function () {
-				render_questions(questions);
+				load_questions();
 			});
 	    }
 });

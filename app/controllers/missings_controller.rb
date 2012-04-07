@@ -5,7 +5,8 @@ require 'net/http'
 
 class MissingsController < ApplicationController
   # Каталог для фоток
-  impressionist :actions => [:show]           
+  impressionist :actions => [:show]   
+  caches_page :print        
   
   # GET /missings
   # GET /missings.xml
@@ -18,18 +19,19 @@ class MissingsController < ApplicationController
 
   # GET /missings/1
   # GET /missings/1.xml
-  def show               
+  def show                                 
   	@missing = Missing.find(params[:id])                  
     @author = @missing.author || @missing.user
-
-    @discussion = Discussion.new({ :missing_id => @missing.id })
+     
+    @discussion = Discussion.new({ :missing_id => @missing.id }) 
+    
     @message = Message.new 
 
     @location = get_user_location 
     @seen = SeenTheMissing.where( { :missing_id => @missing.id, :user_id => current_or_guest_user } ).first || SeenTheMissing.new( { :missing_id => @missing.id, :address => @location.nil? ? "" : @location })
 
 	  @helpers = []
-
+	  
 	  # Вопросы 
 	  @questions = Question.for @missing, current_or_guest_user, :all   
     	    
@@ -239,7 +241,7 @@ class MissingsController < ApplicationController
       }
     end
   end 
-
+              
   def answer_the_question
     question_params = params["question"]
     missing = Missing.find(params[:id])
@@ -262,7 +264,8 @@ class MissingsController < ApplicationController
         render :json => {
           :ok => true,
           :logged_in => user_signed_in?,
-          :question => next_question
+          :question => next_question,    
+          :questions_count => Question.for(missing, current_or_guest_user, :all).size
         }
       } 
     end                            

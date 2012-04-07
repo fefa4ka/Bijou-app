@@ -255,7 +255,8 @@ $(function(){
 		$("#save").val(1);
 		submit_action = "save_step";
 		
-		form.submit();
+		form.submit(); 
+		  
 		return false;
 	});
 	

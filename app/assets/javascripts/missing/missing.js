@@ -81,7 +81,11 @@ $(function(){
    $(".b-question__toggle").click(function() { 
        $('.b-form__questions_container').toggle('blind', {}, 500);  
        return false;
-   });
+   });                      
+	
+   $(".b-form__questions_show_skip_questions").click(function() {
+		$('.b-form__questions').trigger('update');
+	});
 
    // Фотографии загружаем в оверлеи 
    $(".b-missing__photo_link").fancybox();
