@@ -6,8 +6,7 @@ require 'net/http'
 class MissingsController < ApplicationController
   # Каталог для фоток
   impressionist :actions => [:show]   
-  caches_page :print        
-  
+
   # GET /missings
   # GET /missings.xml
   def index                          
@@ -20,7 +19,7 @@ class MissingsController < ApplicationController
   # GET /missings/1
   # GET /missings/1.xml
   def show                                 
-  	@missing = Missing.find(params[:id])                  
+    @missing = Missing.find(params[:id])                  
     @author = @missing.author || @missing.user
      
     @discussion = Discussion.new({ :missing_id => @missing.id }) 
@@ -30,11 +29,11 @@ class MissingsController < ApplicationController
     @location = get_user_location 
     @seen = SeenTheMissing.where( { :missing_id => @missing.id, :user_id => current_or_guest_user } ).first || SeenTheMissing.new( { :missing_id => @missing.id, :address => @location.nil? ? "" : @location })
 
-	  @helpers = []
-	  
-	  # Вопросы 
-	  @questions = Question.for @missing, current_or_guest_user, :all   
-    	    
+    @helpers = []
+    
+    # Вопросы 
+    @questions = Question.for @missing, current_or_guest_user, :all   
+          
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @missing }
@@ -84,7 +83,7 @@ class MissingsController < ApplicationController
       }           
     end
   end
-  	
+    
   # GET /missings/new
   # GET /missings/new.xml
   def new                
@@ -99,7 +98,7 @@ class MissingsController < ApplicationController
     session[:missing_id] = @missing.id
 
     @missing.current_step = params[:step]
-  	
+    
     # Поля для мест и людей
     # Строятся только один раз
     @missing.photos.build
@@ -108,7 +107,7 @@ class MissingsController < ApplicationController
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @missing }
-	  end
+    end
   end
 
   # GET /missings/1/edit
@@ -118,9 +117,9 @@ class MissingsController < ApplicationController
 
   # Сохраняем данные текущего шага
   def save_step 
-  	session[:missing_id] ||= 0
+    session[:missing_id] ||= 0
     params[:missing] ||= {}
-  	data_type = data = ""
+    data_type = data = ""
        
     # Костыль
     # Если, не указан день рождения, ставим 1 января
@@ -129,26 +128,26 @@ class MissingsController < ApplicationController
     # Если объявление уже создано, сохраняем в базу изменения
     # или создаем в базе копию          
     if session[:missing_id] > 0
-    	@missing = Missing.find(session[:missing_id])
+      @missing = Missing.find(session[:missing_id])
 
       if params[:missing]["user_attributes"] && params[:missing]["user_attributes"]["email"].empty?
         params[:missing]["user_attributes"].delete("email")
       end
 
-    	@missing.update_attributes(params[:missing]) 
+      @missing.update_attributes(params[:missing]) 
       logger.debug("!!! Save #{@missing.inspect}")   
-    	@missing.save
+      @missing.save
     else
       params[:missing].delete("user_attributes")
 
       @missing = Missing.new(params[:missing])
       @missing.user = current_or_guest_user
-    	@missing.published = false;
-    	@missing.save
-    	
-    	session[:missing_id] = @missing.id
+      @missing.published = false;
+      @missing.save
+      
+      session[:missing_id] = @missing.id
     end         
-	  
+    
     logger.debug(params[:missing]["photo_attributes"])
    # if (params[:missing]["photo_attributes"].find_all {|r| r["photo"] }).size > 0
       data_type = "photos"
@@ -157,19 +156,30 @@ class MissingsController < ApplicationController
         data.push({ :id => p.id, :image_name => p.photo.url(:small) })
       end
   #  end                  
-	
+  
     respond_to do |format|
       if params[:save] == "1"
         @missing = Missing.find(session[:missing_id])
+
+        # TODO: Разобраться
+        # Dirty hack
+        @missing.user.confirmed_at = DateTime.now
+        @missing.user.save
+
         @missing.published = true  
         @missing.save  
         
-        password = params[:missing]["user_attributes"] ? params[:missing]["user_attributes"]["password"] : ""
-        UserMailer.new_missing_email(@missing, password).deliver
+        begin
+          password = params[:missing]["user_attributes"] ? params[:missing]["user_attributes"]["password"] : ""
+          UserMailer.new_missing_email(@missing, password).deliver
+        rescue
+          logger.debug("Can't send mail")
+        end
 
         session[:missing_id] = nil
         
         sign_in @missing.user
+        
 
         flash[:hidden] = "new"
       end
@@ -184,14 +194,14 @@ class MissingsController < ApplicationController
   # Обработка посещаяемых мест
   def address_suggest
     if params[:part]
-	  address = URI.escape(params[:part])
-	  ll = URI.escape(params[:ll])
-	  spn = URI.escape(params[:spn])
-	  callback = params[:callback]
-	  rand = params[:_]
-	  url = "http://suggest-maps.yandex.ru/suggest-geo?callback=#{callback}&_=#{rand}&ll=#{ll}&spn=#{spn}&part=#{address}&highlight=1&fullpath=1&sep=0&n=4&search_type=tp"
-	  url = URI.parse(url)
-	  suggest = Net::HTTP.get(url)
+    address = URI.escape(params[:part])
+    ll = URI.escape(params[:ll])
+    spn = URI.escape(params[:spn])
+    callback = params[:callback]
+    rand = params[:_]
+    url = "http://suggest-maps.yandex.ru/suggest-geo?callback=#{callback}&_=#{rand}&ll=#{ll}&spn=#{spn}&part=#{address}&highlight=1&fullpath=1&sep=0&n=4&search_type=tp"
+    url = URI.parse(url)
+    suggest = Net::HTTP.get(url)
     end
     
     respond_to do |format|

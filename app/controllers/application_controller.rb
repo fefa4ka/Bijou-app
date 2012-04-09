@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   private
   def create_guest_user
     u = User.new(:name => "guest", :email => "guest_#{Time.now.to_i}#{rand(99)}@guest_email_address.com")
-    u.confirmed_at = DateTime.new
+    u.confirmed_at = DateTime.now
     u.save()
     u
   end
