@@ -30,7 +30,9 @@ gem 'fancybox-rails'
 # Database
 gem 'mysql2'   
 gem 'yaml_db'    
-gem 'redis'
+gem 'redis'       
+
+gem 'redis-rails'
 
 # Search
 gem 'thinking-sphinx'

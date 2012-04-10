@@ -1,4 +1,4 @@
-# encoding: utf-8
+                                                           # encoding: utf-8
 
 People::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
@@ -21,13 +21,13 @@ People::Application.configure do
   # just comment this out and Rails will serve the files
 
   # See everything in the log (default is :info)
-  # config.log_level = :debug
+  config.log_level = :debug
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
 
   # Use a different cache store in production
-  config.cache_store = :memory_store
+  config.cache_store = :redis_store
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
