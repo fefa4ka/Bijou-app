@@ -32,8 +32,6 @@ gem 'mysql2'
 gem 'yaml_db'    
 gem 'redis'       
 
-gem 'redis-rails'
-
 # Search
 gem 'thinking-sphinx'
 gem 'ts-delayed-delta'
