@@ -74,7 +74,7 @@ function missing_path(url) {
 }
 
 function custom_input() {
-    $('input[class!=b-form-custom-false],button[class!=b-form-custom-false]').customInput();
+    $('input,button').customInput();
 	$(".toolbar").buttonset(); 
 
     $('.b-form__phone').mask('+7 999 999-99-99');

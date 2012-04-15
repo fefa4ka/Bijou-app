@@ -1,18 +1,16 @@
-<div class="container_16 p-main-suggest-info" type="volunteer"> 
+<div class="container_16 p-main-suggest-info l-hidden" type="volunteer"> 
   <div class="grid_10 p-main-suggest-head"><h2>Как вы можете помочь в поисках</h2></div>
 
 	<div class="clear"></div>
 	
 	<div class="b-main-info-margin grid_5">
 		<h3>Большая база пропавших людей</h3>
-		<div class="p-main-suggest-images">
-          <% (45/(@missings.size)).times do |count|%>
-	        
-              <% @missings.each do |missing| %>                                         
+		<div class="p-main-suggest-images">           
+          <% @amount.times do |count| %>
+			
+              <% @missings.each do |missing| %>     
 			    <% if missing.photos.first %>
                   <%= image_tag missing.photos.first.photo.url(:thumb), { :size => "30x30", "data-random" => count + rand(100), "data-url" => missing_path(missing), "data-name" => missing.short_name, "data-date" => Russian.strftime(missing.created_at, "%e %B %Y года") } %>   
-				<% else %>
-				<%= image_tag 'no_photo.jpg', { :size => "30x30", "data-url" => url_for(missing), "data-name" => missing.name, "data-date" => missing.created_at }  %>
 				<% end %> 
 			<% end %> 	
 

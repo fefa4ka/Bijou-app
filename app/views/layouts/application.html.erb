@@ -34,10 +34,22 @@
 
 <div class="<%= user_signed_in? ? "b-head-bg__logged" : "b-head-bg" %>">
   <div class="container_16"> 
-	<div class="b-head__logo grid_3">
+	<div class="b-head__logo grid_6">
 		<%= link_to_unless_current image_tag('logo.png', :class => 'l-left'), '/' %>
-	</div>               
-	<div class="b-head__auth grid_3" style="<%= user_signed_in? ? "" : "display: none" %>">  
+	</div>          
+
+	<div class="b-head__search grid_4">
+		<%= form_for Search.new, :url => "/missings", :method => :get do |f| %>
+		<%= f.text_field :keywords, :placeholder => "Начните поиск пропавшего", :class => "b-head__search_field" %>
+		<%= f.submit "", :name => nil ,:class => "b-head__search_button b-form-custom-false" %>
+		<% end %>
+	</div>
+
+	<div class="b-head__add grid_3">  
+		<%= button_to "Создать объявление", "/add_missing/", :class => "maroon" %>
+	</div>
+
+	<div class="b-head__auth grid_2" style="<%= user_signed_in? ? "" : "display: none" %>">  
 		<button class="b-auth__button loggedin maroon l-right" provider="<%= current_user && current_user.provider %>"><%= current_user && (current_user.name || current_user.email) %></button>	
 		<div class="b-auth__list b-select__list ui-corner-bottom l-hidden">
 			<%= link_to "Настройки", '/users/settings/', :class => "b-select__list_item" %>
@@ -45,7 +57,7 @@
 		</div>
 	</div>                 	   
     
-	<div class="grid_13" style="<%= user_signed_in? ? "display: none" : "" %>">    
+	<div class="grid_2 b-head__auth" style="<%= user_signed_in? ? "display: none" : "" %>">    
 		<input type="button" class="b-head__login maroon l-right" value="Войти на сайт" />  
 		
 		<div class="b-head__login_form p-main-dialog-a-service">

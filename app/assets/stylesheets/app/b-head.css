@@ -5,35 +5,63 @@
 }
 
 .b-head-bg {
-	height: 43px;
+	height: 47px;
 }        
 
 .b-head-bg__logged {
 	height: 73px;
 }
             
-	.b-head-bg__logged .b-head__logo {       
-		padding-left: 1px;
-		margin-top: 10px;
+	.b-head__logo {       
+		padding-top: 8px;
 	}                   
 	
 .b-head { 
 	height: 60px;
 	padding-top: 1em;
 }                
-	.b-head-bg {
-		padding-top: 10px;
+	.b-head__search, .b-head__add, .b-head__auth{
+		padding-top: 12px;
+		height: 35px;
 	}
+
 	.b-head-hr {
 		margin: 0 0 10px !important;
 	}
-	
-            
-	
-	.b-head__auth {
-        float: right !important;
-		margin-top: .5em;
-	}   
+
+	.b-head__search {
+		text-align: right;
+
+		width: 28% !important;
+	}
+		.b-head__search_field, .b-head__search_button {
+			border: 1px solid #82345a !important;
+			border-top: 1px solid #752f51 !important;
+
+			-webkit-box-shadow: inset 0px 1px 0px 0px #ccc !important;
+			-moz-box-shadow: inset 0px 1px 0px 0px #ccc !important;
+			box-shadow: inset 0px 1px 0px 0px #ccc !important;
+		}
+
+		.b-head__search_button {
+			background: #fff url('/assets/search_icon.png') no-repeat 50% 50%;
+
+			border-left : 0 !important;
+			padding: 3px 10px;
+			width: 14px;
+			margin-left: -5px;
+
+		}
+	.b-head__add {
+		text-align: center; 
+
+		border-left: 1px solid #790046;
+		border-right: 1px solid #790046;
+		outline: 1px solid #994B74;
+
+		width: 18% !important;
+	}
+  
 	
 	.b-head__settings {
 		display: block;

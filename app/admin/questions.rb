@@ -21,7 +21,7 @@ ActiveAdmin.register Question do
         a.input :text 
         a.has_many :nested_questions do |q|    
           q.input :answer, :as => :hidden, :value => a.object.id
-          q.input :related_question, :as => :select, :label_method => :text
+          q.input :related_question, :as => :select
           q.input :question_id, :as => :hidden, :value => f.object.id
         end
       end

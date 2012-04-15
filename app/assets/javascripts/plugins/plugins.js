@@ -27,6 +27,10 @@ window.log = function(){
 
 jQuery.fn.customInput = function(){
 	$(this).each(function(i){	
+        if( $(this).hasClass('b-form-custom-false') ) {
+            return;
+        }
+        
 		if($(this).is('[type=checkbox],[type=radio]')){
 			var input = $(this);
 			
