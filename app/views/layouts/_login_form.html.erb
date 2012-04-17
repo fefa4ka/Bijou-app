@@ -1,14 +1,39 @@
-<input class="b-head__login b-button-type-a b-button-enter-to-site" type="button" value="Войти" />  
-<div class="b-head__login_form">
-	<input id="login_name" class="b-head__login_form_text" type="text" placeholder="эл. почта или телефон">
-	<input id="login_password" class="b-head__login_form_text" type="text" placeholder="пароль">
-	<p class="b-head__block">
-		<input id="login_remember_me" type="checkbox"><label for="login_remember_me"> запомнить меня</label>
-	</p>
-	<p class="b-head__block">
-		<input type="button" value="Войти" class="t-medium"/>
-	</p>
-	<p class="b-head__block">
-		<a href="#">вспомнить пароль</a>
-	</p>
-</div>
+<div class="b-head__login_form p-main-dialog-a-service">
+	<!-- Dialog with social auth buttons -->
+	<h3>Выберите сервис на котором вы зарегистрированны</h3>
+		
+		<div class="p-main-dialog-a-service-sep">&nbsp;</div>                                                
+		<div class="p-main-dialog-a-service-soc">
+			<a href="#" class="b-auth__action" provider="vkontakte" url="<%= user_omniauth_authorize_path(:vkontakte) %>" data-width="600" data-height="400"><%= image_tag "soc_vk.png" %>Вконтакте</a>
+		</div>
+		<div class="p-main-dialog-a-service-soc">
+			<a href="#" class="b-auth__action" provider="facebook" url="<%= user_omniauth_authorize_path(:facebook) %>" data-width="600" data-height="400"><%= image_tag "soc_fb.png" %>Facebook</a>
+		</div> 
+		<div class="p-main-dialog-a-service-soc">
+			<a href="#" class="b-auth__action" provider="yandex" url="<%= user_omniauth_authorize_path(:yandex) %>" data-width="600" data-height="400"><%= image_tag "soc_ya.png" %>Яндекс</a>
+		</div>
+		<div class="p-main-dialog-a-service-soc">
+			<a href="#" class="b-auth__action" provider="twitter" url="<%= user_omniauth_authorize_path(:mailru) %>" data-width="600" data-height="400"><%= image_tag "soc_tw.png" %>Mail.ru</a>
+		</div>
+		<div class="p-main-dialog-a-service-soc">
+			<a href="#" class="b-auth__action" provider="google" url="<%= user_omniauth_authorize_path(:google) %>" data-width="600" data-height="400"><%= image_tag "soc_gl.png" %>Google</a>
+		</div>
+		
+		<div class="p-main-dialog-a-service-sep">&nbsp;</div>
+	
+	<h3>Или войдите по электронной почте</h3>
+	
+    <%= form_for "user", :url => user_session_path, :remote => true, :tabindex => 1, :html => { :id => "login_form" } do |login_form| %>
+    <%= login_form.hidden_field :remember_me, :value => true %>
+	<ul>
+      <li><div>Почта:</div><%= login_form.text_field :email, :tabindex => 2 %></li>
+      <li><div>Пароль:</div><%= login_form.password_field :password, :tabindex => 3 %></li>
+	</ul>
+	
+    <%= login_form.submit "Войти", :tabindex => 5 %>    
+	<div class="p-main-dialog-a-service-registration_text">
+		или 
+		<a class="p-main-dialog-a-service-submit_register" href="#">зарегистрироваться</a>   
+	</div>
+    <% end %>
+</div>     

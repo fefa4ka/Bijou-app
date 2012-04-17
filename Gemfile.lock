@@ -112,6 +112,7 @@ GEM
     formtastic (2.1.1)
       actionpack (~> 3.0)
     geoip-rails (0.1.2)
+    haml (3.1.4)
     has_scope (0.5.1)
     hashie (1.2.0)
     highline (1.6.11)
@@ -293,6 +294,7 @@ DEPENDENCIES
   foreman
   geocoder!
   geoip-rails
+  haml
   hashie
   impressionist
   jquery-rails

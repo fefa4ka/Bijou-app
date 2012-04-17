@@ -9,7 +9,7 @@
 }        
 
 .b-head-bg__logged {
-	height: 73px;
+	height: 69px;
 }
             
 	.b-head__logo {       
@@ -23,6 +23,10 @@
 	.b-head__search, .b-head__add, .b-head__auth{
 		padding-top: 12px;
 		height: 35px;
+	}
+
+	.b-head-bg__logged .b-head__search, .b-head-bg__logged .b-head__add, .b-head-bg__logged .b-head__auth {
+		height: 57px;
 	}
 
 	.b-head-hr {

@@ -1,0 +1,41 @@
+<div class="b-head__registration_dialog p-main-dialog-a-afterlogin" style="<%= user_signed_in? ? "display: none" : "" %>">
+	<ul>
+		<li>
+			<%= image_tag "missing-ico.png" %>
+			<h3>Если пропал близкий</h3>
+			<%= button_to "Создайте объявление", "/add_missing/", :method => :get, :class => "button t-medium_fat silver blow l-full_width"%>	
+		</li>
+		<li class="p-main-register-box__registration">   
+			<div>
+		   	 	<%= image_tag "volonter-ico.png" %>
+				<h3>Хотите помочь в поисках?</h3>  
+			
+				<%= tag :input, { :type => "button", :value => "Примите участие", :class => "button p-main-register t-medium_fat silver l-full_width", :for => "volunteer" } %>         
+			</div>
+			<div class="b-sidebar p-main-register-box volunteer l-hidden">
+				<p class="t-medium">Войдите через</p>
+				<div class="p-main-socials">         
+                <% omniauth_providers.each do |provider| %>
+                  <button class="b-auth__button b-auth__action b-button_social" provider="<%= provider %>" url="<%= user_omniauth_authorize_path(provider) %>" data-width="600" data-height="400"></button>
+                <% end %>
+				</div>
+				<p class="t-medium">или укажите электронную почту</p>   
+				<%= form_for User.new, :remote => true, :url => "/users.json", :class => "new_user" do |f| %>
+				<table class="l-full_width">
+					<tr><td class="b-login__field">
+						<%= f.text_field :email, :placeholder => "адрес электронной почты", :class => "b-login__field"  %> 
+						<label class="error allready l-hidden"></label>
+					</td><td class="b-login__button">
+						<%= f.submit "Продолжить"  %>
+					</td></tr>
+				</table>           
+				<% end %>
+			</div>
+		</li>     
+		<li>            
+			<%= image_tag "missing-ico.png" %>
+			<h3>Уже зарегистрированны?</h3>
+			<%= tag :input, { :type => "button", :value => "Войдите по паролю", :class => "button b-head__login t-medium_fat silver l-full_width" } %> 	
+		</li>
+	</ul>
+</div>

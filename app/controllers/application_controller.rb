@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
   end
   
   def copy_data_from_guest     
-    if session[:guest_user_id] && current_user    
+    if session[:guest_user_id] && User.exists?(session[:guest_user_id]) && current_user    
       associations = User.reflect_on_all_associations(:has_many).collect {|a| a.name }   
       associations.each do |a|    
         guest_user.method(a).call.each do |record|    
@@ -62,6 +62,8 @@ class ApplicationController < ActionController::Base
       end
                 
       guest_user.destroy unless session[:guest_user_id] == current_user.id            
+      session[:guest_user_id] = nil
+    elsif session[:guest_user_id] && !User.exists?(session[:guest_user_id])
       session[:guest_user_id] = nil
     end
   end  

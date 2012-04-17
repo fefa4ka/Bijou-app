@@ -1,0 +1,6 @@
+<div class="b-missing__tabs">     
+	<% if current_user && current_user.missings.size > 0 %>
+	<div class="b-missing__tab" style="<% current_user && current_user.has_missing? ? "" : "display: none" %>"><%= link_to_unless_current content_tag("span", content_tag("span", "Сводка по объявлению") + tag(:input, { :value => current_user && current_user_timeline_fresh.size, :type => "button", :class => "orange b-missing__tab_message_count", :style =>  !current_user || current_user_timeline_fresh.size == 0 ? "display: none" : "" }), :class => "tab"), '/report', :class => "b-missing__tab b-missing__tab_link" %></div> 		
+	<div class="b-missing__tab" style="<% current_user && current_user.has_missing? ? "" : "display: none" %>"><%= link_to_unless_current content_tag("span", "Объявление", :class => "tab"), (current_user && current_user.missings.where(:published => 1).first && missing_path(current_user.missings.where(:published => 1).first)) || "", :class => "b-missing__tab b-missing__tab_link" %></div>  
+	<% end %>
+</div>

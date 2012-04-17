@@ -36,10 +36,15 @@
   <div class="container_16"> 
 	<div class="b-head__logo grid_6">
 		<%= link_to_unless_current image_tag('logo.png', :class => 'l-left'), '/' %>
+		
+		<div class="clear"></div>
+		<div style="<%= !current_page?("/add_missing") && user_signed_in? ? "" : "display: none" %>">
+			<%= render 'layouts/tabs_navigation' %>
+		</div>
 	</div>          
 
 	<div class="b-head__search grid_4">
-		<%= form_for Search.new, :url => "/missings", :method => :get do |f| %>
+		<%= form_for Search.new, :url => "/missings", :method => :get, :html => { :id => "header_search_form" } do |f| %>
 		<%= f.text_field :keywords, :placeholder => "Начните поиск пропавшего", :class => "b-head__search_field" %>
 		<%= f.submit "", :name => nil ,:class => "b-head__search_button b-form-custom-false" %>
 		<% end %>
@@ -60,92 +65,12 @@
 	<div class="grid_2 b-head__auth" style="<%= user_signed_in? ? "display: none" : "" %>">    
 		<input type="button" class="b-head__login maroon l-right" value="Войти на сайт" />  
 		
-		<div class="b-head__login_form p-main-dialog-a-service">
-			<!-- Dialog with social auth buttons -->
-			<h3>Выберите сервис на котором вы зарегистрированны</h3>
-				
-				<div class="p-main-dialog-a-service-sep">&nbsp;</div>                                                
-				<div class="p-main-dialog-a-service-soc"><a href="#" class="b-auth__action" provider="vkontakte" url="<%= user_omniauth_authorize_path(:vkontakte) %>" data-width="600" data-height="400"><%= image_tag "soc_vk.png" %>Вконтакте</a></div>
-				<div class="p-main-dialog-a-service-soc"><a href="#" class="b-auth__action" provider="facebook" url="<%= user_omniauth_authorize_path(:facebook) %>" data-width="600" data-height="400"><%= image_tag "soc_fb.png" %>Facebook</a></div> 
-				<div class="p-main-dialog-a-service-soc"><a href="#" class="b-auth__action" provider="yandex" url="<%= user_omniauth_authorize_path(:yandex) %>" data-width="600" data-height="400"><%= image_tag "soc_ya.png" %>Яндекс</a></div>
-				<div class="p-main-dialog-a-service-soc"><a href="#" class="b-auth__action" provider="twitter" url="<%= user_omniauth_authorize_path(:mailru) %>" data-width="600" data-height="400"><%= image_tag "soc_tw.png" %>Mail.ru</a></div>
-				<div class="p-main-dialog-a-service-soc"><a href="#" class="b-auth__action" provider="google" url="<%= user_omniauth_authorize_path(:google) %>" data-width="600" data-height="400"><%= image_tag "soc_gl.png" %>Google</a></div>
-				
-				<div class="p-main-dialog-a-service-sep">&nbsp;</div>
-			
-			<h3>Или войдите по электронной почте</h3>
-            <%= form_for "user", :url => user_session_path, :remote => true, :tabindex => 1, :html => { :id => "login_form" } do |login_form| %>
-              <%= login_form.hidden_field :remember_me, :value => true %>
-			<ul>
-              <li><div>Почта:</div><%= login_form.text_field :email, :tabindex => 2 %></li>
-              <li><div>Пароль:</div><%= login_form.password_field :password, :tabindex => 3 %></li>
-			</ul>
-			
-            <%= login_form.submit "Войти", :tabindex => 5 %>    
-			<div class="p-main-dialog-a-service-registration_text">
-				или 
-				<a class="p-main-dialog-a-service-submit_register" href="#">зарегистрироваться</a>   
-			</div>
-          <% end %>
-		</div>     
-		
-		<div class="b-head__registration_dialog p-main-dialog-a-afterlogin" style="<%= user_signed_in? ? "display: none" : "" %>">
-			<ul>
-				<li>
-					<%= image_tag "missing-ico.png" %>
-					<h3>Если пропал близкий</h3>
-					<%= button_to "Создайте объявление", "/add_missing/", :method => :get, :class => "button t-medium_fat silver blow l-full_width"%>	
-				</li>
-				<li class="p-main-register-box__registration">   
-					<div>
-				   	 	<%= image_tag "volonter-ico.png" %>
-						<h3>Хотите помочь в поисках?</h3>  
-					
-						<%= tag :input, { :type => "button", :value => "Примите участие", :class => "button p-main-register t-medium_fat silver l-full_width", :for => "volunteer" } %>         
-					</div>
-					<div class="b-sidebar p-main-register-box volunteer l-hidden">
-						<p class="t-medium">Войдите через</p>
-						<div class="p-main-socials">         
-	                    <% omniauth_providers.each do |provider| %>
-	                      <button class="b-auth__button b-auth__action b-button_social" provider="<%= provider %>" url="<%= user_omniauth_authorize_path(provider) %>" data-width="600" data-height="400"></button>
-	                    <% end %>
-						</div>
-						<p class="t-medium">или укажите электронную почту</p>   
-						<%= form_for User.new, :remote => true, :url => "/users.json", :class => "new_user" do |f| %>
-						<table class="l-full_width">
-							<tr><td class="b-login__field">
-								<%= f.text_field :email, :placeholder => "адрес электронной почты", :class => "b-login__field"  %> 
-								<label class="error allready l-hidden"></label>
-							</td><td class="b-login__button">
-								<%= f.submit "Продолжить"  %>
-							</td></tr>
-						</table>           
-						<% end %>
-					</div>
-				</li>     
-				<li>            
-					<%= image_tag "missing-ico.png" %>
-					<h3>Уже зарегистрированны?</h3>
-					<%= tag :input, { :type => "button", :value => "Войдите по паролю", :class => "button b-head__login t-medium_fat silver l-full_width" } %> 	
-				</li>
-			</ul>
-		</div>
+		<%= render 'layouts/login_form' %>
+		<%= render 'layouts/registration_dialog' %>
 	</div>    
 	
 	
 	<div class="clear"></div>
-	<div class="grid_10 b-missing__tabs" style="<%= !current_page?("/add_missing") && user_signed_in? ? "" : "display: none" %>">
-		<div class="b-missing__tabs">     
-			<% if current_user && current_user.missings.size > 0 %>
-			<div class="b-missing__tab" style="<% current_user && current_user.has_missing? ? "" : "display: none" %>"><%= link_to_unless_current content_tag("span", content_tag("span", "Сводка по объявлению") + tag(:input, { :value => current_user && current_user_timeline_fresh.size, :type => "button", :class => "orange b-missing__tab_message_count", :style =>  !current_user || current_user_timeline_fresh.size == 0 ? "display: none" : "" }), :class => "tab"), '/report', :class => "b-missing__tab b-missing__tab_link" %></div> 		
-			<div class="b-missing__tab" style="<% current_user && current_user.has_missing? ? "" : "display: none" %>"><%= link_to_unless_current content_tag("span", "Объявление", :class => "tab"), (current_user && current_user.missings.where(:published => 1).first && missing_path(current_user.missings.where(:published => 1).first)) || "", :class => "b-missing__tab b-missing__tab_link" %></div>  
-			<% end %>
-			<div class="b-missing__tab"><%= link_to_unless_current content_tag("span", "Поиск объявлений", :class => "tab"), '/missings', :class => "b-missing__tab b-missing__tab_link" %></div>   
-			<div class="b-missing__tab"><%= link_to_unless_current content_tag("span", "Разместить объявление", :class => "tab"), '/add_missing', :class => "b-missing__tab b-missing__tab_link" %></div> 
-		</div>
-	</div>
-       
-    
   </div>      
 </div>  
     
