@@ -1,0 +1,167 @@
+<% @title = "Разыскивается #{@missing.name}" %>
+<script>        
+		missing_url = "<%= missing_path(@missing) %>";   
+</script>
+
+<% # TODO: использовать flash[:hidden] %>
+<%= render 'missings/missings/new_flash' if current_user && current_user.id == @missing.user.id && @missing.impressionist_count(:user_id => current_user.id) < 2 %>
+<%= render 'missings/missings/questions' if current_user && @missing.user.id == current_user.id %>
+                                    
+<% cache "missing_info_#{@missing.id}_#{@missing.updated_at}" do %>
+<div class="container_16 p-missing">
+	<div class="grid_11">
+		<div class="t-big_fat b-missing__wanted_h">
+			Разыскивается <%= @missing.name %><% unless @missing.age.nil? %>, <%= @missing.age %> <%= Russian.p @missing.age, 'год', 'года', 'лет' %> <% end %>
+		</div>
+
+		<div class="b-missing__print_ad">
+          <%= image_tag "printer.png" %><a href="<%= missing_path(@missing) %>/print">Печать объявления</a>
+		</div>
+
+        <div class="t-medium b-missing__date_location">
+          <% if @missing.last_seen || @missing.city %>
+            <%= @missing.gender ? 'Пропал' : 'Пропала' %> <%= Russian.strftime @missing.last_seen, "%d %B" %> <% if @missing.city %> в <%= YandexInflect.inflections(@missing.city).last %> <% end %>
+          <% end %>
+        </div>        
+
+	<div class="b-missing__information">
+
+	<div class="b-missing__leftside">
+		<div class="b-missing__photo">
+		<% unless @missing.photos.first %>
+			<%= image_tag 'no_photo.jpg', :class => "b-missing__photo_image"  %>
+		<% else %>
+			<%= link_to image_tag(@missing.photos.first.photo.url(:medium), :class => "b-missing__photo_image ui-corner-top"), @missing.photos.first.photo.url, :class => "b-missing__photo_link", :rel => "photos" %>
+		<% end %>
+		</div>                
+		<% if @missing.photos.length > 1 %>
+		<ul class="b-missing__photos">
+		<% @missing.photos.drop(1).each do |photo| %>
+          <li class="b-missing__photos_photo l-left">
+            <%= link_to image_tag(photo.photo.url(:thumb), :size => "60x60"), photo.photo.url, :class => "b-missing__photo_link", :rel => "photos"  %>
+		  </li>
+		<% end %>
+		</ul>         
+		<% end %>            
+<% end %>		                         
+
+        <div class="clear"></div>                   
+			<%= tag(:input, { :type => "button", :value => "Я видел этого человека", :class => "blue b-missing__i_saw t-medium" }) if @seen.new_record? && !(current_user && current_user.id == @missing.user.id) %>
+
+            <%= form_for(@seen, :url => "/seen_the_missing.json", :remote => true, :html => { :class => "b-missing__i_saw_form" }) do |seen| %>
+		      <div class="b-missing__i_saw_in <%= "l-hidden" if @seen.new_record? %>">
+		      <label for="i_saw_in" class="l-block">Я видел этого человека в <span class="b-missing__i_saw_in_place"><%= YandexInflect.inflections(seen.object.address)[5] unless @location.nil?%></span></label>
+		      <input type="button" class="b-missing__i_saw_in_change silver" value="Уточнить" />    
+		    </div>
+
+		    <div class="b-missing__i_saw_in_change_container l-hidden">
+		        <%= seen.hidden_field :missing_id %>
+		        <%= seen.text_field :address, :class => "b-missing__i_saw_in_change_field" %>
+		        <%= seen.submit "Сохранить", :class => "b-missing__i_saw_in_save silver" %>
+		    </div>
+		    <% end %>  
+
+	</div>
+
+<% cache "missing_description_#{@missing.id}_#{@missing.updated_at}" do %>	
+	<div class="b-missing__center">
+		<%= render 'missings/missings/common' %>
+	</div>
+	
+	</div>
+	
+	<div class="clear"></div>
+	<div class="b-missing__sharies">
+		<span class="l-left b-missing__share">Ваши друзья могут знать что-нибудь о пропавшем, расскажите им:</span>
+        <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,lj,twitter,odnoklassniki,yaru,moimir,friendfeed"></div> 
+
+		</div>
+  </div>
+<% end %>
+
+  <div class="grid_5 b-rightside">
+	<%= render 'missings/missings/right_sidebar' %>
+  </div>
+
+<div class="clear"></div>
+
+<% if !current_user || (current_user && @missing.user.id != current_user.id) %>
+<div class="p-missing">
+<%= render 'missings/missings/questions' %>
+</div>
+<% end %>
+   
+<% cache "missing_map_#{@missing.id}_#{@missing.updated_at}" do %>
+<div class="container_16 p-missing">
+    <div class="grid_11">
+
+	<div class="clear"></div>
+                                                         
+    <%= render 'missings/missings/map' if @missing.places %>
+
+	<div class="clear"></div>
+    
+	<div class="b-missing__comments_header b-header">Обсуждение</div>
+	<div class="clear"></div>
+<% end %>        
+                           
+<% cache "missing_comments_#{@missing.id}" do %>    
+	<div class="b-missing__comments">
+	<% @missing.discussions.each do |comment| %>        
+    <% if comment.discussion_id == nil %>
+	<div class="b-missing__comment" discussion_id="<%= comment.id %>">
+		<div class="b-missing__comment_header">
+			<% if comment.user.nil? %>
+				<%= link_to "Анонимный комментарий", "", :class => "t-medium b-missing__comment_author" %>    
+			<% else %>
+                <div class="t-medium b-missing__comment_author"><%= comment.user.name %></div> 
+			<% end %>
+			<span class="b-missing__comment_date t-small"><%= comment.discussion_id %> <%= Russian.strftime comment.created_at, "%d %B" %></span>   
+			<%= tag :input, { :type => "button", :value => "Ответить", :class => "b-missing__comment_answer silver_action l-right" } %>
+		</div>
+		<div class="b-missing__comment_text comment b-tooltip top silver">
+			<i class="b-tooltip__tail_border"><b class="b-tooltip__tail"></b></i>
+			<div class="b-tooltip__content">
+				<%= comment.comment %>
+			</div>
+		</div>
+	</div>        
+	                           
+   	<% comment.discussions.each do |sub_comment| %>
+	<div class="b-missing__comment sub">
+		<div class="b-missing__comment_header l-left">    
+			<% if sub_comment.user.nil? %>
+				<%= link_to "Анонимный комментарий", "", :class => "b-missing__comment_author" %>    
+			<% else %>
+                <div class="b-missing__comment_author"><%= sub_comment.user.name %></div> 
+			<% end %>			
+			<span class="b-missing__comment_date t-small l-right"><%= Russian.strftime sub_comment.created_at, "%d %B" %></span>   
+		</div>
+		<div class="b-missing__comment_text">
+			<%= sub_comment.comment %>
+		</div>
+	</div>	
+	<% end %>
+	
+	<% end %>
+	<% end %>
+	</div>
+	
+	
+	<div class="b-missing__add_comment">
+	<div class="t-medium">Комментировать</div>
+	<%= form_for @discussion, :url => '/missing/add_comment.json', :remote => true, :class => "new_discussion"  do |comment| %>
+        <%= comment.hidden_field :missing_id %>
+		<%= comment.text_area :comment, :rows => 4, :class => "b-missing__add_comment" %>
+		<%= comment.submit "Отправить", :class=> "b-missing__add_comment_button l-right" %>     
+		<div class="clear"></div>
+	<% end %>
+	</div>
+	
+	<!-- end center block -->
+	</div>
+		
+</div>
+
+<div class="clear"></div>  
+<% end %>                           

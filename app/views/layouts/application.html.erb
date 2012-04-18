@@ -20,8 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
- 
-  <!-- jQuery & jQuery UI -->
+
   <%= stylesheet_link_tag "application" %>   
 
   <script>
@@ -104,13 +103,9 @@
 	  </table>
   </div>
 </div>
-  <!-- JavaScript at the bottom for fast page loading -->
 
-
-  <!-- mathiasbynens.be/notes/async-analytics-snippet Change UA-XXXXX-X to be your site's ID -->
-  <script>
-  </script>
-                        
+  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" %>
+  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js" %>
   <%= javascript_include_tag "application" %> 
   <%= yield :scripts %>
   <script type="text/javascript">
@@ -124,12 +119,7 @@
           force_new_window: false
     };
     
-    (function() {
-        var script = document.createElement('script');
-        script.type = 'text/javascript'; script.async = true;
-        script.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'media.reformal.ru/widgets/v1/reformal.js?1';
-        document.getElementsByTagName('head')[0].appendChild(script);
-    })();
+
   </script>
   <%= javascript_include_tag "//yandex.st/share/share.js" %>
   <%= javascript_include_tag "http://api-maps.yandex.ru/1.1/index.xml?key=AHmGEU8BAAAAJIFvPQIAD1wXXrhoqnwsspxpPhtmLSqwEwgAAAAAAAAAAAAbOVs7mmCHXD2cPLCxn5CBw7VoPQ==" %>                     

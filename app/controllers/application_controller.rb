@@ -34,6 +34,22 @@ class ApplicationController < ActionController::Base
   end
   
   private
+  def get_user_location
+    unless session[:location]
+      location = Geoip::Location.find_by_ip(request.remote_ip)
+      unless location.nil?
+        location = Geocoder.search("#{location.latitude},#{location.longitude}").first
+        begin
+          session[:location] = location.city          
+        rescue Exception => e
+          session[:location] = location.country
+        end
+      end
+    end
+
+    return session[:location]
+  end
+
   def create_guest_user
     u = User.new(:name => "guest", :email => "guest_#{Time.now.to_i}#{rand(99)}@guest_email_address.com")
     u.confirmed_at = DateTime.now

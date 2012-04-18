@@ -28,19 +28,21 @@ var questions = <%= @questions.to_json.html_safe %>;
 </div>
 
 
-<%= form_for @missing, :url => "/add_missing/save_step.json", :remote => true, :html => { 
-	:multipart => true,
-	:next_step => "/add_missing/" + @missing.next_step,
-	:previous_step => "/add_missing/" + @missing.previous_step,
-	
-	:id => "new_missing" } do |f| %>       
+<%= form_for @missing, :url => missings_new_path(@missing), 
+	:method => :put,
+	:remote => true, 
+	:html => { 
+		:multipart => true,	
+		:id => "new_missing" 
+	} do |f| %>     
+
     <div class="b-new-missing-form-container">
     <% @missing.steps.each do |step| %>
    	  <% if step != "history" || (step == "history" && @questions.empty?) %>
       <div class="b-form__background form b-new-missing-form" data-step="<%= step %>">	
           <div class="container_16">
               <div class="grid_16">
-                <%= render step, :f => f %>
+                <%= render "missings/new/#{step}", :f => f %>
               </div>
           </div>          
           <div class="clear"></div>

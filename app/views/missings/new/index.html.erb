@@ -1,7 +1,7 @@
 <% @title = "Размещение объявления" %>
 <script>
 	var current_step = '<%= @missing.current_step %>';
-		missing_url = "<%= !@missing.new_record? && missing_path(@missing) %>";
+		missing_url = "<%= !@missing.new_record? && url_for(@missing) %>";
 </script>
 
 <div class="p-new-missing container_16 b-content">
@@ -52,6 +52,6 @@
 </div>
 
 
-<%= render 'form' %>
+<%= render 'missings/new/form' %>
 
 

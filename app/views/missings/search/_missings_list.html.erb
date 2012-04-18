@@ -7,10 +7,10 @@
 		<% else %>
             <%= image_tag 'no_photo.jpg', :size => "100x100" %>                    
 		<% end %>
-		<a href="<%= missing_path(missing) %>/"></a>
+		<a href="<%= url_for(missing) %>/"></a>
 	</div>   
 	<div class="b-search-result__description">
-		<a href="<%= missing_path(missing) %>/" class="b-search-result__name"><%= missing.name %></a>
+		<a href="<%= url_for(missing) %>" class="b-search-result__name"><%= missing.name %></a>
 		<% unless missing.age.nil? %> <p class="b-search-result__field"><%= missing.age %> <%= Russian.p missing.age, 'год', 'года', 'лет' %> </p> <% end %>
 		<% unless missing.last_seen.nil? %>
 		<p class="b-search-result__field">

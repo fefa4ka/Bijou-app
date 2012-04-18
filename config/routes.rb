@@ -17,17 +17,23 @@ People::Application.routes.draw do
 
   
   resources :sessions
-  resources :missings 
-  resources :searches
   
+  namespace :missings do
+    resources :new do
+      get 'search_for_similar', :on => :collection
+    end
+  end
+
+  resources :search
+  resources :missings, :module => "missings"
   
-  match "add_missing" => "missings#new"                   
-  match "add_missing/search_for_similar" => "missings#search_for_similar"
-  match "add_missing/save_step" => "missings#save_step"
-  match "add_missing/places" => "missings#places"
-  match "add_missing/address_suggest" => "missings#address_suggest"
-  match "add_missing/address_data" => "missings#address_data"
-  match "add_missing/:step" => "missings#new"              
+  # match "add_missing" => "missings#new"                   
+  # match "add_missing/search_for_similar" => "missings#search_for_similar"
+  # match "add_missing/save_step" => "missings#save_step"
+  # match "add_missing/places" => "missings#places"
+  # match "add_missing/address_suggest" => "missings#address_suggest"
+  # match "add_missing/address_data" => "missings#address_data"
+  # match "add_missing/:step" => "missings#new"              
                                                                        
   match "missing/add_comment" => "missings#add_comment"      
   match "missings/:id/print" => "missings#print"

@@ -1,5 +1,3 @@
-//= require jquery
-//= require jquery_ujs             
 //= require fancybox
 //= require_self          
 //= require_tree ./main

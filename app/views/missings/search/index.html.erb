@@ -1,0 +1,82 @@
+<% @title = "Поиск объявлений" %>                                          
+<script>
+missings_count = <%= @search.count %>;
+</script>
+
+<%= form_for @search, :url => "/missings", :method => :get do |f| %>       
+<%= f.hidden_field :page %>
+<div class="p-search container_16">  
+	<div class="grid_11">
+    	<div class="t-big">Поиск по объявлениям</div>
+	    <div class="b-search-filter ui-corner-all b-sidebar">
+	      <table class="b-search-filter__search">
+		    <tr>
+			<td class="b-search-filter__search_field">
+		        <%= f.text_field :keywords, :placeholder => "Имя, название или любое слово", :class => "b-search-filter__search_field" %>
+		  	</td>
+			<td class="b-search-filter__search_button">
+				<%= f.submit "Поиск", :name => nil ,:class => "t-medium silver" %>
+			</td>
+	      </table>
+	    </div> 
+        
+		<div class="b-search-result">   
+		<%= render 'missings/search/missings_list' %> 
+		</div>                        
+		                   
+		<% unless @missings.nil? and @missings.size < @search.count %>   
+			<input type="button" class="b-search-result__more_button t-medium silver" value="Показать еще"/>
+		<% end %>
+
+	</div>        
+	
+	<div class="grid_5 b-rightside">
+		<div class="b-sidebar b-missing__rightside"> 
+			<ul class="b-search-filter-list">
+		        <li class="b-search-filter-list__item">
+		          <div class="b-form__label">Пол</div>
+		          <%= f.select :male, [ ["любой", "any"], ["мужской", true], ["женский", false] ] %>
+		        </li>
+		        <li class="b-search-filter-list__item">
+		          <div class="b-form__label">Возраст</div>
+		          <%= f.select :ages, [ ["любой", "any"], ["Ребенок (до 18 лет)", "children"], ["Взрослый (19 - 50 лет)", "adult"], ["Пожилой (от 50 лет)", "eldery"] ] %>
+		        </li>                     
+		     </ul>
+	     	<div class="b-sidebar__hr_100"></div>
+	      	<div class="b-sidebar__hr_margin"></div>
+		    <ul class="b-search-filter-list">
+		        <li class="b-search-filter-list__item">
+		          <div class="b-form__label">Дата пропажи</div>
+		          <%= f.select :last_seen, [ ["любая", "any" ], ["неделя назад", "week"], ["месяц назад", "month"], ["год назад", "year"] ] %>
+		        </li>
+			</ul>
+			<div class="b-sidebar__hr_100"></div>
+			<div class="b-sidebar__hr_margin"></div>
+
+		      <ul class="b-search-filter-list">
+		        <li class="b-search-filter-list__item">
+		          <%= f.label :region, "Регион пропажи", :class => "b-form__label" %>
+		          <%= f.text_field :region, :class => "b-search-filter-list__text_field" %>
+		        </li>
+		        <li class="b-search-filter-list__item">
+		          <div class="b-form__label">Местность пропажи</div>
+		          <%= f.radio_button :region_type, nil %><%= f.label :region_type, "любая" %> 
+		          <%= f.radio_button :region_type, 1 %><%= f.label :region_type_1, "город" %>
+		          <%= f.radio_button :region_type, 2 %><%= f.label :region_type_2, "лес" %>
+		        </li>
+		      </ul>
+			<div class="b-sidebar__hr_100"></div>
+		      <div class="b-sidebar__hr_margin"></div>
+
+		      <%= f.check_box :with_photo %> <%= f.label :with_photo, "Только с фотографией" %>
+
+		      <div class="b-sidebar__hr_100"></div>
+		      <div class="b-sidebar__hr_margin"></div>
+
+		      <%= f.submit "Поиск", :name => nil ,:class => "t-medium silver" %>
+		</div>
+	</div>
+</div>    
+
+<% end %>
+
