@@ -7,7 +7,7 @@ class Missing < ActiveRecord::Base
     indexes history
     indexes city
 
-    has gender, age, last_seen, latitude, longitude, user_id, created_at, updated_at
+    has gender, age, last_seen, latitude, longitude, user_id, published, created_at, updated_at
   end
 
   is_impressionable
