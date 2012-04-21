@@ -62,10 +62,10 @@ class Search < ActiveRecord::Base
 
   def find_missings
     if geo.nil?
-      Missing.search keywords, :with => conditions, :page => @page, :per_page => 10
+      Missing.search keywords, :with => conditions, :page => @page, :per_page => 10, :order => :updated_at, :sort_mode => :desc
     else
       geo_conditions = { "@geodist" => 0.0..20_000.0 }
-      Missing.search keywords, :with => geo_conditions.merge!(conditions), :geo => geo, :page => @page, :per_page => 10 
+      Missing.search keywords, :with => geo_conditions.merge!(conditions), :geo => geo, :page => @page, :per_page => 10, :order => :updated_at, :sort_mode => :desc
     end
   end
 
@@ -91,7 +91,11 @@ class Search < ActiveRecord::Base
   def last_seen_conditions
     { :last_seen => self.last_seen_start..self.last_seen_end } if self.last_seen_start && self.last_seen_end
   end
-  
+
+  def main_conditions
+    { :published => true }
+  end
+
   def conditions 
     conditions = {}
     conditions_parts.each { |part| conditions.merge!(part) }
