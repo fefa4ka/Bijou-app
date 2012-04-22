@@ -1,3 +1,4 @@
+//= require jquery_ujs
 //= require fancybox
 //= require_self          
 //= require_tree ./main
@@ -63,13 +64,13 @@ function show_registration_dialog(callback) {
     return false;
 }
          
-function missing_path(url) {
-	if(url) {
-		missing_url = url;
-		$('.b-form__question_form').attr('action', missing_path() + '/answer_the_question.json');
-	}                                                                                          
-	return missing_url;
-}
+// function missing_path(url) {
+// 	if(url) {
+// 		missing_url = url;
+// 		$('.b-form__question_form').attr('action', missing_path() + '/answer_the_question.json');
+// 	}                                                                                          
+// 	return missing_url;
+// }
 
 function custom_input() {
     $('input,button').customInput();

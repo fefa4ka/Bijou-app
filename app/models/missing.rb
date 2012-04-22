@@ -1,13 +1,15 @@
 # encoding: utf-8
 
-class Missing < ActiveRecord::Base         
+class Missing < ActiveRecord::Base     
+  include ApplicationHelper
+
   # Search index preferences
   define_index do 
     indexes name
     indexes history
     indexes city
 
-    has gender, age, last_seen, latitude, longitude, user_id, created_at, updated_at
+    has gender, age, last_seen, latitude, longitude, user_id, published, created_at, updated_at
   end
 
   is_impressionable
@@ -43,8 +45,6 @@ class Missing < ActiveRecord::Base
     "#{id}-#{name_parameterized}/"
   end
                  
-  # Common info
-  # 
   # Name
   def last_name
     name.split(" ")[0] || ""
@@ -62,43 +62,55 @@ class Missing < ActiveRecord::Base
     first_name + ' ' + last_name
   end
 
-  # Ages
+  # Возраст
   def age 
     now = Date.today
     now.year - self.birthday.year if self.birthday && self.birthday.is_a?(Date) || nil
   end
   
-  # Missing info
+  # Когда последний раз видели
   def last_seen(user_id=self.user_id)
     if answer = answers({ :question_id => 35 })
       answer.first[:answers].first
     end
   end
 
+  # TODO: Текст истории, не помню где используется. Нужно упразднить или сделать
   def history(user_id=self.user_id)
     ""
   end
 
+  # Люди, которые отвечали на вопросы
   def users_who_answer
-    user_ids = History.select("DISTINCT user_id, user_id").collect(&:user_id)
+    user_ids = self.histories.select("DISTINCT user_id, user_id").collect(&:user_id)
     User.find(user_ids)
   end
 
+  # Характеристики, не помню используются ли где-то
+  # Сейчас их заменяет коллекция ответов
   def characteristics(user_id=self.user_id)
     []
   end
 
-  # Location of missing
+  # Места связанные с пропажей
   def places(user_id=self.user_id)
     answers({ :answer_type => 4 }) 
   end
 
+  # Город, где как мы считаем пропал человек
+  # Берётся город первого места, связанного с пропажей. 
+  # Возможно, в будущем, пересмотрим это решение
   def city(user_id=self.user_id)
     if place = places(user_id)
       place.first[:answers].first[:city]
     end
   end
 
+
+  # Координаты места пропажи. 
+  # Используется для индексирования поиском
+  # Как место используется не место пропажи, а первое место из всех. 
+  # Сделать так, чтобы выбиралось из мест связанных с пропажей, а если нет то с любого другого.
   def latitude(user_id=self.user_id)
     return nil if places(user_id).nil?
 
@@ -115,11 +127,14 @@ class Missing < ActiveRecord::Base
     (place[:longitude] / 180) * Math::PI unless place.nil?
   end
     
-  # Who can help
+  # Кто может помочь в поисках
   def can_helps   
+    # Получаем список людей, которые ответили на вопрос «Чем можете помочь в поисках?»
     users = self.histories.where({ :question_id => 53 }).where("histories.text <> 'skip' OR histories.text IS NULL").select("DISTINCT user_id").select(:user_id).collect(&:user_id) 
     users.each.collect do |user| 
+      # Делаем из этого объект. Преобразуем сначала словарь ответа.
       record = Hashie::Mash.new(answers({ :user_id => user, :question_id => 53 }).first) 
+      # Добавляем данные про добровольца и про эту пропажу
       record.user = User.find(user)
       record.missing = self
       record.id = "#{record.user_id}#{record.missing_id}#{record.question_id}"
@@ -127,14 +142,15 @@ class Missing < ActiveRecord::Base
     end
   end
 
-  # Service data
+  # Когда последний раз видели
   def last_visit
     @current_user.last_visit("Missing", self.id)
   end
      
-
-
-
+  # Коллекция вопросов и ответов
+  # Коллекции хранятся в модели Collections
+  # По умолчанию публичная коллекция и строится в виде дерева. 
+  # TODO: Куда нужно дерево? А куда дерево не нужно?
   def collection(opts={ :collection_name => "public" })
     default_opts={
       :question_id => Collection.where({ :name => opts[:collection_name] }).first.questions.select(:question_id).collect(&:question_id),
@@ -186,11 +202,11 @@ class Missing < ActiveRecord::Base
         :questionnaire_id => (q.questionnaire && q.questionnaire.id)  || "", 
         :question_id => q.id, 
         :text => q.text,
-        :label => q.field_text,  
+        :label => linguistic_kind(self.gender, q.field_text),  
         :answer_type => q.answer_type,
         :answers => [],
         :human_answer => nil,        
-        :human_text =>q.human_text,
+        :human_text => linguistic_kind(self.gender, q.human_text),
         :user_id => opts[:user_id],
         :created_at => q.histories.last.created_at
       } if question.nil?    
@@ -216,8 +232,8 @@ class Missing < ActiveRecord::Base
             :address  => place.address,
             :country  => place.country,
             :state    => place.state,
-            :city     => (place.city rescue nil),
-            :street   => place.street,
+            :city     => (place.city rescue nil),   # TODO: Доделать геокодер, чтобы правильно определялся город и добавить кеширование.
+            :street   => place.street,              # С кешированием
             :latitude => place.latitude,
             :longitude => place.longitude 
           } unless place.nil?   
@@ -230,7 +246,7 @@ class Missing < ActiveRecord::Base
           human_answer = Russian.strftime(answer, "%e %B %Y")   
         end 
         
-        question[:human_answer] = human_answer.mb_chars.capitalize.to_s
+        question[:human_answer] = linguistic_kind(self.gender, human_answer.mb_chars.capitalize.to_s)
         question[:answers].push(answer)
           
       end    

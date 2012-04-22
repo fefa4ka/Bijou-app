@@ -82,19 +82,20 @@ window.print();
     <td class="p-missing-print-description">
       
       <h2>
-        <%= @missing.name %><% unless @missing.age.nil? %>, <%= @missing.age %> <%= Russian.p @missing.age, 'год', 'года', 'лет' %> <% end %><br>
+        <%= "#{@missing.last_name} #{@missing.first_name}" %><% unless @missing.age.nil? %>, <nobr><%= @missing.age %> <%= Russian.p @missing.age, 'год', 'года', 'лет' %></nobr>, <% end %>
         <% if @missing.last_seen || @missing.city %>
-          <%= @missing.gender ? 'Пропал' : 'Пропала' %> <%= Russian.strftime @missing.last_seen, "%d %B" %> <% if @missing.city %> в <%= YandexInflect.inflections(@missing.city).last %> <% end %>
+          <%= linguistic_kind @missing.gender, '@пропал' %> <nobr><%= Russian.strftime @missing.last_seen, "%d %B" %></nobr>   <% if @missing.city %> в <%= YandexInflect.inflections(@missing.city).last %> <% end %>
         <% end %>
       </h2>
-      <%= render 'show_common' %>    
+      <%= render 'missings/missings/common' %>    
 	                     
 	         
-	  <div class="b-header contacts">Контакты</div>
 	  <table>
 		<tr>
 		<td>
-		<%= @missing.user.name %> &mdash; <%= @missing.user.phone %><br>   
+     <div class="b-header contacts">Контакты</div>
+
+		<b><%= @missing.user.name %></b> <nobr><%= @missing.user.phone %></nobr><br>   
       	Найду тебя &mdash; <a href="http://naidutebya.ru">naidutebya.ru</a>     
 		<h2>Нужны добровольцы для поисков</h2>
 

@@ -284,13 +284,12 @@ $(function(){
 				return false;
 			}     
 		    
-			if ( submit_action == "save_step" ){
-				document.location = data.missing_url;
-			}
+			log('after_ajax');
 			
 			// Обновляем фотки
 			if (data.data_type == "photos") {
 				update_photos(data.data);
+				log('update_pgoto');
 			}             
 			        
 			missing_path(data.missing_url);

@@ -32,52 +32,15 @@ class Missings::MissingsController < Missings::ApplicationController
   end
 
   def print
-    @missing = Missing.find(params[:id])
+    @missing = Missing.find(params[:missing_id])
     
     respond_to do |format|
       format.html { render :layout => false }
     end
   end
                       
-  # Обработка посещаяемых мест
-  def address_suggest
-    if params[:part]
-    address = URI.escape(params[:part])
-    ll = URI.escape(params[:ll])
-    spn = URI.escape(params[:spn])
-    callback = params[:callback]
-    rand = params[:_]
-    url = "http://suggest-maps.yandex.ru/suggest-geo?callback=#{callback}&_=#{rand}&ll=#{ll}&spn=#{spn}&part=#{address}&highlight=1&fullpath=1&sep=0&n=4&search_type=tp"
-    url = URI.parse(url)
-    suggest = Net::HTTP.get(url)
-    end
-    
-    respond_to do |format|
-      format.json { 
-        render :json => suggest || {}
-      }
-    end
-  end
-  
-  # Получение данных по адресу
-  def address_data
-    if params[:address]
-      georesult = Geocoder.search(params[:address]).first
-      respond_to do |format|
-        format.json {
-          render :json => {
-            :lat => georesult.latitude,
-            :lng => georesult.longitude,           
-            :address => georesult.address
-          }
-        }
-      end
-    end
-    
-  end      
-  
   def questions
-    @missing = Missing.find(params[:id])
+    @missing = Missing.find(params[:missing_id])
     @questions = Question.for @missing, current_or_guest_user, :all  
     
     respond_to do |format|

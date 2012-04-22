@@ -1,6 +1,6 @@
 <% @title = "Разыскивается #{@missing.name}" %>
 <script>        
-		missing_url = "<%= missing_path(@missing) %>";   
+	missing_url = "<%= missing_path(@missing) %>";   
 </script>
 
 <% # TODO: использовать flash[:hidden] %>
@@ -11,16 +11,16 @@
 <div class="container_16 p-missing">
 	<div class="grid_11">
 		<div class="t-big_fat b-missing__wanted_h">
-			Разыскивается <%= @missing.name %><% unless @missing.age.nil? %>, <%= @missing.age %> <%= Russian.p @missing.age, 'год', 'года', 'лет' %> <% end %>
+			Разыскивается <%= "#{@missing.first_name} #{@missing.last_name}" %><% unless @missing.age.nil? %>, <%= @missing.age %> <%= Russian.p @missing.age, 'год', 'года', 'лет' %> <% end %>
 		</div>
 
 		<div class="b-missing__print_ad">
-          <%= image_tag "printer.png" %><a href="<%= missing_path(@missing) %>/print">Печать объявления</a>
+          <%= image_tag "printer.png" %><a href="print">Печать объявления</a>
 		</div>
 
         <div class="t-medium b-missing__date_location">
           <% if @missing.last_seen || @missing.city %>
-            <%= @missing.gender ? 'Пропал' : 'Пропала' %> <%= Russian.strftime @missing.last_seen, "%d %B" %> <% if @missing.city %> в <%= YandexInflect.inflections(@missing.city).last %> <% end %>
+            <%= linguistic_kind @missing.gender, '@Пропал' %> <%= Russian.strftime @missing.last_seen, "%d %B" %> <% if @missing.city %> в linguistic_inflect(@issing.city, :ablative) <% end %>
           <% end %>
         </div>        
 
@@ -31,14 +31,14 @@
 		<% unless @missing.photos.first %>
 			<%= image_tag 'no_photo.jpg', :class => "b-missing__photo_image"  %>
 		<% else %>
-			<%= link_to image_tag(@missing.photos.first.photo.url(:medium), :class => "b-missing__photo_image ui-corner-top"), @missing.photos.first.photo.url, :class => "b-missing__photo_link", :rel => "photos" %>
+			<%= link_to image_tag(@missing.photos.first.photo.url(:medium), :class => "b-missing__photo_image ui-corner-top"), @missing.photos.first.photo.url(:large), :class => "b-missing__photo_link", :rel => "photos" %>
 		<% end %>
 		</div>                
 		<% if @missing.photos.length > 1 %>
 		<ul class="b-missing__photos">
 		<% @missing.photos.drop(1).each do |photo| %>
           <li class="b-missing__photos_photo l-left">
-            <%= link_to image_tag(photo.photo.url(:thumb), :size => "60x60"), photo.photo.url, :class => "b-missing__photo_link", :rel => "photos"  %>
+            <%= link_to image_tag(photo.photo.url(:thumb), :size => "60x60"), photo.photo.url(:large), :class => "b-missing__photo_link", :rel => "photos"  %>
 		  </li>
 		<% end %>
 		</ul>         

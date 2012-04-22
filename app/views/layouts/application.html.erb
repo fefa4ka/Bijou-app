@@ -37,7 +37,7 @@
 		<%= link_to_unless_current image_tag('logo.png', :class => 'l-left'), '/' %>
 		
 		<div class="clear"></div>
-		<div style="<%= !current_page?("/add_missing") && user_signed_in? ? "" : "display: none" %>">
+		<div style="<%= !current_page?("/missings/new") && user_signed_in? ? "" : "display: none" %>">
 			<%= render 'layouts/tabs_navigation' %>
 		</div>
 	</div>          
@@ -49,8 +49,8 @@
 		<% end %>
 	</div>
 
-	<div class="b-head__add grid_3">  
-		<%= button_to "Создать объявление", "/add_missing/", :class => "maroon" %>
+	<div class="b-head__add grid_3<% current_page?("/missings/new") ? " l-hidden" : "" %>">  
+		<%= button_to "Создать объявление", "/missings/new/", :method => :get, :class => "maroon" %>
 	</div>
 
 	<div class="b-head__auth grid_2" style="<%= user_signed_in? ? "" : "display: none" %>">  

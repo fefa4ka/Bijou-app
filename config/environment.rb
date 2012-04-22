@@ -17,3 +17,4 @@ ActionMailer::Base.smtp_settings = {
    :user_name => "info@naidutebya.ru",
    :password => "gjbcrk.ltqbyaj1",
 }
+

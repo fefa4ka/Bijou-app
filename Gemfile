@@ -13,7 +13,6 @@ group :assets do
   gem 'sass-rails', '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
-  gem 'haml'
 end                         
 
 group :development do
@@ -28,10 +27,13 @@ end
 gem 'jquery-rails'
 gem 'fancybox-rails'
                                 
-# Database
+# Database and storage
 gem 'mysql2'   
 gem 'yaml_db'    
-gem 'redis'       
+gem 'redis'  
+gem 's3'  
+#gem 'aws-s3'   
+#gem 'aws-sdk'
 
 # Search
 gem 'thinking-sphinx'
@@ -47,7 +49,7 @@ gem 'yandex_inflect'
 gem 'impressionist'
             
 # Upload files       
-gem 'paperclip' 
+gem 'paperclip'
 
 # Remote form 
 gem 'remotipart'    
@@ -67,7 +69,7 @@ gem 'omniauth-openid'
 gem 'omniauth-mailru'
 
 # Admin
-gem 'activeadmin', :git => "git://github.com/andrewroth/active_admin"
+gem 'activeadmin', :git => "git://github.com/gregbell/active_admin.git"
 gem 'meta_search' 
 
 
@@ -84,7 +86,7 @@ gem 'simple-private-messages', '0.0.0', :git => "git://github.com/fefa4ka/simple
 gem 'daemon_generator', '0.0.0', :git => "git://github.com/dougal/daemon_generator.git"
 gem 'whenever'
 
-# Etc
+# Make dicts like object
 gem 'hashie'
 
 # For database dump

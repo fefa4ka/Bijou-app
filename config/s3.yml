@@ -1,2 +1,13 @@
-access_key_id: AKIAJLCAXM25BOTBCJYA
-secret_access_key: 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`
+
+development:
+  bucket: photos.naidutebya.development
+  access_key_id: AKIAJLCAXM25BOTBCJYA
+  secret_access_key: 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
+test:
+  bucket: photos.naidutebya.testt
+  access_key_id: AKIAJLCAXM25BOTBCJYA
+  secret_access_key: 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
+production:
+  bucket: photos.naidutebya.production
+  access_key_id: AKIAJLCAXM25BOTBCJYA
+  secret_access_key: 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

@@ -1,2 +1,0 @@
-class ShowController < ApplicationController
-end

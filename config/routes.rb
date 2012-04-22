@@ -22,11 +22,17 @@ People::Application.routes.draw do
     resources :new do
       get 'search_for_similar', :on => :collection
     end
-  end
+  end 
 
   resources :search
-  resources :missings, :module => "missings"
+  resources :missings, :module => "missings" do
+    match "print"
+    match "questions"
+  end
   
+  get 'service/suggest_address'
+  get 'service/check_email_exist'
+
   # match "add_missing" => "missings#new"                   
   # match "add_missing/search_for_similar" => "missings#search_for_similar"
   # match "add_missing/save_step" => "missings#save_step"
@@ -36,10 +42,10 @@ People::Application.routes.draw do
   # match "add_missing/:step" => "missings#new"              
                                                                        
   match "missing/add_comment" => "missings#add_comment"      
-  match "missings/:id/print" => "missings#print"
-  match "missings/:id/questions" => "missings#questions"   
-  match "missings/:id/answer_the_question" => "missings#answer_the_question"
-  match "seen_the_missing" => "missings#i_seen_the_missing"
+  # match "missings/:id/print" => "missings#print"
+  # match "missings/:id/questions" => "missings#questions"   
+  # match "missings/:id/answer_the_question" => "missings#answer_the_question"
+  # match "seen_the_missing" => "missings#i_seen_the_missing"
 
   match "report" => "report#index"
  

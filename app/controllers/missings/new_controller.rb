@@ -71,6 +71,7 @@ class Missings::NewController < Missings::ApplicationController
   end 
 
   def create
+      return if !Missing.exists?(session[:missing_id]) 
       @missing = Missing.find(session[:missing_id])
 
       # Не отсылаем письмо с просьбой подтвердить почту
